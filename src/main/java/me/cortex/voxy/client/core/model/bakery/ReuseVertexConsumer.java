@@ -15,6 +15,8 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     private int count;
     private int defaultMeta;
 
+    public boolean anyShaded;
+
     public ReuseVertexConsumer() {
         this.reset();
     }
@@ -46,6 +48,11 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     @Override
+    public VertexConsumer setColor(int i) {
+        return this;
+    }
+
+    @Override
     public ReuseVertexConsumer setUv(float u, float v) {
         MemoryUtil.memPutFloat(this.ptr + 16, u);
         MemoryUtil.memPutFloat(this.ptr + 20, v);
@@ -68,16 +75,17 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     public ReuseVertexConsumer quad(BakedQuad quad, int metadata) {
+        this.anyShaded |= quad.isShade();
         this.ensureCanPut();
         int[] data = quad.getVertices();
         for (int i = 0; i < 4; i++) {
             float x = Float.intBitsToFloat(data[i * 8]);
             float y = Float.intBitsToFloat(data[i * 8 + 1]);
             float z = Float.intBitsToFloat(data[i * 8 + 2]);
-            this.addVertex(x,y,z);
+            this.addVertex(x, y, z);
             float u = Float.intBitsToFloat(data[i * 8 + 4]);
             float v = Float.intBitsToFloat(data[i * 8 + 5]);
-            this.setUv(u,v);
+            this.setUv(u, v);
 
             this.meta(metadata);
         }
@@ -98,6 +106,7 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     public ReuseVertexConsumer reset() {
+        this.anyShaded = false;
         this.defaultMeta = 0;//RESET THE DEFAULT META
         this.count = 0;
         this.ptr = this.buffer.address - VERTEX_FORMAT_SIZE;//the thing is first time this gets incremented by FORMAT_STRIDE

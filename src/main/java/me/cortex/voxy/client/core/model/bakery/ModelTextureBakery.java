@@ -169,7 +169,7 @@ public class ModelTextureBakery {
     }
 
 
-    public void renderToStream(BlockState state, int streamBuffer, int streamOffset) {
+    public boolean renderToStream(BlockState state, int streamBuffer, int streamOffset) {
         this.capture.clear();
         boolean isBlock = true;
         RenderType layer;
@@ -325,6 +325,7 @@ public class ModelTextureBakery {
             //reset the blend func
             GL14.glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         }
+        return this.vc.anyShaded;
     }
 
 
