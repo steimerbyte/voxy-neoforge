@@ -37,7 +37,6 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
     private GlTexture colourTex;
     private GlTexture colourSSAOTex;
     private final GlFramebuffer fbSSAO = new GlFramebuffer();
-    private final DepthFramebuffer fb = new DepthFramebuffer(GL_DEPTH24_STENCIL8);
 
     private final FullscreenBlit finalBlit;
 
@@ -64,7 +63,7 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
             this.colourSSAOTex = new GlTexture().store(GL_RGBA8, 1, viewport.width, viewport.height);
 
             this.fb.framebuffer.bind(GL_COLOR_ATTACHMENT0, this.colourTex).verify();
-            this.fbSSAO.bind(GL_DEPTH_STENCIL_ATTACHMENT, this.fb.getDepthTex()).bind(GL_COLOR_ATTACHMENT0, this.colourSSAOTex).verify();
+            this.fbSSAO.bind(this.fb.getDepthAttachmentType(), this.fb.getDepthTex()).bind(GL_COLOR_ATTACHMENT0, this.colourSSAOTex).verify();
 
 
             glTextureParameterf(this.colourTex.id, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -129,7 +128,6 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
     public void free() {
         this.finalBlit.delete();
         this.ssaoCompute.free();
-        this.fb.free();
         this.fbSSAO.free();
         if (this.colourTex != null) {
             this.colourTex.free();
