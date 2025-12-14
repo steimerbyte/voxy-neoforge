@@ -16,6 +16,7 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     private int defaultMeta;
 
     public boolean anyShaded;
+    public boolean anyDarkendTex;
 
     public ReuseVertexConsumer() {
         this.reset();
@@ -76,6 +77,11 @@ public final class ReuseVertexConsumer implements VertexConsumer {
 
     public ReuseVertexConsumer quad(BakedQuad quad, int metadata) {
         this.anyShaded |= quad.isShade();
+        // 1.21.1 backport: MipmapStrategy.DARK_CUTOUT (MC 1.21.2+) is not available;
+        // SpriteContents in 1.21.1 has no mipmapStrategy field. Any dark-cutout sprite
+        // info is therefore not tracked here. Leave anyDarkendTex at its last value
+        // (managed by reset()), which mirrors the upstream behavior for non-dark-cutout
+        // sprites -- i.e. effectively always false on 1.21.1.
         this.ensureCanPut();
         int[] data = quad.getVertices();
         for (int i = 0; i < 4; i++) {
@@ -107,6 +113,7 @@ public final class ReuseVertexConsumer implements VertexConsumer {
 
     public ReuseVertexConsumer reset() {
         this.anyShaded = false;
+        this.anyDarkendTex = false;
         this.defaultMeta = 0;//RESET THE DEFAULT META
         this.count = 0;
         this.ptr = this.buffer.address - VERTEX_FORMAT_SIZE;//the thing is first time this gets incremented by FORMAT_STRIDE

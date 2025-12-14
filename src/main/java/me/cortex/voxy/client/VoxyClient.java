@@ -52,6 +52,6 @@ public class VoxyClient {
     }
 
     public static boolean disableSodiumChunkRender() {
-        return getOcclusionDebugState() != 0;
+        return false;// getOcclusionDebugState() != 0;
     }
 }
