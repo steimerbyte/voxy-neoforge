@@ -31,7 +31,7 @@ public class VoxyConfig implements OptionStorage<VoxyConfig> {
     public int serviceThreads = (int) Math.max(CpuLayout.getCoreCount()/1.5, 1);
     public float subDivisionSize = 64;
     public boolean renderVanillaFog = false;
-    public boolean renderStatistics = false;
+    public boolean useEnvironmentalFog = false;
     public boolean dontUseSodiumBuilderThreads = false;
 
     private static VoxyConfig loadOrCreate() {
