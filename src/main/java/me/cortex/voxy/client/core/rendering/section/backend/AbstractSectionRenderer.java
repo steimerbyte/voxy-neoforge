@@ -71,17 +71,18 @@ public abstract class AbstractSectionRenderer <T extends Viewport<T>, J extends 
     public void addDebug(List<String> lines) {}
 
     protected static void addDirectionalFaceTint(Shader.Builder<?> builder, ClientLevel cl) {
+        builder.define("NO_SHADE_FACE_TINT", cl.getShade(Direction.UP, false));
+        builder.define("UP_FACE_TINT", cl.getShade(Direction.UP, true));
+        builder.define("DOWN_FACE_TINT", cl.getShade(Direction.DOWN, true));
+        builder.define("Z_AXIS_FACE_TINT", cl.getShade(Direction.NORTH, true));//assumed here that Direction.SOUTH returns the same value
+        builder.define("X_AXIS_FACE_TINT", cl.getShade(Direction.EAST, true));//assumed here that Direction.WEST returns the same value
+        /*
         //TODO: generate the tinting table here and use the replacement feature
         float[] tints = new float[7];
         tints[6] = cl.getShade(Direction.UP, false);
         for (Direction direction : Direction.values()) {
             tints[direction.get3DDataValue()] = cl.getShade(direction, true);
-        }
-        // 1.21.1 backport: cardinalLightType() (added in MC 1.21.4) not available.
-        // Equivalent for our use-case: check if the dimension has the nether sky effect (no sky light, ambient light only).
-        if (cl.effects().equals(net.minecraft.world.level.dimension.BuiltinDimensionTypes.NETHER_EFFECTS)) {
-            builder.define("DARKENED_TINTING");
-        }
+        }*/
     }
 
     protected static Shader tryCompilePatchedOrNormal(Shader.Builder<?> builder, String shader, String original) {
