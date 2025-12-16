@@ -8,6 +8,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.extern.slf4j.Slf4j;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
+import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import me.cortex.voxy.commonImpl.WorldIdentifier;
 import me.cortex.voxy.commonImpl.importers.DHImporter;
@@ -18,8 +19,13 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.dimension.DimensionType;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -217,10 +223,31 @@ public class VoxyCommands {
         if (name.endsWith("/")) {
             name = name.substring(0, name.length()-1);
         }
-        if (!(name.endsWith("region"))) {
-            file = file.resolve("region");
+        if (file.resolve("level.dat").toFile().exists()) {
+            var dimFile = DimensionType.getStorageFolder(Minecraft.getInstance().level.dimension(), file)
+                    .resolve("region")
+                    .toFile();
+            if (!dimFile.isDirectory()) return 1;
+            return fileBasedImporter(dimFile)?0:1;
+            //We are in a world directory, so import the current dimension we are in
+            /*
+            for (var dim : new String[]{"overworld", "the_nether", "the_end"}) {//This is so annoying that you cant loop through all the dimensions
+                var id = ResourceKey.create(Registries.DIMENSION, ResourceLocation.withDefaultNamespace(dim));
+                var dimPath = DimensionType.getStorageFolder(id, file);
+                dimPath = dimPath.resolve("region");
+                var dimFile = dimPath.toFile();
+                if (dimFile.isDirectory()) {//exists and is a directory
+                    if (!fileBasedImporter(dimFile)) {
+                        Logger.error("Failed to import dimension: " + id);
+                    }
+                }
+            }*/
+        } else {
+            if (!(name.endsWith("region"))) {
+                file = file.resolve("region");
+            }
+            return fileBasedImporter(file.toFile()) ? 0 : 1;
         }
-        return fileBasedImporter(file.toFile())?0:1;
     }
 
     private static int importZip(CommandContext<CommandSourceStack> ctx) {
