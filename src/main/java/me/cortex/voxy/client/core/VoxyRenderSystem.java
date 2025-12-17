@@ -309,9 +309,9 @@ public class VoxyRenderSystem {
 
         TimingStatistics.all.stop();
 
-        TimingStatistics.I.start();
-        glFlush();
-        TimingStatistics.I.stop();
+        //TimingStatistics.I.start();
+        //glFlush();
+        //TimingStatistics.I.stop();
 
         /*
         TimingStatistics.F.start();
