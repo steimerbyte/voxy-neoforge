@@ -45,7 +45,7 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
             .compile();
 
     protected NormalRenderPipeline(AsyncNodeManager nodeManager, NodeCleaner nodeCleaner, HierarchicalOcclusionTraverser traversal, BooleanSupplier frexSupplier) {
-        super(nodeManager, nodeCleaner, traversal, frexSupplier);
+        super(nodeManager, nodeCleaner, traversal, frexSupplier, false);
         this.finalBlit = new FullscreenBlit("voxy:post/blit_texture_depth_cutout.frag",
                 a->a.define("EMIT_COLOUR"));
     }
