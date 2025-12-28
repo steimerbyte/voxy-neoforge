@@ -10,6 +10,8 @@ import net.irisshaders.iris.gl.IrisRenderSystem;
 import net.irisshaders.iris.shadows.ShadowRenderer;
 import net.neoforged.fml.ModList;
 
+import java.io.IOException;
+
 public class IrisUtil {
     public record CapturedViewportParameters(ChunkRenderMatrices matrices, double x, double y, double z) {
         public Viewport<?> apply(VoxyRenderSystem vrs) {
@@ -33,6 +35,19 @@ public class IrisUtil {
 
     public static void clearIrisSamplers() {
         if (IRIS_INSTALLED) clearIrisSamplers0();
+    }
+    public static void reload() {
+        if (IRIS_INSTALLED) reload0();
+    }
+
+    private static void reload0() {
+        try {
+            if (IrisApi.getInstance().isShaderPackInUse()) {//Only reload if there is a shaderpack
+                Iris.reload();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void clearIrisSamplers0() {
