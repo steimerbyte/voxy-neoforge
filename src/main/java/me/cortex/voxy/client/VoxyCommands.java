@@ -8,6 +8,7 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.extern.slf4j.Slf4j;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
+import me.cortex.voxy.common.DebugUtils;
 import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import me.cortex.voxy.commonImpl.WorldIdentifier;
@@ -79,9 +80,15 @@ public class VoxyCommands {
                     .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("sqlDbPath", StringArgumentType.string())
                             .executes(VoxyCommands::importDistantHorizons)));
         }
-        
+
         voxyCommand.then(importCommand);
-        
+
+        var debug = LiteralArgumentBuilder.<CommandSourceStack>literal("debug")
+                .then(LiteralArgumentBuilder.<CommandSourceStack>literal("verifyTLNChildMask")
+                        .executes(VoxyCommands::verifyTLNs)
+                );
+        voxyCommand.then(debug);
+
         dispatcher.register(voxyCommand);
     }
 
@@ -105,7 +112,18 @@ public class VoxyCommands {
         return 0;
     }
 
-
+    private static int verifyTLNs(CommandContext<CommandSourceStack> ctx) {
+        var instance = VoxyCommon.getInstance();
+        if (instance == null) {
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
+            return 1;
+        }
+        if (Minecraft.getInstance().level == null) {
+            throw new IllegalStateException("How you even do this");
+        }
+        DebugUtils.verifyAllTopLevelNodes(WorldIdentifier.ofEngine(Minecraft.getInstance().level));
+        return 0;
+    }
 
 
     private static int importDistantHorizons(CommandContext<CommandSourceStack> ctx) {
