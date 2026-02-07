@@ -16,7 +16,7 @@ public class ShaderLoader {
                ShaderParser.parseShader("\n" + source + "\n//beans", ShaderConstants.builder().build())
                .replaceAll("\r\n", "\n")
                .replaceFirst("\n#version .+\n", "\n");
-        return src.replaceAll("\n#line [0-9]+ [0-9]+\n", "");
+        return src.replaceAll("\n#line [0-9]+ [0-9]+\n", "\n");
     }
 
     // 预处理shader文件，替换所有#import指令
