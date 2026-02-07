@@ -11,18 +11,19 @@ public class ShaderLoader {
         // 直接读取并预处理shader文件，替换所有#import指令
         String source = getShaderSource(id);
         source = preprocessShaderImports(source, id);
-        
-        return "#version 460 core\n" + 
+
+        var src = "#version 460 core\n" +
                ShaderParser.parseShader("\n" + source + "\n//beans", ShaderConstants.builder().build())
                .replaceAll("\r\n", "\n")
                .replaceFirst("\n#version .+\n", "\n");
+        return src.replaceAll("\n#line [0-9]+ [0-9]+\n", "");
     }
-    
+
     // 预处理shader文件，替换所有#import指令
     private static String preprocessShaderImports(String source, String baseId) {
         StringBuilder result = new StringBuilder();
         String[] lines = source.split("\n");
-        
+
         for (String line : lines) {
             if (line.trim().startsWith("#import")) {
                 // 提取导入的shader路径
@@ -38,15 +39,15 @@ public class ShaderLoader {
                 result.append(line).append("\n");
             }
         }
-        
+
         return result.toString();
     }
-    
+
     // 读取shader文件内容
     private static String getShaderSource(String id) {
         try {
             String resourcePath;
-            
+
             // 如果是完整路径，直接使用
             if (id.startsWith("/assets/")) {
                 resourcePath = id;
@@ -62,18 +63,18 @@ public class ShaderLoader {
                     resourcePath = "/assets/" + namespace + "/shaders/" + path;
                 }
             }
-            
+
             // 使用类加载器读取资源
             InputStream is = ShaderLoader.class.getResourceAsStream(resourcePath);
             if (is == null) {
                 throw new RuntimeException("Shader not found: " + resourcePath);
             }
-            
+
             Scanner scanner = new Scanner(is).useDelimiter("\\A");
             String content = scanner.hasNext() ? scanner.next() : "";
             scanner.close();
             is.close();
-            
+
             return content;
         } catch (Exception e) {
             throw new RuntimeException("Failed to load shader: " + id, e);
