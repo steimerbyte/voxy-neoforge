@@ -123,17 +123,17 @@ public abstract class VoxyConfigScreenPages {
                 ).add(OptionImpl.createBuilder(int.class, storage)
                         .setName(Component.translatable("voxy.config.general.renderDistance"))
                         .setTooltip(Component.translatable("voxy.config.general.renderDistance.tooltip"))
-                        .setControl(opt->new SliderControl(opt, 2, 64, 1, v->Component.literal(Integer.toString(v * 32))))//Every unit is equal to 32 vanilla chunks
+                        .setControl(opt->new SliderControl(opt, 2*16, 64*16, 1, v->Component.literal(Integer.toString(Math.round(v/16f * 32)))))//The value is stored as a float with respect to the size of top level lods, it its increment is a fraction with respect to a sub-lod
                         .setBinding((s, v)-> {
-                            s.sectionRenderDistance = v;
+                            s.sectionRenderDistance = v/16f;
                             var vrsh = (IGetVoxyRenderSystem)Minecraft.getInstance().levelRenderer;
                             if (vrsh != null) {
                                 var vrs = vrsh.getVoxyRenderSystem();
                                 if (vrs != null) {
-                                    vrs.setRenderDistance(v);
+                                    vrs.setRenderDistance(s.sectionRenderDistance);
                                 }
                             }
-                        }, s -> s.sectionRenderDistance)
+                        }, s -> Math.round(s.sectionRenderDistance*16))
                         .setImpact(OptionImpact.LOW)
                         .build()
                 ).add(OptionImpl.createBuilder(boolean.class, storage)
