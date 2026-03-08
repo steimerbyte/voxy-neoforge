@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.1.13'
 }
+def INCLUDE_OTHER_ARCHS = false
 
 def isInGHA = System.getenv("GITHUB_ACTIONS") == "true"
 
@@ -299,6 +300,11 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-windows"
     runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-linux"
     runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-linux"
+    if (INCLUDE_OTHER_ARCHS) {
+        runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-linux-arm64"
+    }
     
     // 使用更可靠的zstd-jni库来替代LWJGL Zstd，避免本地库加载问题
     // 这个库自动处理不同平台的本地库，使用更简单的API
