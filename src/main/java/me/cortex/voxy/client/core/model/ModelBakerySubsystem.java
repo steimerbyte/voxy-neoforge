@@ -32,6 +32,7 @@ public class ModelBakerySubsystem {
 
     private final Thread processingThread;
     private volatile boolean isRunning = true;
+    private volatile Throwable processingThreadException;
     public ModelBakerySubsystem(Mapper mapper) {
         this.mapper = mapper;
         this.factory = new ModelFactory(mapper, this.storage);
@@ -46,10 +47,20 @@ public class ModelBakerySubsystem {
                 }
             }
         }, "Model factory processor");
+        this.processingThread.setUncaughtExceptionHandler((t,e)->{
+            this.isRunning = false;
+            if (e == null) {
+                e = new RuntimeException("unhandled excpetion not added");
+            }
+            this.processingThreadException = e;
+        });
         this.processingThread.start();
     }
 
     public void tick(long totalBudget) {
+        if (this.processingThreadException != null) {
+            throw new RuntimeException(this.processingThreadException);
+        }
         long start = System.nanoTime();
         this.factory.tickAndProcessUploads();
         //Always do 1 iteration minimum
