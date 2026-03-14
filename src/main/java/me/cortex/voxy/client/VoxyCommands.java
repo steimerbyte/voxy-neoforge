@@ -1,6 +1,7 @@
 package me.cortex.voxy.client;
 
 import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -85,7 +86,9 @@ public class VoxyCommands {
 
         var debug = LiteralArgumentBuilder.<CommandSourceStack>literal("debug")
                 .then(LiteralArgumentBuilder.<CommandSourceStack>literal("verifyTLNChildMask")
-                        .executes(VoxyCommands::verifyTLNs)
+                        .executes(ctx->verifyTLNs(ctx, false))
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, Boolean>argument("attemptRepair", BoolArgumentType.bool())
+                                .executes(ctx->verifyTLNs(ctx, BoolArgumentType.getBool(ctx, "attemptRepair"))))
                 );
         voxyCommand.then(debug);
 
@@ -112,7 +115,7 @@ public class VoxyCommands {
         return 0;
     }
 
-    private static int verifyTLNs(CommandContext<CommandSourceStack> ctx) {
+    private static int verifyTLNs(CommandContext<CommandSourceStack> ctx, boolean attemptRepair) {
         var instance = VoxyCommon.getInstance();
         if (instance == null) {
             ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
@@ -121,7 +124,7 @@ public class VoxyCommands {
         if (Minecraft.getInstance().level == null) {
             throw new IllegalStateException("How you even do this");
         }
-        DebugUtils.verifyAllTopLevelNodes(WorldIdentifier.ofEngine(Minecraft.getInstance().level));
+        DebugUtils.verifyAllTopLevelNodes(WorldIdentifier.ofEngine(Minecraft.getInstance().level), attemptRepair);
         return 0;
     }
 
