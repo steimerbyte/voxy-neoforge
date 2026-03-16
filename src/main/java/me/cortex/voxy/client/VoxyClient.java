@@ -12,6 +12,12 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
+import net.minecraft.client.Minecraft;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileLock;
+import java.nio.channels.NonWritableChannelException;
 import java.util.HashSet;
 
 public class VoxyClient {
@@ -25,6 +31,27 @@ public class VoxyClient {
         }
 
         boolean systemSupported = Capabilities.INSTANCE.compute && Capabilities.INSTANCE.indirectParameters && !Capabilities.INSTANCE.hasBrokenDepthSampler;
+        if (!systemSupported) {
+             Logger.error("Voxy is unsupported on your system.");
+        }
+
+        if (systemSupported) {
+            //Try acquire the lock file
+            var vf = Minecraft.getInstance().gameDirectory.toPath().resolve(".voxy");
+            if (!vf.toFile().isDirectory()) {
+                vf.toFile().mkdir();
+            }
+            try {
+                FileOutputStream fis = new FileOutputStream(vf.resolve("voxy.lock").toFile());
+                FileLock lock = fis.getChannel().lock(0, Long.MAX_VALUE, false);
+            } catch (NonWritableChannelException | IOException e) {
+                //If some error write to log and unsupport
+                Logger.error("Failed to acquire exclusive voxy lock file, mod will be disabled");
+                systemSupported = false;
+            }
+
+        }
+
         if (systemSupported) {
 
             SharedIndexBuffer.INSTANCE.id();
@@ -36,8 +63,6 @@ public class VoxyClient {
                 Logger.warn("GPU does not support subgroup operations, expect some performance degradation");
             }
 
-        } else {
-            Logger.error("Voxy is unsupported on your system.");
         }
     }
 
