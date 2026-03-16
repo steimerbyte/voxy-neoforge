@@ -22,7 +22,7 @@ import java.util.HashSet;
 
 public class VoxyClient {
     private static final HashSet<String> FREX = new HashSet<>();
-
+    private static FileLock EXCLUSIVE_LOCK;
     public static void initVoxyClient() {
         Capabilities.init();//Ensure clinit is called
 
@@ -43,7 +43,7 @@ public class VoxyClient {
             }
             try {
                 FileOutputStream fis = new FileOutputStream(vf.resolve("voxy.lock").toFile());
-                FileLock lock = fis.getChannel().lock(0, Long.MAX_VALUE, false);
+                EXCLUSIVE_LOCK = fis.getChannel().lock(0, Long.MAX_VALUE, false);
             } catch (NonWritableChannelException | IOException e) {
                 //If some error write to log and unsupport
                 Logger.error("Failed to acquire exclusive voxy lock file, mod will be disabled");
