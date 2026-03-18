@@ -1,6 +1,7 @@
 package me.cortex.voxy.client.config;
 
 import com.google.common.collect.ImmutableList;
+import me.cortex.voxy.client.ClientSessionEvents;
 import me.cortex.voxy.client.RenderStatistics;
 import me.cortex.voxy.client.VoxyClientInstance;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
@@ -34,7 +35,7 @@ public abstract class VoxyConfigScreenPages {
                         .setBinding((s, v)->{
                             s.enabled = v;
                             if (v) {
-                                if (VoxyClientInstance.isInGame) {
+                                if (ClientSessionEvents.inSession) {
                                     VoxyCommon.createInstance();
                                     var vrsh = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
                                     if (vrsh != null && s.enableRendering) {
