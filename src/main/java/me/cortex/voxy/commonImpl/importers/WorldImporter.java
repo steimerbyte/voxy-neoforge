@@ -1,5 +1,6 @@
 package me.cortex.voxy.commonImpl.importers;
 
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -521,7 +522,7 @@ public class WorldImporter implements IDataImporter {
                 }
         );
 
-        WorldConversionFactory.mipSection(csec, this.world.getMapper());
+        WorldVoxilizedSectionMipper.mipSection(csec, this.world.getMapper());
         WorldUpdater.insertUpdate(this.world, csec);
     }
 }
