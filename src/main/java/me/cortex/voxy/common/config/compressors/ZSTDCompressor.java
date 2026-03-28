@@ -2,6 +2,7 @@ package me.cortex.voxy.common.config.compressors;
 
 import com.github.luben.zstd.Zstd;
 import me.cortex.voxy.common.config.ConfigBuildCtx;
+import me.cortex.voxy.common.config.section.SectionSerializationStorage;
 import me.cortex.voxy.common.util.MemoryBuffer;
 import me.cortex.voxy.common.util.ResizingThreadLocalMemoryBuffer;
 import me.cortex.voxy.common.util.UnsafeUtil;
@@ -14,7 +15,7 @@ public class ZSTDCompressor implements StorageCompressor {
     // [Backport 109] Upgrade SCRATCH type to ResizingThreadLocalMemoryBuffer for consistency with LZ4Compressor.
     // Native-JNI compress() rewrite (nZSTD_compressCCtx/ZSTD_COMPRESSBOUND) is dropped because our 1.21.1 fork
     // uses pure-Java zstd-jni (com.github.luben.zstd.Zstd) — the upstream native bindings don't exist here.
-    private static final ResizingThreadLocalMemoryBuffer SCRATCH = new ResizingThreadLocalMemoryBuffer(SaveLoadSystem.BIGGEST_SERIALIZED_SECTION_SIZE + 1024);
+    private static final ResizingThreadLocalMemoryBuffer SCRATCH = new ResizingThreadLocalMemoryBuffer(SectionSerializationStorage.BIGGEST_SERIALIZED_SECTION_SIZE + 1024);
 
     private final int level;
 
