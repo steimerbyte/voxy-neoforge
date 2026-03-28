@@ -6,7 +6,6 @@ import me.cortex.voxy.common.config.section.SectionSerializationStorage;
 import me.cortex.voxy.common.util.MemoryBuffer;
 import me.cortex.voxy.common.util.ResizingThreadLocalMemoryBuffer;
 import me.cortex.voxy.common.util.UnsafeUtil;
-import me.cortex.voxy.common.world.SaveLoadSystem;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
