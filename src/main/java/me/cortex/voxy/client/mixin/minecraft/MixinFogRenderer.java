@@ -32,7 +32,7 @@ public class MixinFogRenderer {
 
         var vrs = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
 
-        if (VoxyConfig.CONFIG.renderVanillaFog || vrs == null || vrs.getVoxyRenderSystem() == null) {
+        if (VoxyConfig.CONFIG.renderVanillaFog || vrs == null || vrs.voxy$getRenderSystem() == null) {
             RenderSystem.setShaderFogEnd(viewDistance);
         } else {
             RenderSystem.setShaderFogStart(999999999);

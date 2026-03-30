@@ -10,7 +10,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.extern.slf4j.Slf4j;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import me.cortex.voxy.common.DebugUtils;
-import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import me.cortex.voxy.commonImpl.WorldIdentifier;
 import me.cortex.voxy.commonImpl.importers.DHImporter;
@@ -21,8 +20,6 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceKey;
@@ -103,7 +100,7 @@ public class VoxyCommands {
         }
         var wr = Minecraft.getInstance().levelRenderer;
         if (wr!=null) {
-            ((IGetVoxyRenderSystem)wr).shutdownRenderer();
+            ((IGetVoxyRenderSystem)wr).voxy$shutdownRenderer();
         }
 
         VoxyCommon.shutdownInstance();

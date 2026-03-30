@@ -39,13 +39,13 @@ public abstract class VoxyConfigScreenPages {
                                     VoxyCommon.createInstance();
                                     var vrsh = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
                                     if (vrsh != null && s.enableRendering) {
-                                        vrsh.createRenderer();
+                                        vrsh.voxy$createRenderer();
                                     }
                                 }
                             } else {
                                 var vrsh = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
                                 if (vrsh != null) {
-                                    vrsh.shutdownRenderer();
+                                    vrsh.voxy$shutdownRenderer();
                                 }
                                 VoxyCommon.shutdownInstance();
                             }
@@ -106,9 +106,9 @@ public abstract class VoxyConfigScreenPages {
                             var vrsh = (IGetVoxyRenderSystem)Minecraft.getInstance().levelRenderer;
                             if (vrsh != null) {
                                 if (v) {
-                                    vrsh.createRenderer();
+                                    vrsh.voxy$createRenderer();
                                 } else {
-                                    vrsh.shutdownRenderer();
+                                    vrsh.voxy$shutdownRenderer();
                                 }
                             }
                         }, s -> s.enableRendering)
@@ -129,7 +129,7 @@ public abstract class VoxyConfigScreenPages {
                             s.sectionRenderDistance = v/16f;
                             var vrsh = (IGetVoxyRenderSystem)Minecraft.getInstance().levelRenderer;
                             if (vrsh != null) {
-                                var vrs = vrsh.getVoxyRenderSystem();
+                                var vrs = vrsh.voxy$getRenderSystem();
                                 if (vrs != null) {
                                     vrs.setRenderDistance(s.sectionRenderDistance);
                                 }
