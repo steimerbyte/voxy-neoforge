@@ -44,7 +44,7 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
                a->a.define("EMIT_COLOUR"));
 
 
-        this.ssao = new SSAO(true, 12);
+        this.ssao = new SSAO(true, 20);
     }
 
     @Override
