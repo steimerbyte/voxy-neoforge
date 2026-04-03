@@ -325,7 +325,7 @@ dependencies {
     jarJar(implementation(group: 'org.rocksdb', name: 'rocksdbjni') {
         version {
             strictly '[10.0.0,11.0.0)' // 限制版本范围，确保兼容性
-            prefer '10.2.1' // 首选版本
+            prefer '10.9.1' // update to 10.10 when upstream issue 14537 is fixed
         }
     })
     
