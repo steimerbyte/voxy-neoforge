@@ -3,6 +3,7 @@ package me.cortex.voxy.client.config;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import me.cortex.voxy.client.core.SSAO;
 import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.common.util.cpu.CpuLayout;
 import me.cortex.voxy.commonImpl.VoxyCommon;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 
 public class VoxyConfig implements OptionStorage<VoxyConfig> {
     private static final Gson GSON = new GsonBuilder()
@@ -33,6 +35,19 @@ public class VoxyConfig implements OptionStorage<VoxyConfig> {
     public boolean renderVanillaFog = false;
     public boolean useEnvironmentalFog = false;
     public boolean dontUseSodiumBuilderThreads = false;
+    public String ssaoMode;
+
+    public SSAO.SSAOMode getSSAOMode() {
+        if (this.ssaoMode == null) return SSAO.SSAOMode.AUTO;
+        try {
+            return SSAO.SSAOMode.valueOf(this.ssaoMode.toUpperCase(Locale.ROOT));
+        } catch (Exception e) { return SSAO.SSAOMode.AUTO; }
+    }
+
+    public void setSSAOMode(SSAO.SSAOMode mode) {
+        this.ssaoMode = mode.name().toLowerCase(Locale.ROOT);
+    }
+
 
     private static VoxyConfig loadOrCreate() {
         if (VoxyCommon.isAvailable()) {
