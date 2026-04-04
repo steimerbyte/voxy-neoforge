@@ -28,6 +28,6 @@
   "voxy.config.general.vanilla_fog": "Enable vanilla fog",
   "voxy.config.general.vanilla_fog.tooltip": "Enables or disables vanilla fog effect",
 
-  "voxy.config.general.render_statistics": "Enable render statistics",
-  "voxy.config.general.render_statistics.tooltip": "Enable render statistics in F3 menu, useful for debugging"
+  "voxy.config.general.ssao_mode": "SSAO Mode",
+  "voxy.config.general.ssao_mode.tooltip": "The mode used for screenspace ambient occlusion (Auto attempts to pick the best option while reducing performance impact)"
 }
