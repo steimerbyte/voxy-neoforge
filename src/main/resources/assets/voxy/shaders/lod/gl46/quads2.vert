@@ -11,6 +11,7 @@
 #import <voxy:lod/quad_format.glsl>
 #import <voxy:lod/block_model.glsl>
 #import <voxy:lod/gl46/bindings.glsl>
+#import <voxy:lod/lighting.glsl>
 
 //#define DEBUG_RENDER
 
