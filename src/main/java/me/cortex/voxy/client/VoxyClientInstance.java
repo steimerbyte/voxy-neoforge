@@ -29,7 +29,7 @@ public class VoxyClientInstance extends VoxyInstance {
     private final boolean noIngestOverride;
     public VoxyClientInstance() {
         super();
-        var path = getBasePath();
+        var path = getBasePath().normalize();
         this.noIngestOverride = false;
         this.basePath = path;
         this.config = StorageConfigUtil.getCreateStorageConfig(Config.class, c->c.version==1&&c.sectionStorageConfig!=null, ()->DEFAULT_STORAGE_CONFIG, path);
