@@ -33,7 +33,6 @@ import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.common.thread.ServiceManager;
 import me.cortex.voxy.common.world.WorldEngine;
 import me.cortex.voxy.commonImpl.VoxyCommon;
-import net.caffeinemc.mods.sodium.client.render.chunk.ChunkRenderMatrices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import org.joml.Matrix4f;
@@ -176,7 +175,7 @@ public class VoxyRenderSystem {
     }
 
 
-    public Viewport<?> setupViewport(ChunkRenderMatrices matrices, double cameraX, double cameraY, double cameraZ) {
+    public Viewport<?> setupViewport(Matrix4fc vanillaProjection, Matrix4fc modelView, double cameraX, double cameraY, double cameraZ) {
         var viewport = this.getViewport();
         if (viewport == null) {
             return null;
@@ -190,9 +189,7 @@ public class VoxyRenderSystem {
         }
 
         //cameraY += 100;
-        var projection = computeProjectionMat(matrices.projection());//RenderSystem.getProjectionMatrix();
-        //var projection = ShadowMatrices.createOrthoMatrix(160, -16*300, 16*300);
-        //var projection = new Matrix4f(matrices.projection());
+        var voxyProjection = computeProjectionMat(vanillaProjection);
 
         int[] dims = new int[4];
         glGetIntegerv(GL_VIEWPORT, dims);
@@ -209,9 +206,9 @@ public class VoxyRenderSystem {
         }
 
         viewport
-                .setVanillaProjection(matrices.projection())
-                .setProjection(projection)
-                .setModelView(new Matrix4f(matrices.modelView()))
+                .setVanillaProjection(vanillaProjection)
+                .setProjection(voxyProjection)
+                .setModelView(new Matrix4f(modelView))
                 .setCamera(cameraX, cameraY, cameraZ)
                 .setScreenSize(width, height)
                 .update();
