@@ -1,83 +1,70 @@
 package me.cortex.voxy.client.core.gl.shader;
 
-import net.caffeinemc.mods.sodium.client.gl.shader.ShaderConstants;
-import net.caffeinemc.mods.sodium.client.gl.shader.ShaderParser;
+import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.io.IOUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ShaderLoader {
     public static String parse(String id) {
-        // 直接读取并预处理shader文件，替换所有#import指令
-        String source = getShaderSource(id);
-        source = preprocessShaderImports(source, id);
-
-        var src = "#version 460 core\n" +
-               ShaderParser.parseShader("\n" + source + "\n//beans", ShaderConstants.builder().build())
-               .replaceAll("\r\n", "\n")
-               .replaceFirst("\n#version .+\n", "\n");
-        return src.replaceAll("\n#line [0-9]+ [0-9]+\n", "\n");
+        var src =  "#version 460 core\n";
+        src += String.join("\n", ShaderLoadingParser.parseRoot(ResourceLocation.parse(id)));
+        return src;
     }
 
-    // 预处理shader文件，替换所有#import指令
-    private static String preprocessShaderImports(String source, String baseId) {
-        StringBuilder result = new StringBuilder();
-        String[] lines = source.split("\n");
 
-        for (String line : lines) {
-            if (line.trim().startsWith("#import")) {
-                // 提取导入的shader路径
-                String importPath = line.trim().replace("#import <", "").replace(">", "").trim();
-                // 递归加载导入的shader
-                String importedSource = getShaderSource(importPath);
-                // 预处理导入的shader
-                importedSource = preprocessShaderImports(importedSource, importPath);
-                // 添加到结果中
-                result.append(importedSource).append("\n");
-            } else {
-                // 保留其他行
-                result.append(line).append("\n");
-            }
-        }
+    //Use our own loader
 
-        return result.toString();
-    }
-
-    // 读取shader文件内容
-    private static String getShaderSource(String id) {
-        try {
-            String resourcePath;
-
-            // 如果是完整路径，直接使用
-            if (id.startsWith("/assets/")) {
-                resourcePath = id;
-            } else {
-                // 解析id为namespace和path
-                int colonIndex = id.indexOf(':');
-                if (colonIndex == -1) {
-                    // 假设是voxy命名空间下的相对路径
-                    resourcePath = "/assets/voxy/shaders/" + id;
+    private static final class ShaderLoadingParser {
+        private static final Pattern IMPORT_PATTERN = Pattern.compile("#import <(?<namespace>.*):(?<path>.*)>");
+        public static List<String> parseRoot(ResourceLocation id) {
+            List<String> out = new ArrayList<>();
+            for (var line : toLines(loadShaderAsset(id))) {
+                if (line.startsWith("#version")) {
+                    continue;
+                } else if (line.startsWith("#import")) {
+                    var match = IMPORT_PATTERN.matcher(line);
+                    if (!match.matches()) throw new IllegalArgumentException("Unknown import: " + line);
+                    var iid = ResourceLocation.fromNamespaceAndPath(match.group("namespace"), match.group("path"));
+                    out.addAll(parseRoot(iid));
                 } else {
-                    String namespace = id.substring(0, colonIndex);
-                    String path = id.substring(colonIndex + 1);
-                    resourcePath = "/assets/" + namespace + "/shaders/" + path;
+                    out.add(line);
                 }
             }
+            return out;
+        }
 
-            // 使用类加载器读取资源
-            InputStream is = ShaderLoader.class.getResourceAsStream(resourcePath);
-            if (is == null) {
-                throw new RuntimeException("Shader not found: " + resourcePath);
+        private static List<String> toLines(String src) {
+            //Note: BufferedReader#readAllLines is java 19+, this fork compiles against java 17
+            List<String> out = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new StringReader(src))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.add(line);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-
-            Scanner scanner = new Scanner(is).useDelimiter("\\A");
-            String content = scanner.hasNext() ? scanner.next() : "";
-            scanner.close();
-            is.close();
-
-            return content;
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load shader: " + id, e);
+            return out;
+        }
+        private static String loadShaderAsset(ResourceLocation id) {
+            String path = String.format("/assets/%s/shaders/%s", id.getNamespace(), id.getPath());
+            try (InputStream in = ShaderLoadingParser.class.getResourceAsStream(path)) {
+                if (in == null) {
+                    throw new RuntimeException("Shader not found: " + path);
+                } else {
+                    return IOUtils.toString(in, StandardCharsets.UTF_8);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to read shader source for " + path, e);
+            }
         }
     }
 }
