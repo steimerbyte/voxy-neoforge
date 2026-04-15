@@ -193,7 +193,7 @@ public class VoxyRenderSystem {
         }
 
         //cameraY += 100;
-        var voxyProjection = computeProjectionMat(vanillaProjection, this.properties.isZero2One());
+        var voxyProjection = computeProjectionMat(this.properties, vanillaProjection);
 
         int[] dims = new int[4];
         glGetIntegerv(GL_VIEWPORT, dims);
@@ -267,7 +267,7 @@ public class VoxyRenderSystem {
         if ((!VoxyClient.disableSodiumChunkRender())&&!IrisUtil.irisShadowActive()) {
             this.chunkBoundRenderer.render(viewport);
         } else {
-            viewport.depthBoundingBuffer.clear(0);
+            viewport.depthBoundingBuffer.clear(this.properties.inverseClearDepth());
         }
         TimingStatistics.E.stop();
 
@@ -415,7 +415,7 @@ public class VoxyRenderSystem {
         ).mulLocal(makeProjectionMatrix(nearVoxy, 16*3000));
     }*/
 
-    private static Matrix4f computeProjectionMat(Matrix4fc base, boolean zero2one) {
+    private static Matrix4f computeProjectionMat(RenderProperties properties, Matrix4fc base) {
 
         //this jank is to capture the extra crap they inject like viewbobbing
         //1.21.1 port: MC 1.21.2+ reads the raw (bob-free) camera projection from
@@ -437,10 +437,17 @@ public class VoxyRenderSystem {
                     .m32((far+far) * near / (near - far));
         }*/
 
+        //Flip near and far on reverse depth
+        if (properties.isReverseZ()) {
+            float tmp = near;
+            near = far;
+            far = tmp;
+        }
+
         return extraProjection.mulLocal(
                 new Matrix4f(rawMCProj)
-                .m22((zero2one?far:(far+near)) / (near - far))
-                .m32((zero2one?far:(far+far)) * near / (near - far))
+                .m22((properties.isZero2One()?far:(far+near)) / (near - far))
+                .m32((properties.isZero2One()?far:(far+far)) * near / (near - far))
         );
     }
 
