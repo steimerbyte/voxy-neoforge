@@ -1,5 +1,6 @@
 package me.cortex.voxy.client.core.rendering;
 
+import me.cortex.voxy.client.core.RenderProperties;
 import me.cortex.voxy.client.core.gl.GlBuffer;
 import me.cortex.voxy.client.core.rendering.util.DepthFramebuffer;
 import me.cortex.voxy.client.core.rendering.util.HiZBuffer;
@@ -10,7 +11,7 @@ import java.lang.reflect.Field;
 
 public abstract class Viewport <A extends Viewport<A>> {
     //public final HiZBuffer2 hiZBuffer = new HiZBuffer2();
-    public final HiZBuffer hiZBuffer = new HiZBuffer();
+    public final HiZBuffer hiZBuffer;
     public final DepthFramebuffer depthBoundingBuffer = new DepthFramebuffer();
 
     private static final Field planesField;
@@ -39,7 +40,7 @@ public abstract class Viewport <A extends Viewport<A>> {
     public final Vector3i section = new Vector3i();
     public final Vector3f innerTranslation = new Vector3f();
 
-    protected Viewport() {
+    protected Viewport(RenderProperties properties) {
         Vector4f[] planes = null;
         try {
              planes = (Vector4f[]) planesField.get(this.frustum);
@@ -47,6 +48,8 @@ public abstract class Viewport <A extends Viewport<A>> {
             throw new RuntimeException(e);
         }
         this.frustumPlanes = planes;
+
+        this.hiZBuffer = new HiZBuffer(properties);
     }
 
     public final void delete() {
