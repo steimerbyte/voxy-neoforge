@@ -47,6 +47,7 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glFinish;
 import static org.lwjgl.opengl.GL11.glGetIntegerv;
 import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL11.glGetInteger;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL30.glGetIntegeri;
 import static org.lwjgl.opengl.GL30C.*;
@@ -106,7 +107,9 @@ public class VoxyRenderSystem {
 
             this.worldIn = world;
 
-            this.properties = new RenderProperties(false, false, false);
+            //1.21.1 has no GpuDevice/DepthStencilState (those are 1.21.2+ pipeline API), so query the live GL state directly
+            this.properties = new RenderProperties(glGetIntegeri(GL_DEPTH_RANGE, 0) == 0, glGetInteger(GL_DEPTH_FUNC) == GL_GEQUAL, false);
+
             var backendFactory = getRenderBackendFactory();
             {
                 this.modelService = new ModelBakerySubsystem(world.getMapper());
