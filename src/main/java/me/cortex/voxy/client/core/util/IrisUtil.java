@@ -57,7 +57,7 @@ public class IrisUtil {
     }
 
     private static boolean irisShaderPackEnabled0() {
-        return Iris.isPackInUseQuick();
+        return Iris.getCurrentPack().isPresent();
     }
 
     public static boolean irisShaderPackEnabled() {
