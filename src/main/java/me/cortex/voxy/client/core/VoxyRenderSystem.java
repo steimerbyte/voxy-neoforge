@@ -107,9 +107,7 @@ public class VoxyRenderSystem {
 
             this.worldIn = world;
 
-            //1.21.1 has no GpuDevice/DepthStencilState (those are 1.21.2+ pipeline API), so query the live GL state directly
-            this.properties = new RenderProperties(glGetIntegeri(GL_DEPTH_RANGE, 0) == 0, glGetInteger(GL_DEPTH_FUNC) == GL_GEQUAL, false);
-
+            this.properties = RenderProperties.getRenderProperties();
             var backendFactory = getRenderBackendFactory();
             {
                 this.modelService = new ModelBakerySubsystem(world.getMapper());

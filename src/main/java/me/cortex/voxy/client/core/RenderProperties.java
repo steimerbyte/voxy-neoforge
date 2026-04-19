@@ -1,8 +1,13 @@
 package me.cortex.voxy.client.core;
 
 import me.cortex.voxy.client.core.gl.shader.Shader;
+import me.cortex.voxy.client.core.util.IrisUtil;
+import me.cortex.voxy.client.iris.IGetIrisVoxyPipelineData;
+import net.irisshaders.iris.Iris;
 
 import static org.lwjgl.opengl.GL11C.*;
+import static org.lwjgl.opengl.GL11.glGetInteger;
+import static org.lwjgl.opengl.GL30.glGetIntegeri;
 
 public record RenderProperties(boolean isZero2One, boolean isReverseZ, boolean useBlockAtlasUVs) {
 
@@ -29,5 +34,41 @@ public record RenderProperties(boolean isZero2One, boolean isReverseZ, boolean u
 
     public float inverseClearDepth() {
         return this.isReverseZ?1.0f:0.0f;
+    }
+
+
+
+
+
+
+
+    private static boolean irisUseBlockAtlasUv() {
+        var irisPipe = Iris.getPipelineManager().getPipelineNullable();
+        if (irisPipe == null) {
+            return false;
+        }
+        if (irisPipe instanceof IGetIrisVoxyPipelineData getVoxyPipeData) {
+            var pipeData = getVoxyPipeData.voxy$getPipelineData();
+            if (pipeData == null) {
+                return false;
+            }
+            //return pipeData.useBlockAtlasUV;
+            return false;
+        }
+        return false;
+    }
+
+    public static RenderProperties getRenderProperties() {
+        //1.21.1 has no GpuDevice/DepthStencilState (those are 1.21.2+ pipeline API), so query the live GL state directly
+        RenderProperties properties = new RenderProperties(
+                glGetIntegeri(GL_DEPTH_RANGE, 0) == 0,
+                glGetInteger(GL_DEPTH_FUNC) == GL_GEQUAL,
+                false);
+
+        if (IrisUtil.IRIS_INSTALLED && IrisUtil.SHADER_SUPPORT) {
+            properties = new RenderProperties(properties.isZero2One(), properties.isReverseZ(), irisUseBlockAtlasUv());
+        }
+
+        return properties;
     }
 }
