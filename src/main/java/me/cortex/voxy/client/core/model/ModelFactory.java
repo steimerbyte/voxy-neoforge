@@ -184,35 +184,21 @@ public class ModelFactory {
         if (this.idMappings[blockId] != -1) {
             return false;
         }
-        //We are (probably) going to be baking the block id
-        // check that it is currently not inflight, if it is, return as its already being baked
-        // else add it to the flight as it is going to be baked
-        this.blockStatesInFlightLock.lock();
-        if (!this.blockStatesInFlight.add(blockId)) {
-            this.blockStatesInFlightLock.unlock();
-            //Block baking is already in-flight
-            return false;
-        }
-        this.blockStatesInFlightLock.unlock();
 
-        VarHandle.loadLoadFence();
 
-        //We need to get it twice cause of threading
-        if (this.idMappings[blockId] != -1) {
-            return false;
-        }
 
         var blockState = this.mapper.getBlockStateFromBlockId(blockId);
-
         if (blockState.getBlock() instanceof StairBlock sb) {
-            /*
-            if (sb.baseState.hasProperty(BlockStateProperties.WATERLOGGED)) {
-                blockState = sb.baseState.setValue(BlockStateProperties.WATERLOGGED, blockState.getValue(BlockStateProperties.WATERLOGGED));
-            } else {
-                blockState = sb.baseState;
-            }*/
+                /*
+                if (sb.baseState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+                    blockState = sb.baseState.setValue(BlockStateProperties.WATERLOGGED, blockState.getValue(BlockStateProperties.WATERLOGGED));
+                } else {
+                    blockState = sb.baseState;
+                }*/
             blockState = sb.baseState.getBlock().withPropertiesOf(blockState);
         }
+
+        //We do this first so that it is always guarenteed that fluid models are ordered before the block models
 
         //Before we enqueue the baking of this blockstate, we must check if it has a fluid state associated with it
         // if it does, we must ensure that it is (effectivly) baked BEFORE we bake this blockstate
@@ -232,12 +218,36 @@ public class ModelFactory {
             }
         }
 
-        RawBakeResult result = new RawBakeResult(blockId, blockState);
-        int allocation = this.downstream.download(MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*2*4*6, ptr -> this.rawBakeResults.add(result.cpyBuf(ptr)));
-        int flags = this.bakery.renderToStream(blockState, this.downstream.getBufferId(), allocation);
-        result.hasDarkenedTextures = (flags&2)!=0;
-        result.isShaded = (flags&1)!=0;
-        return true;
+        //We are (probably) going to be baking the block id
+        // check that it is currently not inflight, if it is, return as its already being baked
+        // else add it to the flight as it is going to be baked
+        this.blockStatesInFlightLock.lock();
+        try {
+            if (!this.blockStatesInFlight.add(blockId)) {
+                //Block baking is already in-flight
+                return false;
+            }
+
+            VarHandle.loadLoadFence();
+
+            //We must do this in here as otherwise there is a race condition, the order in which blocks are added to the
+            // blockStatesInFlight must be the same as the order they are submitted to the renderer
+
+            //We need to get it twice cause of threading
+            if (this.idMappings[blockId] != -1) {
+                return false;
+            }
+
+            RawBakeResult result = new RawBakeResult(blockId, blockState);
+            int allocation = this.downstream.download(MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*2*4*6, ptr -> this.rawBakeResults.add(result.cpyBuf(ptr)));
+            int flags = this.bakery.renderToStream(blockState, this.downstream.getBufferId(), allocation);
+            result.hasDarkenedTextures = (flags&2)!=0;
+            result.isShaded = (flags&1)!=0;
+            return true;
+
+        } finally {
+            this.blockStatesInFlightLock.unlock();
+        }
     }
 
     private boolean processModelResult() {
@@ -274,7 +284,7 @@ public class ModelFactory {
         this.biomeQueue.add(biome);
     }
 
-    public void processAllThings() {
+    public boolean processAllThings() {
         var biomeEntry = this.biomeQueue.poll();
         while (biomeEntry != null) {
             var biomeRegistry = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.BIOME);
@@ -290,6 +300,7 @@ public class ModelFactory {
         }
 
         while (this.processModelResult());
+        return (this.blockStatesInFlight.size()!=0)||(!this.rawBakeResults.isEmpty())||!this.biomeQueue.isEmpty();
     }
 
     public void tickAndProcessUploads() {
