@@ -27,13 +27,25 @@ public class VoxyClientInstance extends VoxyInstance {
     private final Config config;
     private final Path basePath;
     private final boolean noIngestOverride;
+
     public VoxyClientInstance() {
-        super();
-        var path = getBasePath().normalize();
+        this(InitState.load());
+    }
+
+    private VoxyClientInstance(InitState state) {
+        super(!state.config.disabled);
+        this.config = state.config;
+        this.basePath = state.basePath;
         this.noIngestOverride = false;
-        this.basePath = path;
-        this.config = StorageConfigUtil.getCreateStorageConfig(Config.class, c->c.version==1&&c.sectionStorageConfig!=null, ()->DEFAULT_STORAGE_CONFIG, path);
         this.updateDedicatedThreads();
+    }
+
+    private record InitState(Config config, Path basePath) {
+        private static InitState load() {
+            var basePath = getBasePath().normalize();
+            var config = StorageConfigUtil.getCreateStorageConfig(Config.class, c->c.version==1&&c.sectionStorageConfig!=null, ()->DEFAULT_STORAGE_CONFIG, basePath);
+            return new InitState(config, basePath);
+        }
     }
 
     @Override
