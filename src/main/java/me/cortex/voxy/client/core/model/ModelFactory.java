@@ -290,7 +290,7 @@ public class ModelFactory {
             var biomeRegistry = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.BIOME);
             var resolvedBiome = biomeRegistry.getOptional(ResourceLocation.parse(biomeEntry.biome));
             if (resolvedBiome.isEmpty()) {
-                Logger.error("Could not find biome: " + biomeEntry.biome + " using default");
+                Logger.warn("Could not find biome: " + biomeEntry.biome + " using default");
             }
             var res = this.addBiome0(biomeEntry.id, resolvedBiome.orElse(DEFAULT_BIOME));
             if (res != null) {
