@@ -139,11 +139,13 @@ processResources {
     def hash = gitCommitHash()
     def version = project.version
 
-    inputs.properties("version": version, "commit": hash, "buildtime": time)
+    var allowed_mc_version = project.properties.minecraft_version.split("-")[0];
+
+    inputs.properties("version": version, "commit": hash, "buildtime": time, "allowed_mc_version": allowed_mc_version)
     filesMatching("fabric.mod.json") {
-        expand "version": version, "commit": hash, "buildtime": time
+        expand "version": version, "commit": hash, "buildtime": time, "allowed_mc_version": allowed_mc_version
     }
-    
+
     // NeoForge mod configuration
     var replaceProperties = [
             minecraft_version      : project.minecraft_version,
