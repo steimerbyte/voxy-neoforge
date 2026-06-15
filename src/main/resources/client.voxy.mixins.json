@@ -15,7 +15,7 @@
     "iris.MixinStandardMacros",
     "minecraft.AccessorEmptyTextureStateShard",
     "minecraft.MixinClientChunkCache",
-    "minecraft.MixinClientCommonPacketListenerImpl",
+    "minecraft.util.MixinClientCommonPacketListenerImpl",
     "minecraft.MixinClientLevel",
     "minecraft.MixinClientPacketListener",
     "minecraft.MixinFogRenderer",
