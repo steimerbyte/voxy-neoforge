@@ -58,11 +58,16 @@ public record RenderProperties(boolean isZero2One, boolean isReverseZ, boolean u
         return false;
     }
 
+    private static boolean useReverseZ() {
+        //1.21.1 has no DepthStencilState/CompareOp (1.21.2+ pipeline API), so query the live GL depth func instead
+        return IrisUtil.irisShaderPackEnabled()?false:glGetInteger(GL_DEPTH_FUNC) == GL_GEQUAL;
+    }
+
     public static RenderProperties getRenderProperties() {
         //1.21.1 has no GpuDevice/DepthStencilState (those are 1.21.2+ pipeline API), so query the live GL state directly
         RenderProperties properties = new RenderProperties(
                 glGetIntegeri(GL_DEPTH_RANGE, 0) == 0,
-                glGetInteger(GL_DEPTH_FUNC) == GL_GEQUAL,
+                useReverseZ(),
                 false);
 
         if (IrisUtil.IRIS_INSTALLED && IrisUtil.SHADER_SUPPORT) {

@@ -23,9 +23,8 @@ import static org.lwjgl.opengl.GL11C.glViewport;
 
 @Mixin(LevelRenderer.class)
 public class MixinLevelRenderer {
-    @Shadow @Final private Minecraft minecraft;
 
-    @Inject(method = "renderLevel", at = @At("HEAD"))
+    @Inject(method = "renderLevel", at = @At("HEAD"), order = 100)
     private void voxy$injectIrisCompat(
             DeltaTracker tickCounter,
             boolean renderBlockOutline,
