@@ -9,10 +9,12 @@ import me.cortex.voxy.client.config.VoxyConfig;
 import me.cortex.voxy.client.core.gl.GlBuffer;
 import me.cortex.voxy.client.core.gl.GlTexture;
 import me.cortex.voxy.client.core.model.ModelBakerySubsystem;
-import me.cortex.voxy.client.core.rendering.ChunkBoundRenderer;
 import me.cortex.voxy.client.core.rendering.RenderDistanceTracker;
 import me.cortex.voxy.client.core.rendering.Viewport;
 import me.cortex.voxy.client.core.rendering.ViewportSelector;
+import me.cortex.voxy.client.core.rendering.bounding.IBoundStore;
+import me.cortex.voxy.client.core.rendering.bounding.OutlineBoundRenderer;
+import me.cortex.voxy.client.core.rendering.bounding.StreamedBoundStore;
 import me.cortex.voxy.client.core.rendering.building.RenderGenerationService;
 import me.cortex.voxy.client.core.rendering.hierachical.AsyncNodeManager;
 import me.cortex.voxy.client.core.rendering.hierachical.HierarchicalOcclusionTraverser;
@@ -66,7 +68,8 @@ public class VoxyRenderSystem {
 
 
     private final RenderDistanceTracker renderDistanceTracker;
-    public final ChunkBoundRenderer chunkBoundRenderer;
+    private final OutlineBoundRenderer boundOutlineRenderer;
+    public final StreamedBoundStore visbleSectionStream = new StreamedBoundStore();
 
     private final ViewportSelector<?> viewportSelector;
 
@@ -155,7 +158,7 @@ public class VoxyRenderSystem {
                 this.setRenderDistance(VoxyConfig.CONFIG.sectionRenderDistance);
             }
 
-            this.chunkBoundRenderer = new ChunkBoundRenderer(this.pipeline);
+            this.boundOutlineRenderer = new OutlineBoundRenderer(this.pipeline);
 
             Logger.info("Voxy render system created with " + this.geometryData.getMaxCapacity() + " geometry capacity, using pipeline '" + this.pipeline.getClass().getSimpleName() + "' with renderer '" + sectionRenderer.getClass().getSimpleName() + "'");
         } catch (RuntimeException e) {
@@ -266,7 +269,7 @@ public class VoxyRenderSystem {
 
         TimingStatistics.E.start();
         if ((!VoxyClient.disableSodiumChunkRender())&&!IrisUtil.irisShadowActive()) {
-            this.chunkBoundRenderer.render(viewport, VoxyClient.isFrexActive());
+            this.boundOutlineRenderer.render(viewport, this.visbleSectionStream);
         } else {
             viewport.depthBoundingBuffer.clear(this.properties.inverseClearDepth());
         }
@@ -514,7 +517,8 @@ public class VoxyRenderSystem {
                 RenderResourceReuse.giveBackGeometryBuffer(((BasicSectionGeometryData)this.geometryData).getGeometryBuffer());
             }
 
-            this.chunkBoundRenderer.free();
+            this.boundOutlineRenderer.free();
+            this.visbleSectionStream.free();
 
             this.viewportSelector.free();
         } catch (Exception e) {Logger.error("Error shutting down renderer components", e);}

@@ -39,12 +39,13 @@ public class MixinRenderSectionManager {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void voxy$resetChunkTracker(ClientLevel level, int renderDistance, CommandList commandList, CallbackInfo ci) {
+        /*
         if (level.levelRenderer != null) {
             var system = ((IGetVoxyRenderSystem)(level.levelRenderer)).voxy$getRenderSystem();
             if (system != null) {
                 system.chunkBoundRenderer.reset();
             }
-        }
+        }*/
         this.bottomSectionY = this.level.getMinBuildHeight()>>4;
     }
 
@@ -142,6 +143,7 @@ public class MixinRenderSectionManager {
             }
         }
 
+
         //Do some very cheeky stuff for MiB
         if (VoxyCommon.IS_MINE_IN_ABYSS) {
             int sector = (x+512)>>10;
@@ -149,13 +151,15 @@ public class MixinRenderSectionManager {
             y+=16+(256-32-sector*30);
         }
         long pos = SectionPos.asLong(x,y,z);
+        /*
         if (wasBuilt) {//Remove
             //TODO: on chunk remove do ingest if is surrounded by built chunks (or when the tracker says is ok)
 
             system.chunkBoundRenderer.removeSection(pos);
         } else {//Add
             system.chunkBoundRenderer.addSection(pos);
-        }
+        }*/
+
         return true;
     }
 }
