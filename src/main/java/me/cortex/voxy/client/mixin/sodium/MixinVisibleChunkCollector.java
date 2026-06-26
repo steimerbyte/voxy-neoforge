@@ -28,10 +28,11 @@ public class MixinVisibleChunkCollector {
     //that becomes visible this frame into the streamed bound store)
     @Redirect(method = "visit", at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/RenderSection;getRegion()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;"), remap = false)
     private RenderRegion voxy$injectVisibleSectionGather(RenderSection instance) {
+        var region = instance.getRegion();
         var vrs = IGetVoxyRenderSystem.getNullable();
-        if (vrs != null) {
+        if (vrs != null && region != null) {
             vrs.visbleSectionStream.put(SectionPos.asLong(instance.getChunkX(), instance.getChunkY(), instance.getChunkZ()));
         }
-        return instance.getRegion();
+        return region;
     }
 }
