@@ -12,8 +12,7 @@ import me.cortex.voxy.client.core.model.ModelBakerySubsystem;
 import me.cortex.voxy.client.core.rendering.RenderDistanceTracker;
 import me.cortex.voxy.client.core.rendering.Viewport;
 import me.cortex.voxy.client.core.rendering.ViewportSelector;
-import me.cortex.voxy.client.core.rendering.bounding.IBoundStore;
-import me.cortex.voxy.client.core.rendering.bounding.OutlineBoundRenderer;
+import me.cortex.voxy.client.core.rendering.bounding.BoundRenderer;
 import me.cortex.voxy.client.core.rendering.bounding.StreamedBoundStore;
 import me.cortex.voxy.client.core.rendering.building.RenderGenerationService;
 import me.cortex.voxy.client.core.rendering.hierachical.AsyncNodeManager;
@@ -68,7 +67,7 @@ public class VoxyRenderSystem {
 
 
     private final RenderDistanceTracker renderDistanceTracker;
-    private final OutlineBoundRenderer boundOutlineRenderer;
+    private final BoundRenderer boundOutlineRenderer;
     public final StreamedBoundStore visbleSectionStream = new StreamedBoundStore();
 
     private final ViewportSelector<?> viewportSelector;
@@ -158,7 +157,7 @@ public class VoxyRenderSystem {
                 this.setRenderDistance(VoxyConfig.CONFIG.sectionRenderDistance);
             }
 
-            this.boundOutlineRenderer = new OutlineBoundRenderer(this.pipeline);
+            this.boundOutlineRenderer = new BoundRenderer(this.pipeline);
 
             Logger.info("Voxy render system created with " + this.geometryData.getMaxCapacity() + " geometry capacity, using pipeline '" + this.pipeline.getClass().getSimpleName() + "' with renderer '" + sectionRenderer.getClass().getSimpleName() + "'");
         } catch (RuntimeException e) {
@@ -327,6 +326,8 @@ public class VoxyRenderSystem {
             for (int i = 0; i < oldBufferBindings.length; i++) {
                 glBindBufferBase(GL_SHADER_STORAGE_BUFFER, i, oldBufferBindings[i]);
             }
+            GlStateManager._disableBlend();
+            GlStateManager._disableDepthTest();
 
             //((SodiumShader) Iris.getPipelineManager().getPipelineNullable().getSodiumPrograms().getProgram(DefaultTerrainRenderPasses.CUTOUT).getInterface()).setupState(DefaultTerrainRenderPasses.CUTOUT, fogParameters);
         }
