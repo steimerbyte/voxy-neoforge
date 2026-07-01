@@ -7,6 +7,7 @@ import net.caffeinemc.mods.sodium.client.render.chunk.lists.VisibleChunkCollecto
 import net.caffeinemc.mods.sodium.client.render.chunk.region.RenderRegion;
 import net.minecraft.core.SectionPos;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -30,9 +31,16 @@ public class MixinVisibleChunkCollector {
     private RenderRegion voxy$injectVisibleSectionGather(RenderSection instance) {
         var region = instance.getRegion();
         var vrs = IGetVoxyRenderSystem.getNullable();
-        if (vrs != null && region != null) {
+        if (vrs != null && voxy$shouldUseForChunkBound(instance)) {
             vrs.visbleSectionStream.put(SectionPos.asLong(instance.getChunkX(), instance.getChunkY(), instance.getChunkZ()));
         }
         return region;
+    }
+
+    //Sodium 0.6.x has no RenderRegion.getSectionFlags(int)/RenderSectionFlags.MASK_IS_BUILT; built state lives on
+    //RenderSection itself, so the same "only record built sections" intent is read via isBuilt() here
+    @Unique
+    private static boolean voxy$shouldUseForChunkBound(RenderSection instance) {
+        return instance.isBuilt();
     }
 }
