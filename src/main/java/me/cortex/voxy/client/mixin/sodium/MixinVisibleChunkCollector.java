@@ -1,6 +1,8 @@
 package me.cortex.voxy.client.mixin.sodium;
 
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
+import me.cortex.voxy.client.core.VoxyRenderSystem;
+import me.cortex.voxy.client.core.util.IrisUtil;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import net.caffeinemc.mods.sodium.client.render.chunk.RenderSection;
 import net.caffeinemc.mods.sodium.client.render.chunk.lists.VisibleChunkCollector;
@@ -30,8 +32,8 @@ public class MixinVisibleChunkCollector {
     @Redirect(method = "visit", at = @At(value = "INVOKE", target = "Lnet/caffeinemc/mods/sodium/client/render/chunk/RenderSection;getRegion()Lnet/caffeinemc/mods/sodium/client/render/chunk/region/RenderRegion;"), remap = false)
     private RenderRegion voxy$injectVisibleSectionGather(RenderSection instance) {
         var region = instance.getRegion();
-        var vrs = IGetVoxyRenderSystem.getNullable();
-        if (vrs != null && voxy$shouldUseForChunkBound(instance)) {
+        VoxyRenderSystem vrs;
+        if (!IrisUtil.irisShadowActive() && (vrs = IGetVoxyRenderSystem.getNullable()) != null && voxy$shouldUseForChunkBound(instance)) {
             vrs.visbleSectionStream.put(SectionPos.asLong(instance.getChunkX(), instance.getChunkY(), instance.getChunkZ()));
         }
         return region;
