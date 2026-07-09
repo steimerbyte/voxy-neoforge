@@ -9,8 +9,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.BiFunction;
-
 //Thanks iris for making me need todo this ;-; _irritater_
 @Mixin(RenderSystem.class)
 public class MixinRenderSystem {

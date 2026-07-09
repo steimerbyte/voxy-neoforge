@@ -1,6 +1,7 @@
 package me.cortex.voxy.client.core.model.bakery;
 
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.cortex.voxy.common.util.MemoryBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import org.lwjgl.system.MemoryUtil;
@@ -8,7 +9,6 @@ import org.lwjgl.system.MemoryUtil;
 import static me.cortex.voxy.client.core.model.bakery.BudgetBufferRenderer.VERTEX_FORMAT_SIZE;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-
 public final class ReuseVertexConsumer implements VertexConsumer {
     private MemoryBuffer buffer = new MemoryBuffer(8192);
     private long ptr;
