@@ -253,6 +253,7 @@ public class VoxyRenderSystem {
         GlStateManager._enableDepthTest();
         GlStateManager._depthFunc(this.properties.closerEqualDepthCompare());
         GlStateManager._depthMask(true);
+        GlStateManager._disablePolygonOffset();
 
         int oldFB = GL11.glGetInteger(GL_DRAW_FRAMEBUFFER_BINDING);
         int boundFB = oldFB;
@@ -282,6 +283,7 @@ public class VoxyRenderSystem {
                     this.columnStreamedBoundStore = null;
                 }
             }
+            //viewport.depthBoundingBuffer.framebuffer.bind(GL_COLOR_ATTACHMENT0, sourceColourTexture).verify();
             //If the bound renderer exists, it means we must be in FREX mode
             this.boundOutlineRenderer.render(viewport, this.columnStreamedBoundStore==null?this.visbleSectionStream:this.columnStreamedBoundStore);
         } else {
@@ -321,11 +323,14 @@ public class VoxyRenderSystem {
         glViewport(dims[0], dims[1], dims[2], dims[3]);
 
         {//Reset state manager stuffs
+            GlStateManager._glUseProgram(0);
             glUseProgram(0);
+            GlStateManager._enableDepthTest();
             glEnable(GL_DEPTH_TEST);
             glDisable(GL_STENCIL_TEST);
 
             GlStateManager._glBindVertexArray(0);//Clear binding
+            glBindVertexArray(0);
 
             GlStateManager._activeTexture(GlConst.GL_TEXTURE1);
             for (int i = 0; i < 12; i++) {
@@ -341,8 +346,15 @@ public class VoxyRenderSystem {
             for (int i = 0; i < oldBufferBindings.length; i++) {
                 glBindBufferBase(GL_SHADER_STORAGE_BUFFER, i, oldBufferBindings[i]);
             }
+            GlStateManager._blendEquation(GL_FUNC_ADD);
+            glBlendEquation(GL_FUNC_ADD);
+            GlStateManager._blendFuncSeparate(0, 0, 0, 0);
+            glBlendFunc(0, 0);
             GlStateManager._disableBlend();
-            GlStateManager._disableDepthTest();
+            glDisable(GL_BLEND);
+            GlStateManager._depthFunc(GL_LESS);
+            glDepthFunc(GL_LESS);
+            GlStateManager._enableDepthTest();
 
             //((SodiumShader) Iris.getPipelineManager().getPipelineNullable().getSodiumPrograms().getProgram(DefaultTerrainRenderPasses.CUTOUT).getInterface()).setupState(DefaultTerrainRenderPasses.CUTOUT, fogParameters);
         }

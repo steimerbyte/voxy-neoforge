@@ -4,6 +4,7 @@ import me.cortex.voxy.client.ICheekyClientChunkCache;
 import me.cortex.voxy.client.config.VoxyConfig;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import me.cortex.voxy.client.core.VoxyRenderSystem;
+import me.cortex.voxy.client.core.util.IrisUtil;
 import me.cortex.voxy.common.world.service.VoxelIngestService;
 import net.caffeinemc.mods.sodium.client.gl.device.CommandList;
 import net.caffeinemc.mods.sodium.client.render.chunk.RenderSection;
@@ -12,6 +13,7 @@ import net.caffeinemc.mods.sodium.client.render.chunk.data.BuiltSectionInfo;
 import net.caffeinemc.mods.sodium.client.render.chunk.map.ChunkTrackerHolder;
 import net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.SortBehavior;
 import net.neoforged.fml.ModList;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.ChunkPos;
@@ -36,6 +38,17 @@ public class MixinRenderSectionManager {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void voxy$resetChunkTracker(ClientLevel level, int renderDistance, CommandList commandList, CallbackInfo ci) {
         this.bottomSectionY = this.level.getMinBuildHeight()>>4;
+    }
+
+    //1.21.1/Sodium 0.6.x has no renderOutOfGraph/readRenderListFromTree and its VisibleChunkCollector takes no
+    //RenderRegionManager, so the reset is injected at the HEAD of createTerrainRenderList(Camera, Viewport, int,
+    //boolean) - the 0.6.x entry point that builds the visible-section set every frame - instead
+    @Inject(method = "createTerrainRenderList", at = @At("HEAD"))
+    private void voxy$injectReset1(Camera camera, net.caffeinemc.mods.sodium.client.render.viewport.Viewport viewport, int frame, boolean resetRenderLists, CallbackInfo ci) {
+        var vrs = IGetVoxyRenderSystem.getNullable();
+        if (vrs != null && !IrisUtil.irisShadowActive()) {
+            vrs.visbleSectionStream.reset();
+        }
     }
 
     @Inject(method = "onChunkRemoved", at = @At("HEAD"))
