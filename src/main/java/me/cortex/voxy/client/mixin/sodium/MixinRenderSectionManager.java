@@ -46,7 +46,7 @@ public class MixinRenderSectionManager {
     @Inject(method = "createTerrainRenderList", at = @At("HEAD"))
     private void voxy$injectReset1(Camera camera, net.caffeinemc.mods.sodium.client.render.viewport.Viewport viewport, int frame, boolean resetRenderLists, CallbackInfo ci) {
         var vrs = IGetVoxyRenderSystem.getNullable();
-        if (vrs != null && !IrisUtil.irisShadowActive()) {
+        if (vrs != null && !IrisUtil.irisShadowActive() && vrs.visbleSectionStream != null) {
             vrs.visbleSectionStream.reset();
         }
     }
