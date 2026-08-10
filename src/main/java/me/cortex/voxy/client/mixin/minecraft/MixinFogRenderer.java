@@ -31,8 +31,14 @@ public class MixinFogRenderer {
         if (!VoxyConfig.CONFIG.isRenderingEnabled()) return;
 
         var vrs = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
+        var mode = VoxyConfig.CONFIG.getFogMode();
 
-        if (VoxyConfig.CONFIG.renderVanillaFog || vrs == null || vrs.voxy$getRenderSystem() == null) {
+        //1.21.1 has no FogData return to rewrite; the vanilla env-fog removal this fork already does via the
+        //RenderSystem statics below is the equivalent, now gated on the new FogMode's removesVanillaEnvFog flag
+        //(OFF/FADE remove it, FOG/FOG_AND_FADE keep vanilla's environmental fog in place).
+        boolean fogIsDamnClose = RenderSystem.getShaderFogEnd() < 10;
+        if (VoxyConfig.CONFIG.renderVanillaFog || !mode.removesVanillaEnvFog || fogIsDamnClose
+                || vrs == null || vrs.voxy$getRenderSystem() == null) {
             RenderSystem.setShaderFogEnd(viewDistance);
         } else {
             RenderSystem.setShaderFogStart(999999999);

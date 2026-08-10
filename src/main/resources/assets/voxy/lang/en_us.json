@@ -25,6 +25,11 @@
   "voxy.config.general.environmental_fog": "Enable environmental fog",
   "voxy.config.general.environmental_fog.tooltip": "Enables or disables voxy rendering environmental fog",
 
+  "voxy.config.general.environmental_fog.fog_and_fade": "Fog and fade",
+  "voxy.config.general.environmental_fog.fog": "Fog only",
+  "voxy.config.general.environmental_fog.fade": "Fade only",
+  "voxy.config.general.environmental_fog.off": "Off",
+
   "voxy.config.general.vanilla_fog": "Enable vanilla fog",
   "voxy.config.general.vanilla_fog.tooltip": "Enables or disables vanilla fog effect",
 

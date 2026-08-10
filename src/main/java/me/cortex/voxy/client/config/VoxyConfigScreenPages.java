@@ -6,6 +6,7 @@ import me.cortex.voxy.client.RenderStatistics;
 import me.cortex.voxy.client.VoxyClientInstance;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import me.cortex.voxy.client.mixin.sodium.AccessorSodiumWorldRenderer;
+import me.cortex.voxy.client.core.NormalRenderPipeline;
 import me.cortex.voxy.common.util.cpu.CpuLayout;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import net.caffeinemc.mods.sodium.client.gui.options.*;
@@ -16,11 +17,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
+import net.caffeinemc.mods.sodium.client.gui.options.control.CyclingControl;
+import java.util.Locale;
 
+import java.util.Arrays;
 public abstract class VoxyConfigScreenPages {
     private VoxyConfigScreenPages(){}
 
     public static OptionPage voxyOptionPage = null;
+
+    private static final Component[] FOG_MODE_NAMES = Arrays.stream(NormalRenderPipeline.FogMode.values())
+            .map(m -> Component.translatable("voxy.config.general.environmental_fog." + m.name().toLowerCase(Locale.ROOT)))
+            .toArray(Component[]::new);
 
     public static OptionPage page() {
         List<OptionGroup> groups = new ArrayList<>();
@@ -142,6 +150,15 @@ public abstract class VoxyConfigScreenPages {
                         .setTooltip(Component.translatable("voxy.config.general.vanilla_fog.tooltip"))
                         .setControl(TickBoxControl::new)
                         .setBinding((s, v)-> s.renderVanillaFog = v, s -> s.renderVanillaFog)
+                        .build()
+                //Sodium 0.6.x has no EnumOption/OptionNameProvider (those are 0.7.x config-API additions), so the new
+                //fog mode enum is exposed with the 0.6.x CyclingControl over its values instead.
+                ).add(OptionImpl.createBuilder(NormalRenderPipeline.FogMode.class, storage)
+                        .setName(Component.translatable("voxy.config.general.environmental_fog"))
+                        .setTooltip(Component.translatable("voxy.config.general.environmental_fog.tooltip"))
+                        .setControl(c -> new CyclingControl<>(c, NormalRenderPipeline.FogMode.class, FOG_MODE_NAMES))
+                        .setBinding((s, v) -> s.setFogMode(v), s -> s.getFogMode())
+                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                         .build()
                 ).add(OptionImpl.createBuilder(boolean.class, storage)
                         .setName(Component.translatable("voxy.config.general.render_statistics"))

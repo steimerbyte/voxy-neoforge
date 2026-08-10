@@ -423,7 +423,7 @@ public class VoxyRenderSystem {
         }
     }
 
-    public static float getRenderDistance() {
+    public static float getVanillaRenderDistance() {
         return Minecraft.getInstance().options.getEffectiveRenderDistance()*16;
     }
 
@@ -470,7 +470,7 @@ public class VoxyRenderSystem {
         var rawMCProj = RenderSystem.getProjectionMatrix();
         var extraProjection = rawMCProj.invert(new Matrix4f()).mul(base);
 
-        float near = getRenderDistance()<=32.0f?8f:16f;
+        float near = getVanillaRenderDistance()<=32.0f?8f:16f;
         near = VoxyClient.disableSodiumChunkRender()?0.1f:near;
 
         float far = 16*3000;

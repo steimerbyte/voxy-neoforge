@@ -10,6 +10,7 @@ import me.cortex.voxy.client.core.rendering.hierachical.NodeCleaner;
 import me.cortex.voxy.client.core.rendering.post.FullscreenBlit;
 import me.cortex.voxy.client.core.util.GPUTiming;
 import org.joml.Matrix4f;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -24,16 +25,33 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
     private GlTexture colourSSAOTex;
     private final GlFramebuffer fbSSAO = new GlFramebuffer();
 
-    private final boolean useEnvFog;
+    private final FogMode fogMode;
     private final FullscreenBlit finalBlit;
 
     private final SSAO ssao;
 
+    public enum FogMode {
+        FOG_AND_FADE(false, true, true),
+        FOG(false, true, false),
+        FADE(true, false, true),
+        OFF(true, false, false);
+        public final boolean removesVanillaEnvFog;
+        public final boolean hasFog;
+        public final boolean hasFade;
+
+        FogMode(boolean removesVanillaEnvFog, boolean hasFog, boolean hasFade) {
+            this.removesVanillaEnvFog = removesVanillaEnvFog;
+            this.hasFog = hasFog;
+            this.hasFade = hasFade;
+        }
+    }
+
     protected NormalRenderPipeline(RenderProperties properties, AsyncNodeManager nodeManager, NodeCleaner nodeCleaner, HierarchicalOcclusionTraverser traversal, BooleanSupplier frexSupplier) {
         super(properties, nodeManager, nodeCleaner, traversal, frexSupplier, false);
-        this.useEnvFog = VoxyConfig.CONFIG.useEnvironmentalFog;
+        this.fogMode = VoxyConfig.CONFIG.getFogMode();
         this.finalBlit = new FullscreenBlit(properties, "voxy:post/blit_texture_depth_cutout.frag",
-                a->a.defineIf("USE_ENV_FOG", this.useEnvFog).define("EMIT_COLOUR"));
+                a->a.defineIf("HAS_FOG", this.fogMode.hasFog)
+                        .defineIf("HAS_FADE", this.fogMode.hasFade).define("EMIT_COLOUR"));
 
 
         this.ssao = SSAO.createSSAO(properties, VoxyConfig.CONFIG.getSSAOMode());
@@ -77,6 +95,36 @@ public class NormalRenderPipeline extends AbstractRenderPipeline {
     @Override
     protected void finish(Viewport<?> viewport, int sourceFrameBuffer, int srcWidth, int srcHeight) {
         this.finalBlit.bind();
+        //1.21.1/Sodium 0.6.x has no Viewport.fogParameters (that is a Sodium 0.7/MC 1.21.11 field). The equivalent
+        //state for this port is MC 1.21.1's static shader-fog state on RenderSystem, which FogRenderer.setupFog
+        //already wrote for this frame before the Voxy pipeline runs - same values, same units.
+        float start = RenderSystem.getShaderFogStart();
+        float end = RenderSystem.getShaderFogEnd();
+        if (this.fogMode.hasFog) {
+            float[] fogColour = RenderSystem.getShaderFogColor();
+            if (Math.abs(end-start)>1) {
+                float invEndFogDelta = 1f / (end - start);
+                float endDistance = Math.max(VoxyRenderSystem.getVanillaRenderDistance(), 20*16);//TODO: make this constant a config option
+                endDistance *= (float)Math.sqrt(3);
+                float startDelta = -start * invEndFogDelta;
+                glUniform4f(4, invEndFogDelta, startDelta, Math.clamp(endDistance*invEndFogDelta+startDelta, 0, 1),0);//
+                glUniform4f(5, fogColour[0], fogColour[1], fogColour[2], fogColour[3]);
+            } else {
+                glUniform4f(4, 0, 0, 0, 0);
+                glUniform4f(5, 0, 0, 0, 0);
+            }
+        }
+        if (this.fogMode.hasFade) {
+            //TODO: this should be a compile time define
+            int MODE = 1;//0:off, 1:xz, 2:xyz
+            float rd = VoxyConfig.CONFIG.sectionRenderDistance*16*32 - (float)Math.sqrt(MODE>1?32*32*32:32*32);
+            float vanillaRd = VoxyRenderSystem.getVanillaRenderDistance();
+            float startFade = Math.max(vanillaRd, rd*0.9f);//start at 90% of the render distance (10% fade distance)
+            float endFade = Math.max(vanillaRd, rd);
+
+            float scale = 1.0f/(endFade-startFade);
+            glUniform4f(6, MODE, (-startFade)*scale, scale, 0);
+        }
 
         glBindTextureUnit(3, this.colourSSAOTex.id);
 
