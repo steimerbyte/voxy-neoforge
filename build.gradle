@@ -3,7 +3,11 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.gradle.userdev' version '7.1.13'
+    //Kept from upstream (the fork adds this alongside NeoGradle, it does not replace it) so the
+    //src/jmh benchmark harness added in the same commit can be built with `./gradlew jmh`.
+    id "me.champeau.jmh" version "0.7.3"
 }
+
 def INCLUDE_OTHER_ARCHS = "true".equalsIgnoreCase(project.findProperty("includeOtherArchs"))
 
 def isInGHA = System.getenv("GITHUB_ACTIONS") == "true"
@@ -365,4 +369,9 @@ dependencies {
     }
 }
 
+
+jmh {
+    zip64 = true
+    //profilers = ["xperfasm"]
+}
 // DevAuth is Fabric-specific, removed for NeoForge compatibility

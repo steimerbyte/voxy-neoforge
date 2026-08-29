@@ -90,7 +90,8 @@ public class WorldUpdater {
     }
 
 
-    private static long insertSectionLvlIntoWorld(VoxelizedSection section, WorldSection worldSection) {
+    //Exposed for JMH benchmark
+    public static long insertSectionLvlIntoWorld(VoxelizedSection section, WorldSection worldSection) {
         final long[] vdat = section.section;
         final int lvl = worldSection.lvl;
 
@@ -127,11 +128,12 @@ public class WorldUpdater {
                     long oldId2 = secD[cSecIdx+2]; secD[cSecIdx+2] = vdat[i+2];
                     long oldId3 = secD[cSecIdx+3]; secD[cSecIdx+3] = vdat[i+3];
 
-                    airCount += Mapper.isAir(oldId0)?1:0; didStateChange |= vdat[i+0] != oldId0;
-                    airCount += Mapper.isAir(oldId1)?1:0; didStateChange |= vdat[i+1] != oldId1;
-                    airCount += Mapper.isAir(oldId2)?1:0; didStateChange |= vdat[i+2] != oldId2;
-                    airCount += Mapper.isAir(oldId3)?1:0; didStateChange |= vdat[i+3] != oldId3;
+                    airCount += Mapper.isNotAirInt(oldId0); didStateChange |= vdat[i+0] != oldId0;
+                    airCount += Mapper.isNotAirInt(oldId1); didStateChange |= vdat[i+1] != oldId1;
+                    airCount += Mapper.isNotAirInt(oldId2); didStateChange |= vdat[i+2] != oldId2;
+                    airCount += Mapper.isNotAirInt(oldId3); didStateChange |= vdat[i+3] != oldId3;
                 }
+                airCount = (1<<(4+4+4))-airCount;
             } else {
                 int baseVIdx = VoxelizedSection.getBaseIndexForLevel(lvl);
 
