@@ -138,7 +138,12 @@ public abstract class AbstractRenderPipeline extends TrackedObject {
         glBindFramebuffer(GL_FRAMEBUFFER, sourceFrameBuffer);
     }
 
-    protected void initDepthStencil(int sourceFrameBuffer, int targetFb, int srcWidth, int srcHeight, int width, int height) {
+    //1.21.1/Sodium 0.6.x: upstream's parent commit already refactored setup() to receive the depth texture
+    //directly, so its initDepthStencil takes `int sourceDepthTexture` and binds it with glBindTextureUnit directly.
+    //On this fork setup() still receives the source *framebuffer* id, so the depth texture is still resolved here
+    //via glGetNamedFramebufferAttachmentParameteri below. The only part of upstream c5bca3ad that applies is the
+    //Viewport pass-through, which is why the signature gains the leading `Viewport<?> viewport` parameter.
+    protected void initDepthStencil(Viewport<?> viewport, int sourceFrameBuffer, int targetFb, int srcWidth, int srcHeight, int width, int height) {
         glClearNamedFramebufferfi(targetFb, GL_DEPTH_STENCIL, 0, this.properties.clearDepth(), 1);
         // using blit to copy depth from mismatched depth formats is not portable so instead a full screen pass is performed for a depth copy
         // the mismatched formats in this case is the d32 to d24s8
