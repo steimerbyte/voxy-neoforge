@@ -372,6 +372,7 @@ dependencies {
 
 jmh {
     zip64 = true
+    includes=["SaveLoadJMH"]
     //profilers = ["xperfasm"]
 }
 // DevAuth is Fabric-specific, removed for NeoForge compatibility
