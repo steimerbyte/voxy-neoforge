@@ -668,3 +668,17 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
   1. **build.gradle** — bumps `maven.modrinth:sodium:mc1.21.11-0.8.3-fabric` → `mc1.21.11-0.8.4-fabric` and `net.caffeinemc:sodium-fabric:0.8.3-SNAPSHOT+mc1.21.11+` → `0.8.4-SNAPSHOT+mc1.21.11+`. Both lines reference MC 1.21.11 artifacts (`mc1.21.11-0.8.x-fabric`). Our 1.21.1 fork uses `curse.maven:sodium-394468:6382651` (sodium 0.6.13 for MC 1.21.1) on lines 196–197 — a completely different artifact source with no `mc1.21.11-0.8.x` line to bump.
   2. **fabric.mod.json** — bumps `"sodium": "=0.8.3"` → `"sodium": "=0.8.4"`. Our fork pins `"sodium": ">=0.6.13"` for 1.21.1 — different constraint style and different sodium major line.
   Per port-pattern guidance ("sodium 0.8.x = MC 1.21.11 only, skip target") and previous SKIPPED precedent (commits 6, 97, 100), cherry-pick not attempted. No build, no release.
+
+## 108. `55b64ef37fc440d2c4b0d56fd666412fa85c017f` import current
+- **Verdict:** PORTABLE-WITH-FABRIC-TO-NEOFORGE-ADAPTATION (new subcommand using Fabric command API; needs `ClientCommandManager`/`FabricClientCommandSource` → `LiteralArgumentBuilder`/`CommandSourceStack` + `sendError` → `sendFailure` translation)
+- **Files:** src/main/java/me/cortex/voxy/client/VoxyCommands.java (+23/-1)
+- **Result:** APPLIED+FIXED
+- **SHA:** cd1453d5dbccb125ecfca05f0b8a7e749ffb6baa
+- **Release:** v0.2.7-alpha-2.084
+- **Fix:**
+  1. Cherry-pick failed with full-file conflict because upstream's `register()` returns `LiteralArgumentBuilder<FabricClientCommandSource>` and is built via `ClientCommandManager.literal(...)`, whereas our 1.21.1 fork exposes `register(RegisterClientCommandsEvent event)` and uses NeoForge `LiteralArgumentBuilder.<CommandSourceStack>literal(...)`. Aborted and re-applied manually.
+  2. Added `import net.minecraft.world.level.storage.LevelResource;` (same package as upstream's commit, also already used in `VoxyClientInstance.java:21`).
+  3. Inserted `importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("current").executes(VoxyCommands::importCurrentWorldIn))` into the existing `importCommand` chain between `zip` and `cancel`.
+  4. Added `private static int importCurrentWorldIn(CommandContext<CommandSourceStack> ctx)` whose body mirrors the upstream method 1:1 except for two API translations: `ctx.getSource().sendError(...)` → `ctx.getSource().sendFailure(...)` (NeoForge 1.21.1 API) and `CommandContext<FabricClientCommandSource>` → `CommandContext<CommandSourceStack>`.
+  5. `Minecraft.getInstance().getSingleplayerServer()`, `localServer.getWorldPath(LevelResource.ROOT)`, `DimensionType.getStorageFolder(ResourceKey<Level>, Path)` and `fileBasedImporter(File)` all already exist in the fork (the first three match the pattern used at `VoxyClientInstance.java:92-94`), so no further translation was needed.
+- **Notes:** Adds a new `/voxy import current` subcommand that resolves the active singleplayer world + current dimension region folder and runs the existing `fileBasedImporter`. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (41s). Push 59c0f0fd..cd1453d5 on backport/sequential. Release v0.2.7-alpha-2.084 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.084.
