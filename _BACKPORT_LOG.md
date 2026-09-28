@@ -255,3 +255,8 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Verdict:** MC-26-ONLY
 - **Result:** SKIPPED
 - **Reason:** sodium mc1.21.11-0.8.2-fabric artifact; targets MC 1.21.11. Our fork uses curse.maven:sodium-394468 for MC 1.21.1.
+
+## 42. `ee7ec50d` always show voxy version in f3
+- **Verdict:** MC-26-ONLY
+- **Result:** SKIPPED
+- **Reason:** Uses MC 1.21.2+ debug overlay API (DebugScreenEntries, DebugScreenEntry, DebugScreenDisplayer, DebugScreenEntryList). Not present in 1.21.1.

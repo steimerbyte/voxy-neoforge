@@ -39,7 +39,7 @@
 - [ ] **39** [`b68d5b3c66e36e1adc987675ae1aae2891496901`](https://github.com/MCRcortex/voxy/commit/b68d5b3c66e36e1adc987675ae1aae2891496901) — dis
 - [ ] **40** [`b5c31478fb44a89cb0be7cc21068113643dba3fa`](https://github.com/MCRcortex/voxy/commit/b5c31478fb44a89cb0be7cc21068113643dba3fa) — things
 - [ ] **41** [`f272042a76eb6f1adafc731cc227f4f0688c6a8d`](https://github.com/MCRcortex/voxy/commit/f272042a76eb6f1adafc731cc227f4f0688c6a8d) — a
-- [ ] **42** [`ee7ec50d4428cf28253d628ac5e2ed3fbf67e7a0`](https://github.com/MCRcortex/voxy/commit/ee7ec50d4428cf28253d628ac5e2ed3fbf67e7a0) — always show voxy version in f3
+- [x] **42** SKIPPED: `ee7ec50d` always show voxy version in f3 — uses MC 1.21.2+ debug overlay API (DebugScreenEntries/DebugScreenEntry/DebugScreenDisplayer) not in 1.21.1
 - [ ] **43** [`45ff6c44149d2b4ef96333208e2427ca31ca8619`](https://github.com/MCRcortex/voxy/commit/45ff6c44149d2b4ef96333208e2427ca31ca8619) — locale
 - [ ] **44** [`e86beefbc70a25c26b8949a3040c03073bc6dacb`](https://github.com/MCRcortex/voxy/commit/e86beefbc70a25c26b8949a3040c03073bc6dacb) — rename
 - [ ] **45** [`b086832333ae55883738fa3e5f304b293d2e0254`](https://github.com/MCRcortex/voxy/commit/b086832333ae55883738fa3e5f304b293d2e0254) — remove mip thing cause vanilla mipmaps have issues
