@@ -114,3 +114,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0e534948
 - **Release:** v0.2.7-alpha-2.014
 - **Notes:** 3-line guard `(maxBB.xy-minBB.xy)==vec2(1.0f) → return false` at top of isCulledByHiz() to short-circuit degenerate full-screen-bbox case causing zoom-in flicker.
+
+## 18. `2bf9af00` computed face tint
+- **Verdict:** PORTABLE
+- **Files:** 2 files (Java + GLSL)
+- **Result:** APPLIED
+- **SHA:** 78571170
+- **Release:** v0.2.7-alpha-2.015
+- **Notes:** Adds computed face tint logic to shader. Clean auto-merge.

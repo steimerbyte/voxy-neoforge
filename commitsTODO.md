@@ -15,7 +15,7 @@
 - [x] **15** done: `b7f5798e` (Backport @ `fa8fe58e`, Release v0.2.7-alpha-2.012 — APPLIED+FIXED: kept VoxyConfigScreenPages.java)
 - [x] **16** done: `bbf7d60a` (Backport @ `b0cf4414`, Release v0.2.7-alpha-2.013 — APPLIED)
 - [x] **17** done: `6724157f` (Backport @ `0e534948`, Release v0.2.7-alpha-2.014 — APPLIED)
-- [ ] **18** [`6724157f9a03e17f0407ad14809e340450cf064d`](https://github.com/MCRcortex/voxy/commit/6724157f9a03e17f0407ad14809e340450cf064d) — finally fix the chunk flickering issue when zooming in
+- [x] **18** done: `2bf9af00` (Backport @ `78571170`, Release v0.2.7-alpha-2.015 — APPLIED)
 - [ ] **19** [`2bf9af00e55bed12ebaa44ca1c62986951bfa26b`](https://github.com/MCRcortex/voxy/commit/2bf9af00e55bed12ebaa44ca1c62986951bfa26b) — computed face tint
 - [ ] **20** [`85638fce986b32e7eeab5005b61a11fc07f17ff5`](https://github.com/MCRcortex/voxy/commit/85638fce986b32e7eeab5005b61a11fc07f17ff5) — readme
 - [ ] **21** [`15604c16bf58db6e1839350906c00a1ad89443ab`](https://github.com/MCRcortex/voxy/commit/15604c16bf58db6e1839350906c00a1ad89443ab) — hopefully improved command usage
