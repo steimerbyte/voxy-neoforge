@@ -814,3 +814,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 03c6dffbd4605db9fc536b8001bdc367764a5412
 - **Release:** v0.2.7-alpha-2.094
 - **Notes:** Cherry-pick -x of `4531c55` auto-merged cleanly. `GPUTiming.INSTANCE.marker("...")` is already used elsewhere in the same file (e.g. `GPUTiming.INSTANCE.marker("TP")` line 117) and `GPUTiming` is a stable Voxy-internal class (`src/main/java/me/cortex/voxy/client/core/util/GPUTiming.java`) — no API translation needed. compileJava SUCCESSFUL (39s), build -x test SUCCESSFUL (32s). Push fe7ba658..03c6dffb on backport/sequential. Release v0.2.7-alpha-2.094 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.094.
+
+## 119. `0db700a9af8a1317ea2e7df11e2872e8f5820a2a` tweeks
+- **Verdict:** PORTABLE (tweaks to `GPUTiming.java` — Voxy-internal timer infrastructure, no MC API dependency)
+- **Files:** 1 file, +22/-7 (`src/main/java/me/cortex/voxy/client/core/util/GPUTiming.java`)
+- **Result:** APPLIED
+- **SHA:** 2301ab9909fb83213d372feec599098e6c7f603c
+- **Release:** v0.2.7-alpha-2.095
+- **Notes:** Cherry-pick -x of `0db700a` auto-merged cleanly. `GPUTiming.java` is pure Voxy-internal OpenGL timer-query code with no Fabric/NeoForge or MC-version surface — applies unchanged. compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (32s). Push f5930ec1..2301ab99 on backport/sequential. Release v0.2.7-alpha-2.095 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.095.
