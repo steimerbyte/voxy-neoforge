@@ -943,3 +943,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 006db26e
 - **Release:** v0.2.7-alpha-2.109
 - **Notes:** Cherry-pick -x of `77802c7` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (12s, single deprecation warning for unrelated `ItemBlockRenderTypes.getChunkRenderType(BlockState)`), build -x test SUCCESSFUL (10s). Push 560baf0a..006db26e on backport/sequential. Release v0.2.7-alpha-2.109 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.109.
+
+## 136. `a19d5d0f2188acf5d3b799d25c7a398732164bb6` dont enqueue self render when on the edge of the render distance
+- **Verdict:** PORTABLE (shader-only: adds `furthestPointToCamera` helper and self-render-enqueue gating in `traverse_dev.comp`; no Java touched, no shader-unrelated API dependency)
+- **Files:** 1 file, +17/-1 (`src/main/resources/assets/voxy/shaders/lod/hierarchical/traversal_dev.comp`)
+- **Result:** APPLIED
+- **SHA:** cdf92fef
+- **Release:** v0.2.7-alpha-2.110
+- **Notes:** Cherry-pick -x of `a19d5d0` applied cleanly with no conflicts. compileJava SUCCESSFUL (7s UP-TO-DATE), build -x test SUCCESSFUL (10s). Push 07577482..cdf92fef on backport/sequential. Release v0.2.7-alpha-2.110 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.110.
