@@ -736,3 +736,23 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 338aaf863a829d2d14489370f5bbf2be5da76c29
 - **Release:** v0.2.7-alpha-2.089
 - **Notes:** Cherry-pick -x of `8dfb77d` auto-merged cleanly on `client.voxy.mixins.json` (the entry existed in the same alphabetical position as upstream: between `iris.MixinMatrixUniforms` and `iris.MixinProgramSet`). The mixin was a `@Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableSet$Builder;build()Lcom/google/common/collect/ImmutableSet;"))` on `com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation` against `net.irisshaders.iris.shaderpack.properties.PackRenderTargetDirectives` (Fabric-side API). It was Iris-version-agnostic (no Fabric-vs-NeoForge API translation was needed at the mixin level) — the only difference between our fork's copy and upstream's was that we had `import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;` listed even though the mixin doesn't actually use WrapOperation (the upstream copy uses the same unused import). With Iris now defaulting to 32 colour attachments, the voxy override (16..20 default / 16..200 with `-Dvoxy.IrisExtremeColourTexOverride=true`) is unnecessary and the mixin is dropped. compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (32s). Push 6325591a..338aaf86 on backport/sequential. Release v0.2.7-alpha-2.089 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.089.
+
+## 113. `7f565f1bdf9120cfe80374c8182f6fddfdda1e92` changed storage backends to allow for iteration over stored positions
+- **Verdict:** PORTABLE (pure refactor — splits iteration into dedicated interface, renames method to add `int level` parameter for per-LOD filtering; no API surface dependency on Fabric-vs-NeoForge)
+- **Files:** 12 files, +43/-15
+  - `src/main/java/me/cortex/voxy/common/config/IMappingStorage.java` (-1: removed `iterateStoredSectionPositions`)
+  - `src/main/java/me/cortex/voxy/common/config/IStoredSectionPositionIterator.java` (new, +7: defines `iteratePositions(int level, LongConsumer callback)`)
+  - `src/main/java/me/cortex/voxy/common/config/section/SectionSerializationStorage.java` (rename method, +2/-2)
+  - `src/main/java/me/cortex/voxy/common/config/section/SectionStorage.java` (+1: implements `IStoredSectionPositionIterator`)
+  - `src/main/java/me/cortex/voxy/common/config/storage/StorageBackend.java` (+1: implements `IStoredSectionPositionIterator`)
+  - `src/main/java/me/cortex/voxy/common/config/storage/inmemory/MemoryStorageBackend.java` (+9/-2: level-filter wrapping consumer)
+  - `src/main/java/me/cortex/voxy/common/config/storage/lmdb/LMDBStorageBackend.java` (rename method)
+  - `src/main/java/me/cortex/voxy/common/config/storage/other/DelegatingStorageAdaptor.java` (rename + forward)
+  - `src/main/java/me/cortex/voxy/common/config/storage/other/FragmentedStorageBackendAdaptor.java` (rename + forward in loop)
+  - `src/main/java/me/cortex/voxy/common/config/storage/other/ReadonlyCachingLayer.java` (rename method)
+  - `src/main/java/me/cortex/voxy/common/config/storage/redis/RedisStorageBackend.java` (rename method)
+  - `src/main/java/me/cortex/voxy/common/config/storage/rocksdb/RocksDBStorageBackend.java` (+12/-1: prefix-seek logic with level)
+- **Result:** APPLIED
+- **SHA:** 9a64f89f00a79779f58cfbe18f483c2e2d74b9f0
+- **Release:** v0.2.7-alpha-2.090
+- **Notes:** Cherry-pick -x of `7f565f1` applied cleanly with zero conflicts across all 12 files. The refactor is independent of Minecraft API version: the only NeoForge-vs-Fabric sensitivity would have been if upstream used `Identifier.parse` / `ResourceLocation.parse` etc. in this commit, but the diff only touches Voxy's own storage layer (no Minecraft imports added/changed). `WorldEngine.getLevel(long)`, `WorldEngine.MAX_LOD_LAYER`, `Integer.toUnsignedLong`, `MemoryStack.stackPush`, `MemoryUtil.memPutLong`/`memGetLong`, `Long.reverseBytes` are all Java standard + Voxy-internal APIs that already exist identically in the 1.21.1 fork. The `keyBuff.clear()` call inside the RocksDB iteration loop is necessary because `iter.key(keyBuff)` is documented as non-clearing (the buffer must be reset between calls). The TODO comment on line 122 (`this can be optimized if needed by useing a prefix-seek https://github.com/facebook/rocksdb/wiki/Prefix-Seek`) is preserved verbatim. compileJava SUCCESSFUL (45s), build -x test SUCCESSFUL (32s). Push c49c2ee9..9a64f89f on backport/sequential. Release v0.2.7-alpha-2.090 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.090.
