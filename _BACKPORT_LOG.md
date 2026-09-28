@@ -650,3 +650,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 96fc2081
 - **Release:** v0.2.7-alpha-2.082
 - **Notes:** Cherry-pick -x of `c7166d3f` auto-merged cleanly. Adds a freed-while-dirty guard in `WorldSection.releaseRef` (defensive IllegalStateException if `witness==1 && (isDirty || inSaveQueue)`) and inserts `section.setNotDirty()` at the top of `SectionSavingService.runSectionSave` so the section can never pointlessly resave. No API surface change. compileJava+build SUCCESSFUL (50s). Push 4a4949ba..96fc2081 on backport/sequential. Release v0.2.7-alpha-2.082 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.082.
+
+## 106. `c940c91d749ffbf30c3fa9ba69cca940013d693c` note
+- **Verdict:** PORTABLE (single-line comment annotation — no code change, no API surface impact)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldUpdater.java (+1/-1)
+- **Result:** APPLIED
+- **SHA:** 453956275f7470a286d936d15b4dadc922d7f241
+- **Release:** v0.2.7-alpha-2.083
+- **Notes:** Cherry-pick -x of `c940c91d` auto-merged cleanly. Adds an inline `//VERY VERY VERY IMPORTANT NOTE: IS 13 BITS BIG NOT 12 BITS (since it can be 4096 which is 6 bits large)` comment to the `airCount<<1` encode line in `WorldUpdater.writeStatus` — flags for future maintainers that the decode mask must be `0x1FFF` (13 bits), not `0xFFF` (12 bits), matching the decode-side widening done in commit 104 (`_screams_` / `5937988f`). No code change, pure documentation. compileJava SUCCESSFUL (37s), build -x test SUCCESSFUL (32s). Push 82344920..45395627 on backport/sequential. Release v0.2.7-alpha-2.083 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.083.
