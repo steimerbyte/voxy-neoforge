@@ -887,3 +887,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4be1d5b413c6c8f04983c2db2fc79309cafbb8b0
 - **Release:** v0.2.7-alpha-2.102
 - **Fix:** Cherry-pick -x of `8413d5d` produced a content conflict (the entire file body was marked as conflict because upstream rewrote `parse()` as a 3-line statement while our fork retained the longer preprocess-based body). Resolved by keeping the fork's `preprocessShaderImports` + `getShaderSource` helpers intact and applying the upstream regex `.replaceAll("\n#line [0-9]+ [0-9]+\n", "")` to the final return. Also converted the literal `return "...\n" + ...` chain into `var src = ...` + `return src.replaceAll(...)` to match upstream's style. The `src()` accessor on `ShaderParser.parseShader(...)` from upstream does not exist on our pinned Sodium 0.6 fork — but our fork never used it; we still parse `parseShader("\n" + source + "\n//beans", ...)` and call `.replaceAll` directly on the returned `String`. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 89bf2ef4..4be1d5b4 on backport/sequential.
+
+## 129. `27b3803d767e4e54e0609f4e3456369b6c6e7456` am very fking stupid
+- **Verdict:** PORTABLE (1-line regex replacement-string fix: `replaceAll("\n#line [0-9]+ [0-9]+\n", "")` → `replaceAll("\n#line [0-9]+ [0-9]+\n", "\n")` so stripped line directives leave a newline behind instead of collapsing surrounding lines together)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/gl/shader/ShaderLoader.java`)
+- **Result:** APPLIED+FIXED
+- **SHA:** fbd6c849
+- **Release:** v0.2.7-alpha-2.103
+- **Fix:** Cherry-pick -x of `27b3803d` produced the same whole-file content conflict as commit 128 because our fork's `parse()` body is longer than upstream's. Resolved by applying only the line-level regex replacement-string fix on the existing line (replacing `""` with `"\n"`). compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9f9c4a2b..fbd6c849 on backport/sequential.
