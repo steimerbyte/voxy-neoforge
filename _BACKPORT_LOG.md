@@ -74,3 +74,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Files:** IrisVoxyRenderPipelineData.java
 - **Result:** SKIPPED
 - **Reason:** Fixes Null-bug for `addDynamicSampler(..., Supplier<GlSampler> sampler, ...)` upstream signature. Our 1.21.1 fork has `addDynamicSampler(..., GlSampler sampler, ...)` with direct `sampler.getId()`. The upstream Iris API doesn't exist here, so the null-fix is semantically not portable.
+
+## 13. `561337e1` hoist common FB
+- **Verdict:** PORTABLE
+- **Files:** 5 files (+18/-7)
+- **Result:** APPLIED
+- **SHA:** 1eb60ea8
+- **Release:** v0.2.7-alpha-2.010
+- **Notes:** Hoists common framebuffer logic. Clean auto-merge.
