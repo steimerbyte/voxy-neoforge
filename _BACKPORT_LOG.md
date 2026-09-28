@@ -1052,3 +1052,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** de2c700c
 - **Release:** v0.2.7-alpha-2.121
 - **Notes:** Cherry-pick -x of `2efe32f7` auto-merged cleanly across both files. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push 135426ec..de2c700c on backport/sequential.
+
+## 149. `72768ca6` dont zip jar on upload
+- **Verdict:** PORTABLE-AS-NO-OP (CI-only bump: bumps `actions/upload-artifact@v4` → `v7` and adds `archive: false` so the workflow no longer zips the build/libs/*.jar files. Our fork had pre-moved `manual-artifact.yml` into `workflows-disabled/` (commit `c6270e54`, "Disable GitHub Actions workflows") so the workflow is non-functional — but the upstream hunk's semantic change still landed correctly under the disabled dir for archival parity.)
+- **Files:** 1 file, +3/-2 (`.github/workflows-disabled/manual-artifact.yml` +3/-2 [actions/upload-artifact@v4 → v7, added `archive: false`])
+- **Result:** APPLIED
+- **SHA:** 40192d31
+- **Release:** v0.2.7-alpha-2.122
+- **Notes:** Cherry-pick -x of `72768ca6` auto-resolved cleanly: the fork's `workflows/manual-artifact.yml` was already renamed to `workflows-disabled/manual-artifact.yml` by prior commit `c6270e54`, so git tracked this as a modify on the existing disabled copy rather than a new file in `.github/workflows/`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 74619760..40192d31 on backport/sequential.
