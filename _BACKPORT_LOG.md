@@ -226,3 +226,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Files:** 5
 - **Result:** APPLIED
 - **Release:** v0.2.7-alpha-2.028
+
+## 35. `1e4500a9` Sodium update + fog change
+- **Verdict:** MC-26-ONLY
+- **Files:** 9
+- **Result:** SKIPPED
+- **Reason:** Pulls Sodium 0.8.1-SNAPSHOT, FlagHook/Identifier Config API, MC 1.21.11 FogData. None exist in our Sodium 0.6.13 / MC 1.21.1 fork. Manual fix would require Sodium dep swap + MC version bump + 3 build file edits — outside backport scope.
