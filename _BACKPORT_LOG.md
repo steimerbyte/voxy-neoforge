@@ -128,3 +128,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Files:** README.md
 - **Result:** SKIPPED
 - **Reason:** Our README is a 158-line 1.21.1-NeoForge-specific document (build status, AI-generated disclosure, etc.). Upstream adds 1 line to their minimal README. No clean merge path.
+
+## 20. `15604c16` hopefully improved command usage
+- **Verdict:** REQUIRES-MANUAL-PORT
+- **Files:** 1 file
+- **Result:** APPLIED+FIXED
+- **SHA:** 1f647fc4
+- **Release:** v0.2.7-alpha-2.016
+- **Fix:** `net.minecraft.resources.Identifier` → `net.minecraft.resources.ResourceLocation` (renamed in MC 1.21.4+).

@@ -17,7 +17,7 @@
 - [x] **17** done: `6724157f` (Backport @ `0e534948`, Release v0.2.7-alpha-2.014 — APPLIED)
 - [x] **18** done: `2bf9af00` (Backport @ `78571170`, Release v0.2.7-alpha-2.015 — APPLIED)
 - [x] **19** skipped: `85638fce` readme — our README is 158-line 1.21.1-NeoForge-specific, upstream adds 1 line to a different README. Not portable.
-- [ ] **20** [`85638fce986b32e7eeab5005b61a11fc07f17ff5`](https://github.com/MCRcortex/voxy/commit/85638fce986b32e7eeab5005b61a11fc07f17ff5) — readme
+- [x] **20** done: `15604c16` (Backport @ `1f647fc4`, Release v0.2.7-alpha-2.016 — APPLIED+FIXED: Identifier→ResourceLocation)
 - [ ] **21** [`15604c16bf58db6e1839350906c00a1ad89443ab`](https://github.com/MCRcortex/voxy/commit/15604c16bf58db6e1839350906c00a1ad89443ab) — hopefully improved command usage
 - [ ] **22** [`76cfef5b3c28961e29ace505ea4fea4d7aad90d7`](https://github.com/MCRcortex/voxy/commit/76cfef5b3c28961e29ace505ea4fea4d7aad90d7) — update deps, fix unlikely race in import manager, clamp fog, fix some some incorrect meshing
 - [ ] **23** [`362998cc5f1b91de56e8f773c62727c8c17a9192`](https://github.com/MCRcortex/voxy/commit/362998cc5f1b91de56e8f773c62727c8c17a9192) — woooops
