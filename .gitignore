@@ -17,3 +17,7 @@ runs/
 # OS
 .DS_Store
 Thumbs.db
+
+# Pix Agent
+.pi/
+.pi-lens/
