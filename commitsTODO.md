@@ -33,7 +33,7 @@
 - [x] **33** done: APPLIED: → v0.2.7-alpha-2.027 (AMD bug detection — KNOWN PERF/FIX)
 - [x] **34** done: APPLIED: → v0.2.7-alpha-2.028 (wip deferred translucency)
 - [x] **35** SKIPPED: `1e4500a9` Sodium update + fog change — pulls Sodium 0.8.1-SNAPSHOT (`net.caffeinemc:sodium-fabric:0.8.1-SNAPSHOT+mc1.21.11+`), FlagHook/Identifier Config API, MC 1.21.11 FogData class. None exist in our Sodium 0.6.13 / MC 1.21.1. Manual fix = version bump + 3 build file edits, outside backport scope.
-- [ ] **36** [`bca46143fb35934a80b6ba7ecebbcf93bd00b3fe`](https://github.com/MCRcortex/voxy/commit/bca46143fb35934a80b6ba7ecebbcf93bd00b3fe) — remove sodium extra
+- [x] **36** done: APPLIED: 2a102d55 → v0.2.7-alpha-2.029 (remove sodium extra)
 - [ ] **37** [`d30ea7ecc76b68840bc3febc119f0f00766bae50`](https://github.com/MCRcortex/voxy/commit/d30ea7ecc76b68840bc3febc119f0f00766bae50) — here we go again
 - [ ] **38** [`342043674dbd4fea53d7c42673ea9ebe70fe9cff`](https://github.com/MCRcortex/voxy/commit/342043674dbd4fea53d7c42673ea9ebe70fe9cff) — stupid idiot
 - [ ] **39** [`b68d5b3c66e36e1adc987675ae1aae2891496901`](https://github.com/MCRcortex/voxy/commit/b68d5b3c66e36e1adc987675ae1aae2891496901) — dis
