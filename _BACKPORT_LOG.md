@@ -903,3 +903,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a2dcfa7a
 - **Release:** v0.2.7-alpha-2.104
 - **Notes:** Cherry-pick -x of `48b9d279` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 58ea63ec..a2dcfa7a on backport/sequential.
+
+## 131. `79b6eb1de6dbfd93303b95e9d93506dab56aa01f` log start of render creation
+- **Verdict:** PORTABLE (2-line log addition: `Logger.info("Creating Voxy render system");` + blank line in `VoxyRenderSystem` constructor — `me.cortex.voxy.common.Logger` already imported)
+- **Files:** 1 file, +2/-0 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** d8481bc6
+- **Release:** v0.2.7-alpha-2.105
+- **Notes:** Cherry-pick -x of `79b6eb1d` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 5244bb91..d8481bc6 on backport/sequential.
