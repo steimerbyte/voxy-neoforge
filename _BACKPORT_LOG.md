@@ -466,3 +466,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** cc9b9059b59079a2fa8173e0e52c971f17bfdac3
 - **Release:** v0.2.7-alpha-2.064
 - **Notes:** Cherry-pick -x of `d69bf7e8` auto-merged cleanly with no conflicts. The "L" in the commit subject is the literal `L` suffix added in `(1L<<26)-1` to widen the bitmask expression from int to long, matching the `data` field's width on this path (avoids sign-extension risk for the upcoming 32+ bit auxiliary payload). Same byte code in the 1.21.1 fork. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (30s). Push 79ee91f1..cc9b9059 on backport/sequential. Release v0.2.7-alpha-2.064 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.064.
+
+## 84. `95199b7d83d8bc19a41539901dc5f148ddf0f987` move internal to private
+- **Verdict:** PORTABLE (internal-API tightening)
+- **Files:** src/main/java/me/cortex/voxy/client/core/util/ScanMesher2D.java (+8/-4)
+- **Result:** APPLIED
+- **SHA:** b31babe58eb6e77ee8676fb8b8d6e3db5c566bd4
+- **Release:** v0.2.7-alpha-2.065
+- **Notes:** Cherry-pick -x of `95199b7d` auto-merged cleanly with no conflicts. Splits the previously-public `putNext(long data)` into a thin public wrapper that delegates to a new `private void putNext0(long data)`, then rewrites the four internal call sites in `emitEnd()`, `skip()`, and the surrounding comment code to call `putNext0` directly. Subclasses (none in this fork, only the abstract `ScanMesher2D` itself and one test) are unaffected because no override signature changed; the public contract is identical. Purely a tightening of internal-vs-public visibility, no API surface change. compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (31s). Push 67239552..b31babe5 on backport/sequential. Release v0.2.7-alpha-2.065 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.065.
