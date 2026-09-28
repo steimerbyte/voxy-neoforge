@@ -442,3 +442,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 332df547e7bf48b8f08cd2a747477f41a025e31e
 - **Release:** v0.2.7-alpha-2.061
 - **Notes:** Cherry-pick -x of `ac36d1bf` applied cleanly with no conflicts. Refactor that completes the work started in commit 79: promotes the section-count accessor from AsyncNodeManager's local `currentGeometrySectionCount` field into the `IGeometryData` interface itself. Three coordinated edits: (a) `IGeometryData.java` adds `int getSectionCount();` to its (previously 1-method) interface, (b) `BasicSectionGeometryData.getSectionCount()` gets `@Override` (its implementation already existed and returned `this.currentSectionCount`), (c) `AsyncNodeManager.java` deletes the duplicate `currentGeometrySectionCount` field + the inline assignment during commit, debug overlay now reads via `this.geometryData.getSectionCount()`. Pre-flight confirmed only one implementation of `IGeometryData` in the 1.21.1 fork (BasicSectionGeometryData) — adding the interface method is non-breaking. The information flow stays identical: `setSectionCount(...)` still updates `currentSectionCount`, which the now-interface method reads back. compileJava SUCCESSFUL (38s), build -x test SUCCESSFUL (30s). Push 95f5d9f5..332df547 on backport/sequential. Release v0.2.7-alpha-2.061 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.061.
+
+## 81. `ba46051651f1f0231de71c529d5fc6b18b0380e1` log
+- **Verdict:** PORTABLE (1-line log statement)
+- **Files:** src/main/java/me/cortex/voxy/client/core/rendering/hierachical/NodeManager.java (+1/-1)
+- **Result:** APPLIED
+- **SHA:** 0d4a71fef397252e8b9785cb4709f13ca6240be8
+- **Release:** v0.2.7-alpha-2.062
+- **Notes:** Cherry-pick -x of `ba460516` auto-merged cleanly with no conflicts. 1-line log change in NodeManager.java (only the log message text differs). No 1.21.1 API surface impact. compileJava SUCCESSFUL (36s), build -x test SUCCESSFUL (30s). Push 28c150a4..0d4a71fe on backport/sequential. Release v0.2.7-alpha-2.062 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.062.
