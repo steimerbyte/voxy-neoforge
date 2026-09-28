@@ -220,3 +220,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **Release:** v0.2.7-alpha-2.027
 - **Notes:** AMD GPU bug detection (KNOWN PERF/FIX — never skip).
+
+## 34. `bc995f9c` wip defered translucency
+- **Verdict:** PORTABLE
+- **Files:** 5
+- **Result:** APPLIED
+- **Release:** v0.2.7-alpha-2.028
