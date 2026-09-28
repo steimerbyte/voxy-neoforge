@@ -1221,3 +1221,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.138
 - **Fix:** Resolved the VoxyCommands conflict using the fork's `LiteralArgumentBuilder<CommandSourceStack>` and `RequiredArgumentBuilder<CommandSourceStack, Boolean>` patterns, replaced upstream Fabric command types with `CommandSourceStack`, and preserved the fork's import-command registration. The live verification path now defaults repair off and accepts a Boolean argument.
 - **Notes:** compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push 5e3e716f..6bcdba9f on backport/sequential. Release v0.2.7-alpha-2.138 created with both built jars after retried full-SHA targeting. Counter advanced .137 → .138.
+
+## 170. `7cacc8632eb435d1d5d0f52bcb5324392ceb5c90` atempted splitting of the prepareSectionData method but thinks it just made the jit worse
+- **Verdict:** PORTABLE (clean cherry-pick: refactors `RenderDataFactory.prepareSectionData` into smaller internal helpers while preserving section data creation, neighbor release behavior, and upload flow; the change uses only fork-existing APIs.)
+- **Files:** 1 file, +22/-23 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderDataFactory.java`)
+- **Result:** APPLIED
+- **SHA:** 222e2685
+- **Release:** v0.2.7-alpha-2.139
+- **Notes:** Cherry-pick -x of `7cacc863` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9ff48bc9..222e2685 on backport/sequential. Release v0.2.7-alpha-2.139 created with both built jars. Counter advanced .138 → .139.
