@@ -209,3 +209,8 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **Release:** v0.2.7-alpha-2.025
 - **Notes:** Race condition fix.
+
+## 32. `4ffb7583` complete and utter fukin idiot
+- **Verdict:** PORTABLE
+- **Result:** APPLIED
+- **Release:** v0.2.7-alpha-2.026
