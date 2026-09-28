@@ -1261,3 +1261,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 8548627a
 - **Release:** v0.2.7-alpha-2.143
 - **Notes:** Cherry-pick -x of `08a17128` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 2a9d6782..8548627a on backport/sequential. Release v0.2.7-alpha-2.143 created with both built jars after retrying with the full commit SHA. Counter advanced .142 → .143.
+
+## 175. `5779f52d21b447acca687c643e536dcff88b3d08` taa in heirachial traversal + other fixes
+- **Verdict:** PORTABLE (clean cherry-pick: updates hierarchical traversal screen-space math for TAA jitter and corrects viewport/projection handling; the GLSL-only change uses the fork's existing shader interface with no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +21/-7 (`screenspace.glsl`)
+- **Result:** APPLIED
+- **SHA:** 0298fc85
+- **Release:** v0.2.7-alpha-2.144
+- **Notes:** Cherry-pick -x of `5779f52d` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 8db9dabe..0298fc85 on backport/sequential. Release v0.2.7-alpha-2.144 created with both built jars. Counter advanced .143 → .144.
