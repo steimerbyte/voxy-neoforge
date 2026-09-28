@@ -575,3 +575,17 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a3da4a1564f0658709e9648df5eb449e86d976a6
 - **Release:** v0.2.7-alpha-2.075
 - **Notes:** Cherry-pick -x of `0e9e3a17` auto-merged cleanly with no textual conflicts. `DownloadStream` spin-wait loop now also calls `glFinish()` between `Thread.onSpinWait()` iterations so stuck GPU fences actually make progress (the outer `glFinish()` was outside the loop). Stale `//TODO: FIXME, use the ByteBuffer variant` comment removed from `RocksDBStorageBackend.setSectionData`. No API surface change. compileJava SUCCESSFUL (36s), build -x test SUCCESSFUL (30s). Push 75c76078..a3da4a15 on backport/sequential. Release v0.2.7-alpha-2.075 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.075.
+
+## 98. `d0e879b63f8ee6f2a0de8a350e6a955b0a687392` fix iris lightmap texture
+- **Verdict:** REQUIRES-MANUAL-PORT (2 of 4 files are 1.21.11-only and skipped; 2 are ported for 1.21.1 API + record signature)
+- **Files (upstream):** build.gradle (+1/-1), gradle.properties (+1/-1), src/main/java/me/cortex/voxy/client/core/rendering/util/LightMapHelper.java (+5/-1), src/main/java/me/cortex/voxy/client/iris/IrisVoxyRenderPipelineData.java (+14/-1)
+- **Files (applied):** LightMapHelper.java (+5/-1), IrisVoxyRenderPipelineData.java (+14/-1)
+- **Result:** APPLIED+FIXED
+- **SHA:** ec4d322aaa175ac3abdd3fde7230616ae609223d
+- **Release:** v0.2.7-alpha-2.076
+- **Notes:** Cherry-pick -x of `d0e879b6` produced conflicts on 3 files (build.gradle, LightMapHelper.java, IrisVoxyRenderPipelineData.java); gradle.properties auto-merged. Resolution:
+  1. **build.gradle** — kept HEAD (curse.maven:irisshaders-455508 1.21.1 line) and discarded upstream's sodium 0.8.2/0.8.3 MC 1.21.11 block. Our fork uses sodium 394468 for 1.21.1.
+  2. **gradle.properties** — reverted upstream's `mod_version = 0.2.10-alpha` to our `0.2.9-alpha` to keep the v0.2.7-alpha-2.NNN release-tag sequence consistent (the actual fork jar is named `voxy-0.2.9-alpha.jar` per `version = project.mod_version`).
+  3. **LightMapHelper.java** — applied the structural change (new `getLightmapTextureId()` helper) but used 1.21.1 API `Minecraft.getInstance().gameRenderer.lightTexture().lightTexture.getId()` instead of upstream's 1.21.11 `((GlTexture) gameRenderer.lightTexture().getTextureView().texture()).glId()`.
+  4. **IrisVoxyRenderPipelineData.java** — applied the new `externalTextures` map and the conditional in `addExternalSampler`. Inlined `() -> 0` / `() -> -1` to plain `0` / `-1` because our fork's `record TextureWSampler(String name, IntSupplier texture, int sampler)` uses `int sampler`, not `IntSupplier sampler` (upstream's deferred-sampler field is 1.21.11 Iris API).
+  compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (32s). Push 9845315b..ec4d322a on backport/sequential. Release v0.2.7-alpha-2.076 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.076.
