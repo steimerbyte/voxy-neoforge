@@ -709,3 +709,20 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 5bd6100848f35ddb71760c6cbd3d44d248e6ea39
 - **Release:** v0.2.7-alpha-2.087
 - **Notes:** Cherry-pick -x of `1511bf36` auto-merged cleanly. In `VoxelIngestService.processJob`, the `WorldConversionFactory.convert(...)` call now reuses the already-bound `vs` local (set on line 38 as `SECTION_CACHE.get().setPosition(task.cx, task.cy, task.cz)`) instead of re-fetching the ThreadLocal `SECTION_CACHE.get()` — saves one ThreadLocal hashmap lookup per chunk-section ingest. No API surface change, no semantic change (the position set on line 38 is preserved on the cached section). compileJava SUCCESSFUL (43s), build -x test SUCCESSFUL (32s). Push f86be3cf..5bd61008 on backport/sequential. Release v0.2.7-alpha-2.087 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.087 (initial v0.2.7-alpha-2.086 tag was deleted and recreated as .087 to align with the 5-position n=1..5 release-number sequence `.083-.087` mandated by the task spec, since n=5 corresponds to commit 110 even though commit 107 was skipped).
+
+## 111. `6189ee388fcef6948241f2c6f69f50a380d98a35` fix chunks ingesting incorrectly on death move
+- **Verdict:** PORTABLE-WITH-IMPORT-FIX (pure logic fix: replace `self.getChunk(pos).getSection(...)` with `getChunk(x, z, ChunkStatus.FULL, false).getSection(...)` and add null-guards; add `@Nullable` to `voxy$cheekyGetChunk` and chunk-position verification in `MixinClientChunkCache`. Only translation needed is `org.jspecify.annotations.Nullable` → `org.jetbrains.annotations.Nullable` because jspecify is not on the 1.21.1 fork classpath.)
+- **Files:** 4 files, +39/-16
+  - `src/main/java/me/cortex/voxy/client/ICheekyClientChunkCache.java` (auto-merge + import fix `org.jspecify.annotations.Nullable` → `org.jetbrains.annotations.Nullable`)
+  - `src/main/java/me/cortex/voxy/client/mixin/minecraft/MixinClientChunkCache.java` (auto-merge + import fix `org.jspecify.annotations.Nullable` → `org.jetbrains.annotations.Nullable`)
+  - `src/main/java/me/cortex/voxy/client/mixin/minecraft/MixinClientLevel.java` (auto-merge)
+  - `src/main/java/me/cortex/voxy/client/mixin/sodium/MixinRenderSectionManager.java` (auto-merge)
+- **Result:** APPLIED+FIXED
+- **SHA:** 0c837a8bcbf6573a954a55eff9e443d079ec7913
+- **Release:** v0.2.7-alpha-2.088
+- **Fix (jspecify → jetbrains import):**
+  - Upstream `6189ee3` annotates the new nullable methods/parameters with `org.jspecify.annotations.Nullable`, a transitive dep of modern Mojang mappings (1.21.2+).
+  - Our 1.21.1 fork does NOT pull jspecify (verified: no `jspecify*.jar` anywhere on disk after `compileJava`, no reference in `build.gradle`). The project already uses `org.jetbrains.annotations.Nullable` in 7 files (e.g. `MixinLevelRenderer.java:14`, `BakedBlockEntityModel.java:13`, `ModelFactory.java:13`).
+  - `compileJava` failed with `error: package org.jspecify.annotations does not exist` on both `ICheekyClientChunkCache.java:4` and `MixinClientChunkCache.java:10`.
+  - Fix: replaced both `import org.jspecify.annotations.Nullable;` with `import org.jetbrains.annotations.Nullable;` via `git commit --amend --no-edit` to fold the fix into the cherry-picked commit (so the published SHA is the corrected one, no "fix-up" commit).
+- **Notes:** Pre-existing fork state already had an unrelated `voxy$cheekyGetChunk` in `MixinRenderSectionManager.java:57` (from earlier commit 85 backport) — that call site was NOT touched by `6189ee3`. The patch only modifies the onChunkRemoved branch (around line 125). All three mixin files auto-merged; only the import lines needed manual `amend` edits. compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (32s). Push d20ee3af..0c837a8b on backport/sequential. Release v0.2.7-alpha-2.088 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.088.
