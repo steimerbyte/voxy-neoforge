@@ -1002,3 +1002,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 59e8f139
 - **Release:** v0.2.7-alpha-2.116
 - **Notes:** Cherry-pick -x of `1316043` auto-merged cleanly across all 4 files. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 02cdf16f..59e8f139 on backport/sequential.
+
+## 143. `7446e9ec` change render distance to lowest level incremnt
+- **Verdict:** REQUIRES-MANUAL-PORT (VoxyConfigMenu.java was deleted on the 1.21.1 fork, replaced by VoxyConfigScreenPages.java — the upstream hunk for VoxyConfigMenu.java needs to be ported to our VoxyConfigScreenPages.java equivalent; otherwise the int→float type change breaks callers)
+- **Files:** 3 files, +7/-7 (`src/main/java/me/cortex/voxy/client/config/VoxyConfig.java` +1/-1 [int sectionRenderDistance → float], `src/main/java/me/cortex/voxy/client/config/VoxyConfigScreenPages.java` +4/-4 [port of upstream VoxyConfigMenu hunk: slider range (2,64)→(2*16,64*16), formatter v*32→Math.round(v/16f*32), binding (s,v)->{s.sectionRenderDistance=v/16f; vrs.setRenderDistance(s.sectionRenderDistance)}, getter s->s.sectionRenderDistance→s->Math.round(s.sectionRenderDistance*16)], `src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java` +2/-2 [setRenderDistance int → float, +1 → Math.ceil(rd+1)])
+- **Result:** APPLIED+FIXED
+- **SHA:** 9548c631
+- **Release:** v0.2.7-alpha-2.117
+- **Fix:** VoxyConfigMenu.java modify/delete conflict (file is deleted on our fork — git rm). Auto-merge applied int→float change to VoxyConfig.java and VoxyRenderSystem.java cleanly. Manually ported the equivalent VoxyConfigMenu hunks to VoxyConfigScreenPages.java so the slider keeps working: (1) SliderControl range `2..64` → `2*16..64*16`; (2) formatter `v*32` → `Math.round(v/16f * 32)`; (3) setter stores `v/16f` instead of `v`; (4) getter returns `Math.round(s.sectionRenderDistance*16)` to map float back to int slider value. The third int-callsite in `VoxyRenderSystem.setRenderDistance(int)` had to change to `float` to accept the new float type.
+- **Notes:** Also a pre-backport setup fix in this batch: `gradle.properties` `mod_version=0.2.9-alpha` → `0.2.7-alpha` so build/libs jars match the GitHub release tag (committed as `18d2fae2` between cherry-pick and release; no release of its own). compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 72de36f0..9548c631 on backport/sequential.
