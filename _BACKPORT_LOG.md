@@ -122,3 +122,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 78571170
 - **Release:** v0.2.7-alpha-2.015
 - **Notes:** Adds computed face tint logic to shader. Clean auto-merge.
+
+## 19. `85638fce` readme
+- **Verdict:** CONFLICT (unresolvable — content mismatch)
+- **Files:** README.md
+- **Result:** SKIPPED
+- **Reason:** Our README is a 158-line 1.21.1-NeoForge-specific document (build status, AI-generated disclosure, etc.). Upstream adds 1 line to their minimal README. No clean merge path.
