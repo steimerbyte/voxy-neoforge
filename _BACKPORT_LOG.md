@@ -1148,3 +1148,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** n/a
 - **Release:** n/a (counter unchanged at .130)
 - **Notes:** Cherry-pick -x of `731ca0e9` triggered 2 content conflicts (VoxyClient.java, ModelFactory.java) and 3 modify/delete conflicts (BudgetBufferRenderer.java, ModelTextureBakery.java, SoftwareRasterizer.java). The dependency direction makes this commit uncatch-up-able: removing ModelTextureBakery would force ModelFactory.java to also rewrite its bakery field to point at the SoftwareModelTextureBakery type, which we already determined is MC 1.21.11-only. Aborted with `git cherry-pick --abort`. Counter unchanged at .130.
+
+## 161. `4149b0cb` smaller rd
+- **Verdict:** PORTABLE-WITH-REBASE (upstream edits only `VoxyConfigMenu.java:109` (`1*16` → `10/*1*16*/`). Same pattern as commit 155: VoxyConfigMenu.java was deleted on the fork by `cad8d593` ("1.21.10 backport"); the equivalent lives in `VoxyConfigScreenPages.java:126` as a `SliderControl(opt, 1*16, 64*16, 1, ...)`. Semantic port: change the min from `1*16` to `10/*1*16*/` on line 126 of `VoxyConfigScreenPages.java`. The state coming into 161 had `1*16` (because of commit 155) — 161 brings it down to `10`.)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/config/VoxyConfigScreenPages.java` +1/-1 [SliderControl min: `1*16` → `10/*1*16*/` on line 126])
+- **Result:** APPLIED
+- **SHA:** 5555759b
+- **Release:** v0.2.7-alpha-2.131
+- **Notes:** Cherry-pick -x of `4149b0cb` triggered a modify/delete conflict on VoxyConfigMenu.java because that file was deleted by upstream commit `cad8d593` and replaced by VoxyConfigScreenPages.java. Aborted the cherry-pick, then manually applied the semantic equivalent edit on `VoxyConfigScreenPages.java:126` (1*16 → 10/*1*16*/) and committed with `(cherry picked from commit 4149b0cb93d553978dd2619456d271d3923a5d75)` trailer. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9dc7cb4f..5555759b on backport/sequential.
