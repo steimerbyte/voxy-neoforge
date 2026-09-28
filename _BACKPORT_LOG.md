@@ -610,3 +610,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
   4. **client.voxy.mixins.json** — moves `minecraft.MixinLayerLightSectionStorage` and `sodium.MixinVideoSettingsScreen` between alphabetically-sorted groups. Our fork doesn't list `MixinVideoSettingsScreen` (different name) and uses a different mixin layout for 1.21.1.
   5. **fabric.mod.json** — bumps `sodium: "=0.8.2"` → `"=0.8.3"` and `minecraft: ["1.21.11"]`. Our 1.21.1 fork uses `mods.toml` for neoforge, not `fabric.mod.json`, and the JSON's MC version (`1.21.11`) and sodium version (`=0.8.3`) are 1.21.11-only.
   Per port-pattern guidance ("sodium 0.8.3 = MC 1.21.11, likely skip target") the cherry-pick was not attempted; HEAD remains at 4d55c367.
+
+## 101. `097b5e24f230e84c078d9a65c68248ae3f4b98ba` break up world updater
+- **Verdict:** PORTABLE (pure internal Java refactor of WorldUpdater.java — splits monolithic class into smaller helper methods; no 1.21.x API surface change)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldUpdater.java (+70/-69)
+- **Result:** APPLIED
+- **SHA:** 0b12c725e4b8e6716fb2a30ef95bf7ed6a28a772
+- **Release:** v0.2.7-alpha-2.078
+- **Notes:** Cherry-pick -x of `097b5e24` auto-merged cleanly with no textual conflicts. Refactors `WorldUpdater` into smaller methods (`runUpdates`, per-section block-state accumulation helpers, etc.) without changing observable behavior or touching MC API surface. compileJava SUCCESSFUL (25s), build -x test SUCCESSFUL (31s). Push 8a7dc8e2..0b12c725 on backport/sequential. Release v0.2.7-alpha-2.078 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.078.
