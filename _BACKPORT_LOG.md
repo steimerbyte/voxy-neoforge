@@ -589,3 +589,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
   3. **LightMapHelper.java** — applied the structural change (new `getLightmapTextureId()` helper) but used 1.21.1 API `Minecraft.getInstance().gameRenderer.lightTexture().lightTexture.getId()` instead of upstream's 1.21.11 `((GlTexture) gameRenderer.lightTexture().getTextureView().texture()).glId()`.
   4. **IrisVoxyRenderPipelineData.java** — applied the new `externalTextures` map and the conditional in `addExternalSampler`. Inlined `() -> 0` / `() -> -1` to plain `0` / `-1` because our fork's `record TextureWSampler(String name, IntSupplier texture, int sampler)` uses `int sampler`, not `IntSupplier sampler` (upstream's deferred-sampler field is 1.21.11 Iris API).
   compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (32s). Push 9845315b..ec4d322a on backport/sequential. Release v0.2.7-alpha-2.076 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.076.
+
+## 99. `51f5851b982947414a943496e04e23fb0c5921f0` todo
+- **Verdict:** PORTABLE (single TODO comment, no API surface change)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldSection.java (+1)
+- **Result:** APPLIED
+- **SHA:** 1a403819c7a181aac88972e0eea008a47eeac147
+- **Release:** v0.2.7-alpha-2.077
+- **Notes:** Cherry-pick -x of `51f5851b` auto-merged cleanly with no textual conflicts. Adds a `//TODO: this needs to update the block counts` marker above the body of `WorldSection.set(int, int, int, long)` flagging that the in-place data[idx] mutation doesn't bump `nonEmptyBlockCount`, so per-section block counts drift over time. compileJava SUCCESSFUL (42s), build -x test SUCCESSFUL (31s). Push a83345e1..1a403819 on backport/sequential. Release v0.2.7-alpha-2.077 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.077.
