@@ -1076,3 +1076,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d6981116
 - **Release:** v0.2.7-alpha-2.124
 - **Notes:** Cherry-pick -x of `74214ccb` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push e924921f..d6981116 on backport/sequential.
+
+## 152. `40a62448` tex mask gen util
+- **Verdict:** PORTABLE (clean cherry-pick: adds two `static long[] generateMask(ColourDepthTextureData, int checkMode[, long[] outMsk])` overloads in `TextureUtils.java`. The 1-arg version allocates `new long[data.width()*data.height()/64]`, the 3-arg version fills the caller-provided buffer. Iterates x,y in (0,0)→(data.width, data.height) order and sets bit `i&63` of `outMsk[i/64]` when `wasPixelWritten(...)` returns true. Uses pre-existing `ColourDepthTextureData.width()/height()` and `wasPixelWritten(data, checkMode, i)` helpers from the same file — all MC 1.21.1-compatible.)
+- **Files:** 1 file, +20/-0 (`src/main/java/me/cortex/voxy/client/core/model/TextureUtils.java` +20/-0 [added `import java.util.Arrays`; new 1-arg + 3-arg `generateMask` overloads between `getWrittenPixelCount`/`isSolid`/`computeFaceTint` helpers and the existing `computeBounds` method])
+- **Result:** APPLIED
+- **SHA:** 34633029
+- **Release:** v0.2.7-alpha-2.125
+- **Notes:** Cherry-pick -x of `40a62448` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 5d150888..34633029 on backport/sequential.
