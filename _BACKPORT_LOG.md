@@ -90,3 +90,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a55b0a6b
 - **Release:** v0.2.7-alpha-2.011
 - **Notes:** Clean cherry-pick.
+
+## 15. `b7f5798e` fix iris
+- **Verdict:** REQUIRES-MANUAL-PORT
+- **Files:** 3 (2 applied, 1 kept)
+- **Result:** APPLIED+FIXED
+- **SHA:** fa8fe58e
+- **Release:** v0.2.7-alpha-2.012
+- **Fix:** Kept `VoxyConfigScreenPages.java` (actively referenced via `MixinSodiumOptionsGUI` in our 1.21.1 fork; upstream only deleted it because `VoxyConfigPageSodium` replaced callsites — not done in 1.21.1). Applied the actual fix: `IrisVoxyRenderPipeline.java` `getDepthTex().getFormat()` → `getFormat()` + new `DepthFramebuffer.getFormat()` getter.
