@@ -3,8 +3,6 @@
   "package": "me.cortex.voxy.client.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "flashback.MixinFlashbackMeta",
-    "flashback.MixinFlashbackRecorder",
     "iris.CustomUniformsAccessor",
     "iris.IrisRenderingPipelineAccessor",
     "iris.MixinIris",
@@ -16,26 +14,24 @@
     "iris.MixinProgramSet",
     "iris.MixinShaderPackSourceNames",
     "iris.MixinStandardMacros",
-    // "minecraft.MixinBlockableEventLoop",
+    "minecraft.AccessorEmptyTextureStateShard",
     "minecraft.MixinClientChunkCache",
     "minecraft.MixinClientCommonPacketListenerImpl",
     "minecraft.MixinClientLevel",
     "minecraft.MixinClientPacketListener",
     "minecraft.MixinFogRenderer",
-    // "minecraft.MixinGlDebug",
+    "minecraft.MixinLayerLightSectionStorage",
     "minecraft.MixinLevelRenderer",
     "minecraft.MixinMinecraft",
     "minecraft.MixinRenderSystem",
     "minecraft.MixinWindow",
-    "nvidium.MixinRenderPipeline",
     "sodium.AccessorChunkTracker",
     "sodium.AccessorSodiumWorldRenderer",
     "sodium.MixinChunkJobQueue",
     "sodium.MixinDefaultChunkRenderer",
     "sodium.MixinRenderSectionManager",
     "sodium.MixinSodiumOptionsGUI",
-    "sodium.MixinSodiumWorldRenderer",
-    "minecraft.MixinLayerLightSectionStorage"
+    "sodium.MixinSodiumWorldRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

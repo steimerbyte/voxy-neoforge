@@ -7,7 +7,7 @@ import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.common.util.cpu.CpuLayout;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
-import net.fabricmc.loader.api.FabricLoader;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -70,8 +70,7 @@ public class VoxyConfig implements OptionStorage<VoxyConfig> {
     }
 
     private static Path getConfigPath() {
-        return FabricLoader.getInstance()
-                .getConfigDir()
+        return FMLPaths.CONFIGDIR.get()
                 .resolve("voxy-config.json");
     }
 

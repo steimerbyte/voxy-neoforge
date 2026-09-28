@@ -5,16 +5,16 @@ import me.cortex.voxy.client.core.model.bakery.BudgetBufferRenderer;
 import me.cortex.voxy.client.core.rendering.util.SharedIndexBuffer;
 import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.commonImpl.VoxyCommon;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.loader.api.FabricLoader;
-// import net.minecraft.client.gui.components.debug.DebugScreenEntries;
-import net.minecraft.resources.ResourceLocation;
+import me.cortex.voxy.NeoVoxyMod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import java.util.HashSet;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
-public class VoxyClient implements ClientModInitializer {
+public class VoxyClient {
     private static final HashSet<String> FREX = new HashSet<>();
 
     public static void initVoxyClient() {
@@ -37,23 +37,11 @@ public class VoxyClient implements ClientModInitializer {
         }
     }
 
-    @Override
-    public void onInitializeClient() {
-        // DebugScreenEntries.register(ResourceLocation.fromNamespaceAndPath("voxy","debug"), new VoxyDebugScreenEntry());
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            if (VoxyCommon.isAvailable()) {
-                dispatcher.register(VoxyCommands.register());
-            }
-        });
-
-        FabricLoader.getInstance()
-                .getEntrypoints("frex_flawless_frames", Consumer.class)
-                .forEach(api -> ((Consumer<Function<String,Consumer<Boolean>>>)api).accept(name->active->{if (active) {
-                    FREX.add(name);
-                } else {
-                    FREX.remove(name);
-                }}));
+    public static void onInitializeClientNeoForge() {
+        // NeoForge client initialization
     }
+
+    // Command registration is handled in NeoVoxyMod.java
 
     public static boolean isFrexActive() {
         return !FREX.isEmpty();

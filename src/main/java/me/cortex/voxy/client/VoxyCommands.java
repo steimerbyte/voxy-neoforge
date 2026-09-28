@@ -1,67 +1,84 @@
 package me.cortex.voxy.client;
 
+import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import lombok.extern.slf4j.Slf4j;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import me.cortex.voxy.commonImpl.WorldIdentifier;
 import me.cortex.voxy.commonImpl.importers.DHImporter;
 import me.cortex.voxy.commonImpl.importers.WorldImporter;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.builder.RequiredArgumentBuilder;
+import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.commands.CommandSourceStack;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
-
+@Slf4j
 public class VoxyCommands {
 
-    public static LiteralArgumentBuilder<FabricClientCommandSource> register() {
-        var imports = ClientCommandManager.literal("import")
-                .then(ClientCommandManager.literal("world")
-                        .then(ClientCommandManager.argument("world_name", StringArgumentType.string())
-                                .suggests(VoxyCommands::importWorldSuggester)
-                                .executes(VoxyCommands::importWorld)))
-                .then(ClientCommandManager.literal("bobby")
-                        .then(ClientCommandManager.argument("world_name", StringArgumentType.string())
-                                .suggests(VoxyCommands::importBobbySuggester)
-                                .executes(VoxyCommands::importBobby)))
-                .then(ClientCommandManager.literal("raw")
-                        .then(ClientCommandManager.argument("path", StringArgumentType.string())
-                                .executes(VoxyCommands::importRaw)))
-                .then(ClientCommandManager.literal("zip")
-                        .then(ClientCommandManager.argument("zipPath", StringArgumentType.string())
-                                .executes(VoxyCommands::importZip)
-                                .then(ClientCommandManager.argument("innerPath", StringArgumentType.string())
-                                        .executes(VoxyCommands::importZip))))
-                .then(ClientCommandManager.literal("cancel")
-                        .executes(VoxyCommands::cancelImport));
+    public static void register(RegisterClientCommandsEvent event) {
+
+        CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
+        
+        LiteralArgumentBuilder<CommandSourceStack> voxyCommand = LiteralArgumentBuilder.literal("voxy");
+        
+        voxyCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("reload")
+                .executes(VoxyCommands::reloadInstance));
+        
+        LiteralArgumentBuilder<CommandSourceStack> importCommand = LiteralArgumentBuilder.literal("import");
+
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("world")
+                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("world_name", StringArgumentType.string())
+                        .suggests(VoxyCommands::importWorldSuggester)
+                        .executes(VoxyCommands::importWorld)));
+
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("bobby")
+                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("world_name", StringArgumentType.string())
+                        .suggests(VoxyCommands::importBobbySuggester)
+                        .executes(VoxyCommands::importBobby)));
+
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("raw")
+                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("path", StringArgumentType.string())
+                        .executes(VoxyCommands::importRaw)));
+        
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("zip")
+                .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("zipPath", StringArgumentType.string())
+                        .executes(VoxyCommands::importZip)
+                        .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("innerPath", StringArgumentType.string())
+                                .executes(VoxyCommands::importZip))));
+        
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("cancel")
+                .executes(VoxyCommands::cancelImport));
 
         if (DHImporter.HasRequiredLibraries) {
-            imports = imports
-                    .then(ClientCommandManager.literal("distant_horizons")
-                    .then(ClientCommandManager.argument("sqlDbPath", StringArgumentType.string())
+            importCommand = importCommand
+                    .then(LiteralArgumentBuilder.<CommandSourceStack>literal("distant_horizons")
+                    .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("sqlDbPath", StringArgumentType.string())
                             .executes(VoxyCommands::importDistantHorizons)));
         }
-
-        return ClientCommandManager.literal("voxy")//.requires((ctx)-> VoxyCommon.getInstance() != null)
-                .then(ClientCommandManager.literal("reload")
-                        .executes(VoxyCommands::reloadInstance))
-                .then(imports);
+        
+        voxyCommand.then(importCommand);
+        
+        dispatcher.register(voxyCommand);
     }
 
-    private static int reloadInstance(CommandContext<FabricClientCommandSource> ctx) {
+    private static int reloadInstance(CommandContext<CommandSourceStack> ctx) {
         var instance = (VoxyClientInstance)VoxyCommon.getInstance();
         if (instance == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
         var wr = Minecraft.getInstance().levelRenderer;
@@ -81,10 +98,10 @@ public class VoxyCommands {
 
 
 
-    private static int importDistantHorizons(CommandContext<FabricClientCommandSource> ctx) {
+    private static int importDistantHorizons(CommandContext<CommandSourceStack> ctx) {
         var instance = (VoxyClientInstance)VoxyCommon.getInstance();
         if (instance == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
         var dbFile = new File(ctx.getArgument("sqlDbPath", String.class));
@@ -120,18 +137,18 @@ public class VoxyCommands {
         });
     }
 
-    private static int importRaw(CommandContext<FabricClientCommandSource> ctx) {
+    private static int importRaw(CommandContext<CommandSourceStack> ctx) {
         if (VoxyCommon.getInstance() == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
 
         return fileBasedImporter(new File(ctx.getArgument("path", String.class)))?0:1;
     }
 
-    private static int importBobby(CommandContext<FabricClientCommandSource> ctx) {
+    private static int importBobby(CommandContext<CommandSourceStack> ctx) {
         if (VoxyCommon.getInstance() == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
 
@@ -139,10 +156,10 @@ public class VoxyCommands {
         return fileBasedImporter(file)?0:1;
     }
 
-    private static CompletableFuture<Suggestions> importWorldSuggester(CommandContext<FabricClientCommandSource> ctx, SuggestionsBuilder sb) {
+    private static CompletableFuture<Suggestions> importWorldSuggester(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder sb) {
         return fileDirectorySuggester(Minecraft.getInstance().gameDirectory.toPath().resolve("saves"), sb);
     }
-    private static CompletableFuture<Suggestions> importBobbySuggester(CommandContext<FabricClientCommandSource> ctx, SuggestionsBuilder sb) {
+    private static CompletableFuture<Suggestions> importBobbySuggester(CommandContext<CommandSourceStack> ctx, SuggestionsBuilder sb) {
         return fileDirectorySuggester(Minecraft.getInstance().gameDirectory.toPath().resolve(".bobby"), sb);
     }
 
@@ -188,9 +205,9 @@ public class VoxyCommands {
         return sb.buildFuture();
     }
 
-    private static int importWorld(CommandContext<FabricClientCommandSource> ctx) {
+    private static int importWorld(CommandContext<CommandSourceStack> ctx) {
         if (VoxyCommon.getInstance() == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
 
@@ -206,7 +223,7 @@ public class VoxyCommands {
         return fileBasedImporter(file.toFile())?0:1;
     }
 
-    private static int importZip(CommandContext<FabricClientCommandSource> ctx) {
+    private static int importZip(CommandContext<CommandSourceStack> ctx) {
         var zip =  new File(ctx.getArgument("zipPath", String.class));
         var innerDir = "region/";
         try {
@@ -215,7 +232,7 @@ public class VoxyCommands {
 
         var instance = (VoxyClientInstance)VoxyCommon.getInstance();
         if (instance == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
         String finalInnerDir = innerDir;
@@ -231,10 +248,10 @@ public class VoxyCommands {
         return 1;
     }
 
-    private static int cancelImport(CommandContext<FabricClientCommandSource> ctx) {
+    private static int cancelImport(CommandContext<CommandSourceStack> ctx) {
         var instance = (VoxyClientInstance)VoxyCommon.getInstance();
         if (instance == null) {
-            ctx.getSource().sendError(Component.translatable("Voxy must be enabled in settings to use this"));
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
             return 1;
         }
         var world = WorldIdentifier.ofEngineNullable(Minecraft.getInstance().level);

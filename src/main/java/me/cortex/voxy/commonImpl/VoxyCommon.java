@@ -1,39 +1,34 @@
 package me.cortex.voxy.commonImpl;
 
+import lombok.extern.slf4j.Slf4j;
 import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.common.config.Serialization;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.FMLPaths;
 
-public class VoxyCommon implements ModInitializer {
+import java.nio.file.Path;
+
+@Slf4j
+public class VoxyCommon {
     public static final String MOD_VERSION;
     public static final boolean IS_DEDICATED_SERVER;
     public static final boolean IS_IN_MINECRAFT;
 
     static {
-        ModContainer mod = (ModContainer) FabricLoader.getInstance().getModContainer("voxy").orElse(null);
-        if (mod == null) {
-            IS_IN_MINECRAFT = false;
-            Logger.error("Running voxy without minecraft");
-            MOD_VERSION = "<UNKNOWN>";
-            IS_DEDICATED_SERVER = false;
-        } else {
-            IS_IN_MINECRAFT = true;
-            var version = mod.getMetadata().getVersion().getFriendlyString();
-            var commit = mod.getMetadata().getCustomValue("commit").getAsString();
-            MOD_VERSION = version + "-" + commit;
-            IS_DEDICATED_SERVER = FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
-            Serialization.init();
-        }
+        IS_IN_MINECRAFT = true;
+        MOD_VERSION = "0.2.7-alpha";
+        IS_DEDICATED_SERVER = FMLLoader.getDist().isDedicatedServer();
+        Serialization.init();
+    }
+
+    public static void init() {
+        // NeoForge initialization
     }
 
     //This is hardcoded like this because people do not understand what they are doing
     public static boolean isVerificationFlagOn(String name) {
         return isVerificationFlagOn(name, false);
     }
-
     public static boolean isVerificationFlagOn(String name, boolean defaultOn) {
         return System.getProperty("voxy."+name, defaultOn?"true":"false").equals("true");
     }
@@ -42,16 +37,12 @@ public class VoxyCommon implements ModInitializer {
         int breakpoint = 0;
     }
 
-    @Override
-    public void onInitialize() {
-
-    }
-
     public interface IInstanceFactory {VoxyInstance create();}
     private static VoxyInstance INSTANCE;
     private static IInstanceFactory FACTORY = null;
 
     public static void setInstanceFactory(IInstanceFactory factory) {
+        log.info("Setting instance factory");//, new Throwable());
         if (FACTORY != null) {
             throw new IllegalStateException("Cannot set instance factory more than once");
         }

@@ -1,7 +1,5 @@
 package me.cortex.voxy.client.mixin.minecraft;
 
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.sugar.Local;
 import me.cortex.voxy.client.config.VoxyConfig;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import net.minecraft.client.Camera;

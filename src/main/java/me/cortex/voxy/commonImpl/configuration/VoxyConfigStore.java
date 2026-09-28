@@ -6,7 +6,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import me.cortex.voxy.common.Logger;
 import me.cortex.voxy.common.util.MultiGson;
-import net.fabricmc.loader.api.FabricLoader;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.lang.reflect.Modifier;
@@ -110,8 +110,7 @@ public class VoxyConfigStore {
     }
 
     private static Path getConfigPath() {
-        return FabricLoader.getInstance()
-                .getConfigDir()
+        return FMLPaths.CONFIGDIR.get()
                 .resolve("voxy-config.json");
     }
 }

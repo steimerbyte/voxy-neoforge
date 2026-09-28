@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 @Mixin(RenderSystem.class)
 public class MixinRenderSystem {
     //We need to inject before iris to initalize our systems
-    @Inject(method = "initRenderer", order = 900, remap = false, at = @At("RETURN"))
+    @Inject(method = "initRenderer", remap = false, at = @At("RETURN"))
     private static void voxy$injectInit(int debugVerbosity, boolean sync, CallbackInfo ci) {
         VoxyClient.initVoxyClient();
     }

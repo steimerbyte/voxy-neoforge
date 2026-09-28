@@ -5,14 +5,11 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import me.cortex.voxy.common.Logger;
-import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -95,9 +92,44 @@ public class Serialization {
         Map<Class<?>, GsonConfigSerialization<?>> serializers = new HashMap<>();
 
         Set<String> clazzs = new LinkedHashSet<>();
-        var path = FabricLoader.getInstance().getModContainer("voxy").get().getRootPaths().get(0);
-        clazzs.addAll(collectAllClasses(path, BASE_SEARCH_PACKAGE));
-        clazzs.addAll(collectAllClasses(BASE_SEARCH_PACKAGE));
+        File path = null;
+        // Handle different URI schemes
+        try {
+            java.net.URI uri = Serialization.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+            if (uri.getScheme().equals("file")) {
+                // Direct file URI - could be directory or file
+                path = new File(uri);
+            } else {
+                // Non-file URI (jar:, bundle:, etc.) - check if it's a directory-like URI
+                java.net.URL url = Serialization.class.getProtectionDomain().getCodeSource().getLocation();
+                String urlString = url.toString();
+                if (urlString.endsWith("/") || urlString.contains("!/")) {
+                    // Directory-like URI or JAR with entry - handle differently
+                    // For now, fall back to existing class loader approach
+                    clazzs.addAll(collectAllClasses(BASE_SEARCH_PACKAGE));
+                } else {
+                    // Non-file URI pointing to actual JAR file - copy to temporary file
+                    try (java.io.InputStream is = url.openStream()) {
+                        path = java.io.File.createTempFile("voxy-", ".jar");
+                        path.deleteOnExit(); // Clean up after use
+                        byte[] data = is.readAllBytes();
+                        java.nio.file.Files.write(path.toPath(), data);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Logger.error("Failed to get code source location, falling back to class loader approach", e);
+            // Fall back to existing class loader approach
+            clazzs.addAll(collectAllClasses(BASE_SEARCH_PACKAGE));
+        }
+        
+        // Only call collectAllClasses with path if path is not null
+        if (path != null) {
+            clazzs.addAll(collectAllClasses(path, BASE_SEARCH_PACKAGE));
+        } else {
+            // Ensure we still call the class loader approach
+            clazzs.addAll(collectAllClasses(BASE_SEARCH_PACKAGE));
+        }
         int count = 0;
         outer:
         for (var clzName : clazzs) {
@@ -124,7 +156,7 @@ public class Serialization {
             try {
                 var clz = Class.forName(clzName);
                 if (Modifier.isAbstract(clz.getModifiers())) {
-                    //Dont want to register abstract classes
+                    //Dont want to register abstract classes as concrete implementations
                     continue;
                 }
                 var original = clz;
@@ -151,6 +183,11 @@ public class Serialization {
                 Logger.error("Error while setting up config serialization", e);
             }
         }
+        
+        // Now create GsonConfigSerialization instances for all CONFIG_TYPES (including those added during class scanning)
+        for (var configType : CONFIG_TYPES) {
+            serializers.computeIfAbsent(configType, GsonConfigSerialization::new);
+        }
 
         var builder = new GsonBuilder()
                 .setPrettyPrinting();
@@ -166,6 +203,10 @@ public class Serialization {
         try {
             InputStream stream = Serialization.class.getClassLoader()
                     .getResourceAsStream(pack.replaceAll("[.]", "/"));
+            if (stream == null) {
+                // 资源不存在，返回空列表
+                return List.of();
+            }
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
             return reader.lines().flatMap(inner -> {
                 if (inner.endsWith(".class")) {
@@ -181,22 +222,48 @@ public class Serialization {
             return List.of();
         }
     }
-    private static List<String> collectAllClasses(Path base, String pack) {
-        if (!Files.exists(base.resolve(pack.replaceAll("[.]", "/")))) {
-            return List.of();
-        }
+    private static List<String> collectAllClasses(File file, String pack) {
+        List<String> classes = new ArrayList<>();
         try {
-            return Files.list(base.resolve(pack.replaceAll("[.]", "/"))).flatMap(inner -> {
-                if (inner.getFileName().toString().endsWith(".class")) {
-                    return Stream.of(pack + "." + inner.getFileName().toString().replace(".class", ""));
-                } else if (Files.isDirectory(inner)) {
-                    return collectAllClasses(base, pack + "." + inner.getFileName()).stream();
-                } else {
-                    return Stream.of();
+            if (file.isDirectory()) {
+                // Handle directory case
+                Path base = file.toPath();
+                Path packPath = base.resolve(pack.replaceAll("[.]", "/"));
+                if (!Files.exists(packPath)) {
+                    return List.of();
                 }
-            }).collect(Collectors.toList());
+                return Files.list(packPath).flatMap(inner -> {
+                    if (inner.getFileName().toString().endsWith(".class")) {
+                        return Stream.of(pack + "." + inner.getFileName().toString().replace(".class", ""));
+                    } else if (Files.isDirectory(inner)) {
+                        return collectAllClasses(file, pack + "." + inner.getFileName()).stream();
+                    } else {
+                        return Stream.of();
+                    }
+                }).collect(Collectors.toList());
+            } else if (file.getName().endsWith(".jar")) {
+                // Handle JAR file case
+                String packPath = pack.replace('.', '/') + '/';
+                try (java.util.jar.JarFile jarFile = new java.util.jar.JarFile(file)) {
+                    java.util.Enumeration<java.util.jar.JarEntry> entries = jarFile.entries();
+                    while (entries.hasMoreElements()) {
+                        java.util.jar.JarEntry entry = entries.nextElement();
+                        String entryName = entry.getName();
+                        // Check if entry is a class file and starts with the package path
+                        if (entryName.endsWith(".class") && entryName.startsWith(packPath)) {
+                            // Convert entry path to fully qualified class name
+                            String className = entryName.substring(0, entryName.length() - 6).replace('/', '.');
+                            classes.add(className);
+                        }
+                    }
+                }
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Logger.error("Failed to collect classes from " + file + ": " + e.getMessage(), e);
         }
+        return classes;
+    }
+    private static List<String> collectAllClasses(Path base, String pack) {
+        return collectAllClasses(base.toFile(), pack);
     }
 }
