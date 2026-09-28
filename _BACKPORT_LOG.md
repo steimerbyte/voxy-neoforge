@@ -642,3 +642,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** ba80ed95
 - **Release:** v0.2.7-alpha-2.081
 - **Notes:** Cherry-pick -x of `5937988f` auto-merged cleanly. Widens the airCount decode mask from `0xFFF` (12 bits, max 4095) to `0x1FFF` (13 bits, max 8191). Pure internal bitfield fix matching the encode-side widening done earlier — without this, sections with >4095 air blocks would wrap silently. compileJava+build SUCCESSFUL (40s). Push e5dc16a6..ba80ed95 on backport/sequential. Release v0.2.7-alpha-2.081 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.081.
+
+## 105. `c7166d3f87de134707d4cbfb347eb0a8d5622eb5` checks and unmarkDirty
+- **Verdict:** PORTABLE (defensive assert + save-loop optimization)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldSection.java (+3), src/main/java/me/cortex/voxy/common/world/service/SectionSavingService.java (+2)
+- **Result:** APPLIED
+- **SHA:** 96fc2081
+- **Release:** v0.2.7-alpha-2.082
+- **Notes:** Cherry-pick -x of `c7166d3f` auto-merged cleanly. Adds a freed-while-dirty guard in `WorldSection.releaseRef` (defensive IllegalStateException if `witness==1 && (isDirty || inSaveQueue)`) and inserts `section.setNotDirty()` at the top of `SectionSavingService.runSectionSave` so the section can never pointlessly resave. No API surface change. compileJava+build SUCCESSFUL (50s). Push 4a4949ba..96fc2081 on backport/sequential. Release v0.2.7-alpha-2.082 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.082.
