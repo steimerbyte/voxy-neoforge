@@ -1277,3 +1277,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** n/a
 - **Release:** n/a (counter unchanged at .144)
 - **Notes:** Cherry-pick -x of `8eb5afc5` conflicted on deleted `DebugEntries.java`, `VoxyConfigMenu.java`, and `MixinDebugScreenEntryList.java`. The feature depends on MC 1.21.2+ `DebugScreenDisplayer`, `DebugScreenEntries`, and debug-entry-list mixin APIs unavailable to the 1.21.1 fork. Aborted cleanly with `git cherry-pick --abort`; no release and counter unchanged at .144.
+
+## 177. `a47a028d29f5de4ae54e8f0e3335399bb0efdfd7` update loader
+- **Verdict:** PORTABLE-AS-NO-OP (the upstream only bumps Fabric Loader from 0.18.2 to 0.18.4. The NeoForge fork is configured through `loader_version_range=[1,)`, and its commented Fabric `loader_version=0.17.2` line must remain unchanged for the MC 1.21.1 setup; there is no portable runtime metadata change.)
+- **Files:** 0 files, +0/-0 (empty provenance commit; `gradle.properties` retained from HEAD)
+- **Result:** APPLIED
+- **SHA:** cb2ed429
+- **Release:** v0.2.7-alpha-2.145
+- **Notes:** Cherry-pick -x of `a47a028d` conflicted only in `gradle.properties` because upstream targets MC 1.21.11/Fabric Loader 0.18.4. Resolved with `--ours` and continued as an empty provenance commit retaining the source trailer. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 5cd0ff18..cb2ed429 on backport/sequential. Release v0.2.7-alpha-2.145 created with both built jars. Counter advanced .144 → .145.
