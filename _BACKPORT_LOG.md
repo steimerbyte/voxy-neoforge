@@ -1310,3 +1310,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.148
 - **Fix:** Combined the fork's NeoForge imports with the upstream lock-file imports, retained deferred NeoForge initialization, and corrected the conflict-resolution marker before the first compile retry.
 - **Notes:** Cherry-pick -x of `36964ee4` conflicted in `VoxyClient.java`; resolved to the fork's NeoForge imports plus `Minecraft` and the portable file-lock imports. Initial compileJava exposed one malformed conflict-marker prefix in the first resolution, which was corrected and the cherry-pick amended before the required validation pass. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push f081c62f..a0f6b9fa on backport/sequential. Release v0.2.7-alpha-2.148 created with both built jars. Counter advanced .147 → .148.
+
+## 181. `2a979ac050231cca29914fd11b40b59c97a934ee` attach to ref
+- **Verdict:** PORTABLE (clean cherry-pick: retains the acquired exclusive `FileLock` in a static field so the lock remains attached for the client process lifetime.)
+- **Files:** 1 file, +2/-2 (`VoxyClient.java`)
+- **Result:** APPLIED
+- **SHA:** 75f8cbb3
+- **Release:** v0.2.7-alpha-2.149
+- **Notes:** Cherry-pick -x of `2a979ac0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (10s). Push 2fbbf32c..75f8cbb3 on backport/sequential. Release v0.2.7-alpha-2.149 created with both built jars. Counter advanced .148 → .149.
