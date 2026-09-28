@@ -1237,3 +1237,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0553d106
 - **Release:** v0.2.7-alpha-2.140
 - **Notes:** Cherry-pick -x of `5cb96e9f` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 045e62d7..0553d106 on backport/sequential. Release v0.2.7-alpha-2.140 created with both built jars. Counter advanced .139 → .140.
+
+## 172. `68f782d60d661ea3b51e76f4e6dae4c9bf31f0ee` taa stuff
+- **Verdict:** PORTABLE (clean cherry-pick: threads temporal-antialiasing Jitter state through the render pipeline into chunk-bound culling and the GL 4.6 raster vertex shader, and updates Iris shader patching to preserve the TAA mode. The commit uses the fork's existing renderer and shader interfaces and has no MC 1.21.11/Sodium 0.7 API dependency.)
+- **Files:** 5 files, +37/-6 (`AbstractRenderPipeline.java` +4/-0, `IrisVoxyRenderPipeline.java` +10/-1, `ChunkBoundRenderer.java` +5/-2, `IrisShaderPatch.java` +1/-1, `gl46/cull/raster.vert` +17/-2)
+- **Result:** APPLIED
+- **SHA:** 9db38118
+- **Release:** v0.2.7-alpha-2.141
+- **Notes:** Cherry-pick -x of `68f782d6` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push c907deed..9db38118 on backport/sequential. Release v0.2.7-alpha-2.141 created with both built jars. Counter advanced .140 → .141.
