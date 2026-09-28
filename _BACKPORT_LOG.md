@@ -960,3 +960,53 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.111
 - **Fix:** (a) Resolved modify/delete conflict on `voxy.accesswidener` by `git add`-ing the file (the worktree copy already contained the exact content upstream adds — the file is on disk but untracked because NeoForge uses Forge-AT via `META-INF/accesstransformer.cfg` instead of Fabric's access widener). (b) compileJava failed with `error: baseState has protected access in StairBlock` because NeoForge's loom section in `build.gradle` has the accessWidener path commented out (line 167) — the fork relies on `META-INF/accesstransformer.cfg` (registered at line 165) for the same purpose. Added `public net.minecraft.world.level.block.StairBlock baseState` to the AT file (no type descriptor per FMLAT spec for fields). Both fixes amended into the cherry-picked commit via `git commit --amend --no-edit` so the history reads as a single APPLIED+FIXED unit. compileJava SUCCESSFUL (25s — warnings only: pre-existing AT warnings about `PalettedContainer$Data` record + `ItemBlockRenderTypes.getChunkRenderType` deprecation), build -x test SUCCESSFUL (10s). Push 994008ef..d700bd90 on backport/sequential. Release v0.2.7-alpha-2.111 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.111.
 - **Notes:** Wildcard `net.minecraft.world.level.block.*` import replaces 4 explicit imports (Block, Blocks, LeavesBlock, LiquidBlock) — all four classes still used in the file (LeavesBlock at line 425, LiquidBlock at lines 214/367/422, etc.), still covered by the wildcard.
+
+## 137. `26949ee1e6ecd423384d21a47b96d4ca6f034d2a` jank stair thing
+- **Verdict:** PORTABLE-WITH-FIX (upstream cherry-pick produced a modify/delete conflict on `voxy.accesswidener` because the file is not tracked on the NeoForge fork; also required Forge-AT entry `public net.minecraft.world.level.block.StairBlock baseState` since `StairBlock.baseState` is `protected` in MC 1.21.1)
+- **Files:** 3 files, +37/-4 (`src/main/java/me/cortex/voxy/client/core/model/ModelFactory.java` +14/-4 [wildcard import + StairBlock.baseState substitution logic], `src/main/resources/META-INF/accesstransformer.cfg` +3/-0 [added `public net.minecraft.world.level.block.StairBlock baseState`], `src/main/resources/voxy.accesswidener` +24/-0 [added file — required by upstream commit, even though NeoForge uses Forge-AT instead, the file content matches what upstream adds to it])
+- **Result:** APPLIED+FIXED
+- **SHA:** d700bd90
+- **Release:** v0.2.7-alpha-2.111
+- **Fix:** (a) Resolved modify/delete conflict on `voxy.accesswidener` by `git add`-ing the file (the worktree copy already contained the exact content upstream adds — the file is on disk but untracked because NeoForge uses Forge-AT via `META-INF/accesstransformer.cfg` instead of Fabric's access widener). (b) compileJava failed with `error: baseState has protected access in StairBlock` because NeoForge's loom section in `build.gradle` has the accessWidener path commented out (line 167) — the fork relies on `META-INF/accesstransformer.cfg` (registered at line 165) for the same purpose. Added `public net.minecraft.world.level.block.StairBlock baseState` to the AT file (no type descriptor per FMLAT spec for fields). Both fixes amended into the cherry-pick.
+- **Notes:** Wildcard `net.minecraft.world.level.block.*` import replaces 4 explicit imports (Block, Blocks, LeavesBlock, LiquidBlock) — all four classes still used in the file (LeavesBlock at line 425, LiquidBlock at lines 214/367/422, etc.), still covered by the wildcard.
+
+## 138. `9222765d25523cee5f2c13b810831ad3c6567f99` attempt fix not crash when put in mods folder on server
+- **Verdict:** PORTABLE-WITH-FIX (upstream adds `import net.fabricmc.loader.api.FabricLoader` for environment check; our 1.21.1 NeoForge fork already provides `VoxyCommon.IS_DEDICATED_SERVER` via `FMLLoader.getDist().isDedicatedServer()` at line 20 of `VoxyCommon.java`, so the FabricLoader import was dropped; otherwise the body of the upstream hunk — the `if (VoxyCommon.IS_DEDICATED_SERVER && clzName.startsWith("me.cortex.voxy.client")) continue;` guard and the `catch (Throwable e)` widening — applied directly because both fields already exist on the fork)
+- **Files:** 1 file, +5/-1 (`src/main/java/me/cortex/voxy/common/config/Serialization.java` +5/-1 [import VoxyCommon, IS_DEDICATED_SERVER guard, Throwable-widened catch])
+- **Result:** APPLIED+FIXED
+- **SHA:** 5eb94a15
+- **Release:** v0.2.7-alpha-2.112
+- **Fix:** Resolved content conflict on imports block of `Serialization.java` (HEAD had no VoxyCommon import, upstream adds `import me.cortex.voxy.commonImpl.VoxyCommon` AND `import net.fabricmc.loader.api.FabricLoader`). Kept VoxyCommon import, dropped FabricLoader import — our fork's VoxyCommon class already wraps `FMLLoader.getDist().isDedicatedServer()` (see `VoxyCommon.java` lines 14/20), so the FabricLoader import is unnecessary on NeoForge. The body hunks (IS_DEDICATED_SERVER guard at line 141 and Throwable catch at line 190) merged cleanly without intervention.
+- **Notes:** compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push a05d6242..5eb94a15 on backport/sequential.
+
+## 139. `f80f0f943ec0b7256bfd81252ac711bb76886a01` util
+- **Verdict:** PORTABLE (clean cherry-pick: replaces 2 explicit `ARBDirectStateAccess.*` static imports with wildcard + adds `clearStencil(int)` method using `nglClearNamedFramebufferiv`; LWJGL3 `ARBDirectStateAccess.*` and `nglClearNamedFramebufferiv` already on classpath via our existing fork dependencies)
+- **Files:** 1 file, +7/-2 (`src/main/java/me/cortex/voxy/client/core/rendering/util/DepthFramebuffer.java` +7/-2)
+- **Result:** APPLIED
+- **SHA:** 214f0f74
+- **Release:** v0.2.7-alpha-2.113
+- **Notes:** Cherry-pick -x of `f80f0f9` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 5eb94a15..214f0f74 on backport/sequential.
+
+## 140. `b281d9340511f91412b4f17d7673f056419a06bc` print msg to chat
+- **Verdict:** PORTABLE (clean cherry-pick: imports `net.minecraft.network.chat.Component` and mirrors the render-distance-2 warning to chat via `Minecraft.getInstance().getChatListener().handleSystemMessage(Component.literal(msg), false)`; both APIs available in MC 1.21.1)
+- **Files:** 1 file, +4/-1 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java` +4/-1)
+- **Result:** APPLIED
+- **SHA:** 2cd45000
+- **Release:** v0.2.7-alpha-2.114
+- **Notes:** Cherry-pick -x of `b281d93` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 214f0f74..2cd45000 on backport/sequential.
+
+## 141. `516ad99f7c85ece16e07aa5806911f4368caced0` tweeks
+- **Verdict:** PORTABLE (clean cherry-pick: `Mth.createInsecureUUID()` → `UUID.randomUUID()` in ClientImportManager bossbar UUID and `player.displayClientMessage(...)` → `instance.getChatListener().handleSystemMessage(...)` in Logger chat-error path; both API changes are available in MC 1.21.1)
+- **Files:** 2 files, +2/-2 (`src/main/java/me/cortex/voxy/client/ClientImportManager.java` +1/-1, `src/main/java/me/cortex/voxy/common/Logger.java` +1/-1)
+- **Result:** APPLIED
+- **SHA:** 02cdf16f
+- **Release:** v0.2.7-alpha-2.115
+- **Notes:** Cherry-pick -x of `516ad99` auto-merged cleanly. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push 2cd45000..02cdf16f on backport/sequential.
+
+## 142. `131604305550e8b208ca9da7b127a30ae86f2cbb` remove legacy dh shader impersonation thing
+- **Verdict:** PORTABLE (clean cherry-pick: removes `IMPERSONATE_DISTANT_HORIZONS` System.getProperty-flag field from IrisShaderPatch, comments out DH-impersonation blocks in VoxySamplers/VoxyUniforms/MixinStandardMacros, and adds `Math.round()` around the `sectionRenderDistance*32` and `*32*16` uniforms in VoxyUniforms; all changes are pure code-removal / `Math.round` cast — no API dependency changes)
+- **Files:** 4 files, +8/-10 (`src/main/java/me/cortex/voxy/client/iris/IrisShaderPatch.java` +0/-4 [removed IMPERSONATE_DISTANT_HORIZONS field], `src/main/java/me/cortex/voxy/client/iris/VoxySamplers.java` +2/-2 [comment-wrapped DH-impersonation block], `src/main/java/me/cortex/voxy/client/iris/VoxyUniforms.java` +3/-3 [comment-wrapped DH-impersonation block + Math.round casts on the kept vxRenderDistance/dhRenderDistance uniforms], `src/main/java/me/cortex/voxy/client/mixin/iris/MixinStandardMacros.java` +3/-1 [comment-wrapped DH-impersonation block])
+- **Result:** APPLIED
+- **SHA:** 59e8f139
+- **Release:** v0.2.7-alpha-2.116
+- **Notes:** Cherry-pick -x of `1316043` auto-merged cleanly across all 4 files. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 02cdf16f..59e8f139 on backport/sequential.
