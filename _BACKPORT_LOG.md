@@ -450,3 +450,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0d4a71fef397252e8b9785cb4709f13ca6240be8
 - **Release:** v0.2.7-alpha-2.062
 - **Notes:** Cherry-pick -x of `ba460516` auto-merged cleanly with no conflicts. 1-line log change in NodeManager.java (only the log message text differs). No 1.21.1 API surface impact. compileJava SUCCESSFUL (36s), build -x test SUCCESSFUL (30s). Push 28c150a4..0d4a71fe on backport/sequential. Release v0.2.7-alpha-2.062 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.062.
+
+## 82. `66000b77c9615b3e2c622106822820ac85474a8f` change debug
+- **Verdict:** PORTABLE (shader-only debug toggle)
+- **Files:** src/main/resources/assets/voxy/shaders/lod/gl46/quads3.vert (+4/-2)
+- **Result:** APPLIED
+- **SHA:** c22bbf97ca2a86a7878e00498ebde0f2fe982365
+- **Release:** v0.2.7-alpha-2.063
+- **Notes:** Cherry-pick -x of `66000b77` auto-merged cleanly with no conflicts. GLSL vertex-shader-only change to the lod/gl46/quads3.vert debug output path; no Java or API surface touched. compileJava UP-TO-DATE (25s), build -x test SUCCESSFUL (30s). Push cb5729c0..c22bbf97 on backport/sequential. Release v0.2.7-alpha-2.063 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.063.
