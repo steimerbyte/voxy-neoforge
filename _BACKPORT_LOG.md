@@ -1253,3 +1253,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 31ac65ba01e59e22de84c7ac05319969547f8330
 - **Release:** v0.2.7-alpha-2.142
 - **Notes:** Cherry-pick -x of `76392ab0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push f64303ca..31ac65ba on backport/sequential. Release v0.2.7-alpha-2.142 published. Counter advanced .141 → .142.
+
+## 174. `08a17128723ff2b79148df9b93e6baaeda81422e` taa in culling
+- **Verdict:** PORTABLE (clean cherry-pick: threads TAA jitter through MDIC section culling and carries the current camera/frame state in the culling pass; the change uses existing renderer interfaces and has no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +16/-4 (`MDICSectionRenderer.java`)
+- **Result:** APPLIED
+- **SHA:** 8548627a
+- **Release:** v0.2.7-alpha-2.143
+- **Notes:** Cherry-pick -x of `08a17128` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 2a9d6782..8548627a on backport/sequential. Release v0.2.7-alpha-2.143 created with both built jars after retrying with the full commit SHA. Counter advanced .142 → .143.
