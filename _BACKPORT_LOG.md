@@ -1011,3 +1011,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.117
 - **Fix:** VoxyConfigMenu.java modify/delete conflict (file is deleted on our fork — git rm). Auto-merge applied int→float change to VoxyConfig.java and VoxyRenderSystem.java cleanly. Manually ported the equivalent VoxyConfigMenu hunks to VoxyConfigScreenPages.java so the slider keeps working: (1) SliderControl range `2..64` → `2*16..64*16`; (2) formatter `v*32` → `Math.round(v/16f * 32)`; (3) setter stores `v/16f` instead of `v`; (4) getter returns `Math.round(s.sectionRenderDistance*16)` to map float back to int slider value. The third int-callsite in `VoxyRenderSystem.setRenderDistance(int)` had to change to `float` to accept the new float type.
 - **Notes:** Also a pre-backport setup fix in this batch: `gradle.properties` `mod_version=0.2.9-alpha` → `0.2.7-alpha` so build/libs jars match the GitHub release tag (committed as `18d2fae2` between cherry-pick and release; no release of its own). compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 72de36f0..9548c631 on backport/sequential.
+
+## 144. `0033da2a` use config option value instead of effective
+- **Verdict:** PORTABLE (clean cherry-pick: `Minecraft.getInstance().options.getEffectiveRenderDistance()` → `Minecraft.getInstance().options.renderDistance().get()`; both `getEffectiveRenderDistance()` and `renderDistance().get()` are available in MC 1.21.1's `net.minecraft.client.Options` — the upstream commit's choice aligns with the renderer-side which should respect the user's chosen value, not the server-clamped effective value)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java` +1/-1 [line 89: getEffectiveRenderDistance() → renderDistance().get()])
+- **Result:** APPLIED
+- **SHA:** 69e09660
+- **Release:** v0.2.7-alpha-2.118
+- **Notes:** Cherry-pick -x of `0033da2a` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL (12s). Push b846dd92..69e09660 on backport/sequential.
