@@ -159,3 +159,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **SHA:** c98658c5
 - **Release:** v0.2.7-alpha-2.019
+
+## 25. `6beb6b20` this was such an unbelievebly dumb and stupid mistake
+- **Verdict:** PORTABLE
+- **Files:** small
+- **Result:** APPLIED
+- **SHA:** 82712276
+- **Notes:** Clean cherry-pick, compileJava passed. NO RELEASE (local-only mode since round 25).
