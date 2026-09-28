@@ -1180,3 +1180,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** e5db1b3f
 - **Release:** v0.2.7-alpha-2.134
 - **Notes:** Cherry-pick -x of `7889f119` auto-merged cleanly. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (10s). Push dbe68ec6..e5db1b3f on backport/sequential. Release v0.2.7-alpha-2.134 created with both built jars. Counter advanced .133 → .134.
+
+## 165. `36f85026` update limit + error throwing
+- **Verdict:** PORTABLE-WITH-CONFLICT-RESOLUTION (clean semantic merge: propagated worker-thread failures from both the model bakery and async node manager, capped each async upload loop to 1 MB of estimated geometry, and added hierarchical traversal debug output. The only conflict was the fork-specific timed `ModelBakerySubsystem.tick` implementation; retained that processing and added the upstream failure check before it rather than replacing the port's budgeted upload path with `processUploads()` alone.)
+- **Files:** 4 files, +40/-1 (`src/main/java/me/cortex/voxy/client/core/AbstractRenderPipeline.java` +1/-0 [forward traversal debug], `src/main/java/me/cortex/voxy/client/core/model/ModelBakerySubsystem.java` +11/-0 [capture and propagate processor failure], `src/main/java/me/cortex/voxy/client/core/rendering/hierachical/AsyncNodeManager.java` +19/-1 [propagate failure and cap estimated upload amount], `src/main/java/me/cortex/voxy/client/core/rendering/hierachical/HierarchicalOcclusionTraverser.java` +9/-0 [top-node debug metric])
+- **Result:** APPLIED
+- **SHA:** d6775b7d
+- **Release:** v0.2.7-alpha-2.135
+- **Notes:** Cherry-pick -x of `36f85026` conflicted only in ModelBakerySubsystem.tick because the fork retains a timed `tickAndProcessUploads` path introduced by later local architecture. Resolved by prepending the upstream processing-thread exception guard and preserving the existing budgeted bakery work. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 0e182ddd..d6775b7d on backport/sequential. Release v0.2.7-alpha-2.135 created with both built jars. Counter advanced .134 → .135.
