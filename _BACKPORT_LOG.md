@@ -60,3 +60,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 1af6450aad79235ebda2df43ee2d74d309d24f44
 - **Release:** v0.2.7-alpha-2.008
 - **Fixes:** Removed MipmapStrategy (1.21.2+), ARGB (1.21.2+), SpriteContents.mipmapStrategy (1.21.2+). Replaced ARGB.linearToSrgbChannel with std sRGB gamma. Kept 1.21.1's quad.isShade/getVertices.
+
+## 11. `a7ea5b2f` who knows if this even works
+- **Verdict:** PORTABLE
+- **Files:** DHImporter.java (+74/-16)
+- **Result:** APPLIED
+- **SHA:** aeebbd76
+- **Release:** v0.2.7-alpha-2.009
+- **Notes:** Clean cherry-pick, no fixes needed.
