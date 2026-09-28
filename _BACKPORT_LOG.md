@@ -482,3 +482,43 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0ef442407764ac63b2fec167780dbd8775de2b93
 - **Release:** v0.2.7-alpha-2.066
 - **Notes:** Cherry-pick -x of `24712d4f` auto-merged cleanly with no conflicts. Adds three `GPUTiming.INSTANCE.marker(...)` call sites to AbstractRenderPipeline.renderOpaque/renderTemporal block: `marker("I")` and `marker()` bracket `innerPrimaryWork`, `marker("TP")` precedes `renderTemporal`. The marker API was already in this fork via the backport of commits 74 + 75 (GPUTiming.java + BasicSectionGeometryData.java), so no upstream library change required. Pure debug instrumentation, no API surface change, no behavioral impact outside the GPU timing capture path. compileJava SUCCESSFUL (38s), build -x test SUCCESSFUL (31s). Push 005bc8c3..0ef44240 on backport/sequential. Release v0.2.7-alpha-2.066 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.066.
+
+## 86. `4d83f89549d7425db3f0fe1ebc1d843183cd5969` fallback to null on core generator failed
+- **Verdict:** PORTABLE (defensive null fallback in CpuLayout)
+- **Files:** src/main/java/me/cortex/voxy/common/util/cpu/CpuLayout.java (+10/-6)
+- **Result:** APPLIED
+- **SHA:** 565345888d9a7e44b9fd753acaa289f265b34058
+- **Release:** v0.2.7-alpha-2.067
+- **Notes:** Cherry-pick -x of `4d83f895` applied cleanly with no conflicts. Wraps the vendor-specific core generator lookup in a try/catch that returns `null` on `UnsatisfiedLinkError` / runtime failure so the rest of the layout code can fall through to the generic generator path. The replacement of `ProcessHandle.current().info().command().orElse("???")` with `ProcessHandle.current().info().command().orElse(null)` avoids the misleading `???` literal. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (42s). Push 7e3fcfc8..56534588 on backport/sequential. Release v0.2.7-alpha-2.067 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.067.
+
+## 87. `4b8d7039d0b04dda024aeaca8c0c76b21c180697` depth nearest
+- **Verdict:** PORTABLE (depth comparison behavior tweak)
+- **Files:** src/main/java/me/cortex/voxy/client/core/NormalRenderPipeline.java (+2/-0), src/main/java/me/cortex/voxy/client/core/rendering/util/DepthFramebuffer.java (+7/-0)
+- **Result:** APPLIED
+- **SHA:** 3e592f91a20380d3e9d081094eefc9c97fe6e443
+- **Release:** v0.2.7-alpha-2.068
+- **Notes:** Cherry-pick -x of `4b8d7039` applied cleanly with no conflicts. Adds GL_DEPTH_NEAREST constant exposure + 2-line depth compare path in NormalRenderPipeline, and a depth format adjust path in DepthFramebuffer. compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (31s). Push 56534588..3e592f91 on backport/sequential. Release v0.2.7-alpha-2.068 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.068.
+
+## 88. `6f4f69522d08150ddf08914e616e46026567316b` _sobs_
+- **Verdict:** PORTABLE (SSAO compute shader overhaul)
+- **Files:** src/main/resources/assets/voxy/shaders/post/ssao.comp (+38/-32)
+- **Result:** APPLIED
+- **SHA:** 6542b6ab42f522ddf8a77a9458e625df8f2971fd
+- **Release:** v0.2.7-alpha-2.069
+- **Notes:** Cherry-pick -x of `6f4f6952` applied cleanly with no conflicts. Major rewrite of the SSAO compute shader (GLSL) — the "_sobs_" subject signals upstream frustration with the previous version. compileJava UP-TO-DATE (24s), build -x test SUCCESSFUL (30s after re-run without commit 89 interference). Push 3e592f91..6542b6ab on backport/sequential. Release v0.2.7-alpha-2.069 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.069.
+
+## 89. `116904c118f536d53c6eeaf864f39e64bbb4f4ff` gson adapter
+- **Verdict:** REQUIRES-MANUAL-PORT (1.21.4+ Gson/Identifier APIs)
+- **Files:** src/main/java/me/cortex/voxy/commonImpl/WorldIdentifier.java (+39, new GsonAdapter inner class)
+- **Result:** APPLIED+FIXED
+- **SHA:** ac14efa2d33d4d2b95b6390afd60cc806d430d9e
+- **Release:** v0.2.7-alpha-2.070
+- **Notes:** Cherry-pick -x of `116904c1` auto-merged but commit uses 1.21.4+ APIs that fail compile on 1.21.1. Fixes applied at amend time: `identifier.key.identifier().toString()` -> `identifier.key.location().toString()` (x2: line 166 + line 172, `ResourceKey.identifier()` was renamed to `location()` in 1.21.4), `Identifier.parse(sKey)` -> `ResourceLocation.parse(sKey)` (x2: line 186 + 187, `Identifier` class was renamed to `ResourceLocation` in 1.21.4, but in this fork we already use `ResourceLocation` per the rest of the codebase; `parse(String)` factory exists on both sides). compileJava SUCCESSFUL (42s), build -x test SUCCESSFUL (31s). Push 6542b6ab..ac14efa2 on backport/sequential. Release v0.2.7-alpha-2.070 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.070. Note: tag had to be created via `git tag -a` + `git push` because `gh release create --target <sha>` rejected the `v0.2.7-alpha-2.070` tag name with HTTP 422 ("target_commitish is invalid" + "tag_name is not a valid tag"); an empty pre-existing `test-tmp-tag-070` test on the same SHA succeeded, suggesting a transient gh/registry caching glitch on the release ID.
+
+## 90. `515dad60e57d9afb832c514010cc08818225b022` bean
+- **Verdict:** PORTABLE (singleton refactor of GsonAdapter)
+- **Files:** src/main/java/me/cortex/voxy/commonImpl/WorldIdentifier.java (+5)
+- **Result:** APPLIED
+- **SHA:** 0a9661e5451d5e232dec464238bcaff141622b97
+- **Release:** v0.2.7-alpha-2.071
+- **Notes:** Cherry-pick -x of `515dad60` auto-merged cleanly with no conflicts. Adds `public static final GsonAdapter INSTANCE = new GsonAdapter();` + `private GsonAdapter(){}` to the GsonAdapter inner class, exposing a singleton instance and marking the ctor private (consistent with the upcoming "bean" pattern). No API surface change visible to consumers (ctor was already public-default, now private + INSTANCE exposes the canonical instance). compileJava SUCCESSFUL (42s), build -x test SUCCESSFUL (31s). Push ac14efa2..0a9661e5 on backport/sequential. Release v0.2.7-alpha-2.071 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.071.
