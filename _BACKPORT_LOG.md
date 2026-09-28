@@ -1084,3 +1084,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 34633029
 - **Release:** v0.2.7-alpha-2.125
 - **Notes:** Cherry-pick -x of `40a62448` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 5d150888..34633029 on backport/sequential.
+
+## 153. `a5afb2fb` external buffer constructor and max size getter
+- **Verdict:** PORTABLE (clean cherry-pick: adds a static `BasicSectionGeometryData.create(int, int)` factory constructor and a `maxSize()` getter to the IGeometryData interface; the factory reads `MAX_BATCH_SIZE` field of each section data type and uses standard OpenGL `GL_MAX_TEXTURE_BUFFER_SIZE` / `glGetInteger(GL_MAX_TEXTURE_SIZE)` calls via the existing `Capabilities` class — all 1.21.1-compatible; the `maxSize()` getter simply returns the static `MAX_BATCH_SIZE` field already declared in each implementation)
+- **Files:** 2 files, +38/-16 (`src/main/java/me/cortex/voxy/client/core/rendering/section/geometry/BasicSectionGeometryData.java` +38/-16 [new static `create(int format, int count)` reads `MAX_BATCH_SIZE` then allocates the geometry data and sets minCount to count; new `maxSize()` getter returns `MAX_BATCH_SIZE`; new protected `BasicSectionGeometryData(long address, int sizeBytes)` constructor for external buffer use], `src/main/java/me/cortex/voxy/client/core/rendering/section/geometry/IGeometryData.java` +1/-0 [added `int maxSize()` to interface])
+- **Result:** APPLIED
+- **SHA:** aa5e1c30
+- **Release:** v0.2.7-alpha-2.126
+- **Notes:** Cherry-pick -x of `a5afb2fb` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push f725c8ec..aa5e1c30 on backport/sequential.
