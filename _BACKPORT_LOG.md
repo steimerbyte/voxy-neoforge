@@ -174,3 +174,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 82712276
 - **Release:** v0.2.7-alpha-2.020
 - **Notes:** Clean cherry-pick. GitHub Actions disabled in this release (workflows moved to .github/workflows-disabled/).
+
+## 26. `8247248c` think? this is more right?
+- **Verdict:** PORTABLE
+- **Files:** RenderDataFactory.java +3/-2
+- **Result:** APPLIED
+- **SHA:** b193377a
+- **Release:** v0.2.7-alpha-2.021
