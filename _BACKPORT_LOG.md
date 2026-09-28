@@ -1132,3 +1132,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** n/a
 - **Release:** n/a (counter unchanged at .130)
 - **Notes:** Cherry-pick -x of `5ca0fa73` initially landed as a6cbe770 with auto-merge on ModelFactory.java and TextureUtils.java. compileJava FAILED with 8 errors all pointing at MC 1.21.11-only APIs in SoftwareModelTextureBakery.java: cannot find symbol class GpuBuffer (com.mojang.blaze3d.buffers), package com.mojang.blaze3d.textures does not exist (TextureFormat), cannot find symbol class CommandEncoder, and 4 ChunkSectionLayer references (which is port-able to RenderType but moot given the GpuBuffer blockers). Reset --hard HEAD~1 to restore clean tree. Counter unchanged at .130.
+
+## 159. `e62beff1` offthread baking + version update
+- **Verdict:** MC-26-ONLY (depends on `SoftwareModelTextureBakery` from commit 158 which is MC 1.21.11-only due to GpuBuffer/CommandEncoder/TextureFormat usage; the "offthread baking" portion of this commit instantiates `new SoftwareModelTextureBakery()` as `this.bakery2` and switches the bake path to call `bakery2.renderToOutput(state, bakeScratchBuffer)` instead of the 1.21.1-compatible `bakery.renderToStream(...)`. The version bump from 0.2.7-alpha to 0.2.12-alpha is the only potentially portable part and we keep our 0.2.7-alpha (`gradle.properties` is `--ours`).)
+- **Files:** 2 files (per upstream): gradle.properties (mod_version 0.2.7-alpha → 0.2.12-alpha), src/main/java/me/cortex/voxy/client/core/model/ModelFactory.java (replace bakery field with bakery2/SoftwareModelTextureBakery, add bakeQueue/BakeScratchBuffer, switch renderToStream path → renderToOutput + bakeScratchBuffer)
+- **Result:** SKIPPED
+- **SHA:** n/a
+- **Release:** n/a (counter unchanged at .130)
+- **Notes:** Cherry-pick -x of `e62beff1` triggered content conflicts on gradle.properties (mod_version) and ModelFactory.java. Resolution plan was clear: keep our `mod_version = 0.2.7-alpha` and the upstream `SoftwareModelTextureBakery` integration would not compile (the type doesn't exist on 1.21.1 in any form — no GpuBuffer replacement exists). Aborted with `git cherry-pick --abort` to preserve a clean tree for the next commits. Counter unchanged at .130.
