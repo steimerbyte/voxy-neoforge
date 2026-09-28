@@ -1092,3 +1092,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** aa5e1c30
 - **Release:** v0.2.7-alpha-2.126
 - **Notes:** Cherry-pick -x of `a5afb2fb` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push f725c8ec..aa5e1c30 on backport/sequential.
+
+## 154. `672ee7c7` geometry buffer and texture atlas reuse system
+- **Verdict:** PORTABLE (clean cherry-pick: adds a new `RenderResourceReuse` static helper class that owns reusable OpenGL resources — `AcquiredUploadStream`, `acquireUploadStream()` (per-frame pool), `RenderBuffer` (per-megamesh geometry buffer with `setup`/`free`/`resize`), and `acquireBuffer()/releaseBuffer()/getBuffer()` (LRU-cached geometry buffer pool by material type). VoxyRenderSystem only loses its own `free()` method (it now delegates to the reuse system) and ModelStore drops a `renderType` dimension from `getRenderType`. All purely internal Java code using only standard OpenGL APIs.)
+- **Files:** 4 files, +143/-35 (`src/main/java/me/cortex/voxy/client/VoxyClientInstance.java` +8/-0 [new `RenderResourceReuse` lifecycle wiring], `src/main/java/me/cortex/voxy/client/core/RenderResourceReuse.java` +126/-0 [new file: full reuse system with AcquiredUploadStream, RenderBuffer pool], `src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java` +4/-35 [removed free() helper, deleted obsolete static init], `src/main/java/me/cortex/voxy/client/core/model/ModelStore.java` +6/-0 [simplified to use `MaterialRenderType` instead of nested renderType])
+- **Result:** APPLIED
+- **SHA:** 67cf2bdf
+- **Release:** v0.2.7-alpha-2.127
+- **Notes:** Cherry-pick -x of `672ee7c7` auto-merged across all 4 files. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 6c536178..67cf2bdf on backport/sequential.
