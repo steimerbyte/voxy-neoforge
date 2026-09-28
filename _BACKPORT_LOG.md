@@ -927,3 +927,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 731c1225
 - **Release:** v0.2.7-alpha-2.107
 - **Notes:** Cherry-pick -x of `ed63bf8a` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4d5aceba..731c1225 on backport/sequential. Release v0.2.7-alpha-2.107 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.107.
+
+## 134. `ed798b5fd64e1f7d5cec5b1c775b373448e31071` disable stencil
+- **Verdict:** PORTABLE (1-line `glDisable(GL_STENCIL_TEST)` in VoxyRenderSystem render path + 1-line removed stray `long startTime = System.nanoTime();`; LWJGL3 `GL11.GL_STENCIL_TEST`/`glDisable` already on classpath)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** bf442bbd
+- **Release:** v0.2.7-alpha-2.108
+- **Notes:** Cherry-pick -x of `ed798b5f` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 963c4b90..bf442bbd on backport/sequential. Release v0.2.7-alpha-2.108 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.108.
