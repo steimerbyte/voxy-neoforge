@@ -187,3 +187,8 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **SHA:** 0e54c96f
 - **Release:** v0.2.7-alpha-2.022
+
+## 28. `5b697ddb` insane
+- **Verdict:** PORTABLE
+- **Result:** APPLIED
+- **Release:** v0.2.7-alpha-2.023
