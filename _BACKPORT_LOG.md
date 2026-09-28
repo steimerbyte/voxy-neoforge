@@ -214,3 +214,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Verdict:** PORTABLE
 - **Result:** APPLIED
 - **Release:** v0.2.7-alpha-2.026
+
+## 33. `86ce0c0f` attempted amd bug detection
+- **Verdict:** PORTABLE
+- **Result:** APPLIED
+- **Release:** v0.2.7-alpha-2.027
+- **Notes:** AMD GPU bug detection (KNOWN PERF/FIX — never skip).

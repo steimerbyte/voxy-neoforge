@@ -30,7 +30,7 @@
 - [x] **30** SKIPPED: `0428153c` small buildscript change — Fabric-specific build.gradle changes (maven.modrinth sodium-extra, chunky 1.4.54-fabric); our fork uses NeoForge with different deps (curse.maven:chunky-pregenerator-forge). Cherry-pick produces empty commit.
 - [x] **31** done: APPLIED: → v0.2.7-alpha-2.025 (race condition fix)
 - [x] **32** done: APPLIED: → v0.2.7-alpha-2.026 (idiot fix)
-- [ ] **33** [`86ce0c0f98e47387d34c530b953fc0a169495a36`](https://github.com/MCRcortex/voxy/commit/86ce0c0f98e47387d34c530b953fc0a169495a36) — attempted amd bug detection
+- [x] **33** done: APPLIED: → v0.2.7-alpha-2.027 (AMD bug detection — KNOWN PERF/FIX)
 - [ ] **34** [`bc995f9c0f5719f7670649978b51cd04ab601e45`](https://github.com/MCRcortex/voxy/commit/bc995f9c0f5719f7670649978b51cd04ab601e45) — wip defered translucency
 - [ ] **35** [`1e4500a912538cb82a00f70e61a36c22582a0033`](https://github.com/MCRcortex/voxy/commit/1e4500a912538cb82a00f70e61a36c22582a0033) — Sodium update + fog change
 - [ ] **36** [`bca46143fb35934a80b6ba7ecebbcf93bd00b3fe`](https://github.com/MCRcortex/voxy/commit/bca46143fb35934a80b6ba7ecebbcf93bd00b3fe) — remove sodium extra
