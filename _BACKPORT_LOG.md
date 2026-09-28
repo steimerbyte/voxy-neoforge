@@ -597,3 +597,16 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 1a403819c7a181aac88972e0eea008a47eeac147
 - **Release:** v0.2.7-alpha-2.077
 - **Notes:** Cherry-pick -x of `51f5851b` auto-merged cleanly with no textual conflicts. Adds a `//TODO: this needs to update the block counts` marker above the body of `WorldSection.set(int, int, int, long)` flagging that the in-place data[idx] mutation doesn't bump `nonEmptyBlockCount`, so per-section block counts drift over time. compileJava SUCCESSFUL (42s), build -x test SUCCESSFUL (31s). Push a83345e1..1a403819 on backport/sequential. Release v0.2.7-alpha-2.077 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.077.
+
+## 100. `b5d1adda6a8308bac987fa3482033d4f9f5c6958` Update sodium 0.8.3
+- **Verdict:** UNPORTABLE (pure sodium 0.8.3 / MC 1.21.11 / Fabric upgrade — zero 1.21.1 fork relevance)
+- **Files:** build.gradle (+3/-3), src/main/java/me/cortex/voxy/client/config/IConfigPageSetter.java (deleted), src/main/java/me/cortex/voxy/client/config/ModMenuIntegration.java (+1/-2), src/main/java/me/cortex/voxy/client/mixin/sodium/MixinVideoSettingsScreen.java (deleted), src/main/resources/client.voxy.mixins.json (+1/-3), src/main/resources/fabric.mod.json (+1/-1)
+- **Result:** SKIPPED
+- **SHA:** (unchanged — not cherry-picked)
+- **Notes:** Pure MC 1.21.11 / sodium-0.8.3 / Iris 1.10.5 + Fabric artifact upgrade. Touches:
+  1. **build.gradle** — bumps sodium 0.8.2→0.8.3 (modrinth `mc1.21.11-0.8.x-fabric`) and iris 1.10.4→1.10.5 for MC 1.21.11. Our 1.21.1 neoforge fork uses `curse.maven:sodium-394468:6382651` (sodium 0.6.13 for 1.21.1) and `curse.maven:irisshaders-455508:6661598` — totally different artifact IDs and Minecraft versions. No analogous 1.21.1 sodium 0.8.x line exists in our fork, so no line to bump.
+  2. **IConfigPageSetter.java / MixinVideoSettingsScreen.java** — both deleted because upstream's sodium 0.8.x exposes `OptionPage` in the public `VideoSettingsScreen.createScreen(parent, page)` API, removing the need for the `voxy$setPageJump` mixin hack. Our 1.21.1 fork uses sodium 0.6.13 which still requires the mixin hack (the only file in our sodium/ mixin folder with `MixinSodiumOptionsGUI` — different name, same purpose). Deleting these files would break our config-screen integration.
+  3. **ModMenuIntegration.java** — uses the new `VideoSettingsScreen.createScreen(parent, page)` signature. Our fork's `ModMenuIntegration.java` is entirely commented out and references `SodiumOptionsGUI.createScreen(parent)` plus reflection on a `currentPage` field. The upstream change cannot be merged into a commented-out file.
+  4. **client.voxy.mixins.json** — moves `minecraft.MixinLayerLightSectionStorage` and `sodium.MixinVideoSettingsScreen` between alphabetically-sorted groups. Our fork doesn't list `MixinVideoSettingsScreen` (different name) and uses a different mixin layout for 1.21.1.
+  5. **fabric.mod.json** — bumps `sodium: "=0.8.2"` → `"=0.8.3"` and `minecraft: ["1.21.11"]`. Our 1.21.1 fork uses `mods.toml` for neoforge, not `fabric.mod.json`, and the JSON's MC version (`1.21.11`) and sodium version (`=0.8.3`) are 1.21.11-only.
+  Per port-pattern guidance ("sodium 0.8.3 = MC 1.21.11, likely skip target") the cherry-pick was not attempted; HEAD remains at 4d55c367.
