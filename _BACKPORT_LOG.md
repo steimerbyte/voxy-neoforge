@@ -853,3 +853,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d700edd9
 - **Release:** v0.2.7-alpha-2.097
 - **Notes:** Cherry-pick -x of `6a577b9` auto-merged cleanly with no textual conflicts. Adds two `//TODO:` markers (one on the `addUniform` override, one inside the new `if (uniform instanceof BooleanUniform bu)` branch) and a guarded block that reads `bu.getLocation()` + `patch.getUniformList()[loc]` into a `var uniformName = ul[loc]` placeholder (currently unused — the scaffold is for an upcoming log/error path). `BooleanUniform.getLocation()` returns the uniform location; `patch.getUniformList()` is the existing `String[]` field already referenced elsewhere in this file (line 381). The `instanceof BooleanUniform bu` pattern-binding compiles cleanly because `BooleanUniform extends Uniform` (Iris-API, present in both upstream and our fork's pinned Iris 1.7.x). The `int loc<ul.length` guard mirrors the defensive bounds check used elsewhere on `patch.getUniformList()`. No API surface change, pure internal-scaffolding + TODO markers. compileJava SUCCESSFUL (36s), build -x test SUCCESSFUL (37s). Push eec08fc1..d700edd9 on backport/sequential. Release v0.2.7-alpha-2.097 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.097.
+
+## 124. `0ba739f934da5fc0e1cbda0dcae091e4a9c9f8ea` no meshing while lots of baking
+- **Verdict:** PORTABLE (5-line guard in `RenderGenerationService` — single-file Voxy-internal change, no MC API surface)
+- **Files:** 1 file, +5/-1 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderGenerationService.java`)
+- **Result:** APPLIED
+- **SHA:** fbef8bb984a2231eff122f36c2bbae076a2442bf
+- **Release:** v0.2.7-alpha-2.098
+- **Notes:** Cherry-pick -x of `0ba739f` auto-merged cleanly with no conflicts. Pure Voxy-internal change in `RenderGenerationService` — no Fabric/NeoForge or MC-version surface, applies unchanged. compileJava SUCCESSFUL (32s), build -x test SUCCESSFUL (9s). Push e8774fa8..fbef8bb9 on backport/sequential. Release v0.2.7-alpha-2.098 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.098.
