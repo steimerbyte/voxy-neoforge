@@ -26,6 +26,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.storage.LevelResource;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -66,7 +68,8 @@ public class VoxyCommands {
                         .executes(VoxyCommands::importZip)
                         .then(RequiredArgumentBuilder.<CommandSourceStack, String>argument("innerPath", StringArgumentType.string())
                                 .executes(VoxyCommands::importZip))));
-        
+        importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("current")
+                .executes(VoxyCommands::importCurrentWorldIn));
         importCommand.then(LiteralArgumentBuilder.<CommandSourceStack>literal("cancel")
                 .executes(VoxyCommands::cancelImport));
 
@@ -210,6 +213,25 @@ public class VoxyCommands {
         } catch (IOException e) {}
 
         return sb.buildFuture();
+    }
+
+    private static int importCurrentWorldIn(CommandContext<CommandSourceStack> ctx) {
+        if (VoxyCommon.getInstance() == null) {
+            ctx.getSource().sendFailure(Component.translatable("Voxy must be enabled in settings to use this"));
+            return 1;
+        }
+
+        var localServer = Minecraft.getInstance().getSingleplayerServer();
+        if (localServer == null) {
+            ctx.getSource().sendFailure(Component.translatable("You must be in single player to use this command"));
+            return 1;
+        }
+        var regionPath = DimensionType.getStorageFolder(Minecraft.getInstance().level.dimension(), localServer.getWorldPath(LevelResource.ROOT)).resolve("region");
+        if ((!regionPath.toFile().exists())||!regionPath.toFile().isDirectory()) {
+            ctx.getSource().sendFailure(Component.translatable("Cannot find region folder for current dimension"));
+            return 1;
+        }
+        return fileBasedImporter(regionPath.toFile())?0:1;
     }
 
     private static int importWorld(CommandContext<CommandSourceStack> ctx) {
