@@ -34,7 +34,7 @@
 - [x] **34** done: APPLIED: → v0.2.7-alpha-2.028 (wip deferred translucency)
 - [x] **35** SKIPPED: `1e4500a9` Sodium update + fog change — pulls Sodium 0.8.1-SNAPSHOT (`net.caffeinemc:sodium-fabric:0.8.1-SNAPSHOT+mc1.21.11+`), FlagHook/Identifier Config API, MC 1.21.11 FogData class. None exist in our Sodium 0.6.13 / MC 1.21.1. Manual fix = version bump + 3 build file edits, outside backport scope.
 - [x] **36** done: APPLIED: 2a102d55 → v0.2.7-alpha-2.029 (remove sodium extra)
-- [ ] **37** [`d30ea7ecc76b68840bc3febc119f0f00766bae50`](https://github.com/MCRcortex/voxy/commit/d30ea7ecc76b68840bc3febc119f0f00766bae50) — here we go again
+- [x] **37** SKIPPED: `d30ea7ec` here we go again — MC 1.21.11 fog refactoring + useRenderFog config removal + Sodium 0.8.1-SNAPSHOT build.gradle changes. Our fork is 1.21.1 + Sodium 0.6.13, useRenderFog never existed. Conflicts in MixinFogRenderer (FogData class), NormalRenderPipeline (environmentalStart), build.gradle (Sodium 0.8.1).
 - [ ] **38** [`342043674dbd4fea53d7c42673ea9ebe70fe9cff`](https://github.com/MCRcortex/voxy/commit/342043674dbd4fea53d7c42673ea9ebe70fe9cff) — stupid idiot
 - [ ] **39** [`b68d5b3c66e36e1adc987675ae1aae2891496901`](https://github.com/MCRcortex/voxy/commit/b68d5b3c66e36e1adc987675ae1aae2891496901) — dis
 - [ ] **40** [`b5c31478fb44a89cb0be7cc21068113643dba3fa`](https://github.com/MCRcortex/voxy/commit/b5c31478fb44a89cb0be7cc21068113643dba3fa) — things

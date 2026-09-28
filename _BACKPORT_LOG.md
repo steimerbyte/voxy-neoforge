@@ -238,3 +238,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **SHA:** 2a102d55
 - **Release:** v0.2.7-alpha-2.029
+
+## 37. `d30ea7ec` here we go again
+- **Verdict:** MC-26-ONLY
+- **Files:** 6
+- **Result:** SKIPPED
+- **Reason:** MC 1.21.11 fog refactoring (uses FogData class in MixinFogRenderer, environmentalStart in NormalRenderPipeline), removes `useRenderFog` config field that doesn't exist in our 1.21.1 fork, and build.gradle changes for Sodium 0.8.1-SNAPSHOT. Our fork is 1.21.1 + Sodium 0.6.13. Multiple MC-26-only API conflicts.
