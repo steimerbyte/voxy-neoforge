@@ -919,3 +919,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 95ffaa00
 - **Release:** v0.2.7-alpha-2.106
 - **Notes:** Cherry-pick -x of `ed5497a5` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 7f050b66..95ffaa00 on backport/sequential.
+
+## 133. `ed63bf8ae8146cc55457df599cc187f68c3788ce` opengl state things
+- **Verdict:** PORTABLE (2-line `glDepthFunc(GL_LEQUAL)` reset in MDICSectionRenderer; LWJGL3 `GL11C.GL_LEQUAL`/`glDepthFunc` already on classpath)
+- **Files:** 1 file, +2/-0 (`src/main/java/me/cortex/voxy/client/core/rendering/section/backend/mdic/MDICSectionRenderer.java`)
+- **Result:** APPLIED
+- **SHA:** 731c1225
+- **Release:** v0.2.7-alpha-2.107
+- **Notes:** Cherry-pick -x of `ed63bf8a` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4d5aceba..731c1225 on backport/sequential. Release v0.2.7-alpha-2.107 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.107.
