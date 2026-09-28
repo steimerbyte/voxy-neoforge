@@ -26,7 +26,7 @@
 - [x] **26** done: APPLIED: b193377a → v0.2.7-alpha-2.021 (think? this is more right)
 - [x] **27** done: APPLIED: 0e54c96f → v0.2.7-alpha-2.022 (for future)
 - [x] **28** done: APPLIED: → v0.2.7-alpha-2.023 (insane)
-- [ ] **29** [`fb9b7923b0a7066f2bf2fb9a98657407dd301022`](https://github.com/MCRcortex/voxy/commit/fb9b7923b0a7066f2bf2fb9a98657407dd301022) — tweeked msg
+- [x] **29** done: APPLIED: → v0.2.7-alpha-2.024 (tweeked msg)
 - [ ] **30** [`0428153cf586c8ead5ba5f234499df503d33bae3`](https://github.com/MCRcortex/voxy/commit/0428153cf586c8ead5ba5f234499df503d33bae3) — small buildscript change
 - [ ] **31** [`ef1a296998f9362a392fc6673a11d4c8508a4c0d`](https://github.com/MCRcortex/voxy/commit/ef1a296998f9362a392fc6673a11d4c8508a4c0d) — fix small possiblity of a race condition (so small is stupid yet it happened)
 - [ ] **32** [`4ffb7583a7c52f1f59cde8262eb88bbe0b16229a`](https://github.com/MCRcortex/voxy/commit/4ffb7583a7c52f1f59cde8262eb88bbe0b16229a) — complete and utter fukin idiot
