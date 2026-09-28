@@ -22,3 +22,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 88c9daa31084ac417c56ecf8e3c9aee7c40bcf27
 - **Release:** v0.2.7-alpha-2.003
 - **Notes:** 1-line perf fix: `replaceAll()` → `replace()` (avoids regex compile overhead).
+
+## 5. `0f9287ad` wip face tinit
+- **Verdict:** REQUIRES-MANUAL-PORT (HIGH conflict risk)
+- **Files:** AbstractSectionRenderer.java, MDICSectionRenderer.java, IrisShaderPatch.java
+- **Result:** APPLIED+FIXED
+- **SHA:** 28babb8b33f840a5124b042946af547b1b02e0cb
+- **Release:** v0.2.7-alpha-2.004
+- **Fix:** `cl.dimensionType().cardinalLightType() == NETHER` → `cl.effects().equals(BuiltinDimensionTypes.NETHER_EFFECTS)` (cardinalLightType is MC 1.21.4+, not in 1.21.1)
