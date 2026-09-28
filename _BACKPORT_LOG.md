@@ -1019,3 +1019,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 69e09660
 - **Release:** v0.2.7-alpha-2.118
 - **Notes:** Cherry-pick -x of `0033da2a` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL (12s). Push b846dd92..69e09660 on backport/sequential.
+
+## 145. `4333864c` move all the pos unpacks into a single place
+- **Verdict:** PORTABLE (clean cherry-pick: pure GLSL refactor — extracts the inline `extractDetail`/`extractLoDPosition` helpers from `quad_util.glsl` + `extractDetail`/`extractPosition` helpers from `section.glsl` + `lodLevel`/inline unpacks from `hierarchical/node.glsl` into a single shared `pos_util.glsl` with `getLoDLevel(uvec2)` and `getLoDPosition(uvec2)`; `#import <voxy:lod/pos_util.glsl>` syntax already widely used in our fork's shaders)
+- **Files:** 4 files, +27/-35 (`src/main/resources/assets/voxy/shaders/lod/hierarchical/node.glsl` +2/-11 [adds `#import`, replaces inline unpacks with getLoDLevel/getLoDPosition], `src/main/resources/assets/voxy/shaders/lod/pos_util.glsl` +18/-0 [new file: getLoDLevel + getLoDPosition], `src/main/resources/assets/voxy/shaders/lod/quad_util.glsl` +1/-13 [adds `#import`, removes local extractDetail/extractLoDPosition, renames callsites], `src/main/resources/assets/voxy/shaders/lod/section.glsl` +1/-10 [adds `#import`, removes local extractDetail/extractPosition, renames callsites])
+- **Result:** APPLIED
+- **SHA:** 1597a11f
+- **Release:** v0.2.7-alpha-2.119
+- **Notes:** Cherry-pick -x of `4333864c` auto-merged cleanly across all 4 files. compileJava SUCCESSFUL, build -x test SUCCESSFUL (9s). Push ee59db50..1597a11f on backport/sequential.
