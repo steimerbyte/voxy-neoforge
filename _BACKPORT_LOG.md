@@ -98,3 +98,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** fa8fe58e
 - **Release:** v0.2.7-alpha-2.012
 - **Fix:** Kept `VoxyConfigScreenPages.java` (actively referenced via `MixinSodiumOptionsGUI` in our 1.21.1 fork; upstream only deleted it because `VoxyConfigPageSodium` replaced callsites — not done in 1.21.1). Applied the actual fix: `IrisVoxyRenderPipeline.java` `getDepthTex().getFormat()` → `getFormat()` + new `DepthFramebuffer.getFormat()` getter.
+
+## 16. `bbf7d60a` todo
+- **Verdict:** PORTABLE
+- **Files:** 1 file (TODO comment rewrite)
+- **Result:** APPLIED
+- **SHA:** b0cf4414
+- **Release:** v0.2.7-alpha-2.013
+- **Notes:** Pure comment rewrite at line 58.
