@@ -30,3 +30,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 28babb8b33f840a5124b042946af547b1b02e0cb
 - **Release:** v0.2.7-alpha-2.004
 - **Fix:** `cl.dimensionType().cardinalLightType() == NETHER` → `cl.effects().equals(BuiltinDimensionTypes.NETHER_EFFECTS)` (cardinalLightType is MC 1.21.4+, not in 1.21.1)
+
+## 6. `edd0ce33` update mods 1.21.11
+- **Verdict:** MC-26-ONLY (Sodium 0.7 API + MC 1.21.2+ APIs)
+- **Files:** 14 files (config/, mixin/sodium/, resources/fabric.mod.json, etc.)
+- **Result:** SKIPPED
+- **Reason:** Full Sodium 0.6 → 0.7 + MC 1.21.1 → 1.21.11 upgrade. Missing APIs in our 1.21.1 + Sodium 0.8.13 target: `GpuSampler`, `FogParameters`, `indexedRenderingEnabled`, `OptionFlag`, `StorageEventHandler`, `ConfigState`, `IntegerOptionBuilder`, `OptionPage`, `Page`, `Range`, `OptionImpact`, `Supplier<GlSampler>`. Not backportable as a patch — would require full Sodium 0.7-style config refactor.
