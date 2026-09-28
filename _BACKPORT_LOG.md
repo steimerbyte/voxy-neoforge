@@ -474,3 +474,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b31babe58eb6e77ee8676fb8b8d6e3db5c566bd4
 - **Release:** v0.2.7-alpha-2.065
 - **Notes:** Cherry-pick -x of `95199b7d` auto-merged cleanly with no conflicts. Splits the previously-public `putNext(long data)` into a thin public wrapper that delegates to a new `private void putNext0(long data)`, then rewrites the four internal call sites in `emitEnd()`, `skip()`, and the surrounding comment code to call `putNext0` directly. Subclasses (none in this fork, only the abstract `ScanMesher2D` itself and one test) are unaffected because no override signature changed; the public contract is identical. Purely a tightening of internal-vs-public visibility, no API surface change. compileJava SUCCESSFUL (35s), build -x test SUCCESSFUL (31s). Push 67239552..b31babe5 on backport/sequential. Release v0.2.7-alpha-2.065 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.065.
+
+## 85. `24712d4f4f73c5b55f71dc6b0c8ba74ce7c8b192` markers
+- **Verdict:** PORTABLE (debug instrumentation)
+- **Files:** src/main/java/me/cortex/voxy/client/core/AbstractRenderPipeline.java (+3)
+- **Result:** APPLIED
+- **SHA:** 0ef442407764ac63b2fec167780dbd8775de2b93
+- **Release:** v0.2.7-alpha-2.066
+- **Notes:** Cherry-pick -x of `24712d4f` auto-merged cleanly with no conflicts. Adds three `GPUTiming.INSTANCE.marker(...)` call sites to AbstractRenderPipeline.renderOpaque/renderTemporal block: `marker("I")` and `marker()` bracket `innerPrimaryWork`, `marker("TP")` precedes `renderTemporal`. The marker API was already in this fork via the backport of commits 74 + 75 (GPUTiming.java + BasicSectionGeometryData.java), so no upstream library change required. Pure debug instrumentation, no API surface change, no behavioral impact outside the GPU timing capture path. compileJava SUCCESSFUL (38s), build -x test SUCCESSFUL (31s). Push 005bc8c3..0ef44240 on backport/sequential. Release v0.2.7-alpha-2.066 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.066.
