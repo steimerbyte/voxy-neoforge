@@ -1100,3 +1100,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 67cf2bdf
 - **Release:** v0.2.7-alpha-2.127
 - **Notes:** Cherry-pick -x of `672ee7c7` auto-merged across all 4 files. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 6c536178..67cf2bdf on backport/sequential.
+
+## 155. `3a6f2ac5` change min render distance to 32
+- **Verdict:** PORTABLE-WITH-REBASE (upstream edits `VoxyConfigMenu.java:106` (Range min 2*16 → 1*16), but on our fork this file was already deleted by commit `cad8d593` ("1.21.10 backport") and the equivalent code lives in `VoxyConfigScreenPages.java:126` as a `SliderControl(opt, 2*16, 64*16, 1, ...)` — semantic port: change the same min from `2*16` to `1*16` on line 126 of `VoxyConfigScreenPages.java`. Note that `VoxyConfigMenu.java` still exists in the worktree but with a non-conflicting range value already matching the upstream post-change state — the upstream delta on that file was effectively a no-op on our fork. The semantic equivalent was applied in the live config page.)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/config/VoxyConfigScreenPages.java` +1/-1 [SliderControl min: `2*16` → `1*16` on line 126])
+- **Result:** APPLIED
+- **SHA:** cf1f59a7
+- **Release:** v0.2.7-alpha-2.128
+- **Notes:** Cherry-pick -x of `3a6f2ac5` triggered a modify/delete conflict on `VoxyConfigMenu.java` because that file was deleted by upstream commit `cad8d593` and replaced by `VoxyConfigScreenPages.java`. Aborted the cherry-pick, then manually applied the semantic equivalent edit on `VoxyConfigScreenPages.java:126` and committed with `(cherry picked from commit 3a6f2ac56a986800bce963bafcf5bd0a008b700c)` trailer. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 3f77c764..cf1f59a7 on backport/sequential.
