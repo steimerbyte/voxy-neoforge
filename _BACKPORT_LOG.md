@@ -1285,3 +1285,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** cb2ed429
 - **Release:** v0.2.7-alpha-2.145
 - **Notes:** Cherry-pick -x of `a47a028d` conflicted only in `gradle.properties` because upstream targets MC 1.21.11/Fabric Loader 0.18.4. Resolved with `--ours` and continued as an empty provenance commit retaining the source trailer. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 5cd0ff18..cb2ed429 on backport/sequential. Release v0.2.7-alpha-2.145 created with both built jars. Counter advanced .144 → .145.
+
+## 178. `6172a8860b18f53e319d2a77f29e04fd17871067` zero cull raster expantion fix and optimize the depth stencil setup pass into a single full screen blit with discard
+- **Verdict:** PORTABLE (clean cherry-pick: fixes zero-cull raster expansion and replaces the multi-pass depth/stencil setup with one fullscreen discard blit; the change uses the fork's existing shader pipeline and has no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 3 files, +29/-33 (the upstream renderer change plus a new `setup_stencil_depth.frag` shader)
+- **Result:** APPLIED
+- **SHA:** 5fe2ad6e
+- **Release:** v0.2.7-alpha-2.146
+- **Notes:** Cherry-pick -x of `6172a886` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 07dc71d5..5fe2ad6e on backport/sequential. Release v0.2.7-alpha-2.146 created with both built jars after retrying with the correct full commit SHA. Counter advanced .145 → .146.
