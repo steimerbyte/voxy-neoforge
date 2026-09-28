@@ -1229,3 +1229,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 222e2685
 - **Release:** v0.2.7-alpha-2.139
 - **Notes:** Cherry-pick -x of `7cacc863` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9ff48bc9..222e2685 on backport/sequential. Release v0.2.7-alpha-2.139 created with both built jars. Counter advanced .138 → .139.
+
+## 171. `5cb96e9f1c4363101ab009db637084e68cadaa63` vp -> mvp
+- **Verdict:** PORTABLE (clean cherry-pick: converts screen-space shader calculations from direct viewport pointers to model-view-projection transforms and adjusts traversal shader position math; both are renderer-version-independent GLSL changes using the fork's existing shader conventions.)
+- **Files:** 2 files, +13/-4 (`src/main/resources/assets/voxy/shaders/lod/hierarchical/screenspace.glsl` +12/-3, `src/main/resources/assets/voxy/shaders/lod/hierarchical/traversal_dev.comp` +1/-1)
+- **Result:** APPLIED
+- **SHA:** 0553d106
+- **Release:** v0.2.7-alpha-2.140
+- **Notes:** Cherry-pick -x of `5cb96e9f` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 045e62d7..0553d106 on backport/sequential. Release v0.2.7-alpha-2.140 created with both built jars. Counter advanced .139 → .140.
