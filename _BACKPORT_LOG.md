@@ -1164,3 +1164,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** acfe448b
 - **Release:** v0.2.7-alpha-2.132
 - **Notes:** Cherry-pick -x of `aa5fa61` triggered a content conflict on build.gradle (huge: upstream is fabric-loom, ours is NeoForge). Aborted the merge logic via `git checkout --ours build.gradle`, then manually applied the two semantic additions: (1) `def INCLUDE_OTHER_ARCHS = false` after the plugins block (line 7), (2) the `if (INCLUDE_OTHER_ARCHS) { runtimeOnly … natives-linux-arm64 }` block after line 302. The `processIncludeJars` wrap was a no-op on our fork because that block doesn't exist. Used `runtimeOnly` instead of `include(runtimeOnly)` to match our existing line style. compileJava SUCCESSFUL (8s, all up-to-date), build -x test SUCCESSFUL (10s). Push 283e1e88..acfe448b on backport/sequential.
+
+## 163. `792927eb` hints
+- **Verdict:** PORTABLE (clean cherry-pick: threads optional release hints through `WorldSection.release`, `ActiveSectionTracker.tryUnload`, and `RenderDataFactory` neighbor-section cleanup; adds `WorldSection.RELEASE_HINT_POSSIBLE_REUSE` and passes it after neighbor data is copied. All changes are internal Java APIs and compile on MC 1.21.1.)
+- **Files:** 4 files, +21/-13 (`src/main/java/me/cortex/voxy/client/core/model/ModelBakerySubsystem.java` +2/-0 [unused `LockSupport` import and TODO hint], `src/main/java/me/cortex/voxy/client/core/rendering/building/RenderDataFactory.java` +6/-6 [neighbor releases pass possible-reuse hint], `src/main/java/me/cortex/voxy/common/world/ActiveSectionTracker.java` +3/-3 [accept and forward release hints], `src/main/java/me/cortex/voxy/common/world/WorldSection.java` +10/-4 [add release hint constant and overloaded release path])
+- **Result:** APPLIED
+- **SHA:** 6afc7817
+- **Release:** v0.2.7-alpha-2.133
+- **Notes:** Cherry-pick -x of `792927eb` auto-merged cleanly. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push f12775be..6afc7817 on backport/sequential. Release v0.2.7-alpha-2.133 created with both built jars. GitHub initially rejected the abbreviated target SHA; retried with full commit SHA successfully. Counter advanced .132 → .133.
