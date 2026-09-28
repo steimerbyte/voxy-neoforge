@@ -106,3 +106,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b0cf4414
 - **Release:** v0.2.7-alpha-2.013
 - **Notes:** Pure comment rewrite at line 58.
+
+## 17. `6724157f` finally fix the chunk flickering issue when zooming in
+- **Verdict:** PORTABLE
+- **Files:** 1 file (SectionOcclusionCache or similar, isCulledByHiz method)
+- **Result:** APPLIED
+- **SHA:** 0e534948
+- **Release:** v0.2.7-alpha-2.014
+- **Notes:** 3-line guard `(maxBB.xy-minBB.xy)==vec2(1.0f) → return false` at top of isCulledByHiz() to short-circuit degenerate full-screen-bbox case causing zoom-in flicker.
