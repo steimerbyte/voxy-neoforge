@@ -7,6 +7,27 @@ no `neoforge.mods.toml`, no main `@Mod` class). This fork fills in the missing
 pieces so the mod compiles, the jar builds, and the mod loads in a real
 NeoForge 1.21.1 server.
 
+> ⚠️ **AI-generated content**
+>
+> This fork was developed end-to-end by an **autonomous AI coding agent**
+> (Pi / minimax M3) under the direction of the human maintainer
+> `steimerbyte`. All source-code changes, build-pipeline fixes, access-
+> transformer translations, mixin rewrites, dependency updates, and the
+> ongoing commit-by-commit backport of upstream Voxy were authored by the AI.
+>
+> **What the AI does:** reads upstream commits, decides which can be applied
+> to the 1.21.1 NeoForge target, rewrites the changes to fit NeoForge 1.21.1
+> APIs and Sodium 0.8.13 hooks, runs `./gradlew compileJava` / `runServer`
+> after each commit, and documents every skip with a reason.
+>
+> **What the human (`steimerbyte`) does:** sets direction, reviews scope
+> push-back from the AI, manages the GitHub repository / releases, and
+> provided the cgroup-memory and systemd-service environment fixes that
+> the build needs to run at all.
+>
+> The underlying mod (Voxy) itself is human-authored — see the credits
+> table below.
+
 ## Credits
 
 This is a fork of a fork of a fork. The lineage:
