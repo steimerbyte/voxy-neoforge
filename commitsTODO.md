@@ -20,7 +20,7 @@
 - [x] **20** done: SKIPPED: README conflict (158-line fork README vs 1-line upstream)
 - [x] **21** done: APPLIED+FIXED: 1f647fc4 → v0.2.7-alpha-2.016 (Identifier→ResourceLocation)
 - [x] **22** done: APPLIED+FIXED: ac7fff20 → v0.2.7-alpha-2.017 (kept meshing + race-fix; dropped chunky bump + fog-hunk)
-- [ ] **23** [`362998cc5f1b91de56e8f773c62727c8c17a9192`](https://github.com/MCRcortex/voxy/commit/362998cc5f1b91de56e8f773c62727c8c17a9192) — woooops
+- [x] **23** done: APPLIED: 9e7f521f → v0.2.7-alpha-2.018 (wooooops clean cherry-pick)
 - [ ] **24** [`65e10c2c68c1f7c62908bd01354f59a05ed66076`](https://github.com/MCRcortex/voxy/commit/65e10c2c68c1f7c62908bd01354f59a05ed66076) — cleanup
 - [ ] **25** [`6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d`](https://github.com/MCRcortex/voxy/commit/6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d) — this was such an unbelievebly dumb and stupid mistake
 - [ ] **26** [`8247248c6255ae452deda8f2342f168f988eebba`](https://github.com/MCRcortex/voxy/commit/8247248c6255ae452deda8f2342f168f988eebba) — think? this is more right? (need todo fluid thing tho)

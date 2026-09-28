@@ -145,3 +145,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.017
 - **Applied:** RenderDataFactory.java meshing fixes + ImportManager.java acquireRef/releaseRef race-fix.
 - **Dropped:** build.gradle chunky 1.4.40→1.4.54 (our build.gradle uses curse.maven chunky-pregenerator-forge, not maven.modrinth chunky-fabric). NormalRenderPipeline.java fog Math.clamp hunk (the surrounding useEnvFog block with environmentalStart/End is MC-26.x-only).
+
+## 23. `362998cc` woooops
+- **Verdict:** PORTABLE
+- **Files:** small fix
+- **Result:** APPLIED
+- **SHA:** 9e7f521f
+- **Release:** v0.2.7-alpha-2.018
