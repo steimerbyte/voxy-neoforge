@@ -6,6 +6,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 
 ## Progress
 
+## Pre-Backport Setup Fix
+- `eac6b98c` — fix(neo21): defer voxy init to ClientTickEvent.Pre so GL context is ready
+  - **Verdict:** PRE-EXISTING-SETUP-BUG (not backport-induced, but masked downstream bugs)
+  - **Files:** src/main/java/me/cortex/voxy/NeoVoxyMod.java
+  - **Result:** APPLIED (manual fix, no release)
+  - **Notes:** VoxyClient.initVoxyClient() in FMLClientSetupEvent crashed every fresh client launch with `IllegalStateException: No GLCapabilities instance set` because Capabilities.<clinit> needs a current GL context, but GL.createCapabilities() runs later on NeoForge (unlike Fabric's ClientModInitializer). Pre-existing alpha-2 base (9dbb8174) had no NeoVoxyMod at all — regression came in with NeoForge entry-point commits 6af19fab + 2b2c941f. Moved the call to ClientTickEvent.Pre on the game bus, idempotent. After this fix the headless verifier confirms Voxy registers cleanly (Capabilities init OK, ResourceManager lists `mod/voxy`). The downstream Mesa/GLSL 4.60 crash in BudgetBufferRenderer is a test-environment limitation (Mesa llvmpipe hardware maxes out at 4.50) and not a voxy bug — it would not crash on real NVIDIA/AMD GPUs. The previous `.040` release's user-reported sodium-extra NPE was likely a secondary crash after voxy's primary init crash aborted mod-loading; both should now be resolved.
 
 ## 3. `66a20618` wip tinting
 - **Verdict:** PORTABLE
@@ -271,3 +277,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 ## 47. `3bcdbbec` gpu timings — APPLIED 211e9d9d → v0.2.7-alpha-2.038
 ## 48. `3cc5afc1` Client store — APPLIED a83feb0a → v0.2.7-alpha-2.039
 ## 49. `79890fde` x — APPLIED bdbc888b → v0.2.7-alpha-2.040
+
+## 50. `263f9321` aa
+- **Verdict:** REQUIRES-MANUAL-PORT
+- **Files:** build.gradle, src/main/java/me/cortex/voxy/client/core/rendering/section/backend/mdic/MDICSectionRenderer.java, src/main/resources/assets/voxy/shaders/lod/gl46/quads.frag
+- **Result:** APPLIED+FIXED
+- **SHA:** 9e20fb0d0f9ae6c606af7b882129359f37163a54
+- **Release:** v0.2.7-alpha-2.041
+- **Fix:** build.gradle conflict: upstream introduced an `if (false) modImplementation sodium-fabric mc1.21.11-0.8.2-SNAPSHOT` block — dropped on 1.21.1 fork (already on curse.maven:sodium-394468 for 1.21.1); kept HEAD's irisshaders lines. The other two files (MDICSectionRenderer.java `glDisable(GL_BLEND)`, quads.frag `colour.a = 1.0f`) auto-merged clean.
