@@ -1293,3 +1293,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 5fe2ad6e
 - **Release:** v0.2.7-alpha-2.146
 - **Notes:** Cherry-pick -x of `6172a886` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 07dc71d5..5fe2ad6e on backport/sequential. Release v0.2.7-alpha-2.146 created with both built jars after retrying with the correct full commit SHA. Counter advanced .145 → .146.
+
+## 179. `2a994d061fd1b08209537f1f5c60bc47f20e302e` wip disable config
+- **Verdict:** PORTABLE (clean cherry-pick: adds the upstream disabled-config gate and client/common enable-state plumbing; it compiles and builds against the fork's existing 1.21.1 APIs.)
+- **Files:** 3 files, +6/-0 (`VoxyClientInstance.java`, `VoxyCommon.java`, and the upstream configuration source)
+- **Result:** APPLIED
+- **SHA:** c6c305a7
+- **Release:** v0.2.7-alpha-2.147
+- **Notes:** Cherry-pick -x of `2a994d06` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 1278acac..c6c305a7 on backport/sequential. Release v0.2.7-alpha-2.147 created with both built jars. Counter advanced .146 → .147.
