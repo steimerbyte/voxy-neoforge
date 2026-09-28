@@ -1124,3 +1124,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 08b18d21
 - **Release:** v0.2.7-alpha-2.130
 - **Notes:** Cherry-pick -x of `eaf107e4` auto-merged cleanly (Capabilities.java was a no-op since the field was already added in commit 156 to make 156 self-consistent). compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 09e175fc..08b18d21 on backport/sequential.
+
+## 158. `5ca0fa73` inital software rasterizing texture bakery
+- **Verdict:** MC-26-ONLY (introduces `SoftwareModelTextureBakery` and `SoftwareRasterizer` classes that use MC 1.21.11-only APIs throughout: `com.mojang.blaze3d.buffers.GpuBuffer`, `com.mojang.blaze3d.systems.CommandEncoder`, `com.mojang.blaze3d.textures.TextureFormat`, and `RenderSystem.getDevice()` — none of these exist on 1.21.1. The file also imports `net.minecraft.client.renderer.chunk.ChunkSectionLayer` which would need 1.21.1 port to `RenderType`, but the GpuBuffer/CommandEncoder dependency is the dominant blocker: the entire rendering path goes through GPU device API rather than the 1.21.1 GL11/GL13/GL15 stack.)
+- **Files:** 5 files, +592/-10 (new `src/main/java/me/cortex/voxy/client/core/model/bakery/SoftwareModelTextureBakery.java` +305/-0, new `src/main/java/me/cortex/voxy/client/core/model/bakery/SoftwareRasterizer.java` +145/-0, `src/main/java/me/cortex/voxy/client/core/model/ModelFactory.java` +127/-5 [software bakery wiring + new methods], `src/main/java/me/cortex/voxy/client/core/model/TextureUtils.java` +8/-0 [helper additions], other minor)
+- **Result:** SKIPPED
+- **SHA:** n/a
+- **Release:** n/a (counter unchanged at .130)
+- **Notes:** Cherry-pick -x of `5ca0fa73` initially landed as a6cbe770 with auto-merge on ModelFactory.java and TextureUtils.java. compileJava FAILED with 8 errors all pointing at MC 1.21.11-only APIs in SoftwareModelTextureBakery.java: cannot find symbol class GpuBuffer (com.mojang.blaze3d.buffers), package com.mojang.blaze3d.textures does not exist (TextureFormat), cannot find symbol class CommandEncoder, and 4 ChunkSectionLayer references (which is port-able to RenderType but moot given the GpuBuffer blockers). Reset --hard HEAD~1 to restore clean tree. Counter unchanged at .130.
