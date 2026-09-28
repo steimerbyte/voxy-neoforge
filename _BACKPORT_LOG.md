@@ -806,3 +806,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 76a4c8f7cbaebc48ebf96a489099339541ef88eb
 - **Release:** v0.2.7-alpha-2.093
 - **Notes:** Cherry-pick -x of `0781dd4` auto-merged cleanly. The CPU-side change in `VoxyRenderSystem.java` switches the traversal max-distance computation to use the render-distance value directly (no pop-in as the camera reaches the edge). The traverser change uses the render-distance bound to short-circuit nodes that lie outside the smooth circular frustum. The GLSL update adds the same circular distance check in the compute shader (`traversal_dev.comp`). No NeoForge-vs-Fabric translation needed. compileJava SUCCESSFUL (40s), build -x test SUCCESSFUL (32s). Push f8bf4171..76a4c8f7 on backport/sequential. Release v0.2.7-alpha-2.093 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.093.
+
+## 118. `4531c55ffad9a03b96ec3e7752878d6b9bf4659a` timing measures
+- **Verdict:** PORTABLE (3-line addition of `GPUTiming.INSTANCE.marker(...)` calls in `AbstractRenderPipeline`; uses existing internal Voxy API)
+- **Files:** 1 file, +3 (`src/main/java/me/cortex/voxy/client/core/AbstractRenderPipeline.java`)
+- **Result:** APPLIED
+- **SHA:** 03c6dffbd4605db9fc536b8001bdc367764a5412
+- **Release:** v0.2.7-alpha-2.094
+- **Notes:** Cherry-pick -x of `4531c55` auto-merged cleanly. `GPUTiming.INSTANCE.marker("...")` is already used elsewhere in the same file (e.g. `GPUTiming.INSTANCE.marker("TP")` line 117) and `GPUTiming` is a stable Voxy-internal class (`src/main/java/me/cortex/voxy/client/core/util/GPUTiming.java`) — no API translation needed. compileJava SUCCESSFUL (39s), build -x test SUCCESSFUL (32s). Push fe7ba658..03c6dffb on backport/sequential. Release v0.2.7-alpha-2.094 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.094.
