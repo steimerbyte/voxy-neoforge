@@ -618,3 +618,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0b12c725e4b8e6716fb2a30ef95bf7ed6a28a772
 - **Release:** v0.2.7-alpha-2.078
 - **Notes:** Cherry-pick -x of `097b5e24` auto-merged cleanly with no textual conflicts. Refactors `WorldUpdater` into smaller methods (`runUpdates`, per-section block-state accumulation helpers, etc.) without changing observable behavior or touching MC API surface. compileJava SUCCESSFUL (25s), build -x test SUCCESSFUL (31s). Push 8a7dc8e2..0b12c725 on backport/sequential. Release v0.2.7-alpha-2.078 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.078.
+
+## 102. `3205a3360e4af7634db9a19a6f74deb9efdd0e11` slight change to saving and dirty atomics
+- **Verdict:** PORTABLE (internal logic adjustment of WorldEngine save/dirty flow)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldEngine.java (+1/-2)
+- **Result:** APPLIED
+- **SHA:** ac9ca8f5
+- **Release:** v0.2.7-alpha-2.079
+- **Notes:** Cherry-pick -x of `3205a336` auto-merged cleanly. Removes the `!section.inSaveQueue` guard around `markDirty()` (cleanup of redundant atomic check) and drops the explicit `section.setNotDirty()` call inside `saveSection()` since `WorldSection.save()` itself resets the dirty flag. Pure refactor, no API surface change. compileJava SUCCESSFUL (41s), build -x test SUCCESSFUL (32s). Push fca32843..ac9ca8f5 on backport/sequential. Release v0.2.7-alpha-2.079 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.079.
