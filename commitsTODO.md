@@ -22,7 +22,7 @@
 - [x] **22** done: APPLIED+FIXED: ac7fff20 → v0.2.7-alpha-2.017 (kept meshing + race-fix; dropped chunky bump + fog-hunk)
 - [x] **23** done: APPLIED: 9e7f521f → v0.2.7-alpha-2.018 (wooooops clean cherry-pick)
 - [x] **24** done: APPLIED: c98658c5 → v0.2.7-alpha-2.019 (cleanup)
-- [x] **25** done: APPLIED: 82712276 (this was such an unbelievebly dumb and stupid mistake — clean cherry-pick, no release per local-only mode)
+- [x] **25** done: APPLIED: 82712276 → v0.2.7-alpha-2.020 (dumb mistake)
 - [ ] **26** [`8247248c6255ae452deda8f2342f168f988eebba`](https://github.com/MCRcortex/voxy/commit/8247248c6255ae452deda8f2342f168f988eebba) — think? this is more right? (need todo fluid thing tho)
 - [ ] **27** [`25463a4c114ce79974097da3b4363ee8258029a3`](https://github.com/MCRcortex/voxy/commit/25463a4c114ce79974097da3b4363ee8258029a3) — for future
 - [ ] **28** [`5b697ddb0493089f7050b0dded1a34d90aa6d564`](https://github.com/MCRcortex/voxy/commit/5b697ddb0493089f7050b0dded1a34d90aa6d564) — insane
