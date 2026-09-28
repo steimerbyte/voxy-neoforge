@@ -1212,3 +1212,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 3e89246c
 - **Release:** v0.2.7-alpha-2.137
 - **Notes:** Cherry-pick -x of `921883ea` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push abb18a90..3e89246c on backport/sequential. Release v0.2.7-alpha-2.137 created with both built jars; GitHub initially rejected the abbreviated target SHA, so the release command was retried with the full SHA. Counter advanced .136 → .137.
+
+## 169. `53eb914ea54dd25c3adc34bf0c0cab08080e6199` minor changes
+- **Verdict:** PORTABLE-WITH-CONFLICT-RESOLUTION (adds an optional `attemptRepair` argument to the TLN verification command, repairs incorrect level-0 state and section empty-child masks, aborts promptly on shutdown, and exposes HUD/logging helpers. NeoForge command types were substituted during the VoxyCommands conflict resolution.)
+- **Files:** 3 files, +38/-12 (`src/main/java/me/cortex/voxy/client/VoxyCommands.java` +6/-3, `src/main/java/me/cortex/voxy/common/DebugUtils.java` +24/-3, `src/main/java/me/cortex/voxy/common/Logger.java` +8/-6)
+- **Result:** APPLIED+FIXED
+- **SHA:** 6bcdba9f
+- **Release:** v0.2.7-alpha-2.138
+- **Fix:** Resolved the VoxyCommands conflict using the fork's `LiteralArgumentBuilder<CommandSourceStack>` and `RequiredArgumentBuilder<CommandSourceStack, Boolean>` patterns, replaced upstream Fabric command types with `CommandSourceStack`, and preserved the fork's import-command registration. The live verification path now defaults repair off and accepts a Boolean argument.
+- **Notes:** compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push 5e3e716f..6bcdba9f on backport/sequential. Release v0.2.7-alpha-2.138 created with both built jars after retried full-SHA targeting. Counter advanced .137 → .138.
