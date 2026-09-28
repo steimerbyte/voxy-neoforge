@@ -458,3 +458,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** c22bbf97ca2a86a7878e00498ebde0f2fe982365
 - **Release:** v0.2.7-alpha-2.063
 - **Notes:** Cherry-pick -x of `66000b77` auto-merged cleanly with no conflicts. GLSL vertex-shader-only change to the lod/gl46/quads3.vert debug output path; no Java or API surface touched. compileJava UP-TO-DATE (25s), build -x test SUCCESSFUL (30s). Push cb5729c0..c22bbf97 on backport/sequential. Release v0.2.7-alpha-2.063 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.063.
+
+## 83. `d69bf7e848f20bd4a3d7e262cc35c5ae411e6868` L
+- **Verdict:** PORTABLE (1-line literal widening)
+- **Files:** src/main/java/me/cortex/voxy/client/core/rendering/building/RenderDataFactory.java (+1/-1)
+- **Result:** APPLIED
+- **SHA:** cc9b9059b59079a2fa8173e0e52c971f17bfdac3
+- **Release:** v0.2.7-alpha-2.064
+- **Notes:** Cherry-pick -x of `d69bf7e8` auto-merged cleanly with no conflicts. The "L" in the commit subject is the literal `L` suffix added in `(1L<<26)-1` to widen the bitmask expression from int to long, matching the `data` field's width on this path (avoids sign-extension risk for the upcoming 32+ bit auxiliary payload). Same byte code in the 1.21.1 fork. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (30s). Push 79ee91f1..cc9b9059 on backport/sequential. Release v0.2.7-alpha-2.064 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.064.
