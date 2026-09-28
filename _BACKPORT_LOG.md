@@ -861,3 +861,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** fbef8bb984a2231eff122f36c2bbae076a2442bf
 - **Release:** v0.2.7-alpha-2.098
 - **Notes:** Cherry-pick -x of `0ba739f` auto-merged cleanly with no conflicts. Pure Voxy-internal change in `RenderGenerationService` — no Fabric/NeoForge or MC-version surface, applies unchanged. compileJava SUCCESSFUL (32s), build -x test SUCCESSFUL (9s). Push e8774fa8..fbef8bb9 on backport/sequential. Release v0.2.7-alpha-2.098 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.098.
+
+## 125. `17e3d64576eaa883d794fe49d9652fd586f1a85a` dont log error when measuring capabilities
+- **Verdict:** PORTABLE-AS-NO-OP (upstream diff adds `isCausedByShaderCompileTest()` guard to `MixinGlDebug`; on our fork the entire mixin file is commented-out and NOT registered in `client.voxy.mixins.json`, so the upstream behavior change is a no-op for our 1.21.1 fork — but the commit must still be recorded for upstream-parity history)
+- **Files:** 0 effective (1 file upstream, fully commented-out and not mixin-registered on fork: `src/main/java/me/cortex/voxy/client/mixin/minecraft/MixinGlDebug.java`)
+- **Result:** APPLIED (cherry-pick conflict resolved via `git checkout --ours`)
+- **SHA:** 8b404a76
+- **Release:** v0.2.7-alpha-2.099
+- **Notes:** Cherry-pick of `17e3d645` produced a content conflict in `MixinGlDebug.java` (HEAD file is entirely commented-out since commit `9dbb8174` "backport to 1.21.1", while upstream's diff tries to add new active logic + the new `isCausedByShaderCompileTest()` method). Resolution: `git checkout --ours` — keeps the entire file commented-out. The mixin is NOT registered in `src/main/resources/client.voxy.mixins.json` (only `MixinClientPacketListener`, `MixinFogRenderer`, `MixinLayerLightSectionStorage` are listed), so the new `isCausedByShaderCompileTest()` behavior has no effect on the fork. Recorded as empty commit (`--allow-empty`) with the upstream subject + `(cherry picked from commit 17e3d64576eaa883d794fe49d9652fd586f1a85a)` trailer for history parity. compileJava SUCCESSFUL (7s, no-op), build -x test SUCCESSFUL (9s, no-op). Push 492f1182..8b404a76 on backport/sequential. Release v0.2.7-alpha-2.099 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.099.
