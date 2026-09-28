@@ -152,3 +152,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Result:** APPLIED
 - **SHA:** 9e7f521f
 - **Release:** v0.2.7-alpha-2.018
+
+## 24. `65e10c2c` cleanup
+- **Verdict:** PORTABLE
+- **Files:** screenspace.glsl
+- **Result:** APPLIED
+- **SHA:** c98658c5
+- **Release:** v0.2.7-alpha-2.019
