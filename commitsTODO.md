@@ -1,0 +1,395 @@
+- [ ] **1** [`53f857771ef450e4a2990675a81a6ca7b8e9b2e8`](https://github.com/MCRcortex/voxy/commit/53f857771ef450e4a2990675a81a6ca7b8e9b2e8) — replacements
+- [ ] **2** [`26189d4739178300f9cdef276e67ae9d3770e265`](https://github.com/MCRcortex/voxy/commit/26189d4739178300f9cdef276e67ae9d3770e265) — fog
+- [ ] **3** [`66a2061813b145d5f81fd84cc702f8d5208e655c`](https://github.com/MCRcortex/voxy/commit/66a2061813b145d5f81fd84cc702f8d5208e655c) — wip tinting
+- [ ] **4** [`823babef81dff5c06c94fb608d916234a5e594e8`](https://github.com/MCRcortex/voxy/commit/823babef81dff5c06c94fb608d916234a5e594e8) — hate java
+- [ ] **5** [`0f9287adcbd241fb88a7709d083ecbe5e4b4aebd`](https://github.com/MCRcortex/voxy/commit/0f9287adcbd241fb88a7709d083ecbe5e4b4aebd) — wip face tinit
+- [ ] **6** [`f713ef2e8f92726b277ab37c07a4e152a65addb6`](https://github.com/MCRcortex/voxy/commit/f713ef2e8f92726b277ab37c07a4e152a65addb6) — inital 1.21.11
+- [ ] **7** [`edd0ce33efd43d1175034b297eea16f04b3537ef`](https://github.com/MCRcortex/voxy/commit/edd0ce33efd43d1175034b297eea16f04b3537ef) — update mods 1.21.11
+- [ ] **8** [`2458a4a3f61e6fc92beb66461e9171634ed75539`](https://github.com/MCRcortex/voxy/commit/2458a4a3f61e6fc92beb66461e9171634ed75539) — fixes and work on ao, shading, tinting and lighting
+- [ ] **9** [`afe41a10b5bd1982e4f5eb58911ffb319fccf082`](https://github.com/MCRcortex/voxy/commit/afe41a10b5bd1982e4f5eb58911ffb319fccf082) — perf tweek
+- [ ] **10** [`03d971385ca009545079701c962562ea1d920ea8`](https://github.com/MCRcortex/voxy/commit/03d971385ca009545079701c962562ea1d920ea8) — private final
+- [ ] **11** [`c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0`](https://github.com/MCRcortex/voxy/commit/c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0) — mipping
+- [ ] **12** [`a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4`](https://github.com/MCRcortex/voxy/commit/a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4) — who knows if this even works (it very probably doesnt)
+- [ ] **13** [`4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01`](https://github.com/MCRcortex/voxy/commit/4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01) — woops
+- [ ] **14** [`561337e10c26c7a79ac8bfb40de37d6fbb4fc5cb`](https://github.com/MCRcortex/voxy/commit/561337e10c26c7a79ac8bfb40de37d6fbb4fc5cb) — hoist common FB
+- [ ] **15** [`c4f799ff530e6842c97d94a545fab89b9056bf7f`](https://github.com/MCRcortex/voxy/commit/c4f799ff530e6842c97d94a545fab89b9056bf7f) — things
+- [ ] **16** [`b7f5798ecdbb3af05d46873518a4607a3b7f2ad6`](https://github.com/MCRcortex/voxy/commit/b7f5798ecdbb3af05d46873518a4607a3b7f2ad6) — fix iris
+- [ ] **17** [`bbf7d60abe1e8a83ac4dda506262a05cf11d4c2e`](https://github.com/MCRcortex/voxy/commit/bbf7d60abe1e8a83ac4dda506262a05cf11d4c2e) — todo
+- [ ] **18** [`6724157f9a03e17f0407ad14809e340450cf064d`](https://github.com/MCRcortex/voxy/commit/6724157f9a03e17f0407ad14809e340450cf064d) — finally fix the chunk flickering issue when zooming in
+- [ ] **19** [`2bf9af00e55bed12ebaa44ca1c62986951bfa26b`](https://github.com/MCRcortex/voxy/commit/2bf9af00e55bed12ebaa44ca1c62986951bfa26b) — computed face tint
+- [ ] **20** [`85638fce986b32e7eeab5005b61a11fc07f17ff5`](https://github.com/MCRcortex/voxy/commit/85638fce986b32e7eeab5005b61a11fc07f17ff5) — readme
+- [ ] **21** [`15604c16bf58db6e1839350906c00a1ad89443ab`](https://github.com/MCRcortex/voxy/commit/15604c16bf58db6e1839350906c00a1ad89443ab) — hopefully improved command usage
+- [ ] **22** [`76cfef5b3c28961e29ace505ea4fea4d7aad90d7`](https://github.com/MCRcortex/voxy/commit/76cfef5b3c28961e29ace505ea4fea4d7aad90d7) — update deps, fix unlikely race in import manager, clamp fog, fix some some incorrect meshing
+- [ ] **23** [`362998cc5f1b91de56e8f773c62727c8c17a9192`](https://github.com/MCRcortex/voxy/commit/362998cc5f1b91de56e8f773c62727c8c17a9192) — woooops
+- [ ] **24** [`65e10c2c68c1f7c62908bd01354f59a05ed66076`](https://github.com/MCRcortex/voxy/commit/65e10c2c68c1f7c62908bd01354f59a05ed66076) — cleanup
+- [ ] **25** [`6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d`](https://github.com/MCRcortex/voxy/commit/6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d) — this was such an unbelievebly dumb and stupid mistake
+- [ ] **26** [`8247248c6255ae452deda8f2342f168f988eebba`](https://github.com/MCRcortex/voxy/commit/8247248c6255ae452deda8f2342f168f988eebba) — think? this is more right? (need todo fluid thing tho)
+- [ ] **27** [`25463a4c114ce79974097da3b4363ee8258029a3`](https://github.com/MCRcortex/voxy/commit/25463a4c114ce79974097da3b4363ee8258029a3) — for future
+- [ ] **28** [`5b697ddb0493089f7050b0dded1a34d90aa6d564`](https://github.com/MCRcortex/voxy/commit/5b697ddb0493089f7050b0dded1a34d90aa6d564) — insane
+- [ ] **29** [`fb9b7923b0a7066f2bf2fb9a98657407dd301022`](https://github.com/MCRcortex/voxy/commit/fb9b7923b0a7066f2bf2fb9a98657407dd301022) — tweeked msg
+- [ ] **30** [`0428153cf586c8ead5ba5f234499df503d33bae3`](https://github.com/MCRcortex/voxy/commit/0428153cf586c8ead5ba5f234499df503d33bae3) — small buildscript change
+- [ ] **31** [`ef1a296998f9362a392fc6673a11d4c8508a4c0d`](https://github.com/MCRcortex/voxy/commit/ef1a296998f9362a392fc6673a11d4c8508a4c0d) — fix small possiblity of a race condition (so small is stupid yet it happened)
+- [ ] **32** [`4ffb7583a7c52f1f59cde8262eb88bbe0b16229a`](https://github.com/MCRcortex/voxy/commit/4ffb7583a7c52f1f59cde8262eb88bbe0b16229a) — complete and utter fukin idiot
+- [ ] **33** [`86ce0c0f98e47387d34c530b953fc0a169495a36`](https://github.com/MCRcortex/voxy/commit/86ce0c0f98e47387d34c530b953fc0a169495a36) — attempted amd bug detection
+- [ ] **34** [`bc995f9c0f5719f7670649978b51cd04ab601e45`](https://github.com/MCRcortex/voxy/commit/bc995f9c0f5719f7670649978b51cd04ab601e45) — wip defered translucency
+- [ ] **35** [`1e4500a912538cb82a00f70e61a36c22582a0033`](https://github.com/MCRcortex/voxy/commit/1e4500a912538cb82a00f70e61a36c22582a0033) — Sodium update + fog change
+- [ ] **36** [`bca46143fb35934a80b6ba7ecebbcf93bd00b3fe`](https://github.com/MCRcortex/voxy/commit/bca46143fb35934a80b6ba7ecebbcf93bd00b3fe) — remove sodium extra
+- [ ] **37** [`d30ea7ecc76b68840bc3febc119f0f00766bae50`](https://github.com/MCRcortex/voxy/commit/d30ea7ecc76b68840bc3febc119f0f00766bae50) — here we go again
+- [ ] **38** [`342043674dbd4fea53d7c42673ea9ebe70fe9cff`](https://github.com/MCRcortex/voxy/commit/342043674dbd4fea53d7c42673ea9ebe70fe9cff) — stupid idiot
+- [ ] **39** [`b68d5b3c66e36e1adc987675ae1aae2891496901`](https://github.com/MCRcortex/voxy/commit/b68d5b3c66e36e1adc987675ae1aae2891496901) — dis
+- [ ] **40** [`b5c31478fb44a89cb0be7cc21068113643dba3fa`](https://github.com/MCRcortex/voxy/commit/b5c31478fb44a89cb0be7cc21068113643dba3fa) — things
+- [ ] **41** [`f272042a76eb6f1adafc731cc227f4f0688c6a8d`](https://github.com/MCRcortex/voxy/commit/f272042a76eb6f1adafc731cc227f4f0688c6a8d) — a
+- [ ] **42** [`ee7ec50d4428cf28253d628ac5e2ed3fbf67e7a0`](https://github.com/MCRcortex/voxy/commit/ee7ec50d4428cf28253d628ac5e2ed3fbf67e7a0) — always show voxy version in f3
+- [ ] **43** [`45ff6c44149d2b4ef96333208e2427ca31ca8619`](https://github.com/MCRcortex/voxy/commit/45ff6c44149d2b4ef96333208e2427ca31ca8619) — locale
+- [ ] **44** [`e86beefbc70a25c26b8949a3040c03073bc6dacb`](https://github.com/MCRcortex/voxy/commit/e86beefbc70a25c26b8949a3040c03073bc6dacb) — rename
+- [ ] **45** [`b086832333ae55883738fa3e5f304b293d2e0254`](https://github.com/MCRcortex/voxy/commit/b086832333ae55883738fa3e5f304b293d2e0254) — remove mip thing cause vanilla mipmaps have issues
+- [ ] **46** [`6212d95cddd56260996637302581699e49417f37`](https://github.com/MCRcortex/voxy/commit/6212d95cddd56260996637302581699e49417f37) — face thing TODO: CHECK IS OPTIMAL
+- [ ] **47** [`3bcdbbec90d6816d2bfab5a454b4e019fa0cf982`](https://github.com/MCRcortex/voxy/commit/3bcdbbec90d6816d2bfab5a454b4e019fa0cf982) — gpu timings
+- [ ] **48** [`3cc5afc1e1e7b250e4c8adad7dd96ae59100df02`](https://github.com/MCRcortex/voxy/commit/3cc5afc1e1e7b250e4c8adad7dd96ae59100df02) — Client store
+- [ ] **49** [`79890fde1e2d01c9a187b8ad998eda51df05d8df`](https://github.com/MCRcortex/voxy/commit/79890fde1e2d01c9a187b8ad998eda51df05d8df) — x
+- [ ] **50** [`263f93215a0161735d9d02f11e3e41fc906ea1a3`](https://github.com/MCRcortex/voxy/commit/263f93215a0161735d9d02f11e3e41fc906ea1a3) — aa
+- [ ] **51** [`61da430895f5fa2757e9b4c320ae78cf37c3b0d9`](https://github.com/MCRcortex/voxy/commit/61da430895f5fa2757e9b4c320ae78cf37c3b0d9) — wip occupancy
+- [ ] **52** [`1e7b199660a3f8a683ee4078e012738ab436b354`](https://github.com/MCRcortex/voxy/commit/1e7b199660a3f8a683ee4078e012738ab436b354) — more occupancy
+- [ ] **53** [`7bc2c2b960da391ea90dc156b312ab102fd4355e`](https://github.com/MCRcortex/voxy/commit/7bc2c2b960da391ea90dc156b312ab102fd4355e) — fix build
+- [ ] **54** [`3f0a1466ac991a5e7289b5caffefbe1ada4face7`](https://github.com/MCRcortex/voxy/commit/3f0a1466ac991a5e7289b5caffefbe1ada4face7) — fix woops
+- [ ] **55** [`692ac95549aae53a8ee12068717f1d1a43417f0a`](https://github.com/MCRcortex/voxy/commit/692ac95549aae53a8ee12068717f1d1a43417f0a) — 0.8.2 sodium
+- [ ] **56** [`837b779aa9a8ca3719ee89d25e64fc8996f3db02`](https://github.com/MCRcortex/voxy/commit/837b779aa9a8ca3719ee89d25e64fc8996f3db02) — e
+- [ ] **57** [`a7dc2112fab4bae057ccd5644e383fb8157d7de3`](https://github.com/MCRcortex/voxy/commit/a7dc2112fab4bae057ccd5644e383fb8157d7de3) — fix render doc, add samlper to shader, nearest depth tex in view
+- [ ] **58** [`0f6a099345b6efe9b6694d5feda94bcfd26e9977`](https://github.com/MCRcortex/voxy/commit/0f6a099345b6efe9b6694d5feda94bcfd26e9977) — note
+- [ ] **59** [`1e92902724e4f7e2000a01fe366f2ed8e88c6a7e`](https://github.com/MCRcortex/voxy/commit/1e92902724e4f7e2000a01fe366f2ed8e88c6a7e) — move config stuff
+- [ ] **60** [`51f1197c9f514f1333202e84a312ac575f322d2f`](https://github.com/MCRcortex/voxy/commit/51f1197c9f514f1333202e84a312ac575f322d2f) — attempt to fix blending
+- [ ] **61** [`f703d83b91d84302fef908afe74d2c75e5db4186`](https://github.com/MCRcortex/voxy/commit/f703d83b91d84302fef908afe74d2c75e5db4186) — update
+- [ ] **62** [`df90323fc7b2fec9c9723497ca99a8137633ba8b`](https://github.com/MCRcortex/voxy/commit/df90323fc7b2fec9c9723497ca99a8137633ba8b) — fix iris issues when enabling and disabling voxy rendering while shaders are active
+- [ ] **63** [`470534831bcfa2e5944c84a7bebd4917f6d2fb98`](https://github.com/MCRcortex/voxy/commit/470534831bcfa2e5944c84a7bebd4917f6d2fb98) — Set the default sky light to 15, this is done in the tracker on an empty return result since it should be a free operation change
+- [ ] **64** [`848efe60a8b389cb0e468c232ce422d3c63f0caf`](https://github.com/MCRcortex/voxy/commit/848efe60a8b389cb0e468c232ce422d3c63f0caf) — things
+- [ ] **65** [`935685ad08aecf8d3a04513a17338e76e1a0fcbd`](https://github.com/MCRcortex/voxy/commit/935685ad08aecf8d3a04513a17338e76e1a0fcbd) — comma
+- [ ] **66** [`cff4866499689cbfd1327f4f023bd3a6601cc0da`](https://github.com/MCRcortex/voxy/commit/cff4866499689cbfd1327f4f023bd3a6601cc0da) — dont even register voxy config if its not supported
+- [ ] **67** [`c5e447125b7cb465772bec297a58bddb7c0ce265`](https://github.com/MCRcortex/voxy/commit/c5e447125b7cb465772bec297a58bddb7c0ce265) — Slight change
+- [ ] **68** [`5982bcdfdc8c3375700d637150c86a2389c4f530`](https://github.com/MCRcortex/voxy/commit/5982bcdfdc8c3375700d637150c86a2389c4f530) — dont log the stack trace for dh importer
+- [ ] **69** [`419247ae835f18cd7ccdbfe3f33085e20cf3a7e3`](https://github.com/MCRcortex/voxy/commit/419247ae835f18cd7ccdbfe3f33085e20cf3a7e3) — Compute depth based on min for non solid
+- [ ] **70** [`5441d474b50db30f5996024238e080114c43aa83`](https://github.com/MCRcortex/voxy/commit/5441d474b50db30f5996024238e080114c43aa83) — attempted ssao improvements
+- [ ] **71** [`346fed0021c85b0cca2b680e22b8dfbeaeb32f71`](https://github.com/MCRcortex/voxy/commit/346fed0021c85b0cca2b680e22b8dfbeaeb32f71) — update nv mixin
+- [ ] **72** [`28078a59794d7d1d4795b57389ea7ea836b667dd`](https://github.com/MCRcortex/voxy/commit/28078a59794d7d1d4795b57389ea7ea836b667dd) — _screams_
+- [ ] **73** [`720ce03b1a51c5c72475b37586f46ea90112f8ab`](https://github.com/MCRcortex/voxy/commit/720ce03b1a51c5c72475b37586f46ea90112f8ab) — more ssao tweaking
+- [ ] **74** [`118d2966cdbbbd4cb63c288083c6dbb239928f09`](https://github.com/MCRcortex/voxy/commit/118d2966cdbbbd4cb63c288083c6dbb239928f09) — allow marking with strings
+- [ ] **75** [`6477a6cc726546fe4c9c440f40a1243c3bf9676a`](https://github.com/MCRcortex/voxy/commit/6477a6cc726546fe4c9c440f40a1243c3bf9676a) — disable sparse buffer on nivida linux (again) cause its horrifically broken and causes 250 ms lag spikes
+- [ ] **76** [`708959048e9466520d684b03c50e8bafee47bdf2`](https://github.com/MCRcortex/voxy/commit/708959048e9466520d684b03c50e8bafee47bdf2) — ssao attempt 2
+- [ ] **77** [`e1032392ca0104514392432709acd3cf1074897c`](https://github.com/MCRcortex/voxy/commit/e1032392ca0104514392432709acd3cf1074897c) — pull out arbitiary values to consts
+- [ ] **78** [`98fc9e1045664aa6383d4c5315cdf169ae813e7d`](https://github.com/MCRcortex/voxy/commit/98fc9e1045664aa6383d4c5315cdf169ae813e7d) — stupid
+- [ ] **79** [`72b3ade654166022ec443364524cfbe32ffe525b`](https://github.com/MCRcortex/voxy/commit/72b3ade654166022ec443364524cfbe32ffe525b) — logging + shrink upsize range, resulting in ~20% memory storage efficiency
+- [ ] **80** [`ac36d1bf1022419d38cca3cbb50d7427a0c50b82`](https://github.com/MCRcortex/voxy/commit/ac36d1bf1022419d38cca3cbb50d7427a0c50b82) — move thing
+- [ ] **81** [`ba46051651f1f0231de71c529d5fc6b18b0380e1`](https://github.com/MCRcortex/voxy/commit/ba46051651f1f0231de71c529d5fc6b18b0380e1) — log
+- [ ] **82** [`66000b77c9615b3e2c622106822820ac85474a8f`](https://github.com/MCRcortex/voxy/commit/66000b77c9615b3e2c622106822820ac85474a8f) — change debug
+- [ ] **83** [`d69bf7e848f20bd4a3d7e262cc35c5ae411e6868`](https://github.com/MCRcortex/voxy/commit/d69bf7e848f20bd4a3d7e262cc35c5ae411e6868) — L
+- [ ] **84** [`95199b7d83d8bc19a41539901dc5f148ddf0f987`](https://github.com/MCRcortex/voxy/commit/95199b7d83d8bc19a41539901dc5f148ddf0f987) — move internal to private
+- [ ] **85** [`24712d4f4f73c5b55f71dc6b0c8ba74ce7c8b192`](https://github.com/MCRcortex/voxy/commit/24712d4f4f73c5b55f71dc6b0c8ba74ce7c8b192) — markers
+- [ ] **86** [`4d83f89549d7425db3f0fe1ebc1d843183cd5969`](https://github.com/MCRcortex/voxy/commit/4d83f89549d7425db3f0fe1ebc1d843183cd5969) — fallback to null on core generator failed
+- [ ] **87** [`4b8d7039d0b04dda024aeaca8c0c76b21c180697`](https://github.com/MCRcortex/voxy/commit/4b8d7039d0b04dda024aeaca8c0c76b21c180697) — depth nearest
+- [ ] **88** [`6f4f69522d08150ddf08914e616e46026567316b`](https://github.com/MCRcortex/voxy/commit/6f4f69522d08150ddf08914e616e46026567316b) — _sobs_
+- [ ] **89** [`116904c118f536d53c6eeaf864f39e64bbb4f4ff`](https://github.com/MCRcortex/voxy/commit/116904c118f536d53c6eeaf864f39e64bbb4f4ff) — gson adapter
+- [ ] **90** [`515dad60e57d9afb832c514010cc08818225b022`](https://github.com/MCRcortex/voxy/commit/515dad60e57d9afb832c514010cc08818225b022) — bean
+- [ ] **91** [`d2428a1051c45a6dcd7ef6961604346f2b0b3e20`](https://github.com/MCRcortex/voxy/commit/d2428a1051c45a6dcd7ef6961604346f2b0b3e20) — str
+- [ ] **92** [`a109272799158779264a9423ffaf4e6baab15588`](https://github.com/MCRcortex/voxy/commit/a109272799158779264a9423ffaf4e6baab15588) — per worldId config store system
+- [ ] **93** [`b011cea257dea5535d2d2ea0c4a80aa56d38c93e`](https://github.com/MCRcortex/voxy/commit/b011cea257dea5535d2d2ea0c4a80aa56d38c93e) — revert ssao
+- [ ] **94** [`10691689d3902afb7995c4f57d80deec697528ad`](https://github.com/MCRcortex/voxy/commit/10691689d3902afb7995c4f57d80deec697528ad) — jank as hell fix for enviromental fog
+- [ ] **95** [`3e07a0138051e751dcb12a414419d7f4276eaa48`](https://github.com/MCRcortex/voxy/commit/3e07a0138051e751dcb12a414419d7f4276eaa48) — temp disable
+- [ ] **96** [`67a5a23d346df44ac16fa360ab6788c3474bf900`](https://github.com/MCRcortex/voxy/commit/67a5a23d346df44ac16fa360ab6788c3474bf900) — how jank can we go
+- [ ] **97** [`0e9e3a17810748a78838aad33cb93f9e3e117f84`](https://github.com/MCRcortex/voxy/commit/0e9e3a17810748a78838aad33cb93f9e3e117f84) — chease
+- [ ] **98** [`d0e879b63f8ee6f2a0de8a350e6a955b0a687392`](https://github.com/MCRcortex/voxy/commit/d0e879b63f8ee6f2a0de8a350e6a955b0a687392) — fix iris lightmap texture
+- [ ] **99** [`51f5851b982947414a943496e04e23fb0c5921f0`](https://github.com/MCRcortex/voxy/commit/51f5851b982947414a943496e04e23fb0c5921f0) — todo
+- [ ] **100** [`b5d1adda6a8308bac987fa3482033d4f9f5c6958`](https://github.com/MCRcortex/voxy/commit/b5d1adda6a8308bac987fa3482033d4f9f5c6958) — Update sodium 0.8.3
+- [ ] **101** [`097b5e24f230e84c078d9a65c68248ae3f4b98ba`](https://github.com/MCRcortex/voxy/commit/097b5e24f230e84c078d9a65c68248ae3f4b98ba) — break up world updater
+- [ ] **102** [`3205a3360e4af7634db9a19a6f74deb9efdd0e11`](https://github.com/MCRcortex/voxy/commit/3205a3360e4af7634db9a19a6f74deb9efdd0e11) — slight change to saving and dirty atomics
+- [ ] **103** [`e0e8cc06a98e969fd7c8b084b26ac7772269de50`](https://github.com/MCRcortex/voxy/commit/e0e8cc06a98e969fd7c8b084b26ac7772269de50) — static
+- [ ] **104** [`5937988f3174f63fe6360e69eb33f82f461d2a90`](https://github.com/MCRcortex/voxy/commit/5937988f3174f63fe6360e69eb33f82f461d2a90) — _screams_
+- [ ] **105** [`c7166d3f87de134707d4cbfb347eb0a8d5622eb5`](https://github.com/MCRcortex/voxy/commit/c7166d3f87de134707d4cbfb347eb0a8d5622eb5) — checks and unmarkDirty
+- [ ] **106** [`c940c91d749ffbf30c3fa9ba69cca940013d693c`](https://github.com/MCRcortex/voxy/commit/c940c91d749ffbf30c3fa9ba69cca940013d693c) — note
+- [ ] **107** [`cca4c9d260407407838b985f0ca20db7072b9b26`](https://github.com/MCRcortex/voxy/commit/cca4c9d260407407838b985f0ca20db7072b9b26) — update2
+- [ ] **108** [`55b64ef37fc440d2c4b0d56fd666412fa85c017f`](https://github.com/MCRcortex/voxy/commit/55b64ef37fc440d2c4b0d56fd666412fa85c017f) — import current
+- [ ] **109** [`7d51142109f2f9d6d00e712fda06b87a73d5f5af`](https://github.com/MCRcortex/voxy/commit/7d51142109f2f9d6d00e712fda06b87a73d5f5af) — No mem copy or realloc serialization pipeline
+- [ ] **110** [`1511bf36465f861e30b9931bbb3f591efad3f20e`](https://github.com/MCRcortex/voxy/commit/1511bf36465f861e30b9931bbb3f591efad3f20e) — dont reget thread local
+- [ ] **111** [`6189ee388fcef6948241f2c6f69f50a380d98a35`](https://github.com/MCRcortex/voxy/commit/6189ee388fcef6948241f2c6f69f50a380d98a35) — fix chunks ingesting incorrectly on death move
+- [ ] **112** [`8dfb77d9cbbc489072ef0b2659bf3089dcbb6eea`](https://github.com/MCRcortex/voxy/commit/8dfb77d9cbbc489072ef0b2659bf3089dcbb6eea) — Remove unneded mixin for iris (Iris now has 32 render targets by default)
+- [ ] **113** [`7f565f1bdf9120cfe80374c8182f6fddfdda1e92`](https://github.com/MCRcortex/voxy/commit/7f565f1bdf9120cfe80374c8182f6fddfdda1e92) — changed storage backends to allow for iteration over stored positions
+- [ ] **114** [`e5ce74ab997f6519a6894cc91650142280f595f3`](https://github.com/MCRcortex/voxy/commit/e5ce74ab997f6519a6894cc91650142280f595f3) — verify debug command
+- [ ] **115** [`37230b6bfc3234ddd6c8223a09b19e959a2f6fe0`](https://github.com/MCRcortex/voxy/commit/37230b6bfc3234ddd6c8223a09b19e959a2f6fe0) — version change
+- [ ] **116** [`89cc7025e8e716d0dfc83987bc2dec9b0296ad8f`](https://github.com/MCRcortex/voxy/commit/89cc7025e8e716d0dfc83987bc2dec9b0296ad8f) — timer + fix name to be correct meaning
+- [ ] **117** [`0781dd4738465fff75802c76ffbdeed099099e0a`](https://github.com/MCRcortex/voxy/commit/0781dd4738465fff75802c76ffbdeed099099e0a) — traversal now traverses with respect to render distance (meaning its a smooth circle and doesnt pop in)
+- [ ] **118** [`4531c55ffad9a03b96ec3e7752878d6b9bf4659a`](https://github.com/MCRcortex/voxy/commit/4531c55ffad9a03b96ec3e7752878d6b9bf4659a) — timing measures
+- [ ] **119** [`0db700a9af8a1317ea2e7df11e2872e8f5820a2a`](https://github.com/MCRcortex/voxy/commit/0db700a9af8a1317ea2e7df11e2872e8f5820a2a) — tweeks
+- [ ] **120** [`0c0f674c9697fe5e054990cf64cedf3c5e7e81e8`](https://github.com/MCRcortex/voxy/commit/0c0f674c9697fe5e054990cf64cedf3c5e7e81e8) — move debug entries to own class
+- [ ] **121** [`ad5f6ee0ecf2965ac275ca532b8c3a59a15b48b7`](https://github.com/MCRcortex/voxy/commit/ad5f6ee0ecf2965ac275ca532b8c3a59a15b48b7) — fix amd driver yelling
+- [ ] **122** [`6a577b9877fe50daef979efd3e24f92b61225986`](https://github.com/MCRcortex/voxy/commit/6a577b9877fe50daef979efd3e24f92b61225986) — todo
+- [ ] **123** [`8f42c81d5dabf52d721fed48a161fc1b3e6b1243`](https://github.com/MCRcortex/voxy/commit/8f42c81d5dabf52d721fed48a161fc1b3e6b1243) — more timing
+- [ ] **124** [`0ba739f934da5fc0e1cbda0dcae091e4a9c9f8ea`](https://github.com/MCRcortex/voxy/commit/0ba739f934da5fc0e1cbda0dcae091e4a9c9f8ea) — no meshing while lots of baking
+- [ ] **125** [`17e3d64576eaa883d794fe49d9652fd586f1a85a`](https://github.com/MCRcortex/voxy/commit/17e3d64576eaa883d794fe49d9652fd586f1a85a) — dont log error when measuring capabilities
+- [ ] **126** [`13230c272282218e1600f603b4ea9e3a87052cf4`](https://github.com/MCRcortex/voxy/commit/13230c272282218e1600f603b4ea9e3a87052cf4) — add shader define version
+- [ ] **127** [`f3e7d4f5a09c3a4c929255c1bfa2effcb3ff9903`](https://github.com/MCRcortex/voxy/commit/f3e7d4f5a09c3a4c929255c1bfa2effcb3ff9903) — time on by default
+- [ ] **128** [`8413d5d56662f4de67135dabb51225d84219e1a3`](https://github.com/MCRcortex/voxy/commit/8413d5d56662f4de67135dabb51225d84219e1a3) — remove all line defs
+- [ ] **129** [`27b3803d767e4e54e0609f4e3456369b6c6e7456`](https://github.com/MCRcortex/voxy/commit/27b3803d767e4e54e0609f4e3456369b6c6e7456) — am very fking stupid
+- [ ] **130** [`48b9d2791ae3c2807b1726d7b24d75074bedb459`](https://github.com/MCRcortex/voxy/commit/48b9d2791ae3c2807b1726d7b24d75074bedb459) — iris reload doesnt work in main menu
+- [ ] **131** [`79b6eb1de6dbfd93303b95e9d93506dab56aa01f`](https://github.com/MCRcortex/voxy/commit/79b6eb1de6dbfd93303b95e9d93506dab56aa01f) — log start of render creation
+- [ ] **132** [`ed5497a5aac5a97d87d94fd0c0919de8d4772433`](https://github.com/MCRcortex/voxy/commit/ed5497a5aac5a97d87d94fd0c0919de8d4772433) — pure opengl screams (fix for frex)
+- [ ] **133** [`ed63bf8ae8146cc55457df599cc187f68c3788ce`](https://github.com/MCRcortex/voxy/commit/ed63bf8ae8146cc55457df599cc187f68c3788ce) — opengl state things
+- [ ] **134** [`ed798b5fd64e1f7d5cec5b1c775b373448e31071`](https://github.com/MCRcortex/voxy/commit/ed798b5fd64e1f7d5cec5b1c775b373448e31071) — disable stencil
+- [ ] **135** [`77802c757d1646c0f89fdfa4eeda77676e6bf60c`](https://github.com/MCRcortex/voxy/commit/77802c757d1646c0f89fdfa4eeda77676e6bf60c) — chease
+- [ ] **136** [`a19d5d0f2188acf5d3b799d25c7a398732164bb6`](https://github.com/MCRcortex/voxy/commit/a19d5d0f2188acf5d3b799d25c7a398732164bb6) — dont enqueue self render when on the edge of the render distance
+- [ ] **137** [`26949ee1e6ecd423384d21a47b96d4ca6f034d2a`](https://github.com/MCRcortex/voxy/commit/26949ee1e6ecd423384d21a47b96d4ca6f034d2a) — jank stair thing
+- [ ] **138** [`9222765d25523cee5f2c13b810831ad3c6567f99`](https://github.com/MCRcortex/voxy/commit/9222765d25523cee5f2c13b810831ad3c6567f99) — attempt fix not crash when put in mods folder on server
+- [ ] **139** [`f80f0f943ec0b7256bfd81252ac711bb76886a01`](https://github.com/MCRcortex/voxy/commit/f80f0f943ec0b7256bfd81252ac711bb76886a01) — util
+- [ ] **140** [`b281d9340511f91412b4f17d7673f056419a06bc`](https://github.com/MCRcortex/voxy/commit/b281d9340511f91412b4f17d7673f056419a06bc) — print msg to chat
+- [ ] **141** [`516ad99f7c85ece16e07aa5806911f4368caced0`](https://github.com/MCRcortex/voxy/commit/516ad99f7c85ece16e07aa5806911f4368caced0) — tweeks
+- [ ] **142** [`131604305550e8b208ca9da7b127a30ae86f2cbb`](https://github.com/MCRcortex/voxy/commit/131604305550e8b208ca9da7b127a30ae86f2cbb) — remove legacy dh shader impersonation thing
+- [ ] **143** [`7446e9ecfb81c93b9be446bac6fb1ea110dae0e3`](https://github.com/MCRcortex/voxy/commit/7446e9ecfb81c93b9be446bac6fb1ea110dae0e3) — change render distance to lowest level incremnt
+- [ ] **144** [`0033da2a4b5869718de67cf05bfd76d2792f4426`](https://github.com/MCRcortex/voxy/commit/0033da2a4b5869718de67cf05bfd76d2792f4426) — use config option value instead of effective
+- [ ] **145** [`4333864cf7aef993f835242c5e8f4f69fe160e2c`](https://github.com/MCRcortex/voxy/commit/4333864cf7aef993f835242c5e8f4f69fe160e2c) — move all the pos unpacks into a single place
+- [ ] **146** [`ffc60c795b3b08847b666910ddbd89be6029195a`](https://github.com/MCRcortex/voxy/commit/ffc60c795b3b08847b666910ddbd89be6029195a) — sodium 0.8.6
+- [ ] **147** [`136381a72d40f546d28cec05bc0f62f178361adb`](https://github.com/MCRcortex/voxy/commit/136381a72d40f546d28cec05bc0f62f178361adb) — fix deadlock update sodium
+- [ ] **148** [`2efe32f730ab3a2165bc421c677a90acc6f02a5c`](https://github.com/MCRcortex/voxy/commit/2efe32f730ab3a2165bc421c677a90acc6f02a5c) — add aborting verification command
+- [ ] **149** [`72768ca64db01854219cf2aba4e6734e48551248`](https://github.com/MCRcortex/voxy/commit/72768ca64db01854219cf2aba4e6734e48551248) — dont zip jar on upload
+- [ ] **150** [`d7782df258fa28f3de5c5d6b14b53b937ffbf83f`](https://github.com/MCRcortex/voxy/commit/d7782df258fa28f3de5c5d6b14b53b937ffbf83f) — tex zero func
+- [ ] **151** [`74214ccb5bb65275d5bad37a947da136a1006490`](https://github.com/MCRcortex/voxy/commit/74214ccb5bb65275d5bad37a947da136a1006490) — why was this a thing
+- [ ] **152** [`40a62448f564323a6525c4590d1f1bcb543d8343`](https://github.com/MCRcortex/voxy/commit/40a62448f564323a6525c4590d1f1bcb543d8343) — tex mask gen util
+- [ ] **153** [`a5afb2fb97043306bfa7dc3462c702c92395297a`](https://github.com/MCRcortex/voxy/commit/a5afb2fb97043306bfa7dc3462c702c92395297a) — external buffer constructor and max size getter
+- [ ] **154** [`672ee7c7a33ceb48bc32bacc3bf705203d3d98ba`](https://github.com/MCRcortex/voxy/commit/672ee7c7a33ceb48bc32bacc3bf705203d3d98ba) — geometry buffer and texture atlas reuse system
+- [ ] **155** [`3a6f2ac56a986800bce963bafcf5bd0a008b700c`](https://github.com/MCRcortex/voxy/commit/3a6f2ac56a986800bce963bafcf5bd0a008b700c) — change min render distance to 32
+- [ ] **156** [`e5af2c916ddd7cd5e9f43a2a8814dee63169f31e`](https://github.com/MCRcortex/voxy/commit/e5af2c916ddd7cd5e9f43a2a8814dee63169f31e) — implement upload stream alignement better based on opengl capabilities
+- [ ] **157** [`eaf107e42a24ab7f1389ed6bf0b8b8c4395ed04d`](https://github.com/MCRcortex/voxy/commit/eaf107e42a24ab7f1389ed6bf0b8b8c4395ed04d) — fix binding alignement (flipped file commits capabilities ment to go in previous commit mb)
+- [ ] **158** [`5ca0fa739483a5a1c6d8f40a231e8b1dfa9a8827`](https://github.com/MCRcortex/voxy/commit/5ca0fa739483a5a1c6d8f40a231e8b1dfa9a8827) — inital software rasterizing texture bakery
+- [ ] **159** [`e62beff1afc46adc8bb4ccd89ed8245fd8896473`](https://github.com/MCRcortex/voxy/commit/e62beff1afc46adc8bb4ccd89ed8245fd8896473) — offthread baking + version update
+- [ ] **160** [`731ca0e9802044e67ace4e4c7fd5e2c70e603e9b`](https://github.com/MCRcortex/voxy/commit/731ca0e9802044e67ace4e4c7fd5e2c70e603e9b) — removed old stuff
+- [ ] **161** [`4149b0cb93d553978dd2619456d271d3923a5d75`](https://github.com/MCRcortex/voxy/commit/4149b0cb93d553978dd2619456d271d3923a5d75) — smaller rd
+- [ ] **162** [`aa5fa61c27bed2eca5b0a6b5402cbc448c3adb0f`](https://github.com/MCRcortex/voxy/commit/aa5fa61c27bed2eca5b0a6b5402cbc448c3adb0f) — other archetectures
+- [ ] **163** [`792927eb8e57242ddac8c80889b17193f7c9fec1`](https://github.com/MCRcortex/voxy/commit/792927eb8e57242ddac8c80889b17193f7c9fec1) — hints
+- [ ] **164** [`7889f119aabe4464d5e67864ee7bedd6048a7c36`](https://github.com/MCRcortex/voxy/commit/7889f119aabe4464d5e67864ee7bedd6048a7c36) — overwrite error
+- [ ] **165** [`36f850265aac0d016d088b1fdc63d8a462d4dd44`](https://github.com/MCRcortex/voxy/commit/36f850265aac0d016d088b1fdc63d8a462d4dd44) — update limit + error throwing
+- [ ] **166** [`11f4fdfc816791f3c2e23803195d1b8b8f009f14`](https://github.com/MCRcortex/voxy/commit/11f4fdfc816791f3c2e23803195d1b8b8f009f14) — such a stupid mistake, fix changing the render distance config causing render distance to be set to 16x that of the displayed config
+- [ ] **167** [`a1ee2eede886fefe8e01c92d8e7e36355b3365e6`](https://github.com/MCRcortex/voxy/commit/a1ee2eede886fefe8e01c92d8e7e36355b3365e6) — barrier fix
+- [ ] **168** [`921883ea587510f572182a61c69d43bb76b2fff7`](https://github.com/MCRcortex/voxy/commit/921883ea587510f572182a61c69d43bb76b2fff7) — final
+- [ ] **169** [`53eb914ea54dd25c3adc34bf0c0cab08080e6199`](https://github.com/MCRcortex/voxy/commit/53eb914ea54dd25c3adc34bf0c0cab08080e6199) — minor changes
+- [ ] **170** [`7cacc8632eb435d1d5d0f52bcb5324392ceb5c90`](https://github.com/MCRcortex/voxy/commit/7cacc8632eb435d1d5d0f52bcb5324392ceb5c90) — atempted splitting of the prepareSectionData method but thinks it just made the jit worse
+- [ ] **171** [`5cb96e9f1c4363101ab009db637084e68cadaa63`](https://github.com/MCRcortex/voxy/commit/5cb96e9f1c4363101ab009db637084e68cadaa63) — vp -> mvp
+- [ ] **172** [`68f782d60d661ea3b51e76f4e6dae4c9bf31f0ee`](https://github.com/MCRcortex/voxy/commit/68f782d60d661ea3b51e76f4e6dae4c9bf31f0ee) — taa stuff
+- [ ] **173** [`76392ab088b97717793e02f081703a4de9d7be4f`](https://github.com/MCRcortex/voxy/commit/76392ab088b97717793e02f081703a4de9d7be4f) — late stage traversal compile
+- [ ] **174** [`08a17128723ff2b79148df9b93e6baaeda81422e`](https://github.com/MCRcortex/voxy/commit/08a17128723ff2b79148df9b93e6baaeda81422e) — taa in culling
+- [ ] **175** [`5779f52d21b447acca687c643e536dcff88b3d08`](https://github.com/MCRcortex/voxy/commit/5779f52d21b447acca687c643e536dcff88b3d08) — taa in heirachial traversal + other fixes
+- [ ] **176** [`8eb5afc5b0813b5af40b9025d1abf363741d70df`](https://github.com/MCRcortex/voxy/commit/8eb5afc5b0813b5af40b9025d1abf363741d70df) — moved render statistics from config menu into f3 debug menu
+- [ ] **177** [`a47a028d29f5de4ae54e8f0e3335399bb0efdfd7`](https://github.com/MCRcortex/voxy/commit/a47a028d29f5de4ae54e8f0e3335399bb0efdfd7) — update loader
+- [ ] **178** [`6172a8860b18f53e319d2a77f29e04fd17871067`](https://github.com/MCRcortex/voxy/commit/6172a8860b18f53e319d2a77f29e04fd17871067) — zero cull raster expantion fix and optimize the depth stencil setup pass into a single full screen blit with discard
+- [ ] **179** [`2a994d061fd1b08209537f1f5c60bc47f20e302e`](https://github.com/MCRcortex/voxy/commit/2a994d061fd1b08209537f1f5c60bc47f20e302e) — wip disable config
+- [ ] **180** [`36964ee4a59ed134075624a5bbab14ccde43fc48`](https://github.com/MCRcortex/voxy/commit/36964ee4a59ed134075624a5bbab14ccde43fc48) — exclusive lock file
+- [ ] **181** [`2a979ac050231cca29914fd11b40b59c97a934ee`](https://github.com/MCRcortex/voxy/commit/2a979ac050231cca29914fd11b40b59c97a934ee) — attach to ref
+- [ ] **182** [`c6b30e5164d683f19f4e0c7791fbf2d638010768`](https://github.com/MCRcortex/voxy/commit/c6b30e5164d683f19f4e0c7791fbf2d638010768) — player uuid property, disable exclusive lock by default for now
+- [ ] **183** [`370cdaccdd71a83fce8c87842cee77825ad107c5`](https://github.com/MCRcortex/voxy/commit/370cdaccdd71a83fce8c87842cee77825ad107c5) — include other archetictures property
+- [ ] **184** [`77d7ded28262a9cee1e55563ca5e272a4378feca`](https://github.com/MCRcortex/voxy/commit/77d7ded28262a9cee1e55563ca5e272a4378feca) — nv linux 2gb max heap
+- [ ] **185** [`f897f4c68c9d63d0c623899357734699f4b3b376`](https://github.com/MCRcortex/voxy/commit/f897f4c68c9d63d0c623899357734699f4b3b376) — Client session lifecycle events
+- [ ] **186** [`449be6d255ac8b0f1c680a4ec8313980d662823f`](https://github.com/MCRcortex/voxy/commit/449be6d255ac8b0f1c680a4ec8313980d662823f) — remap internal vars to _ for screenspace
+- [ ] **187** [`cd7dba0ae9903a07b78e9187a5f6ea4e70cfb690`](https://github.com/MCRcortex/voxy/commit/cd7dba0ae9903a07b78e9187a5f6ea4e70cfb690) — on load failed, log
+- [ ] **188** [`b49e8fe290964572ef09f6151f7b99fc3f6cdaef`](https://github.com/MCRcortex/voxy/commit/b49e8fe290964572ef09f6151f7b99fc3f6cdaef) — use f16 if possible (only on nvidia)
+- [ ] **189** [`bef1a8b606b9a6e67e295f5811ec26530ce67ef4`](https://github.com/MCRcortex/voxy/commit/bef1a8b606b9a6e67e295f5811ec26530ce67ef4) — revert culling expand to 1 and shift z offset
+- [ ] **190** [`03b39a16998c7191ab67f25afde882b9c03548c5`](https://github.com/MCRcortex/voxy/commit/03b39a16998c7191ab67f25afde882b9c03548c5) — clown emoji
+- [ ] **191** [`05f9f5e0df04b6a7c69148f445586587d2b87215`](https://github.com/MCRcortex/voxy/commit/05f9f5e0df04b6a7c69148f445586587d2b87215) — sighhhhhhhhhhhhhhhhhhhhhhhhh
+- [ ] **192** [`cc7686d86f4005f8f2004ac8a59cc8bb0d72808e`](https://github.com/MCRcortex/voxy/commit/cc7686d86f4005f8f2004ac8a59cc8bb0d72808e) — dont flush on new mapper id
+- [ ] **193** [`158ff6a5a8b397533ade909cd25672a79afb555c`](https://github.com/MCRcortex/voxy/commit/158ff6a5a8b397533ade909cd25672a79afb555c) — reload when sodium thread sharing changes
+- [ ] **194** [`5dcaa23bc40500165abe91a4c803195e2482f31b`](https://github.com/MCRcortex/voxy/commit/5dcaa23bc40500165abe91a4c803195e2482f31b) — optimize serialization
+- [ ] **195** [`e0a2a7ce1d76aeaf2db9f593c0caa1a3c68faea4`](https://github.com/MCRcortex/voxy/commit/e0a2a7ce1d76aeaf2db9f593c0caa1a3c68faea4) — jank jank
+- [ ] **196** [`eda6013407be0c5f466a320fd0beb4b0aaa8524f`](https://github.com/MCRcortex/voxy/commit/eda6013407be0c5f466a320fd0beb4b0aaa8524f) — added skipShaderDepthHackFix to shader options since a fix turned out to also change behavior that shaders relied on SHADER_DEFINE_VERSION has also been incremented to 2
+- [ ] **197** [`1f993f8ecf7cdddddd87c2c010d31957947b52b8`](https://github.com/MCRcortex/voxy/commit/1f993f8ecf7cdddddd87c2c010d31957947b52b8) — slight optimization to mesh factory
+- [ ] **198** [`0637d1ad5e33ea15dd2b57a4a2b551e0f57244a3`](https://github.com/MCRcortex/voxy/commit/0637d1ad5e33ea15dd2b57a4a2b551e0f57244a3) — dont have to worry about model baking speed anymore
+- [ ] **199** [`fd81fd183bdb40d683f6eba60277adfd4e888de6`](https://github.com/MCRcortex/voxy/commit/fd81fd183bdb40d683f6eba60277adfd4e888de6) — dont limit meshing speed at all actually
+- [ ] **200** [`a71ca6b00110c1294da3d844781b6bee4f83e904`](https://github.com/MCRcortex/voxy/commit/a71ca6b00110c1294da3d844781b6bee4f83e904) — dump json on shader load error
+- [ ] **201** [`da5a65433c259cb14f11fea46167358ead16da21`](https://github.com/MCRcortex/voxy/commit/da5a65433c259cb14f11fea46167358ead16da21) — remove remove synchronize thing
+- [ ] **202** [`20e3bf6e0033baf74f8d9a4fd7eaf17e32edade3`](https://github.com/MCRcortex/voxy/commit/20e3bf6e0033baf74f8d9a4fd7eaf17e32edade3) — cries in jvm
+- [ ] **203** [`27f82dda8d100c9883e31c94836739dbb73a79fc`](https://github.com/MCRcortex/voxy/commit/27f82dda8d100c9883e31c94836739dbb73a79fc) — double rate distance
+- [ ] **204** [`7b0b137aa94ab6b2175db95fe826dc0ad537cbf5`](https://github.com/MCRcortex/voxy/commit/7b0b137aa94ab6b2175db95fe826dc0ad537cbf5) — Merge remote-tracking branch 'origin/dev' into dev
+- [ ] **205** [`193ab55d2040b9f8b673837a2ac12ee55984b89e`](https://github.com/MCRcortex/voxy/commit/193ab55d2040b9f8b673837a2ac12ee55984b89e) — put mipper in own class
+- [ ] **206** [`b72fcef6f3e9efbe5973825974eb1d2172c90934`](https://github.com/MCRcortex/voxy/commit/b72fcef6f3e9efbe5973825974eb1d2172c90934) — breaks worldgen mod 2.2.2
+- [ ] **207** [`a1b63c24803d9fb1cc89eb8b5856b23c955e0882`](https://github.com/MCRcortex/voxy/commit/a1b63c24803d9fb1cc89eb8b5856b23c955e0882) — fk you intel
+- [ ] **208** [`8e749ed4093393ba7f598cdd4cf17e84d3cde52d`](https://github.com/MCRcortex/voxy/commit/8e749ed4093393ba7f598cdd4cf17e84d3cde52d) — version bump
+- [ ] **209** [`4d5b2178eb7836e271a9569fa5a57d468b936140`](https://github.com/MCRcortex/voxy/commit/4d5b2178eb7836e271a9569fa5a57d468b936140) — todo
+- [ ] **210** [`74ccb38a5a80fddfbe328c38dfbf95d15ea6bf1a`](https://github.com/MCRcortex/voxy/commit/74ccb38a5a80fddfbe328c38dfbf95d15ea6bf1a) — pull out big method
+- [ ] **211** [`d3296634306132c2acbec9b1a0df7ad5e6aff8df`](https://github.com/MCRcortex/voxy/commit/d3296634306132c2acbec9b1a0df7ad5e6aff8df) — use the projection matrix creation method instead of manually creating it
+- [ ] **212** [`7fec03921ff116791b7542609505a476b5bc90bf`](https://github.com/MCRcortex/voxy/commit/7fec03921ff116791b7542609505a476b5bc90bf) — sodium 0.8.7
+- [ ] **213** [`f292e268869ef324fe446695c03c8f0669b1a6ec`](https://github.com/MCRcortex/voxy/commit/f292e268869ef324fe446695c03c8f0669b1a6ec) — update iris
+- [ ] **214** [`02e490e02cbe2f492e85ee97068c7b6c9fd631be`](https://github.com/MCRcortex/voxy/commit/02e490e02cbe2f492e85ee97068c7b6c9fd631be) — propagate internel error if it exists
+- [ ] **215** [`32f3fda47901fa987d7e2c1945135e420bc79d9d`](https://github.com/MCRcortex/voxy/commit/32f3fda47901fa987d7e2c1945135e420bc79d9d) — disable nv jank
+- [ ] **216** [`80d217d897c940cb7156055ec1e8840ac7b638d3`](https://github.com/MCRcortex/voxy/commit/80d217d897c940cb7156055ec1e8840ac7b638d3) — size limiting ExpandingObjectAllocationList
+- [ ] **217** [`8187d2fda12acb0fd8c1b6cc8d777a5d2086977e`](https://github.com/MCRcortex/voxy/commit/8187d2fda12acb0fd8c1b6cc8d777a5d2086977e) — node manager verify flag
+- [ ] **218** [`23b095b04c5a1159f16246e573ed7131ea8a5d62`](https://github.com/MCRcortex/voxy/commit/23b095b04c5a1159f16246e573ed7131ea8a5d62) — use size limiting expanding object list
+- [ ] **219** [`6a691211bce202771dfee79eb9a3864c2e527c9c`](https://github.com/MCRcortex/voxy/commit/6a691211bce202771dfee79eb9a3864c2e527c9c) — 19 bit request ids
+- [ ] **220** [`a5bb6a73bf4cef148bab6d90ca944e29900398b4`](https://github.com/MCRcortex/voxy/commit/a5bb6a73bf4cef148bab6d90ca944e29900398b4) — fix issue with large texture packs
+- [ ] **221** [`bd4cc8f685df80310dd94f19e9541c367e510c77`](https://github.com/MCRcortex/voxy/commit/bd4cc8f685df80310dd94f19e9541c367e510c77) — e
+- [ ] **222** [`c7ae7141244d4131bbc2655b139b4fe09d0d1fdf`](https://github.com/MCRcortex/voxy/commit/c7ae7141244d4131bbc2655b139b4fe09d0d1fdf) — full commit hash
+- [ ] **223** [`7bb498f2bd0a103e43ee29dceafce4ae8719d003`](https://github.com/MCRcortex/voxy/commit/7bb498f2bd0a103e43ee29dceafce4ae8719d003) — thing hash
+- [ ] **224** [`3eda859081bfeef786804a92645d4ba8d010ecae`](https://github.com/MCRcortex/voxy/commit/3eda859081bfeef786804a92645d4ba8d010ecae) — fix unable to deserialize biomes
+- [ ] **225** [`f453d5555e99b0da5122c4633f22fe10385ef2e9`](https://github.com/MCRcortex/voxy/commit/f453d5555e99b0da5122c4633f22fe10385ef2e9) — more cases
+- [ ] **226** [`aa0ef5031e6a733aab62ce74ec4ec18a4e9e739b`](https://github.com/MCRcortex/voxy/commit/aa0ef5031e6a733aab62ce74ec4ec18a4e9e739b) — occupancy generator shuffle
+- [ ] **227** [`f6bdfb2af908a8409eb6a460ee9d2a15640d7e1c`](https://github.com/MCRcortex/voxy/commit/f6bdfb2af908a8409eb6a460ee9d2a15640d7e1c) — fix mixin conventions to have voxy$
+- [ ] **228** [`352da265d4150634e7fa547b84522a387463a7a6`](https://github.com/MCRcortex/voxy/commit/352da265d4150634e7fa547b84522a387463a7a6) — CRITICAL: update rocksdb, fix rocksdb memory leak issue that has been in the mod for over 2 years (ever since rocksdb was added)
+- [ ] **229** [`7dc24842057854ac609c5a4a4dbf635b959e45e8`](https://github.com/MCRcortex/voxy/commit/7dc24842057854ac609c5a4a4dbf635b959e45e8) — prep
+- [ ] **230** [`ebea10c8c6464a8948f3a6972db2543f42ec11c5`](https://github.com/MCRcortex/voxy/commit/ebea10c8c6464a8948f3a6972db2543f42ec11c5) — accidental double close
+- [ ] **231** [`38540eac92e5ed9e83f8005b6dc8a33d73e9e4c9`](https://github.com/MCRcortex/voxy/commit/38540eac92e5ed9e83f8005b6dc8a33d73e9e4c9) — inital 26.1 port
+- [ ] **232** [`6d73782279894182899b8d2b8aba1c3246827a7b`](https://github.com/MCRcortex/voxy/commit/6d73782279894182899b8d2b8aba1c3246827a7b) — fix sodium fog
+- [ ] **233** [`11afa37e4d2343e3e35a595ea1d09fd787d8fda7`](https://github.com/MCRcortex/voxy/commit/11afa37e4d2343e3e35a595ea1d09fd787d8fda7) — clean up ref
+- [ ] **234** [`4c8d397b226a41955231516d0eb43fca0ce67711`](https://github.com/MCRcortex/voxy/commit/4c8d397b226a41955231516d0eb43fca0ce67711) — update wrapper
+- [ ] **235** [`97e8ae9098b98a8120a14de7fbb69af027047874`](https://github.com/MCRcortex/voxy/commit/97e8ae9098b98a8120a14de7fbb69af027047874) — java25
+- [ ] **236** [`c773c3be2bb14a8db1344930bd898cfc4a3e0bb7`](https://github.com/MCRcortex/voxy/commit/c773c3be2bb14a8db1344930bd898cfc4a3e0bb7) — cleanup
+- [ ] **237** [`608587940c43fef788bee45287e1ea8696fcc852`](https://github.com/MCRcortex/voxy/commit/608587940c43fef788bee45287e1ea8696fcc852) — fix large texture atlas's (also simplifies things alot)
+- [ ] **238** [`750c89ea48e2c9a594c538edcc4ac02666f32634`](https://github.com/MCRcortex/voxy/commit/750c89ea48e2c9a594c538edcc4ac02666f32634) — possible jank fix
+- [ ] **239** [`a776e4472f9ce714d8f7a331cd92b54261c74cc4`](https://github.com/MCRcortex/voxy/commit/a776e4472f9ce714d8f7a331cd92b54261c74cc4) — pass depth texture
+- [ ] **240** [`f47670c61380e602d375c6796c7f71e3cd22d01e`](https://github.com/MCRcortex/voxy/commit/f47670c61380e602d375c6796c7f71e3cd22d01e) — name
+- [ ] **241** [`977f3a39b23b580d5d90b65e49ea646e59b89f8e`](https://github.com/MCRcortex/voxy/commit/977f3a39b23b580d5d90b65e49ea646e59b89f8e) — fix new texture pull method
+- [ ] **242** [`e1e117476e2d475538cc7c1b7313d2ca3e8af567`](https://github.com/MCRcortex/voxy/commit/e1e117476e2d475538cc7c1b7313d2ca3e8af567) — source frame buffer
+- [ ] **243** [`a4e45b2fe1008a07a5dc10c37c997e17125b18d9`](https://github.com/MCRcortex/voxy/commit/a4e45b2fe1008a07a5dc10c37c997e17125b18d9) — +8/256 for light uv
+- [ ] **244** [`88d304e4d9dcde4120a35c0448a4fe6ea6b2e591`](https://github.com/MCRcortex/voxy/commit/88d304e4d9dcde4120a35c0448a4fe6ea6b2e591) — wip better ssao
+- [ ] **245** [`1156789e0541764a0a9a5e6881d2204a23e9dbf2`](https://github.com/MCRcortex/voxy/commit/1156789e0541764a0a9a5e6881d2204a23e9dbf2) — new ssao
+- [ ] **246** [`70f82a790b5fcab0a36eb9a1fcd59b5f9c37fd58`](https://github.com/MCRcortex/voxy/commit/70f82a790b5fcab0a36eb9a1fcd59b5f9c37fd58) — more work on ssao
+- [ ] **247** [`1ce3840d5a99d791c84db18a66bb8d8bb6cfe9aa`](https://github.com/MCRcortex/voxy/commit/1ce3840d5a99d791c84db18a66bb8d8bb6cfe9aa) — small opto
+- [ ] **248** [`68566124f71134e1ef7be9985b0cbba5df4477c7`](https://github.com/MCRcortex/voxy/commit/68566124f71134e1ef7be9985b0cbba5df4477c7) — attribution
+- [ ] **249** [`184ff7a641b3fe27ee55380e164b547bc746c024`](https://github.com/MCRcortex/voxy/commit/184ff7a641b3fe27ee55380e164b547bc746c024) — more work
+- [ ] **250** [`ef27a761f42e5a75963ee47e66d613ee8c8adf7c`](https://github.com/MCRcortex/voxy/commit/ef27a761f42e5a75963ee47e66d613ee8c8adf7c) — hh
+- [ ] **251** [`30d053b75adb9a0823610dc2bccb98c0305e12c5`](https://github.com/MCRcortex/voxy/commit/30d053b75adb9a0823610dc2bccb98c0305e12c5) — support parent joining enablers in configs, add enum config, start adding ssao config, disable ssao/fog options when shaders are enabled
+- [ ] **252** [`87d8cd8b4e15eb118ba2876b32aacf8dbb61ba23`](https://github.com/MCRcortex/voxy/commit/87d8cd8b4e15eb118ba2876b32aacf8dbb61ba23) — fix compile error
+- [ ] **253** [`f9e3f279e40275eec3dfe04f98a9e5e08c9601c0`](https://github.com/MCRcortex/voxy/commit/f9e3f279e40275eec3dfe04f98a9e5e08c9601c0) — revert rocksdb version update, implement ssao selection
+- [ ] **254** [`b24f59d414521991679dcbc5be0d4820cd2fd018`](https://github.com/MCRcortex/voxy/commit/b24f59d414521991679dcbc5be0d4820cd2fd018) — name thing
+- [ ] **255** [`37f22e1a7623c6c65371d37dd7ef3fe306b9cc8a`](https://github.com/MCRcortex/voxy/commit/37f22e1a7623c6c65371d37dd7ef3fe306b9cc8a) — update mods
+- [ ] **256** [`d6d35154fb672f4ffbf3350da383623bef0dc603`](https://github.com/MCRcortex/voxy/commit/d6d35154fb672f4ffbf3350da383623bef0dc603) — try different iris pack enabled detection
+- [ ] **257** [`3162e6b97c9be2a59232c39152777eea9fb63e22`](https://github.com/MCRcortex/voxy/commit/3162e6b97c9be2a59232c39152777eea9fb63e22) — ssao fixes
+- [ ] **258** [`80e1e40459647b32a68413c0fcd76cd7dba11d51`](https://github.com/MCRcortex/voxy/commit/80e1e40459647b32a68413c0fcd76cd7dba11d51) — readd quick continue
+- [ ] **259** [`9002f50e49350bbe126f24b2b8549c46ef1510bc`](https://github.com/MCRcortex/voxy/commit/9002f50e49350bbe126f24b2b8549c46ef1510bc) — change ssao selection limits
+- [ ] **260** [`7ddc56960ef77fea3a2d10e154706774f83dc445`](https://github.com/MCRcortex/voxy/commit/7ddc56960ef77fea3a2d10e154706774f83dc445) — new projection matrix computation (update the near/far planes directly)
+- [ ] **261** [`104bdf0932e6afecf2913787754fa54a63927862`](https://github.com/MCRcortex/voxy/commit/104bdf0932e6afecf2913787754fa54a63927862) — safer (in theory) proj matrix computation
+- [ ] **262** [`52bd20664d8085a9a7f47895254c8a11932b408f`](https://github.com/MCRcortex/voxy/commit/52bd20664d8085a9a7f47895254c8a11932b408f) — pull out lighting and use same conversion for shader and normal
+- [ ] **263** [`44cec7478205fbda7086a47eb9ad0dcc37dbe7a0`](https://github.com/MCRcortex/voxy/commit/44cec7478205fbda7086a47eb9ad0dcc37dbe7a0) — improve basic ssao
+- [ ] **264** [`d2f87345153e741405afc1728aed84240a6a4c7d`](https://github.com/MCRcortex/voxy/commit/d2f87345153e741405afc1728aed84240a6a4c7d) — unlock on error
+- [ ] **265** [`9694968d788fa70c37fec92e68b050613e58144d`](https://github.com/MCRcortex/voxy/commit/9694968d788fa70c37fec92e68b050613e58144d) — try fix stupid chunks fade in issue
+- [ ] **266** [`192721a7d51e81a3edafee47f23f30e1dd815e0d`](https://github.com/MCRcortex/voxy/commit/192721a7d51e81a3edafee47f23f30e1dd815e0d) — hopefully fixed a very rare race condition during unload,
+- [ ] **267** [`bd7fe4a59826b52ab7e13a926c753bc7dd223be1`](https://github.com/MCRcortex/voxy/commit/bd7fe4a59826b52ab7e13a926c753bc7dd223be1) — normalize path
+- [ ] **268** [`5e0af8886fb593722321dbb735a5aabc5f0265ac`](https://github.com/MCRcortex/voxy/commit/5e0af8886fb593722321dbb735a5aabc5f0265ac) — remove no subdir
+- [ ] **269** [`cb26998870d08de2b95137b63ddcac3b821ba4f1`](https://github.com/MCRcortex/voxy/commit/cb26998870d08de2b95137b63ddcac3b821ba4f1) — render only on valid viewport
+- [ ] **270** [`794075e3bbc1471957e521eef60259ebeaa64e6c`](https://github.com/MCRcortex/voxy/commit/794075e3bbc1471957e521eef60259ebeaa64e6c) — our shader loader
+- [ ] **271** [`c162710edeedf36cc083f1889cf43f06c4492de8`](https://github.com/MCRcortex/voxy/commit/c162710edeedf36cc083f1889cf43f06c4492de8) — some cleanup
+- [ ] **272** [`41dd201d3d676ce697ada40f5a3c13b25845d32b`](https://github.com/MCRcortex/voxy/commit/41dd201d3d676ce697ada40f5a3c13b25845d32b) — fix some comparators
+- [ ] **273** [`e22cf5b94fdfd669ddd54c0e541175f7e4fa6854`](https://github.com/MCRcortex/voxy/commit/e22cf5b94fdfd669ddd54c0e541175f7e4fa6854) — 16x16x16 occupancy set
+- [ ] **274** [`41e9a427b047335bc4e2765dd41fb08c4b92bde2`](https://github.com/MCRcortex/voxy/commit/41e9a427b047335bc4e2765dd41fb08c4b92bde2) — quad jank
+- [ ] **275** [`d6231c7f94623e230ba0f680b5d19ad41a314a12`](https://github.com/MCRcortex/voxy/commit/d6231c7f94623e230ba0f680b5d19ad41a314a12) — wip rev-z support
+- [ ] **276** [`ac5f9d6357d880ba95075b213666ec258662ff80`](https://github.com/MCRcortex/voxy/commit/ac5f9d6357d880ba95075b213666ec258662ff80) — more
+- [ ] **277** [`bec1360d24fb9556ed5793351834a85699928b60`](https://github.com/MCRcortex/voxy/commit/bec1360d24fb9556ed5793351834a85699928b60) — far not near
+- [ ] **278** [`c49cc0cd72fa30b20054357ce569f11e10419926`](https://github.com/MCRcortex/voxy/commit/c49cc0cd72fa30b20054357ce569f11e10419926) — lighting match better
+- [ ] **279** [`86c4fd0e17565fb8fa42b8609c4daef6039622c0`](https://github.com/MCRcortex/voxy/commit/86c4fd0e17565fb8fa42b8609c4daef6039622c0) — tried improved ssao constants
+- [ ] **280** [`271d34aef740696e4cedd0967a41f29bf8fb8066`](https://github.com/MCRcortex/voxy/commit/271d34aef740696e4cedd0967a41f29bf8fb8066) — lock
+- [ ] **281** [`1aa59fcef7ee9324d3c0ae98d3d3f0a9d5622856`](https://github.com/MCRcortex/voxy/commit/1aa59fcef7ee9324d3c0ae98d3d3f0a9d5622856) — depth things
+- [ ] **282** [`7d785cdaadf5bd93202896eaa767af3fa189437f`](https://github.com/MCRcortex/voxy/commit/7d785cdaadf5bd93202896eaa767af3fa189437f) — Attempted better stair state block copy could do with more improvement
+- [ ] **283** [`c9fc2a850d2fc4536a672f4e5b006af79b50c09b`](https://github.com/MCRcortex/voxy/commit/c9fc2a850d2fc4536a672f4e5b006af79b50c09b) — W.I.P reverse z integration
+- [ ] **284** [`0c26d0f1b1659db0709abae5d12a09f21a40bb2e`](https://github.com/MCRcortex/voxy/commit/0c26d0f1b1659db0709abae5d12a09f21a40bb2e) — Use informal data to gather render properties
+- [ ] **285** [`4b2e420fd29417b022685a4d9181a09c7ce74f50`](https://github.com/MCRcortex/voxy/commit/4b2e420fd29417b022685a4d9181a09c7ce74f50) — fix mistake
+- [ ] **286** [`727fddba38df59e52918c66cf1bc395d551e443c`](https://github.com/MCRcortex/voxy/commit/727fddba38df59e52918c66cf1bc395d551e443c) — revz working thinks
+- [ ] **287** [`7e924a451a7f2138d61073ab03fa5d7a4a10e27f`](https://github.com/MCRcortex/voxy/commit/7e924a451a7f2138d61073ab03fa5d7a4a10e27f) — fix woopsie
+- [ ] **288** [`8db40bb02a0cff05c3e5ce17ca237a2c74a7029a`](https://github.com/MCRcortex/voxy/commit/8db40bb02a0cff05c3e5ce17ca237a2c74a7029a) — version bump
+- [ ] **289** [`321622fa38cd421828962bb67de038bd56093d3e`](https://github.com/MCRcortex/voxy/commit/321622fa38cd421828962bb67de038bd56093d3e) — prep things
+- [ ] **290** [`b9a08fd22e07288e60db248e0ad32a889842c020`](https://github.com/MCRcortex/voxy/commit/b9a08fd22e07288e60db248e0ad32a889842c020) — dont know what doing or if this works lets hope it does
+- [ ] **291** [`54beedb9c9ed76143f6fd68e1f5e3e1ebcc4143a`](https://github.com/MCRcortex/voxy/commit/54beedb9c9ed76143f6fd68e1f5e3e1ebcc4143a) — sure it beta now
+- [ ] **292** [`970b1cc7d6a2a36c32b6cc73e49049aef55798b2`](https://github.com/MCRcortex/voxy/commit/970b1cc7d6a2a36c32b6cc73e49049aef55798b2) — move and hoist gpu selection injection
+- [ ] **293** [`4c41a166a02fb43a066430489fb2ec73fc36c1c1`](https://github.com/MCRcortex/voxy/commit/4c41a166a02fb43a066430489fb2ec73fc36c1c1) — fix iris pain
+- [ ] **294** [`437e2e0b66bea27aeb745ed47db0225f94f2e2ef`](https://github.com/MCRcortex/voxy/commit/437e2e0b66bea27aeb745ed47db0225f94f2e2ef) — fix block light packing in LoD mip
+- [ ] **295** [`5a5f9546819dd8cc1b097f5e32a34215bc1346d9`](https://github.com/MCRcortex/voxy/commit/5a5f9546819dd8cc1b097f5e32a34215bc1346d9) — Merge pull request #485 from KaptainWutax/dev
+- [ ] **296** [`b33ad0157f7d34284ada4cc2d1934a1c318afa44`](https://github.com/MCRcortex/voxy/commit/b33ad0157f7d34284ada4cc2d1934a1c318afa44) — base emissive support
+- [ ] **297** [`ff3a84cfef668e495d3a3d396ed96b66fed20841`](https://github.com/MCRcortex/voxy/commit/ff3a84cfef668e495d3a3d396ed96b66fed20841) — clamp
+- [ ] **298** [`62099a7430ccb3e446727b3639d0175a5f928f67`](https://github.com/MCRcortex/voxy/commit/62099a7430ccb3e446727b3639d0175a5f928f67) — emissive models
+- [ ] **299** [`81459153d7177afd0e755d78aa3e4586be687b4b`](https://github.com/MCRcortex/voxy/commit/81459153d7177afd0e755d78aa3e4586be687b4b) — fix X-axis face occlusion
+- [ ] **300** [`dd61cd1e430cd49d066620b23d18148a7fd06658`](https://github.com/MCRcortex/voxy/commit/dd61cd1e430cd49d066620b23d18148a7fd06658) — Merge branch 'MCRcortex:dev' into dev-fix
+- [ ] **301** [`d5ba014c692f6ea150191caac017a5992c057afc`](https://github.com/MCRcortex/voxy/commit/d5ba014c692f6ea150191caac017a5992c057afc) — Merge pull request #489 from KaptainWutax/dev-fix
+- [ ] **302** [`336c201cf9f2f45615fa05a89058b19cb4cb030e`](https://github.com/MCRcortex/voxy/commit/336c201cf9f2f45615fa05a89058b19cb4cb030e) — sigh
+- [ ] **303** [`260bcdbc1ff6e4a649b03f30b44759aba9d7e81b`](https://github.com/MCRcortex/voxy/commit/260bcdbc1ff6e4a649b03f30b44759aba9d7e81b) — dynamic detection of model layer directly from the baked texture data
+- [ ] **304** [`a0063645e76033cafd4b918971c28d9f471d121c`](https://github.com/MCRcortex/voxy/commit/a0063645e76033cafd4b918971c28d9f471d121c) — attempted to add blending and fix overlapping triangle seam
+- [ ] **305** [`a4c1ab202f6ef905e0eca68b19d73d0dfb42236d`](https://github.com/MCRcortex/voxy/commit/a4c1ab202f6ef905e0eca68b19d73d0dfb42236d) — specify fb size in constructor
+- [ ] **306** [`c47fc18e04be0563e66a675fcbbf2953db6a4b08`](https://github.com/MCRcortex/voxy/commit/c47fc18e04be0563e66a675fcbbf2953db6a4b08) — 26.1.2 + sodium update
+- [ ] **307** [`5f216fa1f8b50a6007be0d1fb5aa9f5087eb7e6e`](https://github.com/MCRcortex/voxy/commit/5f216fa1f8b50a6007be0d1fb5aa9f5087eb7e6e) — fix possible race condition (dont think its realistically possible, but just incase)
+- [ ] **308** [`c2ba3c2229c4b61c5faf51872210f25b4e4a44a8`](https://github.com/MCRcortex/voxy/commit/c2ba3c2229c4b61c5faf51872210f25b4e4a44a8) — while loop
+- [ ] **309** [`cf4a2a579a57d64e45a3c23a7e762e7f7863bbc3`](https://github.com/MCRcortex/voxy/commit/cf4a2a579a57d64e45a3c23a7e762e7f7863bbc3) — temporarily revert sodium update
+- [ ] **310** [`a5c7f564070455f00cc398390624c0da67d5e19e`](https://github.com/MCRcortex/voxy/commit/a5c7f564070455f00cc398390624c0da67d5e19e) — fix neighbor check
+- [ ] **311** [`91d4f7c8a754c2c33159951213aae6db56546ccf`](https://github.com/MCRcortex/voxy/commit/91d4f7c8a754c2c33159951213aae6db56546ccf) — am so fking stupid (the test is done 2 lines later)
+- [ ] **312** [`5d407397ad769f0eecaf69725cb1285e56993a9c`](https://github.com/MCRcortex/voxy/commit/5d407397ad769f0eecaf69725cb1285e56993a9c) — .... how... how has this been missed for well over a year ;-; fuuuuuuuuuuuu
+- [ ] **313** [`359fefab1db163005b2a1c5ab969625cde332578`](https://github.com/MCRcortex/voxy/commit/359fefab1db163005b2a1c5ab969625cde332578) — update sodium
+- [ ] **314** [`c3ccb2779100c5e0f325054fdd893020ebf01979`](https://github.com/MCRcortex/voxy/commit/c3ccb2779100c5e0f325054fdd893020ebf01979) — sodium 0.8.11
+- [ ] **315** [`76169a0057f2ac4eec73e59d4f8cc4342068fb2a`](https://github.com/MCRcortex/voxy/commit/76169a0057f2ac4eec73e59d4f8cc4342068fb2a) — better detection for ssao mode
+- [ ] **316** [`af1bfbb008bbbfe887cbe8ccfcd397ed7f0a66d6`](https://github.com/MCRcortex/voxy/commit/af1bfbb008bbbfe887cbe8ccfcd397ed7f0a66d6) — ability to disable voxy for specific instances
+- [ ] **317** [`e863819d0a998eb962d473bc05c97f22e459fe15`](https://github.com/MCRcortex/voxy/commit/e863819d0a998eb962d473bc05c97f22e459fe15) — update fapi
+- [ ] **318** [`0b67831ff5e85f09ac4422d0c5dd1982884c9ac2`](https://github.com/MCRcortex/voxy/commit/0b67831ff5e85f09ac4422d0c5dd1982884c9ac2) — build script tweeks
+- [ ] **319** [`25445edf766671fdab4009ae7216e7b3939906a3`](https://github.com/MCRcortex/voxy/commit/25445edf766671fdab4009ae7216e7b3939906a3) — nullability
+- [ ] **320** [`0e84fddea04a9d86f0b07792135d86ca261b060e`](https://github.com/MCRcortex/voxy/commit/0e84fddea04a9d86f0b07792135d86ca261b060e) — try catch config failing to parse
+- [ ] **321** [`a9aefdff8ca3862399ee4502252197c288949369`](https://github.com/MCRcortex/voxy/commit/a9aefdff8ca3862399ee4502252197c288949369) — dont write to the memory stream
+- [ ] **322** [`2ccee23016518d67e8081bb0853d0acc930a8452`](https://github.com/MCRcortex/voxy/commit/2ccee23016518d67e8081bb0853d0acc930a8452) — warn not error
+- [ ] **323** [`9dce1f6caf4c43dcea90a38dffd6fdf3baf45fe3`](https://github.com/MCRcortex/voxy/commit/9dce1f6caf4c43dcea90a38dffd6fdf3baf45fe3) — configure loom via properties
+- [ ] **324** [`dcde526725862d559f0ce4039e8a1266449183b6`](https://github.com/MCRcortex/voxy/commit/dcde526725862d559f0ce4039e8a1266449183b6) — link mc version
+- [ ] **325** [`0d3cea91c78927a35097e6d961c36e174dceac5d`](https://github.com/MCRcortex/voxy/commit/0d3cea91c78927a35097e6d961c36e174dceac5d) — semfor
+- [ ] **326** [`e3269c1dd080b7242d8eb29026948879ad2fa3d0`](https://github.com/MCRcortex/voxy/commit/e3269c1dd080b7242d8eb29026948879ad2fa3d0) — sodium update + ver bump
+- [ ] **327** [`c9f50587bebe5dc7260aba9f915b5456f0907411`](https://github.com/MCRcortex/voxy/commit/c9f50587bebe5dc7260aba9f915b5456f0907411) — no cache on manual build
+- [ ] **328** [`d1c8c36cbd17ad03e08b51fea988aed562e8d50e`](https://github.com/MCRcortex/voxy/commit/d1c8c36cbd17ad03e08b51fea988aed562e8d50e) — Use exact chunk bounds when flawlessframes is active
+- [ ] **329** [`9926601160e6af4f46c46da3c5a2f8a7d93cbb4d`](https://github.com/MCRcortex/voxy/commit/9926601160e6af4f46c46da3c5a2f8a7d93cbb4d) — bump version
+- [ ] **330** [`1dcf459abe576bb1f1ae87d1b2a5ab80f0e9685f`](https://github.com/MCRcortex/voxy/commit/1dcf459abe576bb1f1ae87d1b2a5ab80f0e9685f) — fix concurrent modification if 2 mip solidify happen concurently
+- [ ] **331** [`cda6cec6b7ce5ec94c52461300c528c00cb648c2`](https://github.com/MCRcortex/voxy/commit/cda6cec6b7ce5ec94c52461300c528c00cb648c2) — simple smart dependency
+- [ ] **332** [`1e5e7a69d96e9c57801c382281e8c789a8767eee`](https://github.com/MCRcortex/voxy/commit/1e5e7a69d96e9c57801c382281e8c789a8767eee) — small tweek
+- [ ] **333** [`4c04acd425e17daa5f8cffcb2d3d6304eb5f382b`](https://github.com/MCRcortex/voxy/commit/4c04acd425e17daa5f8cffcb2d3d6304eb5f382b) — sodium build improvements
+- [ ] **334** [`1fd077f9767333f2aed17086b9fb7f55c18a58bc`](https://github.com/MCRcortex/voxy/commit/1fd077f9767333f2aed17086b9fb7f55c18a58bc) — build tweek
+- [ ] **335** [`ee6e4bad73f1ed06765641db9a37cf8ee6399bb1`](https://github.com/MCRcortex/voxy/commit/ee6e4bad73f1ed06765641db9a37cf8ee6399bb1) — use fixed point floats to compute barry coords
+- [ ] **336** [`68038e66ff4942c98a6c411eea724857c919d639`](https://github.com/MCRcortex/voxy/commit/68038e66ff4942c98a6c411eea724857c919d639) — init 21.2
+- [ ] **337** [`9eb914f47717231bb7d997be2408cb1f2ebebbaf`](https://github.com/MCRcortex/voxy/commit/9eb914f47717231bb7d997be2408cb1f2ebebbaf) — mov mixins
+- [ ] **338** [`7c640b01f3e0ec91f240a27becb0b31fa6061090`](https://github.com/MCRcortex/voxy/commit/7c640b01f3e0ec91f240a27becb0b31fa6061090) — it works better
+- [ ] **339** [`a046c138b841ec04ac2e6d14da34bd9d3f28732d`](https://github.com/MCRcortex/voxy/commit/a046c138b841ec04ac2e6d14da34bd9d3f28732d) — h
+- [ ] **340** [`fed3bf77a8ba5ea0596f3173c6deda8457d3bd31`](https://github.com/MCRcortex/voxy/commit/fed3bf77a8ba5ea0596f3173c6deda8457d3bd31) — so so much sodium pain, not finished, async culling edge != what we have, might be worth modifying async to return the edge sections
+- [ ] **341** [`2b6e5bf1ff8eaa04a98d253e002b591d9a7f60ce`](https://github.com/MCRcortex/voxy/commit/2b6e5bf1ff8eaa04a98d253e002b591d9a7f60ce) — up gradle
+- [ ] **342** [`3273145f0c1847d7b5c195ef9147756daed46d6b`](https://github.com/MCRcortex/voxy/commit/3273145f0c1847d7b5c195ef9147756daed46d6b) — fix sodium, 26.2
+- [ ] **343** [`2c995f7956a94a36b75320a82be3760d68675635`](https://github.com/MCRcortex/voxy/commit/2c995f7956a94a36b75320a82be3760d68675635) — fix iris
+- [ ] **344** [`d5e99310da7f68b149ea8c90399c993443a3a814`](https://github.com/MCRcortex/voxy/commit/d5e99310da7f68b149ea8c90399c993443a3a814) — lighting tweek (dont think it changed anything ;-;)
+- [ ] **345** [`277f6f90d7ded23ecdbca1bb1170a5fb677921ff`](https://github.com/MCRcortex/voxy/commit/277f6f90d7ded23ecdbca1bb1170a5fb677921ff) — fix shaders
+- [ ] **346** [`b59d75fe3c9a9de4d223cc5b4de63839d3c78c48`](https://github.com/MCRcortex/voxy/commit/b59d75fe3c9a9de4d223cc5b4de63839d3c78c48) — 26.2 is alpha atm
+- [ ] **347** [`8a3799de492e4a979a43d0b2dbcc2253fa073dbe`](https://github.com/MCRcortex/voxy/commit/8a3799de492e4a979a43d0b2dbcc2253fa073dbe) — sodium update
+- [ ] **348** [`7fcba410f40379c0fa9694f635baa6f3ae9ef421`](https://github.com/MCRcortex/voxy/commit/7fcba410f40379c0fa9694f635baa6f3ae9ef421) — add various bound renderers broke FREX outline fix (sorry tango and xb)
+- [ ] **349** [`e4ea1da719b55ce709699a928350f7eebc326e44`](https://github.com/MCRcortex/voxy/commit/e4ea1da719b55ce709699a928350f7eebc326e44) — more state bs _again_
+- [ ] **350** [`3cdeeb0cf4ec7b3f38cf3ae410e4a261e0880996`](https://github.com/MCRcortex/voxy/commit/3cdeeb0cf4ec7b3f38cf3ae410e4a261e0880996) — hahaha pain
+- [ ] **351** [`0af5bea7acb305f6f4ede054c15abd0eb27205e3`](https://github.com/MCRcortex/voxy/commit/0af5bea7acb305f6f4ede054c15abd0eb27205e3) — fix frex flawless frames :tm:
+- [ ] **352** [`aae7303969e29fecb2a93d15611ca099f4474b5b`](https://github.com/MCRcortex/voxy/commit/aae7303969e29fecb2a93d15611ca099f4474b5b) — small cleanup
+- [ ] **353** [`ace4429af613f230ecbba498a76efbb63a1e6a5c`](https://github.com/MCRcortex/voxy/commit/ace4429af613f230ecbba498a76efbb63a1e6a5c) — buildscript fun
+- [ ] **354** [`5427113a73d4cd96d127fe6b71c17d517ca52c22`](https://github.com/MCRcortex/voxy/commit/5427113a73d4cd96d127fe6b71c17d517ca52c22) — sodium update
+- [ ] **355** [`df40e0ad38dd6e40b344144b280166f3b5697e2d`](https://github.com/MCRcortex/voxy/commit/df40e0ad38dd6e40b344144b280166f3b5697e2d) — cursed fix for deps on server
+- [ ] **356** [`67c1a49b70126a7552c6d9e8cbb561250cf05d24`](https://github.com/MCRcortex/voxy/commit/67c1a49b70126a7552c6d9e8cbb561250cf05d24) — more configurable fixed point range
+- [ ] **357** [`a7455cbe4ea0f43b6f6ca340752dc81f3331289d`](https://github.com/MCRcortex/voxy/commit/a7455cbe4ea0f43b6f6ca340752dc81f3331289d) — use 9 bit integer fixed point
+- [ ] **358** [`9d355aa1636e57d5743984774c0fe08069c47daa`](https://github.com/MCRcortex/voxy/commit/9d355aa1636e57d5743984774c0fe08069c47daa) — fix chunks flickering for a single frame when unloading, log size of allocation on error
+- [ ] **359** [`91c96528bc458be0646ddda2564aa90baaf639e2`](https://github.com/MCRcortex/voxy/commit/91c96528bc458be0646ddda2564aa90baaf639e2) — allow renderToVanillaDepth to work with non exact size (forces the rendering into bottom left corner) when useViewportDims is enabled (TODO: why are we only doing this when `useViewportDims` is true? (in theory we should _always_ do it if `renderToVanillaDepth` is true (just dont fiddle the viewport)))
+- [ ] **360** [`a15d5e2be24e3dde67b2ca71bc64254a481e0fbc`](https://github.com/MCRcortex/voxy/commit/a15d5e2be24e3dde67b2ca71bc64254a481e0fbc) — attempted fix for race when saving
+- [ ] **361** [`de8e3248dc7c534e7b3ab4995861f8bb9ae7757e`](https://github.com/MCRcortex/voxy/commit/de8e3248dc7c534e7b3ab4995861f8bb9ae7757e) — bump + anti spam
+- [ ] **362** [`58e55a5541d56b75bed890e15c27120d1add8de7`](https://github.com/MCRcortex/voxy/commit/58e55a5541d56b75bed890e15c27120d1add8de7) — bounds store fix
+- [ ] **363** [`ccc405087d6cae0bd7aa249e3937e679e90c5dbf`](https://github.com/MCRcortex/voxy/commit/ccc405087d6cae0bd7aa249e3937e679e90c5dbf) — whole project cleanup imports
+- [ ] **364** [`484f5c3b843c3ffe2e3634c8e6d5afb024ec0668`](https://github.com/MCRcortex/voxy/commit/484f5c3b843c3ffe2e3634c8e6d5afb024ec0668) — improve/fix tracking logic (hopefully) :tm:?
+- [ ] **365** [`72fb44a1faff2b82a78a24ed0075fbc0fbd99e22`](https://github.com/MCRcortex/voxy/commit/72fb44a1faff2b82a78a24ed0075fbc0fbd99e22) — fix/cleanup sodium mixin + dont track shadow sections for culling
+- [ ] **366** [`060d32a5d30fd5c1937eb4d3526d826b71f4ff9a`](https://github.com/MCRcortex/voxy/commit/060d32a5d30fd5c1937eb4d3526d826b71f4ff9a) — fix nvidium mixin missing color & depth textures
+- [ ] **367** [`af75d10a9b4cacabfdd323c67ecbf5f923de6a42`](https://github.com/MCRcortex/voxy/commit/af75d10a9b4cacabfdd323c67ecbf5f923de6a42) — Merge pull request #606 from drouarb/dev
+- [ ] **368** [`a71f2ab1c84b4db1f580f695a2d12a3a3af921a8`](https://github.com/MCRcortex/voxy/commit/a71f2ab1c84b4db1f580f695a2d12a3a3af921a8) — improve thing
+- [ ] **369** [`fad99fff6f0562ccf7b472516a6fb59d53c8d967`](https://github.com/MCRcortex/voxy/commit/fad99fff6f0562ccf7b472516a6fb59d53c8d967) — visibility stuff
+- [ ] **370** [`b4299f750d9d8cb677eed4ee4de6a764edca25dd`](https://github.com/MCRcortex/voxy/commit/b4299f750d9d8cb677eed4ee4de6a764edca25dd) — only reset the chunk section bounds when they are being populated
+- [ ] **371** [`b164a6d98c378ebb6bbb3e538770d76d527c001f`](https://github.com/MCRcortex/voxy/commit/b164a6d98c378ebb6bbb3e538770d76d527c001f) — version update, use world ref track in world ingest, finalize some classes
+- [ ] **372** [`cff443a22d00f2b93fc11ff710371ae407fdbc76`](https://github.com/MCRcortex/voxy/commit/cff443a22d00f2b93fc11ff710371ae407fdbc76) — cleaner
+- [ ] **373** [`2d64e5fbcb6dd6fef65c60d4ca0de747ec4ba836`](https://github.com/MCRcortex/voxy/commit/2d64e5fbcb6dd6fef65c60d4ca0de747ec4ba836) — dumbass
+- [ ] **374** [`3539a2f11f13cd21b6e9533021b618bd222fc4cd`](https://github.com/MCRcortex/voxy/commit/3539a2f11f13cd21b6e9533021b618bd222fc4cd) — swap the dummy provider to be the current sodium version, build pain
+- [ ] **375** [`55fac8968f6aa4b33e527171a564bfdc2c8d41b1`](https://github.com/MCRcortex/voxy/commit/55fac8968f6aa4b33e527171a564bfdc2c8d41b1) — Merge remote-tracking branch 'origin/dev' into dev
+- [ ] **376** [`ac4a742e73ef32244d2f3f217c3d1ddafb44c0bd`](https://github.com/MCRcortex/voxy/commit/ac4a742e73ef32244d2f3f217c3d1ddafb44c0bd) — its so safe
+- [ ] **377** [`ff78bcc67e8bd886127d5b184138868ac0eb2a70`](https://github.com/MCRcortex/voxy/commit/ff78bcc67e8bd886127d5b184138868ac0eb2a70) — increase bits
+- [ ] **378** [`6e60c1b253d364d337e7af4ab3bd0a01cf8b1401`](https://github.com/MCRcortex/voxy/commit/6e60c1b253d364d337e7af4ab3bd0a01cf8b1401) — opto imports
+- [ ] **379** [`1399b34e755f3d093a094a9845bcfb1b2671ff42`](https://github.com/MCRcortex/voxy/commit/1399b34e755f3d093a094a9845bcfb1b2671ff42) — record
+- [ ] **380** [`b42b87dd217933e32753574082c78824df0472d7`](https://github.com/MCRcortex/voxy/commit/b42b87dd217933e32753574082c78824df0472d7) — raster uv option
+- [ ] **381** [`f20c74810cc6f2239f53d0a06f37f23dbfe4a485`](https://github.com/MCRcortex/voxy/commit/f20c74810cc6f2239f53d0a06f37f23dbfe4a485) — optional mips
+- [ ] **382** [`f335d3558749f3416e0faab4935a3371edda118a`](https://github.com/MCRcortex/voxy/commit/f335d3558749f3416e0faab4935a3371edda118a) — partial wire uv raster
+- [ ] **383** [`fdf4a02583f45e6242d0b13589c9b5a4b056dae1`](https://github.com/MCRcortex/voxy/commit/fdf4a02583f45e6242d0b13589c9b5a4b056dae1) — iris reuse fix
+- [ ] **384** [`f0fc1c583e167f342d65811d09ce5ea929cc8021`](https://github.com/MCRcortex/voxy/commit/f0fc1c583e167f342d65811d09ce5ea929cc8021) — prep
+- [ ] **385** [`67439627715ecf9b84ac260182cab1041c841ad7`](https://github.com/MCRcortex/voxy/commit/67439627715ecf9b84ac260182cab1041c841ad7) — fog modes
+- [ ] **386** [`337b919d6638cce3d65264efb10b0d20cd060010`](https://github.com/MCRcortex/voxy/commit/337b919d6638cce3d65264efb10b0d20cd060010) — lang file update
+- [ ] **387** [`f53bb4699f68cafdbc6c9032aaa4abe25d7130ba`](https://github.com/MCRcortex/voxy/commit/f53bb4699f68cafdbc6c9032aaa4abe25d7130ba) — ver up
+- [ ] **388** [`7383fd95ccb66b10620dd705c4bf2a30951c06e7`](https://github.com/MCRcortex/voxy/commit/7383fd95ccb66b10620dd705c4bf2a30951c06e7) — JMH + optimizations
+- [ ] **389** [`30e268cc865712b493dcf4696307433a3b010234`](https://github.com/MCRcortex/voxy/commit/30e268cc865712b493dcf4696307433a3b010234) — FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+- [ ] **390** [`02dfb1b7a91cddd02891a057cdd38478ea195c26`](https://github.com/MCRcortex/voxy/commit/02dfb1b7a91cddd02891a057cdd38478ea195c26) — cleanup
+- [ ] **391** [`c5bca3ad2c889c180adceb05a0b1e8d2735887af`](https://github.com/MCRcortex/voxy/commit/c5bca3ad2c889c180adceb05a0b1e8d2735887af) — pass through the viewport
+- [ ] **392** [`b02ff02683cf6db5d048f0a36626d91ce35b031d`](https://github.com/MCRcortex/voxy/commit/b02ff02683cf6db5d048f0a36626d91ce35b031d) — hoist mask
+- [ ] **393** [`191a40a8f065fb5f5c7b7ab41c4d1340407f7c32`](https://github.com/MCRcortex/voxy/commit/191a40a8f065fb5f5c7b7ab41c4d1340407f7c32) — sodium update
+- [ ] **394** [`246baa772eb9ed397e5ae1653a828a86ba948078`](https://github.com/MCRcortex/voxy/commit/246baa772eb9ed397e5ae1653a828a86ba948078) — far plane setup
+- [ ] **395** [`534d58ec8b4aa412ef314b884295552c69d480a6`](https://github.com/MCRcortex/voxy/commit/534d58ec8b4aa412ef314b884295552c69d480a6) — add, wire and pipe useDynamicFarPlane for shaders, increments SHADER_DEFINE_VERSION to 3
