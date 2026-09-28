@@ -1044,3 +1044,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.120
 - **Fix:** Resolved conflicts on build.gradle + fabric.mod.json with `git checkout --ours` — our fork's sodium dep is `curse.maven:sodium-394468:6382651` (MC 1.21.1/Sodium 0.6.13), upstream bumps `maven.modrinth:sodium:mc1.21.11-0.8.4-fabric` → `mc1.21.11-0.8.6-fabric`. Upstream's Iris bump (1.10.5+1.21.11 → 1.10.6+1.21.11) and the `fabric.mod.json` `"sodium": ["=0.8.4","=0.8.6"]` array-form update were both dropped as they only apply to MC 1.21.11. The method-reference binding `world.setSaveCallback(this.savingService::enqueueSave)` in `VoxyInstance.java` continues to resolve cleanly to the new 3-arg `enqueueSave(WorldEngine, WorldSection, boolean)` overload.
 - **Notes:** Cherry-pick -x of `136381a7` auto-merged 4 Java files cleanly; 2 dep-metadata files resolved via `--ours`. compileJava SUCCESSFUL, build -x test SUCCESSFUL (13s). Push eff5fc32..e836efe8 on backport/sequential.
+
+## 148. `2efe32f7` add aborting verification command
+- **Verdict:** PORTABLE (clean cherry-pick: adds `engine.markActive()` + `engine.acquireRef()/releaseRef()` lifecycle binding to the `verifyAllTopLevelNodes` worker thread in `DebugUtils.java`, breaks the verification loop on `engine.instanceIn != null && !engine.instanceIn.isRunning()`, and exposes a public `isRunning()` getter in `VoxyInstance.java` that reads the existing `volatile boolean isRunning` field — all APIs are 1.21.1-compatible; `VoxyInstance.isRunning` field + `instanceIn` linkage already exist on our fork)
+- **Files:** 2 files, +25/-12 (`src/main/java/me/cortex/voxy/common/DebugUtils.java` +21/-10 [worker thread now bounded by engine refcount: markActive at start, acquireRef+try/finally releaseRef around the verification loop, early-exit on `!engine.instanceIn.isRunning()`, distinct "aborted due to shutdown" vs "Verification complete" log], `src/main/java/me/cortex/voxy/commonImpl/VoxyInstance.java` +4/-0 [public `isRunning()` returns `this.isRunning`])
+- **Result:** APPLIED
+- **SHA:** de2c700c
+- **Release:** v0.2.7-alpha-2.121
+- **Notes:** Cherry-pick -x of `2efe32f7` auto-merged cleanly across both files. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push 135426ec..de2c700c on backport/sequential.
