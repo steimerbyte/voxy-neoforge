@@ -895,3 +895,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** fbd6c849
 - **Release:** v0.2.7-alpha-2.103
 - **Fix:** Cherry-pick -x of `27b3803d` produced the same whole-file content conflict as commit 128 because our fork's `parse()` body is longer than upstream's. Resolved by applying only the line-level regex replacement-string fix on the existing line (replacing `""` with `"\n"`). compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9f9c4a2b..fbd6c849 on backport/sequential.
+
+## 130. `48b9d2791ae3c2807b1726d7b24d75074bedb459` iris reload doesnt work in main menu
+- **Verdict:** PORTABLE (single-line guard change: OR `areShadersEnabled()` into the reload condition so Iris.reload() fires even when no shader pack is currently in use but shaders are enabled — already-used Iris API on fork; `getConfig().areShadersEnabled()` is the same accessor already used in `disableIrisShaders0` two methods below)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/util/IrisUtil.java`)
+- **Result:** APPLIED
+- **SHA:** a2dcfa7a
+- **Release:** v0.2.7-alpha-2.104
+- **Notes:** Cherry-pick -x of `48b9d279` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 58ea63ec..a2dcfa7a on backport/sequential.
