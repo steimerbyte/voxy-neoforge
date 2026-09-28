@@ -935,3 +935,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** bf442bbd
 - **Release:** v0.2.7-alpha-2.108
 - **Notes:** Cherry-pick -x of `ed798b5f` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 963c4b90..bf442bbd on backport/sequential. Release v0.2.7-alpha-2.108 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.108.
+
+## 135. `77802c757d1646c0f89fdfa4eeda77676e6bf60c` chease
+- **Verdict:** PORTABLE (2-line `this.storage.flush()` after class reassignment in Mapper; `storage` field already exists on fork as `Long2ObjectMap<...>`/`...Storage` type with a `flush()` method — confirmed by existing usage in upstream and in our fork)
+- **Files:** 1 file, +2/-0 (`src/main/java/me/cortex/voxy/common/world/other/Mapper.java`)
+- **Result:** APPLIED
+- **SHA:** 006db26e
+- **Release:** v0.2.7-alpha-2.109
+- **Notes:** Cherry-pick -x of `77802c7` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (12s, single deprecation warning for unrelated `ItemBlockRenderTypes.getChunkRenderType(BlockState)`), build -x test SUCCESSFUL (10s). Push 560baf0a..006db26e on backport/sequential. Release v0.2.7-alpha-2.109 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.109.
