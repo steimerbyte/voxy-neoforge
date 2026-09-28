@@ -911,3 +911,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d8481bc6
 - **Release:** v0.2.7-alpha-2.105
 - **Notes:** Cherry-pick -x of `79b6eb1d` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 5244bb91..d8481bc6 on backport/sequential.
+
+## 132. `ed5497a5aac5a97d87d94fd0c0919de8d4772433` pure opengl screams (fix for frex)
+- **Verdict:** PORTABLE (12-line stencil-state guard for FREX; `VoxyClient.isFrexActive()` already exists on fork at line 50 of `VoxyClient.java`; LWJGL3 `GL11C.GL_KEEP`/`GL_EQUAL`/`glStencilOp`/`glStencilFunc`/`GL11.GL_STENCIL_TEST`/`glEnable` all on classpath)
+- **Files:** 1 file, +12/-0 (`src/main/java/me/cortex/voxy/client/core/model/ModelBakerySubsystem.java`)
+- **Result:** APPLIED
+- **SHA:** 95ffaa00
+- **Release:** v0.2.7-alpha-2.106
+- **Notes:** Cherry-pick -x of `ed5497a5` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 7f050b66..95ffaa00 on backport/sequential.
