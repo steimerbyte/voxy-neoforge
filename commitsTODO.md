@@ -27,7 +27,7 @@
 - [x] **27** done: APPLIED: 0e54c96f → v0.2.7-alpha-2.022 (for future)
 - [x] **28** done: APPLIED: → v0.2.7-alpha-2.023 (insane)
 - [x] **29** done: APPLIED: → v0.2.7-alpha-2.024 (tweeked msg)
-- [ ] **30** [`0428153cf586c8ead5ba5f234499df503d33bae3`](https://github.com/MCRcortex/voxy/commit/0428153cf586c8ead5ba5f234499df503d33bae3) — small buildscript change
+- [x] **30** SKIPPED: `0428153c` small buildscript change — Fabric-specific build.gradle changes (maven.modrinth sodium-extra, chunky 1.4.54-fabric); our fork uses NeoForge with different deps (curse.maven:chunky-pregenerator-forge). Cherry-pick produces empty commit.
 - [ ] **31** [`ef1a296998f9362a392fc6673a11d4c8508a4c0d`](https://github.com/MCRcortex/voxy/commit/ef1a296998f9362a392fc6673a11d4c8508a4c0d) — fix small possiblity of a race condition (so small is stupid yet it happened)
 - [ ] **32** [`4ffb7583a7c52f1f59cde8262eb88bbe0b16229a`](https://github.com/MCRcortex/voxy/commit/4ffb7583a7c52f1f59cde8262eb88bbe0b16229a) — complete and utter fukin idiot
 - [ ] **33** [`86ce0c0f98e47387d34c530b953fc0a169495a36`](https://github.com/MCRcortex/voxy/commit/86ce0c0f98e47387d34c530b953fc0a169495a36) — attempted amd bug detection

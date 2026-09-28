@@ -197,3 +197,9 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Verdict:** PORTABLE
 - **Result:** APPLIED
 - **Release:** v0.2.7-alpha-2.024
+
+## 30. `0428153c` small buildscript change
+- **Verdict:** NO-OP (Fabric-specific, our fork is NeoForge)
+- **Files:** build.gradle
+- **Result:** SKIPPED
+- **Reason:** Commit modifies Fabric-specific dep declarations (`maven.modrinth:sodium-extra`, `maven.modrinth:chunky:1.4.54-fabric`). Our fork uses NeoForge with `curse.maven:chunky-pregenerator-forge-485681`. All hunks apply to non-existent lines; cherry-pick produces empty commit.
