@@ -52,7 +52,7 @@
 - [ ] **52** [`1e7b199660a3f8a683ee4078e012738ab436b354`](https://github.com/MCRcortex/voxy/commit/1e7b199660a3f8a683ee4078e012738ab436b354) — more occupancy
 - [ ] **53** [`7bc2c2b960da391ea90dc156b312ab102fd4355e`](https://github.com/MCRcortex/voxy/commit/7bc2c2b960da391ea90dc156b312ab102fd4355e) — fix build
 - [ ] **54** [`3f0a1466ac991a5e7289b5caffefbe1ada4face7`](https://github.com/MCRcortex/voxy/commit/3f0a1466ac991a5e7289b5caffefbe1ada4face7) — fix woops
-- [ ] **55** [`692ac95549aae53a8ee12068717f1d1a43417f0a`](https://github.com/MCRcortex/voxy/commit/692ac95549aae53a8ee12068717f1d1a43417f0a) — 0.8.2 sodium
+- [x] **55** SKIPPED: `692ac955` 0.8.2 sodium — sodium mc1.21.11-0.8.2-fabric artifact (commit targets MC 1.21.11; our fork uses curse.maven:sodium-394468 for 1.21.1)
 - [ ] **56** [`837b779aa9a8ca3719ee89d25e64fc8996f3db02`](https://github.com/MCRcortex/voxy/commit/837b779aa9a8ca3719ee89d25e64fc8996f3db02) — e
 - [ ] **57** [`a7dc2112fab4bae057ccd5644e383fb8157d7de3`](https://github.com/MCRcortex/voxy/commit/a7dc2112fab4bae057ccd5644e383fb8157d7de3) — fix render doc, add samlper to shader, nearest depth tex in view
 - [ ] **58** [`0f6a099345b6efe9b6694d5feda94bcfd26e9977`](https://github.com/MCRcortex/voxy/commit/0f6a099345b6efe9b6694d5feda94bcfd26e9977) — note
