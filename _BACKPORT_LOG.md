@@ -869,3 +869,13 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 8b404a76
 - **Release:** v0.2.7-alpha-2.099
 - **Notes:** Cherry-pick of `17e3d645` produced a content conflict in `MixinGlDebug.java` (HEAD file is entirely commented-out since commit `9dbb8174` "backport to 1.21.1", while upstream's diff tries to add new active logic + the new `isCausedByShaderCompileTest()` method). Resolution: `git checkout --ours` — keeps the entire file commented-out. The mixin is NOT registered in `src/main/resources/client.voxy.mixins.json` (only `MixinClientPacketListener`, `MixinFogRenderer`, `MixinLayerLightSectionStorage` are listed), so the new `isCausedByShaderCompileTest()` behavior has no effect on the fork. Recorded as empty commit (`--allow-empty`) with the upstream subject + `(cherry picked from commit 17e3d64576eaa883d794fe49d9652fd586f1a85a)` trailer for history parity. compileJava SUCCESSFUL (7s, no-op), build -x test SUCCESSFUL (9s, no-op). Push 492f1182..8b404a76 on backport/sequential. Release v0.2.7-alpha-2.099 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.099.
+
+## 126. `13230c272282218e1600f603b4ea9e3a87052cf4` add shader define version
+- **Verdict:** PORTABLE (adds `SHADER_DEFINE_VERSION` constant + changes Iris macro define call from `define(list, "VOXY")` to `define(list, "VOXY", Integer.toString(...))`; depends on Iris-side `StandardMacros.define(List, String, String)` overload — already present in pinned Iris 1.7.x on the fork)
+- **Files:** 2 files, +8/-1
+  - `src/main/java/me/cortex/voxy/client/iris/IrisShaderPatch.java` (+3)
+  - `src/main/java/me/cortex/voxy/client/mixin/iris/MixinStandardMacros.java` (+5/-1)
+- **Result:** APPLIED
+- **SHA:** 0e366966
+- **Release:** v0.2.7-alpha-2.100
+- **Notes:** Cherry-pick -x of `13230c2` auto-merged cleanly. `IrisShaderPatch.SHADER_DEFINE_VERSION = 1` constant added; `MixinStandardMacros` now uses the 3-arg `define(...)` overload that Iris's `StandardMacros` exposes. The `@Shadow` of the 3-arg overload resolves correctly because pinned Iris-API on the fork (`curse.maven:iris_api-461611:6516286` family) already exposes `StandardMacros.define(List<StringPair>, String, String)` (same as upstream's pinned version). compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 209ccfbd..0e366966 on backport/sequential. Release v0.2.7-alpha-2.100 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.100.
