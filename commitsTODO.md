@@ -18,7 +18,7 @@
 - [x] **18** done: `2bf9af00` (Backport @ `78571170`, Release v0.2.7-alpha-2.015 — APPLIED)
 - [x] **19** skipped: `85638fce` readme — our README is 158-line 1.21.1-NeoForge-specific, upstream adds 1 line to a different README. Not portable.
 - [x] **20** done: `15604c16` (Backport @ `1f647fc4`, Release v0.2.7-alpha-2.016 — APPLIED+FIXED: Identifier→ResourceLocation)
-- [ ] **21** [`15604c16bf58db6e1839350906c00a1ad89443ab`](https://github.com/MCRcortex/voxy/commit/15604c16bf58db6e1839350906c00a1ad89443ab) — hopefully improved command usage
+- [x] **21** done: `76cfef5b` (Backport @ `ac7fff20`, Release v0.2.7-alpha-2.017 — APPLIED+FIXED: dropped chunky dep bump line (our build.gradle uses different dep) + dropped NormalRenderPipeline.java fog-Math.clamp hunk (useEnvFog block is MC-26.x-only); kept RenderDataFactory.java meshing fixes + ImportManager.java race-fix)
 - [ ] **22** [`76cfef5b3c28961e29ace505ea4fea4d7aad90d7`](https://github.com/MCRcortex/voxy/commit/76cfef5b3c28961e29ace505ea4fea4d7aad90d7) — update deps, fix unlikely race in import manager, clamp fog, fix some some incorrect meshing
 - [ ] **23** [`362998cc5f1b91de56e8f773c62727c8c17a9192`](https://github.com/MCRcortex/voxy/commit/362998cc5f1b91de56e8f773c62727c8c17a9192) — woooops
 - [ ] **24** [`65e10c2c68c1f7c62908bd01354f59a05ed66076`](https://github.com/MCRcortex/voxy/commit/65e10c2c68c1f7c62908bd01354f59a05ed66076) — cleanup

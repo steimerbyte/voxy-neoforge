@@ -136,3 +136,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 1f647fc4
 - **Release:** v0.2.7-alpha-2.016
 - **Fix:** `net.minecraft.resources.Identifier` → `net.minecraft.resources.ResourceLocation` (renamed in MC 1.21.4+).
+
+## 21. `76cfef5b` update deps, fix race, clamp fog, fix meshing
+- **Verdict:** REQUIRES-MANUAL-PORT
+- **Files:** 4 (2 applied, 2 partially)
+- **Result:** APPLIED+FIXED
+- **SHA:** ac7fff20
+- **Release:** v0.2.7-alpha-2.017
+- **Applied:** RenderDataFactory.java meshing fixes + ImportManager.java acquireRef/releaseRef race-fix.
+- **Dropped:** build.gradle chunky 1.4.40→1.4.54 (our build.gradle uses curse.maven chunky-pregenerator-forge, not maven.modrinth chunky-fabric). NormalRenderPipeline.java fog Math.clamp hunk (the surrounding useEnvFog block with environmentalStart/End is MC-26.x-only).
