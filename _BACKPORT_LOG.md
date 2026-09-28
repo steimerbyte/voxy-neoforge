@@ -1068,3 +1068,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 975f180e
 - **Release:** v0.2.7-alpha-2.123
 - **Notes:** Cherry-pick -x of `d7782df2` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 8b57bbba..975f180e on backport/sequential.
+
+## 151. `74214ccb` why was this a thing
+- **Verdict:** PORTABLE (clean cherry-pick: pure dead-code removal — deletes a 5-line `try { Thread.sleep(1); } catch (InterruptedException ex) { throw new RuntimeException(ex); }` block from `RenderGenerationService.java` around line 218. No API dependency, no behavior implication other than removing a useless 1ms sleep on the render-generation path.)
+- **Files:** 1 file, +0/-5 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderGenerationService.java` +0/-5 [deleted Thread.sleep(1) + try/catch block])
+- **Result:** APPLIED
+- **SHA:** d6981116
+- **Release:** v0.2.7-alpha-2.124
+- **Notes:** Cherry-pick -x of `74214ccb` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push e924921f..d6981116 on backport/sequential.
