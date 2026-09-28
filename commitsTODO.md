@@ -1,25 +1,25 @@
-- [x] **1** ✅ `53f85777` (Backport auf backport/sequential, jar gebaut, Release v0.2.7-alpha-2.001) [`53f857771ef450e4a2990675a81a6ca7b8e9b2e8`](https://github.com/MCRcortex/voxy/commit/53f857771ef450e4a2990675a81a6ca7b8e9b2e8) — replacements
-- [x] **2** ⏭ SKIPPED: `26189d47` fog — viewport.fogParameters.environmentalStart/End sind 26.x APIs ohne 1.21.1-Äquivalent [`26189d4739178300f9cdef276e67ae9d3770e265`](https://github.com/MCRcortex/voxy/commit/26189d4739178300f9cdef276e67ae9d3770e265) — fog
-- [x] **3** ✅ `66a20618` (Backport auf backport/sequential @ `8aa293d1`, Release v0.2.7-alpha-2.002) [`66a2061813b145d5f81fd84cc702f8d5208e655c`](https://github.com/MCRcortex/voxy/commit/66a2061813b145d5f81fd84cc702f8d5208e655c) — wip tinting
-- [x] **4** ✅ `823babef` (Backport @ `88c9daa3`, Release v0.2.7-alpha-2.003) [`823babef81dff5c06c94fb608d916234a5e594e8`](https://github.com/MCRcortex/voxy/commit/823babef81dff5c06c94fb608d916234a5e594e8) — hate java
-- [x] **5** ✅ `0f9287ad` (Backport @ `28babb8b`, Release v0.2.7-alpha-2.004 — FIXED: cardinalLightType→effects) [`0f9287adcbd241fb88a7709d083ecbe5e4b4aebd`](https://github.com/MCRcortex/voxy/commit/0f9287adcbd241fb88a7709d083ecbe5e4b4aebd) — wip face tinit
-- [x] **6** ⏭ SKIPPED: `edd0ce33` update mods 1.21.11 — Full Sodium 0.6→0.7 + MC 1.21.1→1.21.11 upgrade. All changed files use MC-26.x/Sodium-0.7 APIs: GpuSampler, FogParameters, indexedRenderingEnabled, OptionFlag, StorageEventHandler, ConfigState, IntegerOptionBuilder. No 1.21.1-equivalent — would require full refactor of config + IrisVoxyRenderPipelineData + Sodium mixins. Not backportable as a patch. [`f713ef2e8f92726b277ab37c07a4e152a65addb6`](https://github.com/MCRcortex/voxy/commit/f713ef2e8f92726b277ab37c07a4e152a65addb6) — inital 1.21.11
-- [x] **7** done: `2458a4a3` (Backport @ `5fd70fe5`, Release v0.2.7-alpha-2.005 — APPLIED+FIXED)
-- [x] **8** done: `afe41a10` (Backport @ `8b8a4a23`, Release v0.2.7-alpha-2.006 — APPLIED)
-- [x] **9** done: `03d97138` (Backport @ `32e638ee`, Release v0.2.7-alpha-2.007 — APPLIED)
-- [x] **10** done: `c7cf4a74` (Backport @ `1af6450a`, Release v0.2.7-alpha-2.008 — APPLIED+FIXED)
-- [x] **11** done: `a7ea5b2f` (Backport @ `aeebbd76`, Release v0.2.7-alpha-2.009 — APPLIED)
-- [x] **12** skipped: `4ca9cdba` woops — Null-bug fix for upstream Iris API (Supplier<GlSampler>) that does not exist in 1.21.1; semantically not portable
-- [x] **13** done: `561337e1` (Backport @ `1eb60ea8`, Release v0.2.7-alpha-2.010 — APPLIED)
-- [x] **14** done: `c4f799ff` (Backport @ `a55b0a6b`, Release v0.2.7-alpha-2.011 — APPLIED)
-- [x] **15** done: `b7f5798e` (Backport @ `fa8fe58e`, Release v0.2.7-alpha-2.012 — APPLIED+FIXED: kept VoxyConfigScreenPages.java)
-- [x] **16** done: `bbf7d60a` (Backport @ `b0cf4414`, Release v0.2.7-alpha-2.013 — APPLIED)
-- [x] **17** done: `6724157f` (Backport @ `0e534948`, Release v0.2.7-alpha-2.014 — APPLIED)
-- [x] **18** done: `2bf9af00` (Backport @ `78571170`, Release v0.2.7-alpha-2.015 — APPLIED)
-- [x] **19** skipped: `85638fce` readme — our README is 158-line 1.21.1-NeoForge-specific, upstream adds 1 line to a different README. Not portable.
-- [x] **20** done: `15604c16` (Backport @ `1f647fc4`, Release v0.2.7-alpha-2.016 — APPLIED+FIXED: Identifier→ResourceLocation)
-- [x] **21** done: `76cfef5b` (Backport @ `ac7fff20`, Release v0.2.7-alpha-2.017 — APPLIED+FIXED: dropped chunky dep bump line (our build.gradle uses different dep) + dropped NormalRenderPipeline.java fog-Math.clamp hunk (useEnvFog block is MC-26.x-only); kept RenderDataFactory.java meshing fixes + ImportManager.java race-fix)
-- [ ] **22** [`76cfef5b3c28961e29ace505ea4fea4d7aad90d7`](https://github.com/MCRcortex/voxy/commit/76cfef5b3c28961e29ace505ea4fea4d7aad90d7) — update deps, fix unlikely race in import manager, clamp fog, fix some some incorrect meshing
+- [x] **1** done: APPLIED: 757e71cf → v0.2.7-alpha-2.001
+- [x] **2** done: SKIPPED: MC-26.x-only viewport.fogParameters.environmentalStart/End
+- [x] **3** done: APPLIED: 8aa293d1 → v0.2.7-alpha-2.002
+- [x] **4** done: APPLIED: 88c9daa3 → v0.2.7-alpha-2.003 (perf: replaceAll→replace)
+- [x] **5** done: APPLIED+FIXED: 28babb8b → v0.2.7-alpha-2.004 (cardinalLightType→effects)
+- [x] **6** done: SKIPPED: MC-26.x-only initial 1.21.11 (MC version bump)
+- [x] **7** done: SKIPPED: MC-26.x-only update mods 1.21.11 (full Sodium 0.6→0.7 upgrade)
+- [x] **8** done: APPLIED+FIXED: 5fd70fe5 → v0.2.7-alpha-2.005 (quad.position/UVPair/shade→getVertices/isShade)
+- [x] **9** done: APPLIED: 8b8a4a23 → v0.2.7-alpha-2.006 (perf: upload batch 200→300)
+- [x] **10** done: APPLIED: 32e638ee → v0.2.7-alpha-2.007 (private final)
+- [x] **11** done: APPLIED+FIXED: 1af6450a → v0.2.7-alpha-2.008 (MipmapStrategy/ARGB/mipmapStrategy removed)
+- [x] **12** done: APPLIED: aeebbd76 → v0.2.7-alpha-2.009 (DHImporter.java)
+- [x] **13** done: SKIPPED: MC-26.x-only woops (fix for Supplier<GlSampler> upstream API)
+- [x] **14** done: APPLIED: 1eb60ea8 → v0.2.7-alpha-2.010 (hoist common FB)
+- [x] **15** done: APPLIED: a55b0a6b → v0.2.7-alpha-2.011 (things)
+- [x] **16** done: APPLIED+FIXED: fa8fe58e → v0.2.7-alpha-2.012 (kept VoxyConfigScreenPages.java)
+- [x] **17** done: APPLIED: b0cf4414 → v0.2.7-alpha-2.013 (TODO comment rewrite)
+- [x] **18** done: APPLIED: 0e534948 → v0.2.7-alpha-2.014 (chunk flickering fix)
+- [x] **19** done: APPLIED: 78571170 → v0.2.7-alpha-2.015 (computed face tint)
+- [x] **20** done: SKIPPED: README conflict (158-line fork README vs 1-line upstream)
+- [x] **21** done: APPLIED+FIXED: 1f647fc4 → v0.2.7-alpha-2.016 (Identifier→ResourceLocation)
+- [x] **22** done: APPLIED+FIXED: ac7fff20 → v0.2.7-alpha-2.017 (kept meshing + race-fix; dropped chunky bump + fog-hunk)
 - [ ] **23** [`362998cc5f1b91de56e8f773c62727c8c17a9192`](https://github.com/MCRcortex/voxy/commit/362998cc5f1b91de56e8f773c62727c8c17a9192) — woooops
 - [ ] **24** [`65e10c2c68c1f7c62908bd01354f59a05ed66076`](https://github.com/MCRcortex/voxy/commit/65e10c2c68c1f7c62908bd01354f59a05ed66076) — cleanup
 - [ ] **25** [`6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d`](https://github.com/MCRcortex/voxy/commit/6beb6b20373c1598f6ad0229a7ac82b5d3e4a36d) — this was such an unbelievebly dumb and stupid mistake
