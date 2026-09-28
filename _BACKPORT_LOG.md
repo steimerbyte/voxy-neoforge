@@ -1196,3 +1196,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 937ef399
 - **Release:** v0.2.7-alpha-2.136
 - **Notes:** Cherry-pick -x of `11f4fdfc` triggered a modify/delete conflict for the fork-deleted `VoxyConfigMenu.java`. Inspection of `VoxyConfigScreenPages.java:127-134` confirmed its binding already passes normalized `s.sectionRenderDistance`, not raw slider `c`, so it cannot trigger the upstream 16x error. Continued as an allow-empty provenance commit and attached the source trailer. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Release v0.2.7-alpha-2.136 created with both built jars. Counter advanced .135 → .136.
+
+## 167. `a1ee2eed` barrier fix
+- **Verdict:** MC-26-ONLY / ALREADY-EQUIVALENT (upstream changes only the skipped MC 1.21.11 software bakery, clearing its output buffer before every render. The fork still uses the 1.21.1 GL-backed `ModelTextureBakery`, whose `renderToStream` path already calls `capture.clear()` before rendering. The source file `SoftwareModelTextureBakery.java` is intentionally absent because commits 158-160 were skipped as MC-26-ONLY.)
+- **Files:** 0 files applied (upstream attempted 1 file, +3/-4 in absent `SoftwareModelTextureBakery.java`; cherry-pick misdetected the GL bakery as a rename conflict)
+- **Result:** SKIPPED
+- **SHA:** n/a
+- **Release:** n/a (counter unchanged at .136)
+- **Notes:** Cherry-pick -x of `a1ee2eed` attempted to edit absent `SoftwareModelTextureBakery.java` and surfaced a content conflict in the fork's existing `ModelTextureBakery.java` because upstream tracked it as the rename source. Inspected the full upstream diff: its only semantic change is unconditional `MemoryUtil.memSet(outputBuffer,...)` in the software-only `renderToOutput`; the live 1.21.1 `renderToStream` already clears its GL capture. Aborted with `git cherry-pick --abort`; no release and counter unchanged at .136.
