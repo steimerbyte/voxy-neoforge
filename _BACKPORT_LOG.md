@@ -795,3 +795,14 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
   2. Our fork's HEAD already had `icorner-MIN` / `icorner+MAX` from an earlier commit (where MIN=-1, MAX=17) — git's three-way merge could not auto-resolve because both sides modified the same 3 lines.
   3. Resolution: kept HEAD's `MIN`/`MAX` constants (already abstracted upstream-style), applied only the `negInnerSec` → `negInnerBlock` rename on all three references in `shouldRender()`.
 - **Notes:** `TimingStatistics.G` static field already exists in the 1.21.1 fork (`TimingStatistics.java` line 41 — `public static TimeSampler G = new TimeSampler();`), so the start/stop wrappers compile clean. The uniform block `SceneUniform` now matches the new CPU-side field names exactly (`ivec4 cameraBlockPos; vec4 negInnerBlock;`). The Java side uses `Vector3i` for the block position push and `Vector3f` for the negative-fractional offset, both already imported. No semantic change: the geometry computation `(corner+offset)` is identical, only the variable names were renamed for clarity (the upstream comment notes "sec" was misleading — it's actually the block position, not the section). compileJava SUCCESSFUL (39s), build -x test SUCCESSFUL (32s). Push 0fb670ab..22196979 on backport/sequential. Release v0.2.7-alpha-2.092 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.092.
+
+## 117. `0781dd4738465fff75802c76ffbdeed099099e0a` traversal now traverses with respect to render distance (meaning its a smooth circle and doesnt pop in)
+- **Verdict:** PORTABLE (smooth-circular traversal in `HierarchicalOcclusionTraverser` + matching GLSL update in `traversal_dev.comp`; no MC API surface dependency)
+- **Files:** 3 files, +24/-2
+  - `src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java` (auto-merge, +1/-1)
+  - `src/main/java/me/cortex/voxy/client/core/rendering/hierachical/HierarchicalOcclusionTraverser.java` (auto-merge, +5)
+  - `src/main/resources/assets/voxy/shaders/lod/hierarchical/traversal_dev.comp` (auto-merge, +18/-1)
+- **Result:** APPLIED
+- **SHA:** 76a4c8f7cbaebc48ebf96a489099339541ef88eb
+- **Release:** v0.2.7-alpha-2.093
+- **Notes:** Cherry-pick -x of `0781dd4` auto-merged cleanly. The CPU-side change in `VoxyRenderSystem.java` switches the traversal max-distance computation to use the render-distance value directly (no pop-in as the camera reaches the edge). The traverser change uses the render-distance bound to short-circuit nodes that lie outside the smooth circular frustum. The GLSL update adds the same circular distance check in the compute shader (`traversal_dev.comp`). No NeoForge-vs-Fabric translation needed. compileJava SUCCESSFUL (40s), build -x test SUCCESSFUL (32s). Push f8bf4171..76a4c8f7 on backport/sequential. Release v0.2.7-alpha-2.093 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.093.
