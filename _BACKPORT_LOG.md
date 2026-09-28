@@ -1172,3 +1172,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 6afc7817
 - **Release:** v0.2.7-alpha-2.133
 - **Notes:** Cherry-pick -x of `792927eb` auto-merged cleanly. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push f12775be..6afc7817 on backport/sequential. Release v0.2.7-alpha-2.133 created with both built jars. GitHub initially rejected the abbreviated target SHA; retried with full commit SHA successfully. Counter advanced .132 → .133.
+
+## 164. `7889f119` overwrite error
+- **Verdict:** PORTABLE (clean cherry-pick: enables Mixin overwrite validation by adding `"overwrites": {"requireAnnotations": true}` to both client and common mixin configurations; this is configuration-only and compatible with the fork's current mixin setup.)
+- **Files:** 2 files, +7/-1 (`src/main/resources/client.voxy.mixins.json` +3/-0, `src/main/resources/common.voxy.mixins.json` +4/-1)
+- **Result:** APPLIED
+- **SHA:** e5db1b3f
+- **Release:** v0.2.7-alpha-2.134
+- **Notes:** Cherry-pick -x of `7889f119` auto-merged cleanly. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (10s). Push dbe68ec6..e5db1b3f on backport/sequential. Release v0.2.7-alpha-2.134 created with both built jars. Counter advanced .133 → .134.
