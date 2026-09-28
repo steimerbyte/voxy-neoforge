@@ -24,7 +24,7 @@
 - [x] **24** done: APPLIED: c98658c5 → v0.2.7-alpha-2.019 (cleanup)
 - [x] **25** done: APPLIED: 82712276 → v0.2.7-alpha-2.020 (dumb mistake)
 - [x] **26** done: APPLIED: b193377a → v0.2.7-alpha-2.021 (think? this is more right)
-- [ ] **27** [`25463a4c114ce79974097da3b4363ee8258029a3`](https://github.com/MCRcortex/voxy/commit/25463a4c114ce79974097da3b4363ee8258029a3) — for future
+- [x] **27** done: APPLIED: 0e54c96f → v0.2.7-alpha-2.022 (for future)
 - [ ] **28** [`5b697ddb0493089f7050b0dded1a34d90aa6d564`](https://github.com/MCRcortex/voxy/commit/5b697ddb0493089f7050b0dded1a34d90aa6d564) — insane
 - [ ] **29** [`fb9b7923b0a7066f2bf2fb9a98657407dd301022`](https://github.com/MCRcortex/voxy/commit/fb9b7923b0a7066f2bf2fb9a98657407dd301022) — tweeked msg
 - [ ] **30** [`0428153cf586c8ead5ba5f234499df503d33bae3`](https://github.com/MCRcortex/voxy/commit/0428153cf586c8ead5ba5f234499df503d33bae3) — small buildscript change
