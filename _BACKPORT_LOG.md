@@ -1027,3 +1027,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 1597a11f
 - **Release:** v0.2.7-alpha-2.119
 - **Notes:** Cherry-pick -x of `4333864c` auto-merged cleanly across all 4 files. compileJava SUCCESSFUL, build -x test SUCCESSFUL (9s). Push ee59db50..1597a11f on backport/sequential.
+
+## 146. `ffc60c79` sodium 0.8.6
+- **Verdict:** MC-26-ONLY (pure Sodium 0.8.4 → 0.8.6 version bump in build.gradle (`maven.modrinth:sodium:mc1.21.11-0.8.4-fabric` → `mc1.21.11-0.8.6-fabric`) and `fabric.mod.json` (`"sodium": "=0.8.4"` → `"=0.8.6"`). Our 1.21.1 fork uses `curse.maven:sodium-394468:6382651` for MC 1.21.1/Sodium 0.6.13; the maven.modrinth sodium-mc1.21.11-0.8.x line doesn't apply to our 1.21.1 target.)
+- **Files:** 2 files (build.gradle + fabric.mod.json)
+- **Result:** SKIPPED
+- **SHA:** ffc60c79 (unchanged)
+- **Release:** none (counter unchanged at .119)
+- **Notes:** Cherry-pick failed with CONFLICT on both build.gradle and fabric.mod.json (both modified: ours uses curse.maven sodium for 1.21.1, upstream uses maven.modrinth sodium for 1.21.11). Aborted via `git cherry-pick --abort`. No portable Java behavior change in the commit — purely a Sodium 0.8.4 → 0.8.6 dependency bump that doesn't apply to our 1.21.1/Sodium 0.6.13 fork. Counter stays at .119.
