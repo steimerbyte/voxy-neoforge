@@ -82,3 +82,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 1eb60ea8
 - **Release:** v0.2.7-alpha-2.010
 - **Notes:** Hoists common framebuffer logic. Clean auto-merge.
+
+## 14. `c4f799ff` things
+- **Verdict:** PORTABLE
+- **Files:** 2 files
+- **Result:** APPLIED
+- **SHA:** a55b0a6b
+- **Release:** v0.2.7-alpha-2.011
+- **Notes:** Clean cherry-pick.
