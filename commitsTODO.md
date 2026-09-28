@@ -9,7 +9,7 @@
 - [x] **9** done: `03d97138` (Backport @ `32e638ee`, Release v0.2.7-alpha-2.007 — APPLIED)
 - [x] **10** done: `c7cf4a74` (Backport @ `1af6450a`, Release v0.2.7-alpha-2.008 — APPLIED+FIXED)
 - [x] **11** done: `a7ea5b2f` (Backport @ `aeebbd76`, Release v0.2.7-alpha-2.009 — APPLIED)
-- [ ] **12** [`a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4`](https://github.com/MCRcortex/voxy/commit/a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4) — who knows if this even works (it very probably doesnt)
+- [x] **12** skipped: `4ca9cdba` woops — Null-bug fix for upstream Iris API (Supplier<GlSampler>) that does not exist in 1.21.1; semantically not portable
 - [ ] **13** [`4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01`](https://github.com/MCRcortex/voxy/commit/4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01) — woops
 - [ ] **14** [`561337e10c26c7a79ac8bfb40de37d6fbb4fc5cb`](https://github.com/MCRcortex/voxy/commit/561337e10c26c7a79ac8bfb40de37d6fbb4fc5cb) — hoist common FB
 - [ ] **15** [`c4f799ff530e6842c97d94a545fab89b9056bf7f`](https://github.com/MCRcortex/voxy/commit/c4f799ff530e6842c97d94a545fab89b9056bf7f) — things
