@@ -1188,3 +1188,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d6775b7d
 - **Release:** v0.2.7-alpha-2.135
 - **Notes:** Cherry-pick -x of `36f85026` conflicted only in ModelBakerySubsystem.tick because the fork retains a timed `tickAndProcessUploads` path introduced by later local architecture. Resolved by prepending the upstream processing-thread exception guard and preserving the existing budgeted bakery work. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 0e182ddd..d6775b7d on backport/sequential. Release v0.2.7-alpha-2.135 created with both built jars. Counter advanced .134 → .135.
+
+## 166. `11f4fdfc` fix render distance scaling
+- **Verdict:** ALREADY-PRESENT / PORTABLE (the fork deleted upstream's `VoxyConfigMenu` and moved this setting to `VoxyConfigScreenPages`; that live binding already stores `s.sectionRenderDistance = v/16f` and calls `vrs.setRenderDistance(s.sectionRenderDistance)`, so the fixed semantic is already present and the upstream patch is empty here.)
+- **Files:** 0 files, +0/-0 (upstream attempted a 1-file, +2/-1 edit to deleted `VoxyConfigMenu.java`; no new change was needed)
+- **Result:** APPLIED (empty provenance commit)
+- **SHA:** 937ef399
+- **Release:** v0.2.7-alpha-2.136
+- **Notes:** Cherry-pick -x of `11f4fdfc` triggered a modify/delete conflict for the fork-deleted `VoxyConfigMenu.java`. Inspection of `VoxyConfigScreenPages.java:127-134` confirmed its binding already passes normalized `s.sectionRenderDistance`, not raw slider `c`, so it cannot trigger the upstream 16x error. Continued as an allow-empty provenance commit and attached the source trailer. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Release v0.2.7-alpha-2.136 created with both built jars. Counter advanced .135 → .136.
