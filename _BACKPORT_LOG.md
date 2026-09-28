@@ -1116,3 +1116,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 77692634
 - **Release:** v0.2.7-alpha-2.129
 - **Notes:** Cherry-pick -x of `e5af2c91` initially landed as 4aac68a7 but failed compileJava with `cannot find symbol: variable ssboBindingAlignment`. Aborted, re-applied, and amended with the missing Capabilities field from upstream `eaf107e4` (commit 157, planned next) so the combined port is self-consistent. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 7b01ab2a..77692634 on backport/sequential. The remaining 157 changes (NodeCleaner.java edits + RenderResourceReuse.java 512MB min buffer line) still need to be applied as commit 157.
+
+## 157. `eaf107e4` fix binding alignement (flipped file commits capabilities ment to go in previous commit mb)
+- **Verdict:** PORTABLE (clean cherry-pick: adds `geometryCapacity = Math.max(512*1024*1024, geometryCapacity)` floor in `RenderResourceReuse.java` constructor (line 108-109), and replaces NodeCleaner's hand-rolled 16-byte alignment with `UploadStream.alignUpAlloc(...)` in `NodeCleaner.java`. Also adds `import me.cortex.voxy.client.core.gl.Capabilities;` and `import static me.cortex.voxy.client.core.rendering.util.UploadStream.alignUp;` to NodeCleaner.java. Capabilities.java auto-merged as no-op because the field was already added by commit 156 (see 156 entry).)
+- **Files:** 2 files, +6/-3 (`src/main/java/me/cortex/voxy/client/core/RenderResourceReuse.java` +2/-0 [512MB geometryCapacity floor in constructor], `src/main/java/me/cortex/voxy/client/core/rendering/hierachical/NodeCleaner.java` +4/-3 [replaced inline 16-byte alignment with `UploadStream.alignUpAlloc(count*4)`, added Capabilities + alignUp imports])
+- **Result:** APPLIED
+- **SHA:** 08b18d21
+- **Release:** v0.2.7-alpha-2.130
+- **Notes:** Cherry-pick -x of `eaf107e4` auto-merged cleanly (Capabilities.java was a no-op since the field was already added in commit 156 to make 156 self-consistent). compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 09e175fc..08b18d21 on backport/sequential.
