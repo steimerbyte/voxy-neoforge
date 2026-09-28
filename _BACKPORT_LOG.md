@@ -634,3 +634,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 63f0a3f5
 - **Release:** v0.2.7-alpha-2.080
 - **Notes:** Cherry-pick -x of `e0e8cc06` auto-merged cleanly. Promotes `NodeManager.makeParentPos(long)` from `private` to `private static` (no instance state needed). compileJava+build SUCCESSFUL (40s). Push 5555083f..63f0a3f5 on backport/sequential. Release v0.2.7-alpha-2.080 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.080.
+
+## 104. `5937988f3174f63fe6360e69eb33f82f461d2a90` _screams_
+- **Verdict:** PORTABLE (bitmask widening — allows 13-bit air counts instead of 12-bit, matching the upstream section-status field width)
+- **Files:** src/main/java/me/cortex/voxy/common/world/WorldUpdater.java (+1/-1)
+- **Result:** APPLIED
+- **SHA:** ba80ed95
+- **Release:** v0.2.7-alpha-2.081
+- **Notes:** Cherry-pick -x of `5937988f` auto-merged cleanly. Widens the airCount decode mask from `0xFFF` (12 bits, max 4095) to `0x1FFF` (13 bits, max 8191). Pure internal bitfield fix matching the encode-side widening done earlier — without this, sections with >4095 air blocks would wrap silently. compileJava+build SUCCESSFUL (40s). Push e5dc16a6..ba80ed95 on backport/sequential. Release v0.2.7-alpha-2.081 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.081.
