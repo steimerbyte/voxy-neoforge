@@ -1140,3 +1140,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** n/a
 - **Release:** n/a (counter unchanged at .130)
 - **Notes:** Cherry-pick -x of `e62beff1` triggered content conflicts on gradle.properties (mod_version) and ModelFactory.java. Resolution plan was clear: keep our `mod_version = 0.2.7-alpha` and the upstream `SoftwareModelTextureBakery` integration would not compile (the type doesn't exist on 1.21.1 in any form — no GpuBuffer replacement exists). Aborted with `git cherry-pick --abort` to preserve a clean tree for the next commits. Counter unchanged at .130.
+
+## 160. `731ca0e9` removed old stuff
+- **Verdict:** MC-26-ONLY (this commit deletes `ModelTextureBakery.java` (the 1.21.1-compatible baker using `GlViewCapture`), `BudgetBufferRenderer.java`, and the GLSL shaders used by `ModelTextureBakery`. Our fork's `ModelFactory.java` instantiates `ModelTextureBakery` (the only baker available on 1.21.1 since `SoftwareModelTextureBakery` from commits 158/159 was SKIPPED). Applying this deletion would break the build: removing the only 1.21.1 baker the fork currently uses is non-portable. The companion VoxyClient.java + ModelFactory.java touch-ups also reference `SoftwareModelTextureBakery` which doesn't exist on 1.21.1.)
+- **Files:** 11 files (per upstream): deletes ModelTextureBakery.java, BudgetBufferRenderer.java, GlViewCapture.java, SoftwareRasterizer.java (not present on fork, so just deletes nothing), and 4 bakery shader files (.comp/.vsh/.fsh); VoxyClient.java -14, ModelFactory.java -4, ReuseVertexConsumer.java +3/-0
+- **Result:** SKIPPED
+- **SHA:** n/a
+- **Release:** n/a (counter unchanged at .130)
+- **Notes:** Cherry-pick -x of `731ca0e9` triggered 2 content conflicts (VoxyClient.java, ModelFactory.java) and 3 modify/delete conflicts (BudgetBufferRenderer.java, ModelTextureBakery.java, SoftwareRasterizer.java). The dependency direction makes this commit uncatch-up-able: removing ModelTextureBakery would force ModelFactory.java to also rewrite its bakery field to point at the SoftwareModelTextureBakery type, which we already determined is MC 1.21.11-only. Aborted with `git cherry-pick --abort`. Counter unchanged at .130.
