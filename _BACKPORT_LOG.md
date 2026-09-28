@@ -1245,3 +1245,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 9db38118
 - **Release:** v0.2.7-alpha-2.141
 - **Notes:** Cherry-pick -x of `68f782d6` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push c907deed..9db38118 on backport/sequential. Release v0.2.7-alpha-2.141 created with both built jars. Counter advanced .140 → .141.
+
+## 173. `76392ab088b97717793e02f081703a4de9d7be4f` late stage traversal compile
+- **Verdict:** APPLIED
+- **Files:** 2 files, +5/-... (`VoxyRenderSystem.java` +5, `HierarchicalOcclusionTraverser.java` +.../-...)
+- **Result:** APPLIED
+- **SHA:** 31ac65ba01e59e22de84c7ac05319969547f8330
+- **Release:** v0.2.7-alpha-2.142
+- **Notes:** Cherry-pick -x of `76392ab0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push f64303ca..31ac65ba on backport/sequential. Release v0.2.7-alpha-2.142 published. Counter advanced .141 → .142.
