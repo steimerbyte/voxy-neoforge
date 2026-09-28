@@ -22,7 +22,7 @@ NeoForge 1.21.1 server.
 >
 > **What the human (`steimerbyte`) does:** sets direction, reviews scope
 > push-back from the AI, manages the GitHub repository / releases, and
-> provided the cgroup-memory and systemd-service environment fixes that
+> provided the Tokens, the Server environment fixes that
 > the build needs to run at all.
 >
 > The underlying mod (Voxy) itself is human-authored — see the credits
