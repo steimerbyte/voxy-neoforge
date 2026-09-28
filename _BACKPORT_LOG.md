@@ -1204,3 +1204,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** n/a
 - **Release:** n/a (counter unchanged at .136)
 - **Notes:** Cherry-pick -x of `a1ee2eed` attempted to edit absent `SoftwareModelTextureBakery.java` and surfaced a content conflict in the fork's existing `ModelTextureBakery.java` because upstream tracked it as the rename source. Inspected the full upstream diff: its only semantic change is unconditional `MemoryUtil.memSet(outputBuffer,...)` in the software-only `renderToOutput`; the live 1.21.1 `renderToStream` already clears its GL capture. Aborted with `git cherry-pick --abort`; no release and counter unchanged at .136.
+
+## 168. `921883ea587510f572182a61c69d43bb76b2fff7` final
+- **Verdict:** PORTABLE (clean cherry-pick: marks `ModelFactory.getModelMetadataFromClientId(int)` final; this is a Java modifier-only change with no Minecraft or Sodium API dependency.)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/model/ModelFactory.java` +1/-1)
+- **Result:** APPLIED
+- **SHA:** 3e89246c
+- **Release:** v0.2.7-alpha-2.137
+- **Notes:** Cherry-pick -x of `921883ea` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push abb18a90..3e89246c on backport/sequential. Release v0.2.7-alpha-2.137 created with both built jars; GitHub initially rejected the abbreviated target SHA, so the release command was retried with the full SHA. Counter advanced .136 → .137.
