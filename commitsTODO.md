@@ -6,7 +6,7 @@
 - [x] **6** ⏭ SKIPPED: `edd0ce33` update mods 1.21.11 — Full Sodium 0.6→0.7 + MC 1.21.1→1.21.11 upgrade. All changed files use MC-26.x/Sodium-0.7 APIs: GpuSampler, FogParameters, indexedRenderingEnabled, OptionFlag, StorageEventHandler, ConfigState, IntegerOptionBuilder. No 1.21.1-equivalent — would require full refactor of config + IrisVoxyRenderPipelineData + Sodium mixins. Not backportable as a patch. [`f713ef2e8f92726b277ab37c07a4e152a65addb6`](https://github.com/MCRcortex/voxy/commit/f713ef2e8f92726b277ab37c07a4e152a65addb6) — inital 1.21.11
 - [x] **7** done: `2458a4a3` (Backport @ `5fd70fe5`, Release v0.2.7-alpha-2.005 — APPLIED+FIXED)
 - [x] **8** done: `afe41a10` (Backport @ `8b8a4a23`, Release v0.2.7-alpha-2.006 — APPLIED)
-- [ ] **9** [`afe41a10b5bd1982e4f5eb58911ffb319fccf082`](https://github.com/MCRcortex/voxy/commit/afe41a10b5bd1982e4f5eb58911ffb319fccf082) — perf tweek
+- [x] **9** done: `03d97138` (Backport @ `32e638ee`, Release v0.2.7-alpha-2.007 — APPLIED)
 - [ ] **10** [`03d971385ca009545079701c962562ea1d920ea8`](https://github.com/MCRcortex/voxy/commit/03d971385ca009545079701c962562ea1d920ea8) — private final
 - [ ] **11** [`c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0`](https://github.com/MCRcortex/voxy/commit/c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0) — mipping
 - [ ] **12** [`a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4`](https://github.com/MCRcortex/voxy/commit/a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4) — who knows if this even works (it very probably doesnt)

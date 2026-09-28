@@ -44,3 +44,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 8b8a4a23
 - **Release:** v0.2.7-alpha-2.006
 - **Notes:** 1-line perf tweak: upload batch limit `200` → `300` while >50 MB free.
+
+## 9. `03d97138` private final
+- **Verdict:** PORTABLE
+- **Files:** (1 file, ByteBuffer field)
+- **Result:** APPLIED
+- **SHA:** 32e638ee
+- **Release:** v0.2.7-alpha-2.007
+- **Notes:** Added `private final` to `ByteBuffer buf;` field.
