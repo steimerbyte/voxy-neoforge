@@ -7,7 +7,7 @@
 - [x] **7** done: `2458a4a3` (Backport @ `5fd70fe5`, Release v0.2.7-alpha-2.005 — APPLIED+FIXED)
 - [x] **8** done: `afe41a10` (Backport @ `8b8a4a23`, Release v0.2.7-alpha-2.006 — APPLIED)
 - [x] **9** done: `03d97138` (Backport @ `32e638ee`, Release v0.2.7-alpha-2.007 — APPLIED)
-- [ ] **10** [`03d971385ca009545079701c962562ea1d920ea8`](https://github.com/MCRcortex/voxy/commit/03d971385ca009545079701c962562ea1d920ea8) — private final
+- [x] **10** done: `c7cf4a74` (Backport @ `1af6450a`, Release v0.2.7-alpha-2.008 — APPLIED+FIXED)
 - [ ] **11** [`c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0`](https://github.com/MCRcortex/voxy/commit/c7cf4a74d588569fdeffea9fa592e3d4fb47c3f0) — mipping
 - [ ] **12** [`a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4`](https://github.com/MCRcortex/voxy/commit/a7ea5b2f99b6f1da9d9da0e484ce295f56a423c4) — who knows if this even works (it very probably doesnt)
 - [ ] **13** [`4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01`](https://github.com/MCRcortex/voxy/commit/4ca9cdbaa853333880a9a2b93db50b3ec3d2bc01) — woops

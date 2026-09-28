@@ -52,3 +52,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 32e638ee
 - **Release:** v0.2.7-alpha-2.007
 - **Notes:** Added `private final` to `ByteBuffer buf;` field.
+
+## 10. `c7cf4a74` mipping
+- **Verdict:** REQUIRES-MANUAL-PORT
+- **Files:** 8 files (new MipGen.java + 7 modified)
+- **Result:** APPLIED+FIXED
+- **SHA:** 1af6450aad79235ebda2df43ee2d74d309d24f44
+- **Release:** v0.2.7-alpha-2.008
+- **Fixes:** Removed MipmapStrategy (1.21.2+), ARGB (1.21.2+), SpriteContents.mipmapStrategy (1.21.2+). Replaced ARGB.linearToSrgbChannel with std sRGB gamma. Kept 1.21.1's quad.isShade/getVertices.
