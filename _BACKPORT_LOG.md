@@ -1060,3 +1060,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 40192d31
 - **Release:** v0.2.7-alpha-2.122
 - **Notes:** Cherry-pick -x of `72768ca6` auto-resolved cleanly: the fork's `workflows/manual-artifact.yml` was already renamed to `workflows-disabled/manual-artifact.yml` by prior commit `c6270e54`, so git tracked this as a modify on the existing disabled copy rather than a new file in `.github/workflows/`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 74619760..40192d31 on backport/sequential.
+
+## 150. `d7782df2` tex zero func
+- **Verdict:** PORTABLE (clean cherry-pick: adds `GlTexture.getPixelTransferFormat()` and `GlTexture.zero()` helpers in `GlTexture.java` — uses only OpenGL constants (`GL_RGBA`, `GL_RED`, `GL_DEPTH_COMPONENT`, `GL_DEPTH_STENCIL`, `GL_INT`, `GL_FLOAT`, `GL_UNSIGNED_INT_24_8`, `GL_FLOAT_32_UNSIGNED_INT_24_8_REV`) and `nglClearTexImage` which are vanilla GL 4.4+/GL_ARB_clear_texture API — no MC-version-specific or Sodium-version-specific dependencies)
+- **Files:** 1 file, +25/-0 (`src/main/java/me/cortex/voxy/client/core/gl/GlTexture.java` +25/-0 [new `getPixelTransferFormat()` maps `this.format` (GL_RGBA8/GL_R32UI/GL_R32F/GL_DEPTH_COMPONENT{24,32F,32}/GL_DEPTH24_STENCIL8) → transfer format; new `zero()` clears all mipmap levels with the proper GL type per format via nglClearTexImage])
+- **Result:** APPLIED
+- **SHA:** 975f180e
+- **Release:** v0.2.7-alpha-2.123
+- **Notes:** Cherry-pick -x of `d7782df2` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 8b57bbba..975f180e on backport/sequential.
