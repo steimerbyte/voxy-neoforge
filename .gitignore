@@ -1,15 +1,19 @@
-# Project exclude paths
-/.gradle/
-/.idea/
-/build/
-/run/
-/out/
-/logs/
+# Gradle
+.gradle/
+build/
+out/
 
-bin/
+# IDE
+.idea/
+*.iml
+.vscode/
 .classpath
 .project
-*.launch
 .settings/
 
-.vscode/
+# Run output (contains server worlds)
+runs/
+
+# OS
+.DS_Store
+Thumbs.db
