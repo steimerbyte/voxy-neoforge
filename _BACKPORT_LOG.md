@@ -36,3 +36,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Files:** 14 files (config/, mixin/sodium/, resources/fabric.mod.json, etc.)
 - **Result:** SKIPPED
 - **Reason:** Full Sodium 0.6 → 0.7 + MC 1.21.1 → 1.21.11 upgrade. Missing APIs in our 1.21.1 + Sodium 0.8.13 target: `GpuSampler`, `FogParameters`, `indexedRenderingEnabled`, `OptionFlag`, `StorageEventHandler`, `ConfigState`, `IntegerOptionBuilder`, `OptionPage`, `Page`, `Range`, `OptionImpact`, `Supplier<GlSampler>`. Not backportable as a patch — would require full Sodium 0.7-style config refactor.
+
+## 8. `afe41a10` perf tweek
+- **Verdict:** PORTABLE
+- **Files:** AsyncNodeManager.java
+- **Result:** APPLIED
+- **SHA:** 8b8a4a23
+- **Release:** v0.2.7-alpha-2.006
+- **Notes:** 1-line perf tweak: upload batch limit `200` → `300` while >50 MB free.
