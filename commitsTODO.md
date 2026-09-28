@@ -36,17 +36,17 @@
 - [x] **36** done: APPLIED: 2a102d55 → v0.2.7-alpha-2.029 (remove sodium extra)
 - [x] **37** SKIPPED: `d30ea7ec` here we go again — MC 1.21.11 fog refactoring + useRenderFog config removal + Sodium 0.8.1-SNAPSHOT build.gradle changes. Our fork is 1.21.1 + Sodium 0.6.13, useRenderFog never existed. Conflicts in MixinFogRenderer (FogData class), NormalRenderPipeline (environmentalStart), build.gradle (Sodium 0.8.1).
 - [x] **38** SKIPPED: `34204367` stupid idiot — MixinFogRenderer signature changed to MC 1.21.2+ form (Camera, int, DeltaTracker, float, ClientLevel, Vector4f return, @Local FogData). Our 1.21.1 fork uses the old 4-param signature. Also uses new VoxyConfig fields enableRendering/enabled (don't exist in our 1.21.1 config).
-- [ ] **39** [`b68d5b3c66e36e1adc987675ae1aae2891496901`](https://github.com/MCRcortex/voxy/commit/b68d5b3c66e36e1adc987675ae1aae2891496901) — dis
-- [ ] **40** [`b5c31478fb44a89cb0be7cc21068113643dba3fa`](https://github.com/MCRcortex/voxy/commit/b5c31478fb44a89cb0be7cc21068113643dba3fa) — things
-- [ ] **41** [`f272042a76eb6f1adafc731cc227f4f0688c6a8d`](https://github.com/MCRcortex/voxy/commit/f272042a76eb6f1adafc731cc227f4f0688c6a8d) — a
+- [x] **39** done: APPLIED ca9dfa6d → v0.2.7-alpha-2.031 (dis)
+- [x] **40** done: APPLIED a9748df3 → v0.2.7-alpha-2.032 (things)
+- [x] **41** done: APPLIED 7663b1bf → v0.2.7-alpha-2.033 (a)
 - [x] **42** SKIPPED: `ee7ec50d` always show voxy version in f3 — uses MC 1.21.2+ debug overlay API (DebugScreenEntries/DebugScreenEntry/DebugScreenDisplayer) not in 1.21.1
-- [ ] **43** [`45ff6c44149d2b4ef96333208e2427ca31ca8619`](https://github.com/MCRcortex/voxy/commit/45ff6c44149d2b4ef96333208e2427ca31ca8619) — locale
-- [ ] **44** [`e86beefbc70a25c26b8949a3040c03073bc6dacb`](https://github.com/MCRcortex/voxy/commit/e86beefbc70a25c26b8949a3040c03073bc6dacb) — rename
-- [ ] **45** [`b086832333ae55883738fa3e5f304b293d2e0254`](https://github.com/MCRcortex/voxy/commit/b086832333ae55883738fa3e5f304b293d2e0254) — remove mip thing cause vanilla mipmaps have issues
-- [ ] **46** [`6212d95cddd56260996637302581699e49417f37`](https://github.com/MCRcortex/voxy/commit/6212d95cddd56260996637302581699e49417f37) — face thing TODO: CHECK IS OPTIMAL
-- [ ] **47** [`3bcdbbec90d6816d2bfab5a454b4e019fa0cf982`](https://github.com/MCRcortex/voxy/commit/3bcdbbec90d6816d2bfab5a454b4e019fa0cf982) — gpu timings
-- [ ] **48** [`3cc5afc1e1e7b250e4c8adad7dd96ae59100df02`](https://github.com/MCRcortex/voxy/commit/3cc5afc1e1e7b250e4c8adad7dd96ae59100df02) — Client store
-- [ ] **49** [`79890fde1e2d01c9a187b8ad998eda51df05d8df`](https://github.com/MCRcortex/voxy/commit/79890fde1e2d01c9a187b8ad998eda51df05d8df) — x
+- [x] **43** done: APPLIED eef01468 → v0.2.7-alpha-2.034 (locale)
+- [x] **44** done: APPLIED 8ce7df5f → v0.2.7-alpha-2.035 (rename)
+- [x] **45** done: APPLIED 1dbb1c87 → v0.2.7-alpha-2.036 (remove mip thing)
+- [x] **46** done: APPLIED 4c0f9365 → v0.2.7-alpha-2.037 (face thing)
+- [x] **47** done: APPLIED 211e9d9d → v0.2.7-alpha-2.038 (gpu timings)
+- [x] **48** done: APPLIED a83feb0a → v0.2.7-alpha-2.039 (Client store)
+- [x] **49** done: APPLIED bdbc888b → v0.2.7-alpha-2.040 (x)
 - [ ] **50** [`263f93215a0161735d9d02f11e3e41fc906ea1a3`](https://github.com/MCRcortex/voxy/commit/263f93215a0161735d9d02f11e3e41fc906ea1a3) — aa
 - [ ] **51** [`61da430895f5fa2757e9b4c320ae78cf37c3b0d9`](https://github.com/MCRcortex/voxy/commit/61da430895f5fa2757e9b4c320ae78cf37c3b0d9) — wip occupancy
 - [ ] **52** [`1e7b199660a3f8a683ee4078e012738ab436b354`](https://github.com/MCRcortex/voxy/commit/1e7b199660a3f8a683ee4078e012738ab436b354) — more occupancy

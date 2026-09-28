@@ -260,3 +260,14 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Verdict:** MC-26-ONLY
 - **Result:** SKIPPED
 - **Reason:** Uses MC 1.21.2+ debug overlay API (DebugScreenEntries, DebugScreenEntry, DebugScreenDisplayer, DebugScreenEntryList). Not present in 1.21.1.
+
+## 39. `b68d5b3c` dis — APPLIED ca9dfa6d → v0.2.7-alpha-2.031
+## 40. `b5c31478` things — APPLIED a9748df3 → v0.2.7-alpha-2.032
+## 41. `f272042a` a — APPLIED 7663b1bf → v0.2.7-alpha-2.033
+## 43. `45ff6c44` locale — APPLIED eef01468 → v0.2.7-alpha-2.034
+## 44. `e86beefb` rename — APPLIED 8ce7df5f → v0.2.7-alpha-2.035
+## 45. `b0868323` remove mip thing — APPLIED 1dbb1c87 → v0.2.7-alpha-2.036
+## 46. `6212d95c` face thing — APPLIED 4c0f9365 → v0.2.7-alpha-2.037
+## 47. `3bcdbbec` gpu timings — APPLIED 211e9d9d → v0.2.7-alpha-2.038
+## 48. `3cc5afc1` Client store — APPLIED a83feb0a → v0.2.7-alpha-2.039
+## 49. `79890fde` x — APPLIED bdbc888b → v0.2.7-alpha-2.040
