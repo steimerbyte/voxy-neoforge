@@ -522,3 +522,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0a9661e5451d5e232dec464238bcaff141622b97
 - **Release:** v0.2.7-alpha-2.071
 - **Notes:** Cherry-pick -x of `515dad60` auto-merged cleanly with no conflicts. Adds `public static final GsonAdapter INSTANCE = new GsonAdapter();` + `private GsonAdapter(){}` to the GsonAdapter inner class, exposing a singleton instance and marking the ctor private (consistent with the upcoming "bean" pattern). No API surface change visible to consumers (ctor was already public-default, now private + INSTANCE exposes the canonical instance). compileJava SUCCESSFUL (42s), build -x test SUCCESSFUL (31s). Push ac14efa2..0a9661e5 on backport/sequential. Release v0.2.7-alpha-2.071 published with voxy-0.2.7-alpha.jar + voxy-0.2.7-alpha-all.jar at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.071.
+
+## 91. `d2428a1051c45a6dcd7ef6961604346f2b0b3e20` str
+- **Verdict:** REQUIRES-MANUAL-PORT (1.21.4+ ResourceKey.identifier() → 1.21.1 ResourceKey.location())
+- **Files:** src/main/java/me/cortex/voxy/commonImpl/WorldIdentifier.java (+4)
+- **Result:** APPLIED+FIXED
+- **SHA:** f2973872fd7fd99f55cfc831ce816c265b1e8527
+- **Release:** v0.2.7-alpha-2.072
+- **Notes:** Cherry-pick -x of `d2428a10` auto-merged cleanly with no textual conflicts. Adds `public String toString()` override on `WorldIdentifier` that returns `"WorldIdentifier[<key>, <biomeSeed>, <dimension>]"`. Amend-time port fix: `key.identifier().toString()` → `key.location().toString()` and `dimension.identifier().toString()` → `dimension.location().toString()` (x2 on line 161, `ResourceKey.identifier()` was renamed to `location()` in 1.21.4). compileJava SUCCESSFUL (41s), build -x test SUCCESSFUL (31s). Push ffdd1392..f2973872 on backport/sequential. Release v0.2.7-alpha-2.072 published at https://github.com/steimerbyte/voxy-neoforge/releases/tag/v0.2.7-alpha-2.072.
