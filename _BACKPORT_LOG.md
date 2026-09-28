@@ -1269,3 +1269,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0298fc85
 - **Release:** v0.2.7-alpha-2.144
 - **Notes:** Cherry-pick -x of `5779f52d` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 8db9dabe..0298fc85 on backport/sequential. Release v0.2.7-alpha-2.144 created with both built jars. Counter advanced .143 → .144.
+
+## 176. `8eb5afc5b0813b5af40b9025d1abf363741d70df` moved render statistics from config menu into f3 debug menu
+- **Verdict:** MC-1.21.2-ONLY (the commit adds and mixes into `DebugEntries`, `DebugScreenEntryList`, and the F3 debug-entry registry APIs, which are absent on MC 1.21.1; it also targets the fork-deleted `VoxyConfigMenu`.)
+- **Files:** 0 files applied (upstream attempted 4 files, +36/-7; the three deleted debug/config files produced modify/delete conflicts and the only live shared hunk would change `GPUTiming`'s default.)
+- **Result:** SKIPPED
+- **SHA:** n/a
+- **Release:** n/a (counter unchanged at .144)
+- **Notes:** Cherry-pick -x of `8eb5afc5` conflicted on deleted `DebugEntries.java`, `VoxyConfigMenu.java`, and `MixinDebugScreenEntryList.java`. The feature depends on MC 1.21.2+ `DebugScreenDisplayer`, `DebugScreenEntries`, and debug-entry-list mixin APIs unavailable to the 1.21.1 fork. Aborted cleanly with `git cherry-pick --abort`; no release and counter unchanged at .144.
