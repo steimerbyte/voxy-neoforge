@@ -1486,3 +1486,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 90e2aa81da08a1c77bd0537c643c8026b9cc0b25
 - **Release:** v0.2.7-alpha-2.168
 - **Notes:** Cherry-pick -x of `a71ca6b0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 25d2847b..90e2aa81 on backport/sequential. Release v0.2.7-alpha-2.168 created with both built jars and verified. Counter advanced .167 → .168.
+
+## 201. `da5a65433c259cb14f11fea46167358ead16da21` remove remove synchronize thing
+- **Verdict:** APPLIED (hunk-level resolution: removes the obsolete MixinLayerLightSectionStorage hook and unregisters it; unrelated fork mixin registrations were retained.)
+- **Files:** 2 files, +0/-17 (`MixinLayerLightSectionStorage.java`, `client.voxy.mixins.json`)
+- **Result:** APPLIED
+- **SHA:** 44e36fffe8b2fc7445dcf628df6a72fdcd9e7b3d
+- **Release:** v0.2.7-alpha-2.169
+- **Notes:** Cherry-pick -x of `da5a6543` conflicted with a nearby unregistered `MixinGlDebug` entry from the fork; resolved by retaining all unrelated registrations while applying the removal of `MixinLayerLightSectionStorage`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 5d32c525..44e36fff on backport/sequential. Release v0.2.7-alpha-2.169 created with both built jars and verified. Counter advanced .168 → .169.
