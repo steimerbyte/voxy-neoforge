@@ -1579,3 +1579,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 003a02f593a273b21cd483a7a2ba5e2e9e533b66
 - **Release:** v0.2.7-alpha-2.177
 - **Notes:** Cherry-pick -x of `d3296634` conflicted at the manually computed FOV call; resolved in favor of the shared helper. The first compileJava run found MC 1.21.1 has no `Minecraft#getDeltaTracker()`, and the second found `GameRenderer#getFov` returns double, so the amended commit uses `Minecraft#getTimer()` plus an explicit float conversion. Final compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ea32ee57..003a02f5 on backport/sequential. Release v0.2.7-alpha-2.177 created with both built jars and verified. Counter advanced .176 -> .177.
+
+## 212. `7fec03921ff116791b7542609505a476b5bc90bf` sodium 0.8.7
+- **Verdict:** SKIPPED (MC-26-ONLY: upstream only changes the MC 1.21.11 Sodium dependency to 0.8.7 and adds 0.8.7 to the Fabric 1.21.11 metadata; the 1.21.1 NeoForge fork intentionally retains `curse.maven:sodium-394468` and its 1.21.1 dependency metadata.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 7fec0392` conflicted only in `build.gradle` and `fabric.mod.json`, both targeting the MC 1.21.11 Sodium setup. The cherry-pick was aborted cleanly, leaving HEAD `d919aa08` and only session-only `HANDOFF.md` in the working tree. No release was created and the counter remains .177.
