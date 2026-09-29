@@ -1980,3 +1980,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** fd029e01c82f0d317dab9ec065c341e8c11c7f42
 - **Release:** v0.2.7-alpha-2.216
 - **Notes:** `git cherry-pick -x 9002f50e` auto-merged cleanly, no conflict. The change is pure Voxy-internal tuning of the `totalDedicatedMemory` thresholds used by `SSAO.createSSAO` (5 GB -> 7 GB, with the matching comment update), so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (24s). Push 8bed2f58..fd029e01 on backport/sequential. Release v0.2.7-alpha-2.216 created with both built jars and verified. Counter advanced .215 -> .216.
+
+## 260. `7ddc56960ef77fea3a2d10e154706774f83dc445` new projection matrix computation (update the near/far planes directly)
+- **Verdict:** APPLIED (clean cherry-pick: adds `getRenderDistance()` + `computeProjectionMat`, comments out the old FoV-based path.)
+- **Files:** 1 file, +19/-0 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** 84fa9258b19850f411d4731cca41ada6d102136a
+- **Release:** v0.2.7-alpha-2.217
+- **Notes:** `git cherry-pick -x 7ddc5696` auto-merged into `VoxyRenderSystem.java` with no conflict. The commit is additive: it adds `getRenderDistance()` (`Minecraft.getInstance().options.getEffectiveRenderDistance()*16`), comments out the old `getGameFoV()`/`getVoxyProjectionMatrix` block, and adds `computeProjectionMat(Matrix4fc)` which rewrites the base matrix's `m22`/`m32` for a Voxy-chosen near (8f/16f, 0.1f when Sodium chunk render is disabled) and far (`16*3000`) plane. It uses only APIs present in 1.21.1 (`getEffectiveRenderDistance`, JOML `Matrix4f`/`Matrix4fc`) plus the fork's own `VoxyClient.disableSodiumChunkRender()`, so no 1.21.1 adaptation was needed. compileJava SUCCESSFUL (32s), build -x test SUCCESSFUL (27s). Push f8d36a7e..84fa9258 on backport/sequential. Release v0.2.7-alpha-2.217 created with both built jars and verified. Counter advanced .216 -> .217.
