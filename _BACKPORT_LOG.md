@@ -1555,3 +1555,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 3c946cbacc2467386aacf7bc31893c0ba4eaf248
 - **Release:** v0.2.7-alpha-2.174
 - **Notes:** Cherry-pick -x of `8e749ed4` conflicted only in `gradle.properties`; resolving with the fork side produced an empty portable patch committed as `3c946cba`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push c297f26a..3c946cba on backport/sequential. Release v0.2.7-alpha-2.174 created with both built jars and verified. Counter advanced .173 -> .174.
+
+## 209. `4d5b2178eb7836e271a9569fa5a57d468b936140` todo
+- **Verdict:** APPLIED (clean cherry-pick: adds the two debug TODO comments to `RenderDistanceTracker` without changing behavior.)
+- **Files:** 1 file, +2/-0 (`RenderDistanceTracker.java`)
+- **Result:** APPLIED
+- **SHA:** 40baded109af396dbd3e2e9d4061ba634aa2fd80
+- **Release:** v0.2.7-alpha-2.175
+- **Notes:** Cherry-pick -x of `4d5b2178` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 8d6034d5..40baded1 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.175 was created with the actual full SHA and both built jars and verified. Counter advanced .174 -> .175.
