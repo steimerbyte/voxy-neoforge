@@ -1462,3 +1462,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 127bc59893641bfd7dcd6f7f311cb5280106d53e
 - **Release:** v0.2.7-alpha-2.165
 - **Notes:** Cherry-pick -x of `1f993f8e` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push c4de1253..127bc598 on backport/sequential. Release v0.2.7-alpha-2.165 created with both built jars and verified. Counter advanced .164 → .165.
+
+## 198. `0637d1ad5e33ea15dd2b57a4a2b551e0f57244a3` dont have to worry about model baking speed anymore
+- **Verdict:** APPLIED (clean cherry-pick: removes two model-baking throttling delays while preserving the existing asynchronous model bake path.)
+- **Files:** 1 file, +0/-2 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderGenerationService.java`)
+- **Result:** APPLIED
+- **SHA:** 383b61296676a273e86ad23b5139f384edbd5639
+- **Release:** v0.2.7-alpha-2.166
+- **Notes:** Cherry-pick -x of `0637d1ad` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push b6f5d384..383b6129 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.166 was created with the actual full SHA and both built jars and verified. Counter advanced .165 → .166.
