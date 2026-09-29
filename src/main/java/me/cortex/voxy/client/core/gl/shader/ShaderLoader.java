@@ -1,12 +1,70 @@
 package me.cortex.voxy.client.core.gl.shader;
 
+import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.io.IOUtils;
 
-import net.caffeinemc.mods.sodium.client.gl.shader.ShaderConstants;
-import net.caffeinemc.mods.sodium.client.gl.shader.ShaderParser;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class ShaderLoader {
     public static String parse(String id) {
-        return "#version 460 core\n"+ShaderParser.parseShader("\n#import <" + id + ">\n//beans", ShaderConstants.builder().build()).replaceAll("\r\n", "\n").replaceFirst("\n#version .+\n", "\n");
-        //return me.jellysquid.mods.sodium.client.gl.shader.ShaderLoader.getShaderSource(new Identifier(id));
+        var src =  "#version 460 core\n";
+        src += String.join("\n", ShaderLoadingParser.parseRoot(ResourceLocation.parse(id)));
+        return src;
+    }
+
+
+    //Use our own loader
+
+    private static final class ShaderLoadingParser {
+        private static final Pattern IMPORT_PATTERN = Pattern.compile("#import <(?<namespace>.*):(?<path>.*)>");
+        public static List<String> parseRoot(ResourceLocation id) {
+            List<String> out = new ArrayList<>();
+            for (var line : toLines(loadShaderAsset(id))) {
+                if (line.startsWith("#version")) {
+                    continue;
+                } else if (line.startsWith("#import")) {
+                    var match = IMPORT_PATTERN.matcher(line);
+                    if (!match.matches()) throw new IllegalArgumentException("Unknown import: " + line);
+                    var iid = ResourceLocation.fromNamespaceAndPath(match.group("namespace"), match.group("path"));
+                    out.addAll(parseRoot(iid));
+                } else {
+                    out.add(line);
+                }
+            }
+            return out;
+        }
+
+        private static List<String> toLines(String src) {
+            //Note: BufferedReader#readAllLines is java 19+, this fork compiles against java 17
+            List<String> out = new ArrayList<>();
+            try (BufferedReader reader = new BufferedReader(new StringReader(src))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    out.add(line);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return out;
+        }
+        private static String loadShaderAsset(ResourceLocation id) {
+            String path = String.format("/assets/%s/shaders/%s", id.getNamespace(), id.getPath());
+            try (InputStream in = ShaderLoadingParser.class.getResourceAsStream(path)) {
+                if (in == null) {
+                    throw new RuntimeException("Shader not found: " + path);
+                } else {
+                    return IOUtils.toString(in, StandardCharsets.UTF_8);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to read shader source for " + path, e);
+            }
+        }
     }
 }

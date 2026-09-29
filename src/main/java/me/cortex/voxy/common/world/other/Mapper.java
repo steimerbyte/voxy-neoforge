@@ -74,6 +74,12 @@ public class Mapper {
         return (id&(((1L<<20)-1)<<27)) == 0;
     }
 
+    public static int isNotAirInt(long id) {
+        //This is stupid and insane that even have todo this
+        // works cause 0 is air, so !=0 is not air
+        return Math.min(getBlockId(id), 1);
+    }
+
     public static int getBlockId(long id) {
         return (int) ((id>>27)&((1<<20)-1));
     }
@@ -88,6 +94,10 @@ public class Mapper {
 
     public static long withLight(long id, int light) {
         return (id&(~(0xFFL<<56)))|(Integer.toUnsignedLong(light&0xFF)<<56);
+    }
+
+    public static long withBlockBiome(long id, int block, int biome) {
+        return (id&(0xFFL<<56))|(Integer.toUnsignedLong(block)<<27)|(Integer.toUnsignedLong(biome)<<47);
     }
 
     public static long airWithLight(int light) {
@@ -189,8 +199,8 @@ public class Mapper {
         }
 
         entry = new StateEntry(this.blockId2stateEntry.size(), state);
-        this.block2stateEntry.put(state, entry);
         this.blockId2stateEntry.add(entry);
+        this.block2stateEntry.put(state, entry);
         this.blockLock.unlock();
 
         byte[] serialized = entry.serialize();
@@ -199,6 +209,7 @@ public class Mapper {
         buffer.rewind();
         this.storage.putIdMapping(entry.id | (BLOCK_STATE_TYPE<<30), buffer);
         MemoryUtil.memFree(buffer);
+        //this.storage.flush();
 
         if (this.newStateCallback!=null)this.newStateCallback.accept(entry);
         return entry;
@@ -212,8 +223,8 @@ public class Mapper {
             return entry;
         }
         entry = new BiomeEntry(this.biomeId2biomeEntry.size(), biome);
-        this.biome2biomeEntry.put(biome, entry);
         this.biomeId2biomeEntry.add(entry);
+        this.biome2biomeEntry.put(biome, entry);
         this.biomeLock.unlock();
 
         byte[] serialized = entry.serialize();
@@ -222,6 +233,7 @@ public class Mapper {
         buffer.rewind();
         this.storage.putIdMapping(entry.id | (BIOME_TYPE<<30), buffer);
         MemoryUtil.memFree(buffer);
+        //this.storage.flush();
 
         if (this.newBiomeCallback!=null)this.newBiomeCallback.accept(entry);
         return entry;
@@ -238,7 +250,6 @@ public class Mapper {
         return this.blockId2stateEntry.get(blockId).state;
     }
 
-    //TODO: replace lambda with a class cached lambda ref (cause doing this:: still does a lambda allocation)
     public int getIdForBlockState(BlockState state) {
         if (state.isAir()) {
             return 0;

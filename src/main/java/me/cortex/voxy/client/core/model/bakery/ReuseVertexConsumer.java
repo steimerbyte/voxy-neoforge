@@ -1,6 +1,7 @@
 package me.cortex.voxy.client.core.model.bakery;
 
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import me.cortex.voxy.common.util.MemoryBuffer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import org.lwjgl.system.MemoryUtil;
@@ -8,12 +9,14 @@ import org.lwjgl.system.MemoryUtil;
 import static me.cortex.voxy.client.core.model.bakery.BudgetBufferRenderer.VERTEX_FORMAT_SIZE;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
-
 public final class ReuseVertexConsumer implements VertexConsumer {
     private MemoryBuffer buffer = new MemoryBuffer(8192);
     private long ptr;
     private int count;
     private int defaultMeta;
+
+    public boolean anyShaded;
+    public boolean anyDarkendTex;
 
     public ReuseVertexConsumer() {
         this.reset();
@@ -46,6 +49,11 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     @Override
+    public VertexConsumer setColor(int i) {
+        return this;
+    }
+
+    @Override
     public ReuseVertexConsumer setUv(float u, float v) {
         MemoryUtil.memPutFloat(this.ptr + 16, u);
         MemoryUtil.memPutFloat(this.ptr + 20, v);
@@ -68,16 +76,22 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     public ReuseVertexConsumer quad(BakedQuad quad, int metadata) {
+        this.anyShaded |= quad.isShade();
+        // 1.21.1 backport: MipmapStrategy.DARK_CUTOUT (MC 1.21.2+) is not available;
+        // SpriteContents in 1.21.1 has no mipmapStrategy field. Any dark-cutout sprite
+        // info is therefore not tracked here. Leave anyDarkendTex at its last value
+        // (managed by reset()), which mirrors the upstream behavior for non-dark-cutout
+        // sprites -- i.e. effectively always false on 1.21.1.
         this.ensureCanPut();
         int[] data = quad.getVertices();
         for (int i = 0; i < 4; i++) {
             float x = Float.intBitsToFloat(data[i * 8]);
             float y = Float.intBitsToFloat(data[i * 8 + 1]);
             float z = Float.intBitsToFloat(data[i * 8 + 2]);
-            this.addVertex(x,y,z);
+            this.addVertex(x, y, z);
             float u = Float.intBitsToFloat(data[i * 8 + 4]);
             float v = Float.intBitsToFloat(data[i * 8 + 5]);
-            this.setUv(u,v);
+            this.setUv(u, v);
 
             this.meta(metadata);
         }
@@ -98,6 +112,8 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     public ReuseVertexConsumer reset() {
+        this.anyShaded = false;
+        this.anyDarkendTex = false;
         this.defaultMeta = 0;//RESET THE DEFAULT META
         this.count = 0;
         this.ptr = this.buffer.address - VERTEX_FORMAT_SIZE;//the thing is first time this gets incremented by FORMAT_STRIDE

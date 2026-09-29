@@ -23,7 +23,6 @@ import static org.lwjgl.opengl.GL11C.glViewport;
 
 @Mixin(LevelRenderer.class)
 public class MixinLevelRenderer {
-    @Shadow @Final private Minecraft minecraft;
 
     @Inject(method = "renderLevel", at = @At("HEAD"), order = 100)
     private void voxy$injectIrisCompat(
@@ -36,7 +35,7 @@ public class MixinLevelRenderer {
             Matrix4f projectionMatrix,
             CallbackInfo ci) {
         if (IrisUtil.irisShaderPackEnabled()) {
-            var renderer = ((IGetVoxyRenderSystem) this).getVoxyRenderSystem();
+            var renderer = ((IGetVoxyRenderSystem) this).voxy$getRenderSystem();
             if (renderer != null) {
                 //Fixthe fucking viewport dims, fuck iris
                 glViewport(0,0,Minecraft.getInstance().getMainRenderTarget().width, Minecraft.getInstance().getMainRenderTarget().height);

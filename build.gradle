@@ -1,7 +1,14 @@
 plugins {
-    id 'fabric-loom' version "1.11-SNAPSHOT"
+    id 'java-library'
+    id 'idea'
     id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version '7.1.13'
+    //Kept from upstream (the fork adds this alongside NeoGradle, it does not replace it) so the
+    //src/jmh benchmark harness added in the same commit can be built with `./gradlew jmh`.
+    id "me.champeau.jmh" version "0.7.3"
 }
+
+def INCLUDE_OTHER_ARCHS = "true".equalsIgnoreCase(project.findProperty("includeOtherArchs"))
 
 def isInGHA = System.getenv("GITHUB_ACTIONS") == "true"
 
@@ -22,6 +29,16 @@ repositories {
         }
         filter {
             includeGroup "maven.modrinth"
+        }
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
         }
     }
     maven { url = "https://maven.shedaniel.me/" }
@@ -47,10 +64,64 @@ repositories {
 }
 
 
+// Default run configurations.
+// These can be tweaked, removed, or duplicated as needed.
+runs {
+    // applies to all the run configs below
+    configureEach {
+        // Recommended logging data for a userdev environment
+        // The markers can be added/remove as needed separated by commas.
+        // "SCAN": For mods scan.
+        // "REGISTRIES": For firing of registry events.
+        // "REGISTRYDUMP": For getting the contents of all registries.
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+
+        // Recommended logging level for the console
+        // You can set various levels here.
+        // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+        systemProperty 'forge.logging.console.level', 'debug'
+
+        modSource project.sourceSets.main
+    }
+
+    client {
+        // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        //增加库到类路径
+        //classpath ""
+    }
+
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+
+    // This run config launches GameTestServer and runs all registered gametests, then exits.
+    // By default, the server will crash when no gametests are provided.
+    // The gametest system is also enabled by default for other run configs under the /test command.
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    data {
+        // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
+        // workingDirectory project.file('run-data')
+
+        // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+// 启用jarjar系统
+jarJar.enable()
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
 def gitCommitHash = { ->
     try {
         ExecOutput result = providers.exec {
-            commandLine = ['git', 'rev-parse', '--short', 'HEAD']
+            commandLine = ['git', 'rev-parse', 'HEAD']
             ignoreExitValue = true
         }
 
@@ -72,15 +143,36 @@ processResources {
     def hash = gitCommitHash()
     def version = project.version
 
-    inputs.properties("version": version, "commit": hash, "buildtime": time)
+    var allowed_mc_version = project.properties.minecraft_version.split("-")[0];
+
+    inputs.properties("version": version, "commit": hash, "buildtime": time, "allowed_mc_version": allowed_mc_version)
     filesMatching("fabric.mod.json") {
-        expand "version": version, "commit": hash, "buildtime": time
+        expand "version": version, "commit": hash, "buildtime": time, "allowed_mc_version": allowed_mc_version
+    }
+
+    // NeoForge mod configuration
+    var replaceProperties = [
+            minecraft_version      : project.minecraft_version,
+            minecraft_version_range: project.minecraft_version_range,
+            neo_version            : project.neo_version,
+            loader_version_range   : project.loader_version_range,
+            mod_id                 : project.mod_id,
+            mod_name               : "Voxy",
+            mod_license            : "All-Rights-Reserved",
+            mod_version            : project.version,
+            mod_authors            : "Cortex",
+            mod_description        : "Far distance rendering mod utilising LoDs"
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
     }
 }
-
-loom {
-    accessWidenerPath = file("src/main/resources/voxy.accesswidener")
-}
+minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
+//loom {
+    //accessWidenerPath = file("src/main/resources/voxy.accesswidener")
+//}
 
 def modRuntimeOnlyMsk = {arg->}
 if (!isInGHA) {
@@ -93,55 +185,67 @@ if (!isInGHA) {
 
 dependencies {
     // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-
-    modRuntimeOnlyMsk(fabricApi.module("fabric-api-base", project.fabric_version))
-    modRuntimeOnlyMsk(fabricApi.module("fabric-rendering-fluids-v1", project.fabric_version))
-    modRuntimeOnlyMsk(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
-    modRuntimeOnlyMsk(fabricApi.module("fabric-command-api-v2", project.fabric_version))
-
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    //minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    //mappings loom.officialMojangMappings()
+    //modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+//
+//
+    //modRuntimeOnlyMsk(fabricApi.module("fabric-api-base", project.fabric_version))
+    //modRuntimeOnlyMsk(fabricApi.module("fabric-rendering-fluids-v1", project.fabric_version))
+    //modRuntimeOnlyMsk(fabricApi.module("fabric-resource-loader-v0", project.fabric_version))
+    //modRuntimeOnlyMsk(fabricApi.module("fabric-command-api-v2", project.fabric_version))
+//
+    //modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation "net.neoforged:neoforge:${neo_version}"
 
     //TODO: this is to eventually not need sodium installed as atm its just used for parsing shaders
-    modRuntimeOnlyMsk "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
-    modCompileOnly "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
+    //modRuntimeOnlyMsk "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
+    implementation "curse.maven:sodium-394468:6382651"//modCompileOnly "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"
+    compileOnly "curse.maven:sodium-394468:6382651"
 
-    modImplementation("maven.modrinth:lithium:mc1.21.1-0.15.0-fabric")
+    implementation "curse.maven:lithium-360438:7246288"//modImplementation("maven.modrinth:lithium:mc1.21.1-0.15.0-fabric")
+    compileOnly "curse.maven:lithium-360438:7246288"
 
-    modRuntimeOnlyMsk "drouarb:nvidium:0.4.1-beta9:1.21-1.21.1@jar"
-    modCompileOnly "drouarb:nvidium:0.4.1-beta9:1.21-1.21.1@jar"
+    //modRuntimeOnlyMsk "drouarb:nvidium:0.4.1-beta9:1.21-1.21.1@jar"
+    //modCompileOnly "drouarb:nvidium:0.4.1-beta9:1.21-1.21.1@jar"
 
-    modCompileOnly("maven.modrinth:modmenu:11.0.3")
-    modRuntimeOnlyMsk("maven.modrinth:modmenu:11.0.3")
+    implementation "curse.maven:irisshaders-455508:6661598"
+    compileOnly "curse.maven:irisshaders-455508:6661598"
 
-    modCompileOnly("maven.modrinth:iris:1.8.8+1.21.1-fabric")
-    modRuntimeOnlyMsk("maven.modrinth:iris:1.8.8+1.21.1-fabric")
+    //modCompileOnly("maven.modrinth:modmenu:11.0.3")
+    //modRuntimeOnlyMsk("maven.modrinth:modmenu:11.0.3")
+
+    //modCompileOnly("maven.modrinth:iris:1.8.8+1.21.1-fabric")
+    //modRuntimeOnlyMsk("maven.modrinth:iris:1.8.8+1.21.1-fabric")
     // iris needs these for some reason
-    modRuntimeOnlyMsk("io.github.douira:glsl-transformer:2.0.1")
-    modRuntimeOnlyMsk("org.anarres:jcpp:1.4.14")
+    //modRuntimeOnlyMsk("io.github.douira:glsl-transformer:2.0.1")
+    //modRuntimeOnlyMsk("org.anarres:jcpp:1.4.14")
 
     //modCompileOnly("maven.modrinth:starlight:1.1.3+1.20.4")
 
     //modCompileOnly("maven.modrinth:immersiveportals:v5.1.7-mc1.20.4")
 
-    modCompileOnly("maven.modrinth:sodium-extra:mc1.21.1-0.6.0+fabric")
-    modRuntimeOnlyMsk("maven.modrinth:sodium-extra:mc1.21.1-0.6.0+fabric")
+    //modCompileOnly("maven.modrinth:sodium-extra:mc1.21.1-0.6.0+fabric")
+    //modRuntimeOnlyMsk("maven.modrinth:sodium-extra:mc1.21.1-0.6.0+fabric")
 
-    modCompileOnly("maven.modrinth:chunky:1.4.23-fabric")
-    modRuntimeOnlyMsk("maven.modrinth:chunky:1.4.23-fabric")
+    implementation "curse.maven:chunky-pregenerator-forge-485681:6383261"//modCompileOnly("maven.modrinth:chunky:1.4.23-fabric")
+    //modRuntimeOnlyMsk("maven.modrinth:chunky:1.4.23-fabric")
 
-    modRuntimeOnlyMsk("maven.modrinth:spark:1.10.152-fabric")
-    modRuntimeOnlyMsk("maven.modrinth:fabric-permissions-api:0.3.3")
+    //modRuntimeOnlyMsk("maven.modrinth:spark:1.10.152-fabric")
+    //modRuntimeOnlyMsk("maven.modrinth:fabric-permissions-api:0.3.3")
     //modRuntimeOnly("maven.modrinth:nsight-loader:1.2.0")
 
     //modImplementation('io.github.douira:glsl-transformer:2.0.1')
 
-    modCompileOnly("maven.modrinth:vivecraft:1.21.9-1.3.2-fabric")
+    implementation "curse.maven:vivecraft-667903:7187450"//modCompileOnly("maven.modrinth:vivecraft:1.21.9-1.3.2-fabric")
 
-    modCompileOnly("maven.modrinth:flashback:rNCr1Rbs")
+    //modImplementation("maven.modrinth:flashback:rNCr1Rbs")
+    // nvidium-neoforge version 1vMc0Kcf no longer available on Modrinth — disabled until valid version is found
+    //compileOnly("maven.modrinth:nvidium-neoforge:1vMc0Kcf")
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+    implementation 'org.projectlombok:lombok:1.18.42'
+
 }
 
 
@@ -154,14 +258,8 @@ tasks.withType(JavaCompile).configureEach {
 
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
-
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-
+    // Always configure the toolchain for NeoGradle compatibility
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 
     //withSourcesJar()
 }
@@ -174,52 +272,19 @@ jar {
 
 
 
-tasks.register('makeExcludedRocksDB', Zip) {
-    archiveExtension.set("jar")
-    entryCompression = ZipEntryCompression.STORED
-    destinationDirectory.set temporaryDir
+// jarjar任务配置
+jarJar {
+    // 配置jarjar任务的基本设置
+    // 依赖排除通过main dependencies块中的jarJar配置处理
+}
 
-    dependsOn configurations.includeInternal
-
-    def files = configurations.includeInternal.incoming.getArtifacts().getArtifactFiles().filter {
-        it.name.startsWith('rocksdb')
-    }
-    
-    from {->zipTree(files.first())}
-    archiveFileName.set(providers.provider{files.first().name})
-
-    exclude {
-        def file = it.name
-        if (file.endsWith(".jnilib")) {
-            return true
-        }
-        if (!file.endsWith(".so")) {
-            return false
-        }
-        return ["osx", "linux32", "musl", "s390x", "riscv64", "ppc64le", "aarch64"].any(file::contains)
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archives_base_name}" } 
     }
 }
 
-processIncludeJars {
-    outputs.cacheIf {true}
-
-    dependsOn makeExcludedRocksDB
-    jars = jars.filter {!it.name.startsWith('rocksdb')}
-    jars.from(makeExcludedRocksDB)
-}
-
-remapJar {
-    doFirst {
-        delete fileTree(getDestinationDirectory().get())
-    }
-
-    if (!isInGHA) {
-        def hash = gitCommitHash();
-        if (!hash.equals("<UnknownCommit>")) {
-            archiveClassifier.set(hash);
-        }
-    }
-}
+// NeoForge handles reobfuscation automatically, no need for explicit reobfJar configuration
 
 project.ext.lwjglVersion = "3.3.3"
 project.ext.lwjglNatives = "natives-windows"
@@ -233,42 +298,81 @@ dependencies {
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"
-    include(implementation "org.lwjgl:lwjgl-lmdb")
-    include(implementation "org.lwjgl:lwjgl-zstd")
+    implementation "org.lwjgl:lwjgl-lmdb"
+    implementation "org.lwjgl:lwjgl-zstd"
     runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-windows"
     runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-linux"
-    include(runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-windows")
-    include(runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-windows")
-    include(runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-linux")
-    include(runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-linux")
+    runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-windows"
+    runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-linux"
+    runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-linux"
+    if (INCLUDE_OTHER_ARCHS) {
+        runtimeOnly "org.lwjgl:lwjgl:$lwjglVersion:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-lmdb:$lwjglVersion:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-zstd:$lwjglVersion:natives-linux-arm64"
+    }
+    
+    // 使用更可靠的zstd-jni库来替代LWJGL Zstd，避免本地库加载问题
+    // 这个库自动处理不同平台的本地库，使用更简单的API
+    implementation "com.github.luben:zstd-jni:1.5.5-1"
+    jarJar "com.github.luben:zstd-jni:1.5.5-1"
 
-    include(implementation 'redis.clients:jedis:5.1.0')
-    include(implementation('org.rocksdb:rocksdbjni:10.2.1'))
-    include(implementation 'org.apache.commons:commons-pool2:2.12.0')
-    include(implementation 'org.lz4:lz4-java:1.8.0')
-    include(implementation('org.tukaani:xz:1.10'))
+    // Add these to jarjar configuration for jar-in-jar
+    // 使用NeoForged推荐的jarjar语法，合并implementation和jarjar配置
+    jarJar(implementation(group: 'redis.clients', name: 'jedis') {
+        version {
+            strictly '[5.0.0,6.0.0)' // 限制版本范围，确保兼容性
+            prefer '5.1.0' // 首选版本
+        }
+        // 从jedis依赖中排除lz4-java，因为rocksdbjni已经包含
+        exclude group: 'org.lz4', module: 'lz4-java'
+    })
+    
+    jarJar(implementation(group: 'org.rocksdb', name: 'rocksdbjni') {
+        version {
+            strictly '[10.0.0,11.0.0)' // 限制版本范围，确保兼容性
+            prefer '10.9.1' // update to 10.10 when upstream issue 14537 is fixed
+        }
+    })
+    
+    jarJar(implementation(group: 'org.apache.commons', name: 'commons-pool2') {
+        version {
+            strictly '[2.0.0,3.0.0)' // 限制版本范围，确保兼容性
+            prefer '2.12.0' // 首选版本
+        }
+    })
+    
+    // 移除单独的lz4-java依赖，因为rocksdbjni已经包含
+    /*
+    jarJar(implementation(group: 'org.lz4', name: 'lz4-java') {
+        version {
+            strictly '[1.8.0,2.0.0)' // 限制版本范围，确保兼容性
+            prefer '1.8.0' // 首选版本
+        }
+    })
+    */
+    
+    jarJar(implementation(group: 'org.tukaani', name: 'xz') {
+        version {
+            strictly '[1.0.0,2.0.0)' // 限制版本范围，确保兼容性
+            prefer '1.10' // 首选版本
+        }
+    })
 
     if (true) {
         if (!isInGHA) {
-            minecraftRuntimeLibraries('org.xerial:sqlite-jdbc:3.49.1.0')
+            // NeoForge uses different approach for runtime libraries
+            implementation 'org.xerial:sqlite-jdbc:3.49.1.0'
         }
     } else {
-        include(implementation('org.xerial:sqlite-jdbc:3.49.1.0'))
-    }
-    //implementation 'org.rocksdb:rocksdbjni:8.10.0'
-    //implementation 'redis.clients:jedis:5.1.0'
-}
-
-if (!isInGHA) {
-    repositories {
-        maven {
-            url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"
-        }
-    }
-
-    dependencies {
-        modRuntimeOnly('me.djtheredstoner:DevAuth-fabric:1.1.0') {
-            exclude group: 'net.fabricmc', module: 'fabric-loader'
-        }
+        implementation 'org.xerial:sqlite-jdbc:3.49.1.0'
     }
 }
+
+
+jmh {
+    zip64 = true
+    includes=["SaveLoadJMH"]
+    //profilers = ["xperfasm"]
+}
+// DevAuth is Fabric-specific, removed for NeoForge compatibility

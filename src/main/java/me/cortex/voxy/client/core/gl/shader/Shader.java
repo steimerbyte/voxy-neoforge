@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static org.lwjgl.opengl.GL20.glDeleteProgram;
@@ -69,6 +70,7 @@ public class Shader extends TrackedObject {
             J make(Builder<J> builder, int program);
         }
         final Map<String, String> defines = new HashMap<>();
+        final Map<String, String> replacements = new LinkedHashMap<>();
         private final Map<ShaderType, String> sources = new HashMap<>();
         private final IShaderProcessor processor;
         private final IShaderObjectConstructor<T> constructor;
@@ -81,6 +83,7 @@ public class Shader extends TrackedObject {
             var clone = new Builder<>(this.constructor, this.processor);
             clone.defines.putAll(this.defines);
             clone.sources.putAll(this.sources);
+            clone.replacements.putAll(this.replacements);
             return clone;
         }
 
@@ -109,8 +112,18 @@ public class Shader extends TrackedObject {
             return this;
         }
 
+        public Builder<T> define(String name, float value) {
+            this.defines.put(name, Float.toString(value)+"f");
+            return this;
+        }
+
         public Builder<T> define(String name, String value) {
             this.defines.put(name, value);
+            return this;
+        }
+
+        public Builder<T> replace(String value, String replacement) {
+            this.replacements.put(value, replacement);
             return this;
         }
 
@@ -121,6 +134,11 @@ public class Shader extends TrackedObject {
 
         public Builder<T> addSource(ShaderType type, String source) {
             this.sources.put(type, this.processor.process(type, source));
+            return this;
+        }
+
+        public Builder<T> apply(Consumer<Builder<T>> applyer) {
+            applyer.accept(this);
             return this;
         }
 
@@ -138,6 +156,10 @@ public class Shader extends TrackedObject {
                     src = src.substring(0, src.indexOf('\n')+1) +
                             defs
                             + src.substring(src.indexOf('\n')+1);
+
+                    for (var replacement : this.replacements.entrySet()) {
+                        src = src.replace(replacement.getKey(), replacement.getValue());
+                    }
 
                     shaders[i++] = createShader(entry.getKey(), src);
                 }

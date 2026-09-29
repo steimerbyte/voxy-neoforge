@@ -5,6 +5,7 @@ import me.cortex.voxy.client.core.gl.GlTexture;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.ARBDirectStateAccess.nglClearNamedFramebufferfv;
+import static org.lwjgl.opengl.ARBDirectStateAccess.nglClearNamedFramebufferiv;
 import static org.lwjgl.opengl.GL11C.GL_DEPTH;
 import static org.lwjgl.opengl.GL14.GL_DEPTH_COMPONENT24;
 import static org.lwjgl.opengl.GL30C.*;
@@ -28,19 +29,27 @@ public class DepthFramebuffer {
                 this.depthBuffer.free();
             }
             this.depthBuffer = new GlTexture().store(this.depthType, 1, width, height);
-            this.framebuffer.bind(this.depthType == GL_DEPTH24_STENCIL8?GL_DEPTH_STENCIL_ATTACHMENT: GL_DEPTH_ATTACHMENT, this.depthBuffer).verify();
+            //glTextureParameteri(this.depthBuffer.id, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+            //glTextureParameteri(this.depthBuffer.id, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+            this.framebuffer.bind(this.getDepthAttachmentType(), this.depthBuffer).verify();
             return true;
         }
         return false;
     }
 
-    public void clear() {
-        this.clear(1.0f);
+    public int getDepthAttachmentType() {
+        return this.depthType == GL_DEPTH24_STENCIL8?GL_DEPTH_STENCIL_ATTACHMENT: GL_DEPTH_ATTACHMENT;
     }
 
     public void clear(float depth) {
         try (var stack = MemoryStack.stackPush()) {
             nglClearNamedFramebufferfv(this.framebuffer.id, GL_DEPTH, 0, stack.nfloat(depth));
+        }
+    }
+
+    public void clearStencil(int to) {
+        try (var stack = MemoryStack.stackPush()) {
+            nglClearNamedFramebufferiv(this.framebuffer.id, GL_STENCIL, 0, stack.nint(to));
         }
     }
 
@@ -57,5 +66,9 @@ public class DepthFramebuffer {
 
     public void bind() {
         glBindFramebuffer(GL_FRAMEBUFFER, this.framebuffer.id);
+    }
+
+    public int getFormat() {
+        return this.depthType;
     }
 }

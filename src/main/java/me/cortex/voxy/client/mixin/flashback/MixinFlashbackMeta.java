@@ -1,4 +1,4 @@
-package me.cortex.voxy.client.mixin.flashback;
+/*package me.cortex.voxy.client.mixin.flashback;
 
 import com.google.gson.JsonObject;
 import com.moulberry.flashback.record.FlashbackMeta;
@@ -43,3 +43,4 @@ public class MixinFlashbackMeta implements IFlashbackMeta {
         }
     }
 }
+*/

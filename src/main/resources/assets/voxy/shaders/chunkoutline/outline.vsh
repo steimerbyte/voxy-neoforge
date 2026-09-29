@@ -1,9 +1,11 @@
 #version 460
 
+#import <voxy:util/depthutils.glsl>
+
 layout(binding = 0, std140) uniform SceneUniform {
     mat4 MVP;
-    ivec4 section;
-    vec4 negInnerSec;
+    ivec4 cameraBlockPos;
+    vec4 negInnerBlock;
 };
 
 layout(binding = 1, std430) restrict readonly buffer ChunkPosBuffer {
@@ -15,18 +17,9 @@ ivec3 unpackPos(ivec2 pos) {
 }
 
 bool shouldRender(ivec3 icorner) {
-    #ifdef USE_SODIUM_EXTRA_CULLING
-    #define MIN 0
-    #define MAX 16
-    #else
-    #define MIN 1
-    #define MAX 17
-    #endif
-    vec3 corner = vec3(mix(mix(ivec3(0), icorner-MIN, greaterThan(icorner-MIN, ivec3(0))), icorner+MAX, lessThan(icorner+MAX, ivec3(0))))-negInnerSec.xyz;
-    bool visible = (corner.x*corner.x + corner.z*corner.z) < (negInnerSec.w*negInnerSec.w);
-    #ifndef USE_SODIUM_EXTRA_CULLING
-    visible = visible && abs(corner.y) < negInnerSec.w;
-    #endif
+vec3 corner = vec3(mix(mix(ivec3(0), icorner-MIN, greaterThan(icorner-MIN, ivec3(0))), icorner+MAX, lessThan(icorner+MAX, ivec3(0))))-negInnerBlock.xyz;
+    bool visible = (corner.x*corner.x + corner.z*corner.z) < (negInnerBlock.w*negInnerBlock.w);
+    visible = visible && abs(corner.y) < negInnerBlock.w;
     return visible;
 }
 
@@ -38,7 +31,7 @@ void main() {
     uint id = (gl_InstanceID<<5)+gl_BaseInstance+(gl_VertexID>>3);
 
     ivec3 origin = unpackPos(chunkPos[id])*16;
-    origin -= section.xyz;
+    origin -= cameraBlockPos.xyz;
 
     if (!shouldRender(origin)) {
         gl_Position = vec4(-100.0f, -100.0f, -100.0f, 0.0f);
@@ -50,9 +43,16 @@ void main() {
     //TODO: make it W.R.T world height and offsets
     //cubeCornerI.y = cubeCornerI.y*1024-512;
     gl_Position = MVP * vec4(vec3(cubeCornerI+origin), 1);
-    gl_Position.z -= 0.0005f;
+
+    //TODO: FIXME with reverse z need tobe + not -
+    gl_Position.z += CLOSER_SIGN*0.0005f;//Bring closer to camera
 
     #ifdef TAA
     gl_Position.xy += getTAA()*gl_Position.w;//Apply TAA if we have it
     #endif
 }
+
+
+
+//Undefine depth stuff
+#import <voxy:util/depthutils.glsl>

@@ -1,10 +1,12 @@
 package me.cortex.voxy.client.config;
 
 import com.google.common.collect.ImmutableList;
+import me.cortex.voxy.client.ClientSessionEvents;
 import me.cortex.voxy.client.RenderStatistics;
 import me.cortex.voxy.client.VoxyClientInstance;
 import me.cortex.voxy.client.core.IGetVoxyRenderSystem;
 import me.cortex.voxy.client.mixin.sodium.AccessorSodiumWorldRenderer;
+import me.cortex.voxy.client.core.NormalRenderPipeline;
 import me.cortex.voxy.common.util.cpu.CpuLayout;
 import me.cortex.voxy.commonImpl.VoxyCommon;
 import net.caffeinemc.mods.sodium.client.gui.options.*;
@@ -15,11 +17,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import java.util.ArrayList;
 import java.util.List;
+import net.caffeinemc.mods.sodium.client.gui.options.control.CyclingControl;
+import java.util.Locale;
 
+import java.util.Arrays;
 public abstract class VoxyConfigScreenPages {
     private VoxyConfigScreenPages(){}
 
     public static OptionPage voxyOptionPage = null;
+
+    private static final Component[] FOG_MODE_NAMES = Arrays.stream(NormalRenderPipeline.FogMode.values())
+            .map(m -> Component.translatable("voxy.config.general.environmental_fog." + m.name().toLowerCase(Locale.ROOT)))
+            .toArray(Component[]::new);
 
     public static OptionPage page() {
         List<OptionGroup> groups = new ArrayList<>();
@@ -34,17 +43,17 @@ public abstract class VoxyConfigScreenPages {
                         .setBinding((s, v)->{
                             s.enabled = v;
                             if (v) {
-                                if (VoxyClientInstance.isInGame) {
+                                if (ClientSessionEvents.inSession) {
                                     VoxyCommon.createInstance();
                                     var vrsh = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
                                     if (vrsh != null && s.enableRendering) {
-                                        vrsh.createRenderer();
+                                        vrsh.voxy$createRenderer();
                                     }
                                 }
                             } else {
                                 var vrsh = (IGetVoxyRenderSystem) Minecraft.getInstance().levelRenderer;
                                 if (vrsh != null) {
-                                    vrsh.shutdownRenderer();
+                                    vrsh.voxy$shutdownRenderer();
                                 }
                                 VoxyCommon.shutdownInstance();
                             }
@@ -105,9 +114,9 @@ public abstract class VoxyConfigScreenPages {
                             var vrsh = (IGetVoxyRenderSystem)Minecraft.getInstance().levelRenderer;
                             if (vrsh != null) {
                                 if (v) {
-                                    vrsh.createRenderer();
+                                    vrsh.voxy$createRenderer();
                                 } else {
-                                    vrsh.shutdownRenderer();
+                                    vrsh.voxy$shutdownRenderer();
                                 }
                             }
                         }, s -> s.enableRendering)
@@ -123,17 +132,17 @@ public abstract class VoxyConfigScreenPages {
                 ).add(OptionImpl.createBuilder(int.class, storage)
                         .setName(Component.translatable("voxy.config.general.renderDistance"))
                         .setTooltip(Component.translatable("voxy.config.general.renderDistance.tooltip"))
-                        .setControl(opt->new SliderControl(opt, 2, 64, 1, v->Component.literal(Integer.toString(v * 32))))//Every unit is equal to 32 vanilla chunks
+                        .setControl(opt->new SliderControl(opt, 10/*1*16*/, 64*16, 1, v->Component.literal(Integer.toString(Math.round(v/16f * 32)))))//The value is stored as a float with respect to the size of top level lods, it its increment is a fraction with respect to a sub-lod
                         .setBinding((s, v)-> {
-                            s.sectionRenderDistance = v;
+                            s.sectionRenderDistance = v/16f;
                             var vrsh = (IGetVoxyRenderSystem)Minecraft.getInstance().levelRenderer;
                             if (vrsh != null) {
-                                var vrs = vrsh.getVoxyRenderSystem();
+                                var vrs = vrsh.voxy$getRenderSystem();
                                 if (vrs != null) {
-                                    vrs.setRenderDistance(v);
+                                    vrs.setRenderDistance(s.sectionRenderDistance);
                                 }
                             }
-                        }, s -> s.sectionRenderDistance)
+                        }, s -> Math.round(s.sectionRenderDistance*16))
                         .setImpact(OptionImpact.LOW)
                         .build()
                 ).add(OptionImpl.createBuilder(boolean.class, storage)
@@ -141,6 +150,15 @@ public abstract class VoxyConfigScreenPages {
                         .setTooltip(Component.translatable("voxy.config.general.vanilla_fog.tooltip"))
                         .setControl(TickBoxControl::new)
                         .setBinding((s, v)-> s.renderVanillaFog = v, s -> s.renderVanillaFog)
+                        .build()
+                //Sodium 0.6.x has no EnumOption/OptionNameProvider (those are 0.7.x config-API additions), so the new
+                //fog mode enum is exposed with the 0.6.x CyclingControl over its values instead.
+                ).add(OptionImpl.createBuilder(NormalRenderPipeline.FogMode.class, storage)
+                        .setName(Component.translatable("voxy.config.general.environmental_fog"))
+                        .setTooltip(Component.translatable("voxy.config.general.environmental_fog.tooltip"))
+                        .setControl(c -> new CyclingControl<>(c, NormalRenderPipeline.FogMode.class, FOG_MODE_NAMES))
+                        .setBinding((s, v) -> s.setFogMode(v), s -> s.getFogMode())
+                        .setFlags(OptionFlag.REQUIRES_RENDERER_RELOAD)
                         .build()
                 ).add(OptionImpl.createBuilder(boolean.class, storage)
                         .setName(Component.translatable("voxy.config.general.render_statistics"))

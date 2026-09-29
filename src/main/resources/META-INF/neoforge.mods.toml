@@ -22,3 +22,10 @@ description='''${mod_description}'''
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="voxyworldgenv2"
+    type="incompatible"
+    versionRange="[2.2.2]"
+    ordering="NONE"
+    side="BOTH"

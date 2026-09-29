@@ -21,18 +21,16 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LeavesBlock;
-import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LevelLightEngine;
@@ -43,7 +41,9 @@ import org.lwjgl.system.MemoryUtil;
 import com.mojang.authlib.minecraft.client.MinecraftClient;
 
 import java.lang.invoke.VarHandle;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -65,12 +65,13 @@ import static org.lwjgl.opengl.GL11.*;
 // this _quarters_ the memory requirements for the texture atlas!!! WHICH IS HUGE saving
 public class ModelFactory {
     public static final int MODEL_TEXTURE_SIZE = 16;
+    public static final int LAYERS = Integer.numberOfTrailingZeros(MODEL_TEXTURE_SIZE);
 
     //TODO: replace the fluid BlockState with a client model id integer of the fluidState, requires looking up
     // the fluid state in the mipper
-    private record ModelEntry(ColourDepthTextureData down, ColourDepthTextureData up, ColourDepthTextureData north, ColourDepthTextureData south, ColourDepthTextureData west, ColourDepthTextureData east, int fluidBlockStateId) {
-        public ModelEntry(ColourDepthTextureData[] textures, int fluidBlockStateId) {
-            this(textures[0], textures[1], textures[2], textures[3], textures[4], textures[5], fluidBlockStateId);
+    private record ModelEntry(ColourDepthTextureData down, ColourDepthTextureData up, ColourDepthTextureData north, ColourDepthTextureData south, ColourDepthTextureData west, ColourDepthTextureData east, int fluidBlockStateId, int tintingColour) {
+        public ModelEntry(ColourDepthTextureData[] textures, int fluidBlockStateId, int tintingColour) {
+            this(textures[0], textures[1], textures[2], textures[3], textures[4], textures[5], fluidBlockStateId, tintingColour);
         }
     }
 
@@ -119,9 +120,8 @@ public class ModelFactory {
     private final ReentrantLock blockStatesInFlightLock = new ReentrantLock();
 
     private final List<Biome> biomes = new ArrayList<>();
-    private final List<Pair<Integer, BlockState>> modelsRequiringBiomeColours = new ArrayList<>();
-
-    private static final ObjectSet<BlockState> LOGGED_SELF_CULLING_WARNING = new ObjectOpenHashSet<>();
+    private record ModelBlockStatePair(int model, BlockState state) {}
+    private final List<ModelBlockStatePair> modelsRequiringBiomeColours = new ArrayList<>();
 
     private final Mapper mapper;
     private final ModelStore storage;
@@ -154,7 +154,20 @@ public class ModelFactory {
         this.customBlockStateIdMapping = mapping;
     }
 
-    private record RawBakeResult(int blockId, BlockState blockState, MemoryBuffer rawData) {
+    private static final class RawBakeResult {
+        private final int blockId;
+        private final BlockState blockState;
+        private final MemoryBuffer rawData;
+
+        public boolean isShaded;
+        public boolean hasDarkenedTextures;
+
+        public RawBakeResult(int blockId, BlockState blockState, MemoryBuffer rawData) {
+            this.blockId = blockId;
+            this.blockState = blockState;
+            this.rawData = rawData;
+        }
+
         public RawBakeResult(int blockId, BlockState blockState) {
             this(blockId, blockState, new MemoryBuffer(MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*2*4*6));
         }
@@ -169,25 +182,21 @@ public class ModelFactory {
         if (this.idMappings[blockId] != -1) {
             return false;
         }
-        //We are (probably) going to be baking the block id
-        // check that it is currently not inflight, if it is, return as its already being baked
-        // else add it to the flight as it is going to be baked
-        this.blockStatesInFlightLock.lock();
-        if (!this.blockStatesInFlight.add(blockId)) {
-            this.blockStatesInFlightLock.unlock();
-            //Block baking is already in-flight
-            return false;
-        }
-        this.blockStatesInFlightLock.unlock();
 
-        VarHandle.loadLoadFence();
 
-        //We need to get it twice cause of threading
-        if (this.idMappings[blockId] != -1) {
-            return false;
-        }
 
         var blockState = this.mapper.getBlockStateFromBlockId(blockId);
+        if (blockState.getBlock() instanceof StairBlock sb) {
+                /*
+                if (sb.baseState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+                    blockState = sb.baseState.setValue(BlockStateProperties.WATERLOGGED, blockState.getValue(BlockStateProperties.WATERLOGGED));
+                } else {
+                    blockState = sb.baseState;
+                }*/
+            blockState = sb.baseState.getBlock().withPropertiesOf(blockState);
+        }
+
+        //We do this first so that it is always guarenteed that fluid models are ordered before the block models
 
         //Before we enqueue the baking of this blockstate, we must check if it has a fluid state associated with it
         // if it does, we must ensure that it is (effectivly) baked BEFORE we bake this blockstate
@@ -207,10 +216,36 @@ public class ModelFactory {
             }
         }
 
-        RawBakeResult result = new RawBakeResult(blockId, blockState);
-        int allocation = this.downstream.download(MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*2*4*6, ptr -> this.rawBakeResults.add(result.cpyBuf(ptr)));
-        this.bakery.renderToStream(blockState, this.downstream.getBufferId(), allocation);
-        return true;
+        //We are (probably) going to be baking the block id
+        // check that it is currently not inflight, if it is, return as its already being baked
+        // else add it to the flight as it is going to be baked
+        this.blockStatesInFlightLock.lock();
+        try {
+            if (!this.blockStatesInFlight.add(blockId)) {
+                //Block baking is already in-flight
+                return false;
+            }
+
+            VarHandle.loadLoadFence();
+
+            //We must do this in here as otherwise there is a race condition, the order in which blocks are added to the
+            // blockStatesInFlight must be the same as the order they are submitted to the renderer
+
+            //We need to get it twice cause of threading
+            if (this.idMappings[blockId] != -1) {
+                return false;
+            }
+
+            RawBakeResult result = new RawBakeResult(blockId, blockState);
+            int allocation = this.downstream.download(MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*2*4*6, ptr -> this.rawBakeResults.add(result.cpyBuf(ptr)));
+            int flags = this.bakery.renderToStream(blockState, this.downstream.getBufferId(), allocation);
+            result.hasDarkenedTextures = (flags&2)!=0;
+            result.isShaded = (flags&1)!=0;
+            return true;
+
+        } finally {
+            this.blockStatesInFlightLock.unlock();
+        }
     }
 
     private boolean processModelResult() {
@@ -235,7 +270,7 @@ public class ModelFactory {
             }
         }
         result.rawData.free();
-        var bakeResult = this.processTextureBakeResult(result.blockId, result.blockState, textureData);
+        var bakeResult = this.processTextureBakeResult(result.blockId, result.blockState, textureData, result.isShaded, result.hasDarkenedTextures);
         if (bakeResult!=null) {
             this.uploadResults.add(bakeResult);
         }
@@ -247,11 +282,15 @@ public class ModelFactory {
         this.biomeQueue.add(biome);
     }
 
-    public void processAllThings() {
+    public boolean processAllThings() {
         var biomeEntry = this.biomeQueue.poll();
         while (biomeEntry != null) {
             var biomeRegistry = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.BIOME);
-            var res = this.addBiome0(biomeEntry.id, biomeRegistry.getOptional(ResourceLocation.parse(biomeEntry.biome)).orElseThrow());
+            var resolvedBiome = biomeRegistry.getOptional(ResourceLocation.parse(biomeEntry.biome));
+            if (resolvedBiome.isEmpty()) {
+                Logger.warn("Could not find biome: " + biomeEntry.biome + " using default");
+            }
+            var res = this.addBiome0(biomeEntry.id, resolvedBiome.orElse(DEFAULT_BIOME));
             if (res != null) {
                 this.uploadResults.add(res);
             }
@@ -259,6 +298,7 @@ public class ModelFactory {
         }
 
         while (this.processModelResult());
+        return (this.blockStatesInFlight.size()!=0)||(!this.rawBakeResults.isEmpty())||!this.biomeQueue.isEmpty();
     }
 
     public void tickAndProcessUploads() {
@@ -286,12 +326,18 @@ public class ModelFactory {
 
     private static final class ModelBakeResultUpload implements ResultUploader {
         private final MemoryBuffer model = new MemoryBuffer(MODEL_SIZE).zero();
-        private final MemoryBuffer texture = new MemoryBuffer((2L*3*computeSizeWithMips(MODEL_TEXTURE_SIZE))*4);
+        private final MemoryBuffer texture;
+        private final boolean hasMips;
 
         public int modelId = -1;
 
         public int biomeUploadIndex = -1;
         public @Nullable MemoryBuffer biomeUpload;
+
+        private ModelBakeResultUpload(boolean useMips) {
+            this.hasMips = useMips;
+            this.texture = new MemoryBuffer((2L*3*(useMips?computeSizeWithMips(MODEL_TEXTURE_SIZE):MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE))*4);
+        }
 
         public void upload(ModelStore store) {//Uploads and resets for reuse
             this.upload(store.modelBuffer, store.modelColourBuffer, store.textures);
@@ -310,7 +356,7 @@ public class ModelFactory {
             int Y = ((this.modelId>>8)&0xFF) * MODEL_TEXTURE_SIZE*2;
 
             long cAddr = this.texture.address;
-            for (int lvl = 0; lvl < LAYERS; lvl++) {
+            for (int lvl = 0; lvl < (this.hasMips?LAYERS:1); lvl++) {
                 nglTextureSubImage2D(atlas.id, lvl, X >> lvl, Y >> lvl, (MODEL_TEXTURE_SIZE*3) >> lvl, (MODEL_TEXTURE_SIZE*2) >> lvl, GL_RGBA, GL_UNSIGNED_BYTE, cAddr);
                 cAddr += (MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*3*2*4)>>(lvl<<1);
             }
@@ -327,7 +373,7 @@ public class ModelFactory {
         }
     }
 
-    private ModelBakeResultUpload processTextureBakeResult(int blockId, BlockState blockState, ColourDepthTextureData[] textureData) {
+    private ModelBakeResultUpload processTextureBakeResult(int blockId, BlockState blockState, ColourDepthTextureData[] textureData, boolean isShaded, boolean darkenedTinting) {
         if (this.idMappings[blockId] != -1) {
             //This should be impossible to reach as it means that multiple bakes for the same blockId happened and where inflight at the same time!
             throw new IllegalStateException("Block id already added: " + blockId + " for state: " + blockState);
@@ -360,8 +406,16 @@ public class ModelFactory {
             }
         }
 
+        var colourProvider = getColourProvider(blockState.getBlock());
+
+        boolean isBiomeColourDependent = false;
+        if (colourProvider != null) {
+            isBiomeColourDependent = isBiomeDependentColour(colourProvider, blockState);
+        }
+
+        ModelEntry entry;
         {//Deduplicate same entries
-            var entry = new ModelEntry(textureData, clientFluidStateId);
+            entry = new ModelEntry(textureData, clientFluidStateId, isBiomeColourDependent||colourProvider==null?-1:captureColourConstant(colourProvider, blockState, DEFAULT_BIOME)|0xFF000000);
             int possibleDuplicate = this.modelTexture2id.getInt(entry);
             if (possibleDuplicate != -1) {//Duplicate found
                 this.idMappings[blockId] = possibleDuplicate;
@@ -403,19 +457,15 @@ public class ModelFactory {
         int checkMode = blockRenderLayer==RenderType.solid()?TextureUtils.WRITE_CHECK_STENCIL:TextureUtils.WRITE_CHECK_ALPHA;
 
 
-        var colourProvider = getColourProvider(blockState.getBlock());
 
 
-        ModelBakeResultUpload uploadResult = new ModelBakeResultUpload();
+        ModelBakeResultUpload uploadResult = new ModelBakeResultUpload(true);
         uploadResult.modelId = modelId;
         long uploadPtr = uploadResult.model.address;
 
         //TODO: implement;
         // TODO: if it has a constant colour instead... idk why (apparently for things like spruce leaves)?? but premultiply the texture data by the constant colour
-        boolean isBiomeColourDependent = false;
-        if (colourProvider != null) {
-            isBiomeColourDependent = isBiomeDependentColour(colourProvider, blockState);
-        }
+
         //If it contains fluid but isnt a fluid
         if ((!isFluid) && (!blockState.getFluidState().isEmpty()) && clientFluidStateId != -1) {
 
@@ -428,12 +478,12 @@ public class ModelFactory {
         //TODO: special case stuff like vines and glow lichen, where it can be represented by a single double sided quad
         // since that would help alot with perf of lots of vines, can be done by having one of the faces just not exist and the other be in no occlusion mode
 
-        var sizes = this.computeModelDepth(textureData, checkMode);
+        var depths = computeModelDepth(textureData, checkMode, blockRenderLayer!=RenderType.solid()?TextureUtils.DEPTH_MODE_MIN:TextureUtils.DEPTH_MODE_AVG);
 
         //TODO: THIS, note this can be tested for in 2 ways, re render the model with quad culling disabled and see if the result
         // is the same, (if yes then needs double sided quads)
         // another way to test it is if e.g. up and down havent got anything rendered but the sides do (e.g. all plants etc)
-        boolean needsDoubleSidedQuads = (sizes[0] < -0.1 && sizes[1] < -0.1) || (sizes[2] < -0.1 && sizes[3] < -0.1) || (sizes[4] < -0.1 && sizes[5] < -0.1);
+        boolean needsDoubleSidedQuads = (depths[0] < -0.1 && depths[1] < -0.1) || (depths[2] < -0.1 && depths[3] < -0.1) || (depths[4] < -0.1 && depths[5] < -0.1);
 
 
         boolean cullsSame = false;
@@ -481,7 +531,7 @@ public class ModelFactory {
         for (int face = 5; face != -1; face--) {//In reverse order to make indexing into the metadata long easier
             long faceUploadPtr = uploadPtr + 4L * face;//Each face gets 4 bytes worth of data
             metadata <<= 8;
-            float offset = sizes[face];
+            float offset = depths[face];
             if (offset < -0.1) {//Face is empty, so ignore
                 metadata |= 0xFF;//Mark the face as non-existent
                 //Set to -1 as safepoint
@@ -538,7 +588,7 @@ public class ModelFactory {
             //Change the scale from 0->1 (ends inclusive)
             // this is cursed also warning stuff at 63 (i.e half a pixel from the end will be clamped to the end)
             int enc = Math.round(offset*64);
-            faceModelData |= Math.min(enc,63)<<16;
+            faceModelData |= Math.min(enc,62)<<16;
             //Still have 11 bits free
 
             //Stuff like fences are solid, however they have extra side piece that mean it needs to have discard on
@@ -569,6 +619,9 @@ public class ModelFactory {
         boolean canBeCorrectlyRendered = true;//This represents if a model can be correctly (perfectly) represented
         // i.e. no gaps
 
+        //block emission
+        metadata |= ((long)getBlockLightEmission(blockState))<<(48+7);
+
         this.metadataCache[modelId] = metadata;
 
         uploadPtr += 4*6;
@@ -578,7 +631,10 @@ public class ModelFactory {
         modelFlags |= colourProvider != null?1:0;
         modelFlags |= isBiomeColourDependent?2:0;//Basicly whether to use the next int as a colour or as a base index/id into a colour buffer for biome dependent colours
         modelFlags |= blockRenderLayer == RenderType.translucent()?4:0;//Is translucent
-        modelFlags |= blockRenderLayer == RenderType.cutout()?0:8;//Dont use mipmaps (AND ALSO FKING SPECIFIES IF IT HAS AO, WHY??? GREAT QUESTION, TODO FIXE THIS)
+
+
+        //TODO: THIS
+        modelFlags |= isShaded?8:0;//model has AO and shade
 
         //modelFlags |= blockRenderLayer == RenderLayer.getSolid()?0:1;// should discard alpha
         MemoryUtil.memPutInt(uploadPtr, modelFlags); uploadPtr += 4;
@@ -588,17 +644,18 @@ public class ModelFactory {
         if (colourProvider == null) {
             MemoryUtil.memPutInt(uploadPtr, -1);//Set the default to nothing so that its faster on the gpu
         } else if (!isBiomeColourDependent) {
-            MemoryUtil.memPutInt(uploadPtr, captureColourConstant(colourProvider, blockState, DEFAULT_BIOME)|0xFF000000);
-        } else if (!this.biomes.isEmpty()) {
+            MemoryUtil.memPutInt(uploadPtr, entry.tintingColour);
+        } else {
             //Populate the list of biomes for the model state
             int biomeIndex = this.modelsRequiringBiomeColours.size() * this.biomes.size();
             MemoryUtil.memPutInt(uploadPtr, biomeIndex);
-            this.modelsRequiringBiomeColours.add(new Pair<>(modelId, blockState));
-
-            uploadResult.biomeUploadIndex = biomeIndex;
-            long clrUploadPtr = (uploadResult.biomeUpload = new MemoryBuffer(4L * this.biomes.size())).address;
-            for (var biome : this.biomes) {
-                MemoryUtil.memPutInt(clrUploadPtr, captureColourConstant(colourProvider, blockState, biome)|0xFF000000); clrUploadPtr += 4;
+            this.modelsRequiringBiomeColours.add(new ModelBlockStatePair(modelId, blockState));
+            if (!this.biomes.isEmpty()) {
+                uploadResult.biomeUploadIndex = biomeIndex;
+                long clrUploadPtr = (uploadResult.biomeUpload = new MemoryBuffer(4L * this.biomes.size())).address;
+                for (var biome : this.biomes) {
+                    MemoryUtil.memPutInt(clrUploadPtr, captureColourConstant(colourProvider, blockState, biome)|0xFF000000); clrUploadPtr += 4;
+                }
             }
         }
         uploadPtr += 4;
@@ -618,8 +675,8 @@ public class ModelFactory {
 
         //TODO callback to inject extra data into the model data
 
-
-        this.putTextures(textureData, uploadResult.texture);
+        if (uploadResult.hasMips)
+            MipGen.putTextures(darkenedTinting, textureData, uploadResult.texture);
 
         //glGenerateTextureMipmap(this.textures.id);
 
@@ -634,6 +691,39 @@ public class ModelFactory {
         this.blockStatesInFlightLock.unlock();
 
         return uploadResult;
+    }
+
+    private static int getBlockLightEmission(BlockState state) {
+        boolean isEmissive = state.emissiveRendering(new BlockGetter() {
+            @Override
+            public @Nullable BlockEntity getBlockEntity(BlockPos pos) {
+                return null;
+            }
+
+            @Override
+            public BlockState getBlockState(BlockPos pos) {
+                return state;
+            }
+
+            @Override
+            public FluidState getFluidState(BlockPos pos) {
+                return state.getFluidState();
+            }
+
+            @Override
+            public int getHeight() {
+                return 0;
+            }
+
+            @Override
+            public int getMinBuildHeight() {
+                return 0;
+            }
+        }, BlockPos.ZERO);
+        if (isEmissive) {
+            return 15;//full bright
+        }
+        return Math.clamp(state.getLightEmission(),0,15);
     }
 
     private static final class BiomeUploadResult implements ResultUploader {
@@ -671,6 +761,9 @@ public class ModelFactory {
     }
 
     private BiomeUploadResult addBiome0(int id, Biome biome) {
+        if (biome == null) {
+            throw new IllegalStateException("Null biome");
+        }
         for (int i = this.biomes.size(); i <= id; i++) {
             this.biomes.add(null);
         }
@@ -680,7 +773,8 @@ public class ModelFactory {
             throw new IllegalStateException("Biome was put in an id that was not null");
         }
         if (oldBiome == biome) {
-            Logger.error("Biome added was a duplicate");
+            Logger.error("Biome added was a duplicate: " + id);
+            return null;
         }
 
         if (this.modelsRequiringBiomeColours.isEmpty()) return null;
@@ -690,19 +784,19 @@ public class ModelFactory {
         int i = 0;
         long modelUpPtr = result.modelBiomeIndexPairs.address;
         for (var entry : this.modelsRequiringBiomeColours) {
-            var colourProvider = getColourProvider(entry.right().getBlock());
+            var colourProvider = getColourProvider(entry.state.getBlock());
             if (colourProvider == null) {
                 throw new IllegalStateException();
             }
             //Populate the list of biomes for the model state
             int biomeIndex = (i++) * this.biomes.size();
-            MemoryUtil.memPutLong(modelUpPtr, Integer.toUnsignedLong(entry.left())|(Integer.toUnsignedLong(biomeIndex)<<32));modelUpPtr+=8;
+            MemoryUtil.memPutLong(modelUpPtr, Integer.toUnsignedLong(entry.model)|(Integer.toUnsignedLong(biomeIndex)<<32));modelUpPtr+=8;
             long clrUploadPtr = result.biomeColourBuffer.address + biomeIndex * 4L;
             for (var biomeE : this.biomes) {
                 if (biomeE == null) {
                     continue;//If null, ignore
                 }
-                MemoryUtil.memPutInt(clrUploadPtr, captureColourConstant(colourProvider, entry.right(), biomeE)|0xFF000000); clrUploadPtr += 4;
+                MemoryUtil.memPutInt(clrUploadPtr, captureColourConstant(colourProvider, entry.state, biomeE)|0xFF000000); clrUploadPtr += 4;
             }
         }
 
@@ -723,7 +817,7 @@ public class ModelFactory {
     // if it is, need to add it to a list and mark it as biome colour dependent or something then the shader
     // will either use the uint as an index or a direct colour multiplier
     private static int captureColourConstant(BlockColor colorProvider, BlockState state, Biome biome) {
-        return colorProvider.getColor(state, new BlockAndTintGetter() {
+        var getter = new BlockAndTintGetter() {
             @Override
             public float getShade(Direction direction, boolean shaded) {
                 return 0;
@@ -741,6 +835,10 @@ public class ModelFactory {
 
             @Override
             public int getBlockTint(BlockPos pos, ColorResolver colorResolver) {
+                if (colorResolver == null) {
+                    Logger.error("Block state: " + state + " colourprovider: " + colorProvider + " had a null colorresolver");
+                    return 0;
+                }
                 return colorResolver.getColor(biome, 0, 0);
             }
 
@@ -769,12 +867,16 @@ public class ModelFactory {
             public int getMinBuildHeight() {
                 return 0;
             }
-        }, BlockPos.ZERO, 0);
+        };
+        //Multiple layer bs to do with flower beds
+        int c = colorProvider.getColor(state, getter, BlockPos.ZERO, 0);
+        if (c!=-1) return c;
+        return colorProvider.getColor(state, getter, BlockPos.ZERO, 1);
     }
 
     private static boolean isBiomeDependentColour(BlockColor colorProvider, BlockState state) {
         boolean[] biomeDependent = new boolean[1];
-        colorProvider.getColor(state, new BlockAndTintGetter() {
+        var getter = new BlockAndTintGetter() {
             @Override
             public float getShade(Direction direction, boolean shaded) {
                 return 0;
@@ -821,15 +923,21 @@ public class ModelFactory {
             public int getMinBuildHeight() {
                 return 0;
             }
-        }, BlockPos.ZERO, 0);
+        };
+        colorProvider.getColor(state, getter, BlockPos.ZERO, 0);
+        colorProvider.getColor(state, getter, BlockPos.ZERO, 1);
         return biomeDependent[0];
     }
 
     private static float[] computeModelDepth(ColourDepthTextureData[] textures, int checkMode) {
+        return computeModelDepth(textures, checkMode, TextureUtils.DEPTH_MODE_AVG);
+    }
+
+    private static float[] computeModelDepth(ColourDepthTextureData[] textures, int checkMode, int computeMode) {
         float[] res = new float[6];
         for (var dir : Direction.values()) {
             var data = textures[dir.get3DDataValue()];
-            float fd = TextureUtils.computeDepth(data, TextureUtils.DEPTH_MODE_AVG, checkMode);//Compute the min float depth, smaller means closer to the camera, range 0-1
+            float fd = TextureUtils.computeDepth(data, computeMode, checkMode);//Compute the min float depth, smaller means closer to the camera, range 0-1
             //int depth = Math.round(fd * MODEL_TEXTURE_SIZE);
             //If fd is -1, it means that there was nothing rendered on that face and it should be discarded
             if (fd < -0.1) {
@@ -865,61 +973,10 @@ public class ModelFactory {
         return map;
     }
 
-    public long getModelMetadataFromClientId(int clientId) {
+    public final long getModelMetadataFromClientId(int clientId) {
         return this.metadataCache[clientId];
     }
 
-
-    private static int computeSizeWithMips(int size) {
-        int total = 0;
-        for (;size!=0;size>>=1) total += size*size;
-        return total;
-    }
-    private static final MemoryBuffer SCRATCH_TEX = new MemoryBuffer((2L*3*computeSizeWithMips(MODEL_TEXTURE_SIZE))*4);
-    private static final int LAYERS = Integer.numberOfTrailingZeros(MODEL_TEXTURE_SIZE);
-    //TODO: redo to batch blit, instead of 6 seperate blits, and also fix mipping
-    private void putTextures(ColourDepthTextureData[] textures, MemoryBuffer into) {
-        //if (MODEL_TEXTURE_SIZE != 16) {throw new IllegalStateException("THIS METHOD MUST BE REDONE IF THIS CONST CHANGES");}
-
-        //TODO: need to use a write mask to see what pixels must be used to contribute to mipping
-        // as in, using the depth/stencil info, check if pixel was written to, if so, use that pixel when blending, else dont
-
-        final long addr = into.address;
-        final int LENGTH_B = MODEL_TEXTURE_SIZE*3;
-        for (int i = 0; i < 6; i++) {
-            int x = (i>>1)*MODEL_TEXTURE_SIZE;
-            int y = (i&1)*MODEL_TEXTURE_SIZE;
-            int j = 0;
-            for (int t : textures[i].colour()) {
-                int o = ((y+(j>>LAYERS))*LENGTH_B + ((j&(MODEL_TEXTURE_SIZE-1))+x))*4; j++;//LAYERS here is just cause faster
-                MemoryUtil.memPutInt(addr+o, t);
-            }
-        }
-
-        //Mip the scratch
-        long dAddr = addr;
-        for (int i = 0; i < LAYERS-1; i++) {
-            long sAddr = dAddr;
-            dAddr += (MODEL_TEXTURE_SIZE*MODEL_TEXTURE_SIZE*3*2*4)>>(i<<1);//is.. i*2 because shrink both MODEL_TEXTURE_SIZE by >>i so is 2*i total shift
-            int width = (MODEL_TEXTURE_SIZE*3)>>(i+1);
-            int sWidth = (MODEL_TEXTURE_SIZE*3)>>i;
-            int height = (MODEL_TEXTURE_SIZE*2)>>(i+1);
-            //TODO: OPTIMZIE THIS
-            for (int px = 0; px < width; px++) {
-                for (int py = 0; py < height; py++) {
-                    long bp = sAddr + (px*2 + py*2*sWidth)*4;
-                    int C00 = MemoryUtil.memGetInt(bp);
-                    int C01 = MemoryUtil.memGetInt(bp+sWidth*4);
-                    int C10 = MemoryUtil.memGetInt(bp+4);
-                    int C11 = MemoryUtil.memGetInt(bp+sWidth*4+4);
-                    MemoryUtil.memPutInt(dAddr + (px+py*width) * 4L, TextureUtils.mipColours(C00, C01, C10, C11));
-                }
-            }
-        }
-
-        /*
-        */
-    }
 
     public void free() {
         this.bakery.free();
@@ -942,5 +999,12 @@ public class ModelFactory {
         size += this.uploadResults.size();
         size += this.biomeQueue.size();
         return size;
+    }
+
+
+    private static int computeSizeWithMips(int size) {
+        int total = 0;
+        for (;size!=0;size>>=1) total += size*size;
+        return total;
     }
 }

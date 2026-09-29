@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.lwjgl.opengl.ARBDrawBuffersBlend;
 import org.lwjgl.opengl.GL14;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -169,7 +170,7 @@ public class ModelTextureBakery {
     }
 
 
-    public void renderToStream(BlockState state, int streamBuffer, int streamOffset) {
+    public int renderToStream(BlockState state, int streamBuffer, int streamOffset) {
         this.capture.clear();
         boolean isBlock = true;
         RenderType layer;
@@ -199,8 +200,9 @@ public class ModelTextureBakery {
             glEnable(GL_DEPTH_TEST);
             glEnable(GL_CULL_FACE);
             if (layer == RenderType.translucent()) {
-                glEnable(GL_BLEND);
-                glBlendFuncSeparate(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+                glEnablei(GL_BLEND, 0);
+                glDisablei(GL_BLEND, 1);
+                ARBDrawBuffersBlend.glBlendFuncSeparateiARB(0, GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
             } else {
                 glDisable(GL_BLEND);//FUCK YOU INTEL (screams), for _some reason_ discard or something... JUST DOESNT WORK??
                 //glBlendFuncSeparate(GL_ONE, GL_ZERO, GL_ONE, GL_ONE);
@@ -219,9 +221,13 @@ public class ModelTextureBakery {
         }
 
         //TODO: fastpath for blocks
+        boolean isAnyShaded = false;
+        boolean isAnyDarkend = false;
         if (isBlock) {
             this.vc.reset();
             this.bakeBlockModel(state, layer);
+            isAnyShaded |= this.vc.anyShaded;
+            isAnyDarkend |= this.vc.anyDarkendTex;
             if (!this.vc.isEmpty()) {//only render if there... is shit to render
 
                 //Setup for continual emission
@@ -263,6 +269,8 @@ public class ModelTextureBakery {
                 this.vc.reset();
                 this.bakeFluidState(state, layer, i);
                 if (this.vc.isEmpty()) continue;
+                isAnyShaded |= this.vc.anyShaded;
+                isAnyDarkend |= this.vc.anyDarkendTex;
                 BudgetBufferRenderer.setup(this.vc.getAddress(), this.vc.quadCount(), blockTextureId);
 
                 glViewport((i % 3) * this.width, (i / 3) * this.height, this.width, this.height);
@@ -325,6 +333,8 @@ public class ModelTextureBakery {
             //reset the blend func
             GL14.glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
         }
+
+        return (isAnyShaded?1:0)|(isAnyDarkend?2:0);
     }
 
 
