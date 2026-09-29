@@ -1837,3 +1837,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 977f3a39` produced a modify/delete conflict because `SoftwareModelTextureBakery.java` is absent from the fork. The conflict was aborted cleanly; no build or release was required, and the counter remains .199.
+
+## 242. `e1e117476e2d475538cc7c1b7313d2ca3e8af567` source frame buffer
+- **Verdict:** APPLIED (clean cherry-pick -x of `e1e1174` auto-merged with no conflicts)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/AbstractRenderPipeline.java`)
+- **Result:** APPLIED
+- **SHA:** 3a0d6fc9c6430e295fd4311bc3aacce5d6ae39cf
+- **Release:** v0.2.7-alpha-2.200
+- **Notes:** Cherry-pick -x of `e1e1174` auto-merged cleanly. Renames a framebuffer field. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push ebec8717..3a0d6fc9 on backport/sequential. Release v0.2.7-alpha-2.200 published. Counter advanced .199 → .200.
