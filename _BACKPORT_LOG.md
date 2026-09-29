@@ -1893,3 +1893,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a7f2be8261caf65fc71ab3e99197b4032c8303ad
 - **Release:** v0.2.7-alpha-2.206
 - **Notes:** `git cherry-pick -x 68566124` auto-merged cleanly. compileJava SUCCESSFUL (21s), build -x test SUCCESSFUL (25s). Push 8d74d6d7..a7f2be82 on backport/sequential. Release v0.2.7-alpha-2.206 created with both built jars and verified. Counter advanced .205 -> .206.
+
+## 249. `184ff7a641b3fe27ee55380e164b547bc746c024` more work
+- **Verdict:** APPLIED (clean cherry-pick: reworks SSAO sampling and the matching shader kernel.)
+- **Files:** 2 files, +43/-25 (`SSAO.java`, `shaders/post/ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** a5aeb8d115be5ba8135d82cce98d2a7ecc40fe5f
+- **Release:** v0.2.7-alpha-2.207
+- **Notes:** `git cherry-pick -x 184ff7a6` auto-merged cleanly. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (25s). Push f0563fe3..a5aeb8d1 on backport/sequential. Release v0.2.7-alpha-2.207 created with both built jars and verified. Counter advanced .206 -> .207.
