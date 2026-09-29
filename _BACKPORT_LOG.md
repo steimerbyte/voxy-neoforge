@@ -1702,3 +1702,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4dcc9ad1e674e4725098976e1e2f21aa3e0c272c
 - **Release:** v0.2.7-alpha-2.188
 - **Notes:** `git cherry-pick -x aa0ef503` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ce1f5ff8..4dcc9ad1 on backport/sequential. Release v0.2.7-alpha-2.188 created with both built jars and verified. Counter advanced .187 -> .188.
+
+
+## 227. `f6bdfb2af908a8409eb6a460ee9d2a15640d7e1c` fix mixin conventions to have voxy$
+- **Verdict:** APPLIED+FIXED (renamed the active mixin accessor/implementation methods to the `voxy$` convention and migrated all active 1.21.1 call sites; retained the fork's deleted MC 1.21.2+/Sodium 0.7 files and 1.21.1 mixin signatures.)
+- **Files:** 11 files, +37/-41 (`VoxyCommands.java`, `VoxyConfigScreenPages.java`, `IGetVoxyRenderSystem.java`, `VoxyUniforms.java`, `MixinIrisRenderingPipeline.java`, `MixinLevelRenderer.java`, `MixinFogRenderer.java`, `MixinLevelRenderer.java`, `MixinWindow.java`, `MixinDefaultChunkRenderer.java`, `MixinRenderSectionManager.java`)
+- **Result:** APPLIED
+- **SHA:** dc7997c76922f0152e4ec341a3b5c77ffe6ea8d8
+- **Release:** v0.2.7-alpha-2.189
+- **Notes:** `git cherry-pick -x f6bdfb2a` conflicted in four retained files plus modify/delete conflicts for four files already deleted in this fork. Resolved by retaining the fork's NeoForge/MC 1.21.1 code, applying the `voxy$` method renames, and updating six active legacy accessor call sites. The first compileJava run found those call sites; they were migrated before the amended commit. Final compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 98d274a1..dc7997c7 on backport/sequential. Release v0.2.7-alpha-2.189 created with both built jars and verified. Counter advanced .188 -> .189.
