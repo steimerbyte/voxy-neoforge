@@ -1972,3 +1972,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** c803ab36e2bf39545858a634c40cbdaa63831604
 - **Release:** v0.2.7-alpha-2.215
 - **Notes:** `git cherry-pick -x 80e1e404` auto-merged cleanly, no conflict. The commit touches only the GLSL SSAO compute shader (restores the `|| depth == uvDepth.z` early-out in `computeAO`), so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (19s), build -x test SUCCESSFUL (25s). Push 92481593..c803ab36 on backport/sequential. Release v0.2.7-alpha-2.215 created with both built jars and verified. Counter advanced .214 -> .215.
+
+## 259. `9002f50e49350bbe126f24b2b8549c46ef1510bc` change ssao selection limits
+- **Verdict:** APPLIED (clean cherry-pick: raises the SSAO-mode dedicated-VRAM thresholds.)
+- **Files:** 1 file, +2/-2 (`src/main/java/me/cortex/voxy/client/core/SSAO.java`)
+- **Result:** APPLIED
+- **SHA:** fd029e01c82f0d317dab9ec065c341e8c11c7f42
+- **Release:** v0.2.7-alpha-2.216
+- **Notes:** `git cherry-pick -x 9002f50e` auto-merged cleanly, no conflict. The change is pure Voxy-internal tuning of the `totalDedicatedMemory` thresholds used by `SSAO.createSSAO` (5 GB -> 7 GB, with the matching comment update), so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (24s). Push 8bed2f58..fd029e01 on backport/sequential. Release v0.2.7-alpha-2.216 created with both built jars and verified. Counter advanced .215 -> .216.
