@@ -1956,3 +1956,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 0674fc016f2d88951c02b206811c58788d2c1c1c
 - **Release:** v0.2.7-alpha-2.213
 - **Notes:** `git cherry-pick -x d6d35154` auto-merged cleanly, no conflict. The change is pure Iris API and ports as-is. compileJava SUCCESSFUL (27s), build -x test SUCCESSFUL (24s). Push a6f4482d..0674fc01 on backport/sequential. Release v0.2.7-alpha-2.213 created with both built jars and verified. Counter advanced .212 -> .213.
+
+## 257. `3162e6b97c9be2a59232c39152777eea9fb63e22` ssao fixes
+- **Verdict:** APPLIED (clean cherry-pick: SSAO kernel and sampling fixes, shader-only.)
+- **Files:** 1 file, +23/-12 (`src/main/resources/assets/voxy/shaders/post/ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** a6937131befce13a0d1efd21af94edfc2552d561
+- **Release:** v0.2.7-alpha-2.214
+- **Notes:** `git cherry-pick -x 3162e6b9` auto-merged cleanly, no conflict. The commit touches only the GLSL SSAO compute shader, so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (20s), build -x test SUCCESSFUL (24s). Push 22168d40..a6937131 on backport/sequential. Release v0.2.7-alpha-2.214 created with both built jars and verified. Counter advanced .213 -> .214. End of batch 253-257.
