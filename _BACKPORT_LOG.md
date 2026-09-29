@@ -1964,3 +1964,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a6937131befce13a0d1efd21af94edfc2552d561
 - **Release:** v0.2.7-alpha-2.214
 - **Notes:** `git cherry-pick -x 3162e6b9` auto-merged cleanly, no conflict. The commit touches only the GLSL SSAO compute shader, so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (20s), build -x test SUCCESSFUL (24s). Push 22168d40..a6937131 on backport/sequential. Release v0.2.7-alpha-2.214 created with both built jars and verified. Counter advanced .213 -> .214. End of batch 253-257.
+
+## 258. `80e1e40459647b32a68413c0fcd76cd7dba11d51` readd quick continue
+- **Verdict:** APPLIED (clean cherry-pick: SSAO shader early-out tweak, GLSL only.)
+- **Files:** 1 file, +1/-1 (`src/main/resources/assets/voxy/shaders/post/ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** c803ab36e2bf39545858a634c40cbdaa63831604
+- **Release:** v0.2.7-alpha-2.215
+- **Notes:** `git cherry-pick -x 80e1e404` auto-merged cleanly, no conflict. The commit touches only the GLSL SSAO compute shader (restores the `|| depth == uvDepth.z` early-out in `computeAO`), so it ports as-is with no 1.21.1 API adaptation. compileJava SUCCESSFUL (19s), build -x test SUCCESSFUL (25s). Push 92481593..c803ab36 on backport/sequential. Release v0.2.7-alpha-2.215 created with both built jars and verified. Counter advanced .214 -> .215.
