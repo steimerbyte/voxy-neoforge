@@ -1603,3 +1603,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 6cd00124
 - **Release:** v0.2.7-alpha-2.178
 - **Notes:** Cherry-pick -x of `02e490e0` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push d413099a..6cd00124 on backport/sequential. Release v0.2.7-alpha-2.178 created with both built jars and verified. Counter advanced .177 -> .178.
+
+## 215. `32f3fda47901fa987d7e2c1945135e420bc79d9d` disable nv jank
+- **Verdict:** APPLIED (clean cherry-pick: disables the `USE_NV_JANK` shader define pending restoration through a working capability check.)
+- **Files:** 1 file, +1/-1 (`MDICSectionRenderer.java`)
+- **Result:** APPLIED
+- **SHA:** 81250957
+- **Release:** v0.2.7-alpha-2.179
+- **Notes:** Cherry-pick -x of `32f3fda4` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 0d2a6356..81250957 on backport/sequential. Release v0.2.7-alpha-2.179 created with both built jars and verified. Counter advanced .178 -> .179.
