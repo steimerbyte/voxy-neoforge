@@ -1675,3 +1675,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 7bb498f2` conflicted in `build.gradle`; retaining the fork's NeoForge `reobfJar` configuration left an empty patch, so it was skipped cleanly. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). No release was created and the counter remains .185. 
+
+
+## 224. `3eda859081bfeef786804a92645d4ba8d010ecae` fix unable to deserialize biomes
+- **Verdict:** APPLIED+FIXED (missing biomes now log an error and fall back to the default plains biome; null biome, duplicate-ID, and null color-resolver cases are guarded; 1.21.1 registry and resource-location APIs were used.)
+- **Files:** 1 file, +15/-2 (`ModelFactory.java`)
+- **Result:** APPLIED
+- **SHA:** aa15d7167ae31c5b96adbd8202b8b31cc00254ce
+- **Release:** v0.2.7-alpha-2.186
+- **Notes:** `git cherry-pick -x 3eda8590` conflicted in the biome registry lookup; resolved with MC 1.21.1's `registryOrThrow`, `ResourceLocation.parse`, and registry `Optional` while preserving the upstream fallback behavior. compileJava SUCCESSFUL (10s, one existing deprecation warning), build -x test SUCCESSFUL (9s). Push ed3e79e4..aa15d716 on backport/sequential. Release v0.2.7-alpha-2.186 created with both built jars and verified. Counter advanced .185 -> .186.
