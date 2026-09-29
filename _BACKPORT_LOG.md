@@ -1390,3 +1390,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 251cb98f7837dfd4be8eb5a2db6450c3957ea468
 - **Release:** v0.2.7-alpha-2.157
 - **Notes:** Cherry-pick -x of `bef1a8b6` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 7dd4a5a0..251cb98f on backport/sequential. GitHub rejected the abbreviated release target, so release v0.2.7-alpha-2.157 was created successfully with the full SHA and both built jars. Counter advanced .156 → .157.
+
+
+## 190. `03b39a16998c7191ab67f25afde882b9c03548c5` clown emoji
+- **Verdict:** APPLIED (clean cherry-pick: updates the GPGPU quad-shader debug/output visualization; the change is renderer-source-only and has no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +5/-8 (`src/main/resources/assets/voxy/shaders/lod/gl46/quads3.vert`)
+- **Result:** APPLIED
+- **SHA:** 7ecfa19712c2cf353deb5dcea5cff0236938ff0c
+- **Release:** v0.2.7-alpha-2.158
+- **Notes:** Cherry-pick -x of `03b39a16` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 225b0edf..7ecfa197 on backport/sequential. Release v0.2.7-alpha-2.158 created with both built jars. Counter advanced .157 → .158.
