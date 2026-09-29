@@ -1729,3 +1729,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 2ae4e31a6b29065b412bd4ff32dc882c531f71da
 - **Release:** v0.2.7-alpha-2.191
 - **Notes:** `git cherry-pick -x 7dc24842` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push a6ea51b1..2ae4e31a on backport/sequential. Release v0.2.7-alpha-2.191 created with both built jars and verified. Counter advanced .190 -> .191.
+
+
+## 230. `ebea10c8c6464a8948f3a6972db2543f42ec11c5` accidental double close
+- **Verdict:** APPLIED (clean cherry-pick: removes the accidental second explicit iterator close from the try-with-resources-backed RocksDB iteration path.)
+- **Files:** 1 file, +0/-1 (`RocksDBStorageBackend.java`)
+- **Result:** APPLIED
+- **SHA:** ed0765216ad7eced74c0137f43f9ca591820ce55
+- **Release:** v0.2.7-alpha-2.192
+- **Notes:** `git cherry-pick -x ebea10c8` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ecefb8db..ed076521 on backport/sequential. Release v0.2.7-alpha-2.192 created with both built jars and verified. Counter advanced .191 -> .192.
