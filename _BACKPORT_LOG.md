@@ -1453,3 +1453,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** e7029377b9f6c0f76b616dd2a2cd0dd9cf75e421
 - **Release:** v0.2.7-alpha-2.164
 - **Notes:** Cherry-pick -x of `eda60134` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 7d7a522f..e7029377 on backport/sequential. Release v0.2.7-alpha-2.164 created with both built jars and verified. Counter advanced .163 → .164.
+
+
+## 197. `1f993f8ecf7cdddddd87c2c010d31957947b52b8` slight optimization to mesh factory
+- **Verdict:** APPLIED (clean cherry-pick: special-cases model id 0 as air and avoids model metadata queries, mask updates, and partial-quad packing for air blocks.)
+- **Files:** 1 file, +15/-8 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderDataFactory.java`)
+- **Result:** APPLIED
+- **SHA:** 127bc59827c1a07d930f14de78bdf8880dc7976d
+- **Release:** v0.2.7-alpha-2.165
+- **Notes:** Cherry-pick -x of `1f993f8e` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push c4de1253..127bc598 on backport/sequential. Release v0.2.7-alpha-2.165 created with both built jars and verified. Counter advanced .164 → .165.
