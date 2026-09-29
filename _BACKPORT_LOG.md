@@ -2099,3 +2099,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 3f3458c679fd126ebd906e1ac2a72cdb593ec77a
 - **Release:** v0.2.7-alpha-2.231
 - **Notes:** Cherry-pick -x of `41e9a427` auto-merged cleanly. The commit touches only GLSL shader resources under `src/main/resources/assets/voxy/shaders/` - no Java, no MC-version-specific API, so it ports verbatim with no port pattern needed. It adds 5 lines to `lod/gl46/quads3.vert` and adjusts one line in `lod/quad_format.glsl`, both aimed at removing visible popping ("jank") when the LOD quad LOD level transitions. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 339196c3..3f3458c6 on backport/sequential. Release v0.2.7-alpha-2.231 published against full SHA 3f3458c679fd126ebd906e1ac2a72cdb593ec77a. Counter advanced .230 -> .231.
+## 275. `d6231c7f94623e230ba0f680b5d19ad41a314a12` wip rev-z support
+- **Verdict:** APPLIED (clean cherry-pick -x of `d6231c7` auto-merged with no conflicts)
+- **Files:** 2 files, +46/-14 (`src/main/resources/assets/voxy/shaders/hiz/blit.fsh`, `src/main/resources/assets/voxy/shaders/lod/hierarchical/screenspace.glsl`)
+- **Result:** APPLIED
+- **SHA:** c35109fb255813a3b65cfb31fb5e1fb580936546
+- **Release:** v0.2.7-alpha-2.232
+- **Notes:** Cherry-pick -x of `d6231c7` auto-merged cleanly. The commit touches only GLSL shader resources under `src/main/resources/assets/voxy/shaders/` - no Java, no MC-version-specific API, so it ports verbatim with no port pattern needed. Subject is an upstream WIP marker ("wip rev-z support"); the change reworks the Hi-Z blit fragment shader (`hiz/blit.fsh`) and the hierarchical LOD screenspace reconstruction (`lod/hierarchical/screenspace.glsl`) to support a reversed-Z depth convention. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 4c72ef6e..c35109fb on backport/sequential. Release v0.2.7-alpha-2.232 published against full SHA c35109fb255813a3b65cfb31fb5e1fb580936546. Counter advanced .231 -> .232.
