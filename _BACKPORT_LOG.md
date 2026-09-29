@@ -1520,3 +1520,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 7b0b137a` was rejected because the upstream object is a merge commit. The working tree remained clean apart from session-only HANDOFF.md, so no abort/reset or release was needed. Counter remains .171.
+
+
+## 205. `193ab55d2040b9f8b673837a2ac12ee55984b89e` put mipper in own class
+- **Verdict:** APPLIED+FIXED (mipmap-chain generation moved to `WorldVoxilizedSectionMipper`; retained the fork's NeoForge/MC 1.21.1 import layout and added the missing mipper import required by `WorldImporter`.)
+- **Files:** 5 files, +89/-79 (`WorldConversionFactory.java`, `WorldVoxilizedSectionMipper.java`, `VoxelIngestService.java`, `DHImporter.java`, `WorldImporter.java`)
+- **Result:** APPLIED
+- **SHA:** 276c81bae6e14ceac73981217aa11ceea5207f6a
+- **Release:** v0.2.7-alpha-2.172
+- **Notes:** Cherry-pick -x of `193ab55d` conflicted in `WorldConversionFactory.java` and `WorldImporter.java`; resolved by retaining the fork's `ModList` and existing 1.21.1 imports while accepting the upstream refactor. The first compileJava run found the fork-resolved `WorldImporter` missing the new mipper import; commit `276c81ba` added it, then compileJava SUCCESSFUL (11s) and build -x test SUCCESSFUL (9s). Push e3e02858..276c81ba on backport/sequential. Release v0.2.7-alpha-2.172 created with both built jars and verified. Counter advanced .171 -> .172.
