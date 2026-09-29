@@ -1619,3 +1619,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 8b7a0bb6
 - **Release:** v0.2.7-alpha-2.180
 - **Notes:** Cherry-pick -x of `80d217d8` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4fee34e6..8b7a0bb6 on backport/sequential. Release v0.2.7-alpha-2.180 created with both built jars and verified. Counter advanced .179 -> .180.
+
+## 217. `8187d2fda12acb0fd8c1b6cc8d777a5d2086977e` node manager verify flag
+- **Verdict:** APPLIED (clean cherry-pick: optionally verifies async node-manager integrity after publishing results when `verifyNodeManager` is enabled.)
+- **Files:** 1 file, +6/-0 (`AsyncNodeManager.java`)
+- **Result:** APPLIED
+- **SHA:** fc9938b2
+- **Release:** v0.2.7-alpha-2.181
+- **Notes:** Cherry-pick -x of `8187d2fd` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 0f91efc7..fc9938b2 on backport/sequential. Release v0.2.7-alpha-2.181 created with both built jars and verified. Counter advanced .180 -> .181.
