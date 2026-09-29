@@ -1909,3 +1909,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b50f7c6dcacdda502d76c63f42989f3494165a07
 - **Release:** v0.2.7-alpha-2.208
 - **Notes:** `git cherry-pick -x ef27a761` auto-merged (NormalRenderPipeline.java auto-merged, no conflict). compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (25s). Push f8fc896a..b50f7c6d on backport/sequential. Release v0.2.7-alpha-2.208 created with both built jars and verified. Counter advanced .207 -> .208.
+
+## 251. `30d053b75adb9a0823610dc2bccb98c0305e12c5` support parent joining enablers in configs, add enum config, start adding ssao config, disable ssao/fog options when shaders are enabled
+- **Verdict:** APPLIED+PTRUNED (parent-joining enablers and the Sodium config-menu UI are not portable; the enum config, SSAO mode config and Iris shader-enable probe are.)
+- **Files:** 3 files, +28/-0 (`VoxyConfig.java`, `SSAO.java`, `IrisUtil.java`); upstream's 2 Sodium-0.7 config files dropped
+- **Result:** APPLIED
+- **SHA:** 073bfc45b6a0ce177ca3a0bf75ec5d71068ec19c
+- **Release:** v0.2.7-alpha-2.209
+- **Notes:** `git cherry-pick -x 30d053b7` hit modify/delete conflicts on `SodiumConfigBuilder.java` and `VoxyConfigMenu.java` (both were already deleted in the fork; the fork uses `VoxyConfigScreenPages.java` on the Sodium 0.6 `client.gui.options.*` API while upstream's files target the Sodium 0.7 `api.config.*` API, which has 0 classes in our `curse.maven:sodium-394468:6382651` jar). Resolved with `git rm` so those files stay deleted. Kept the portable parts: `SSAO.SSAOMode` enum, `VoxyConfig.ssaoMode` + `getSSAOMode()`/`setSSAOMode()` with `Locale.ROOT` parsing, and `IrisUtil.irisShadersEnabledInConfig()`. compileJava SUCCESSFUL (30s), build -x test SUCCESSFUL (25s). Push 781ee6bc..073bfc45 on backport/sequential. Release v0.2.7-alpha-2.209 created with both built jars and verified. Counter advanced .208 -> .209.
