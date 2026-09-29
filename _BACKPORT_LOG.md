@@ -1810,3 +1810,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 750c89ea` produced a modify/delete conflict because `SoftwareModelTextureBakery.java` is absent from the fork. The conflict was aborted cleanly; no build or release was required, and the counter remains .197.
+
+
+## 239. `a776e4472f9ce714d8f7a331cd92b54261c74cc4` pass depth texture
+- **Verdict:** APPLIED+FIXED (passes the setup-produced depth texture into the post-opaque pipeline hook and removes the fork's stale duplicate one-argument call left by preparation commit `2ae4e31a`.)
+- **Files:** 3 files, +4/-6 (`AbstractRenderPipeline.java`, `IrisVoxyRenderPipeline.java`, `NormalRenderPipeline.java`)
+- **Result:** APPLIED
+- **SHA:** 2031ca4e3964a1890d599ff4d83ea9701d9d4d76
+- **Release:** v0.2.7-alpha-2.198
+- **Notes:** `git cherry-pick -x a776e447` auto-merged cleanly. The first compile exposed the retained stale `postOpaquePreTranslucent(viewport)` call; it was removed before amending. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 3a381251..2031ca4e on backport/sequential. Release v0.2.7-alpha-2.198 created with both built jars and verified. Counter advanced .197 -> .198.
