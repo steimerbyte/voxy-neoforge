@@ -1547,3 +1547,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x a1b63c24` produced rename/content conflicts because upstream targets `SoftwareModelTextureBakery.java` while the 1.21.1 fork retains `ModelTextureBakery.java`. Retaining the fork sides produced an empty patch, confirming there was no portable hunk. The temporary empty commit was reset and the tree restored cleanly apart from session-only HANDOFF.md. No release was created and the counter remains .173.
+
+## 208. `8e749ed4093393ba7f598cdd4cf17e84d3cde52d` version bump
+- **Verdict:** APPLIED (PORTABLE-AS-NO-OP: kept the fork's `mod_version=0.2.7-alpha`; the upstream-only release-version change was not ported.)
+- **Files:** 0 files, +0/-0
+- **Result:** APPLIED
+- **SHA:** 3c946cbacc2467386aacf7bc31893c0ba4eaf248
+- **Release:** v0.2.7-alpha-2.174
+- **Notes:** Cherry-pick -x of `8e749ed4` conflicted only in `gradle.properties`; resolving with the fork side produced an empty portable patch committed as `3c946cba`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push c297f26a..3c946cba on backport/sequential. Release v0.2.7-alpha-2.174 created with both built jars and verified. Counter advanced .173 -> .174.
