@@ -1801,3 +1801,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 60858794` produced a modify/delete conflict because the file is absent from the fork. The conflict was skipped cleanly; no build or release was required, and the counter remains .197.
+
+
+## 238. `750c89ea48e2c9a594c538edcc4ac02666f32634` possible jank fix
+- **Verdict:** SKIPPED (the upstream commit only resets OpenGL texture unpack state before reading the block atlas in `SoftwareModelTextureBakery.java`, which this 1.21.1 fork already removed; the active `ModelTextureBakery.java` does not read that texture or have a portable equivalent.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 750c89ea` produced a modify/delete conflict because `SoftwareModelTextureBakery.java` is absent from the fork. The conflict was aborted cleanly; no build or release was required, and the counter remains .197.
