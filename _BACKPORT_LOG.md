@@ -1711,3 +1711,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** dc7997c76922f0152e4ec341a3b5c77ffe6ea8d8
 - **Release:** v0.2.7-alpha-2.189
 - **Notes:** `git cherry-pick -x f6bdfb2a` conflicted in four retained files plus modify/delete conflicts for four files already deleted in this fork. Resolved by retaining the fork's NeoForge/MC 1.21.1 code, applying the `voxy$` method renames, and updating six active legacy accessor call sites. The first compileJava run found those call sites; they were migrated before the amended commit. Final compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 98d274a1..dc7997c7 on backport/sequential. Release v0.2.7-alpha-2.189 created with both built jars and verified. Counter advanced .188 -> .189.
+
+
+## 228. `352da265d4150634e7fa547b84522a387463a7a6` CRITICAL: update rocksdb, fix rocksdb memory leak issue that has been in the mod for over 2 years (ever since rocksdb was added)
+- **Verdict:** APPLIED+FIXED (updates the NeoForge JarJar RocksDB preference to 10.9.1 and ports deterministic temp-file cleanup plus iterator/native-resource lifecycle fixes that stop long-lived RocksDB memory and handle leaks.)
+- **Files:** 2 files, +38/-26 (`build.gradle`, `RocksDBStorageBackend.java`)
+- **Result:** APPLIED
+- **SHA:** e350e40552197d6c0d1b7b9e224a7371d5f6dbd6
+- **Release:** v0.2.7-alpha-2.190
+- **Notes:** `git cherry-pick -x 352da265` conflicted only in the NeoForge JarJar dependency block; retained its syntax while porting the required RocksDB 10.9.1 preference. compileJava SUCCESSFUL (18s), build -x test SUCCESSFUL (10s). Push 6a855c67..e350e405 on backport/sequential. Release v0.2.7-alpha-2.190 created with both built jars and verified. Counter advanced .189 -> .190.
