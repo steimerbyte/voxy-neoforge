@@ -1774,3 +1774,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d54ec8d4
 - **Release:** v0.2.7-alpha-2.195
 - **Notes:** `git cherry-pick -x 4c8d397b` auto-merged cleanly. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 21af4333..d54ec8d4 on backport/sequential. Release v0.2.7-alpha-2.195 created with both built jars and verified. Counter advanced .194 -> .195.
+
+
+## 235. `97e8ae9098b98a8120a14de7fbb69af027047874` java25
+- **Verdict:** APPLIED (PORTABLE-AS-NO-OP: retained the fork's Java 21 toolchain, Gradle 8.14 wrapper, and NeoForge workflow paths; the upstream Java 25/Gradle 9.4.1 changes were not portable to this 1.21.1 build.)
+- **Files:** 0 files, +0/-0
+- **Result:** APPLIED
+- **SHA:** 9c10f3e8
+- **Release:** v0.2.7-alpha-2.196
+- **Notes:** `git cherry-pick -x 97e8ae90` conflicted in the Gradle wrapper; `build.gradle` and the wrapper properties were resolved with the fork's Java 21/Gradle 8.14 configuration, and all Java-version-only changes were omitted as non-portable. The resulting provenance commit is empty. compileJava SUCCESSFUL (13s), build -x test SUCCESSFUL (10s). Push 62c12f5c..9c10f3e8 on backport/sequential. Release v0.2.7-alpha-2.196 created with both built jars and verified. Counter advanced .195 -> .196.
