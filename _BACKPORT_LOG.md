@@ -1595,3 +1595,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x f292e268` conflicted only in `build.gradle` at the MC 1.21.11 Iris 1.10.7 dependency lines. The cherry-pick was aborted cleanly, leaving HEAD `07a7c2ab` and only session-only `HANDOFF.md` in the working tree. No build or release was needed for the incompatible dependency-only patch, and the counter remains .177.
+
+## 214. `02e490e02cbe2f492e85ee97068c7b6c9fd631be` propagate internel error if it exists
+- **Verdict:** APPLIED (clean cherry-pick: records the asynchronous node manager's uncaught throwable before stopping the worker and propagates that internal error on later work submission.)
+- **Files:** 1 file, +7/-2 (`AsyncNodeManager.java`)
+- **Result:** APPLIED
+- **SHA:** 6cd00124
+- **Release:** v0.2.7-alpha-2.178
+- **Notes:** Cherry-pick -x of `02e490e0` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push d413099a..6cd00124 on backport/sequential. Release v0.2.7-alpha-2.178 created with both built jars and verified. Counter advanced .177 -> .178.
