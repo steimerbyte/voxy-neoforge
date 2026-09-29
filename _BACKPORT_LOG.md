@@ -2044,3 +2044,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b615c6e1d5973dbbfac81f84a21ce5baaa0cdcc8
 - **Release:** v0.2.7-alpha-2.224
 - **Notes:** `git cherry-pick -x bd7fe4a5` produced a content conflict in the `VoxyClientInstance()` constructor. The fork has no Flashback integration - `me/cortex/voxy/client/compat/FlashbackCompat.java` exists but its entire body is commented out (including the `FabricLoader`-based `FLASHBACK_INSTALLED` check), and there is no `FlashbackCompat` import in `VoxyClientInstance.java` - so upstream's `FlashbackCompat.getReplayStoragePath()` branch (`noIngestOverride = path != null`, fall back to `getBasePath()` when null) is not portable. Resolved by keeping the fork's shape and porting only the actual change of the commit: `this.basePath = path.normalize()` becomes `var path = getBasePath().normalize();` so both the field and the config path are normalized identically (upstream derives both from the same normalized value; on the fork `path` is already that value, so the argument stays `path`). compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push fd740c25..b615c6e1 on backport/sequential. Release v0.2.7-alpha-2.224 published. Counter advanced .223 -> .224.
+
+## 268. `5e0af8886fb593722321dbb735a5aabc5f0265ac` remove no subdir
+- **Verdict:** APPLIED (clean cherry-pick -x of `5e0af888` auto-merged with no conflicts)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/common/config/storage/lmdb/LMDBStorageBackend.java`)
+- **Result:** APPLIED
+- **SHA:** cf6b7d38dfeca768b5fddca4f3067598edf941bd
+- **Release:** v0.2.7-alpha-2.225
+- **Notes:** Cherry-pick -x of `5e0af888` auto-merged cleanly. The change drops the `MDB_NOSUBDIR` flag from the LMDB `open(file, ...)` call (now `open(file, 0)`), so LMDB uses its normal subdirectory layout. `LMDBStorageBackend` is a fork-side class with no MC/Sodium-version-specific API, so it ports verbatim; the now-unused `MDB_NOSUBDIR` static import was already absent from the fork, leaving no dead reference. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 17896e33..cf6b7d38 on backport/sequential. Release v0.2.7-alpha-2.225 published. Counter advanced .224 -> .225.
