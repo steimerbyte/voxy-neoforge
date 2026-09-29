@@ -1738,3 +1738,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** ed0765216ad7eced74c0137f43f9ca591820ce55
 - **Release:** v0.2.7-alpha-2.192
 - **Notes:** `git cherry-pick -x ebea10c8` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ecefb8db..ed076521 on backport/sequential. Release v0.2.7-alpha-2.192 created with both built jars and verified. Counter advanced .191 -> .192.
+
+
+## 231. `38540eac92e5ed9e83f8005b6dc8a33d73e9e4c9` inital 26.1 port
+- **Verdict:** SKIPPED (MC-26-ONLY: the commit migrates the whole Fabric build to Minecraft 26.1/Loom 1.15/Sodium 0.8.7 and rewrites rendering, model bakery, fog, chunk-position, lightmap, resource, and mixin APIs to classes that do not exist in the MC 1.21.1 NeoForge fork.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 38540eac` produced 17 content conflicts plus two modify/delete conflicts across build metadata, MC 26.1-only renderer/model/fog APIs, and deleted MC 1.21.2+ mixins. No isolated behavior hunk was portable without redesigning the 1.21.1 implementation, so the cherry-pick was aborted cleanly. No build or release was needed, and the counter remains .192.
