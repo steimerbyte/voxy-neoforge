@@ -1435,3 +1435,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** f3c67c8011c2fd62b3f09ec902144804e6501311
 - **Release:** v0.2.7-alpha-2.162
 - **Notes:** Cherry-pick -x of `5dcaa23b` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push 2f73180f..f3c67c80 on backport/sequential. GitHub rejected two mistyped abbreviated release targets, then release v0.2.7-alpha-2.162 was created with the actual full SHA and both built jars and verified. Counter advanced .161 → .162.
+
+
+## 195. `e0a2a7ce1d76aeaf2db9f593c0caa1a3c68faea4` jank jank
+- **Verdict:** APPLIED (clean cherry-pick: guards the NVIDIA half-float shader redeclarations behind `USE_NV_JANK`, avoiding compiler/driver jank; the change is renderer-source-only.)
+- **Files:** 1 file, +4/-0 (`src/main/resources/assets/voxy/shaders/lod/gl46/quads3.vert`)
+- **Result:** APPLIED
+- **SHA:** 9a0aa2e159ccfe56332e226df4a52e78151aa95f
+- **Release:** v0.2.7-alpha-2.163
+- **Notes:** Cherry-pick -x of `e0a2a7ce` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 606c9722..9a0aa2e1 on backport/sequential. Release v0.2.7-alpha-2.163 created with both built jars and verified. Counter advanced .162 → .163.
