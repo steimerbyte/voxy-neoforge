@@ -1426,3 +1426,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 095baefd84e33c5e943084e41287829f8e7761c9
 - **Release:** v0.2.7-alpha-2.161
 - **Notes:** Cherry-pick -x of `158ff6a5` produced a modify/delete conflict for the fork-deleted `VoxyConfigMenu`; the live `VoxyConfigScreenPages` already contains the behavior, so the deletion was retained and the upstream commit was recorded as an empty commit. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 721cf835..095baefd on backport/sequential. Release v0.2.7-alpha-2.161 created with both built jars and verified. Counter advanced .160 → .161.
+
+
+## 194. `5dcaa23bc40500165abe91a4c803195e2482f31b` optimize serialization
+- **Verdict:** APPLIED (clean cherry-pick: serializes repeated world-section values by reusing the previous LUT mapping, reducing redundant map operations without loader-specific dependencies.)
+- **Files:** 1 file, +9/-4 (`src/main/java/me/cortex/voxy/common/world/SaveLoadSystem3.java`)
+- **Result:** APPLIED
+- **SHA:** f3c67c8011c2fd62b3f09ec902144804e6501311
+- **Release:** v0.2.7-alpha-2.162
+- **Notes:** Cherry-pick -x of `5dcaa23b` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push 2f73180f..f3c67c80 on backport/sequential. GitHub rejected two mistyped abbreviated release targets, then release v0.2.7-alpha-2.162 was created with the actual full SHA and both built jars and verified. Counter advanced .161 → .162.
