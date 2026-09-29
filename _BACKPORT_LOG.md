@@ -1765,3 +1765,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d36ccb5bb90fb14bfdbc619cfac520d04f77f0de
 - **Release:** v0.2.7-alpha-2.194
 - **Notes:** `git cherry-pick -x 11afa37e` conflicted in `ZSTDCompressor.java` and `UnsafeUtil.java`; retained the fork's zstd-jni compressor while applying its section-size reference and ported the portable unsafe/conversion/storage changes. The initial compile exposed the moved size constant, which was mapped to `SectionSerializationStorage.BIGGEST_SERIALIZED_SECTION_SIZE`; compileJava and build -x test then passed. Push 34b05090..d36ccb5b on backport/sequential. Release v0.2.7-alpha-2.194 created with both built jars and verified. Counter advanced .193 -> .194.
+
+
+## 234. `4c8d397b226a41955231516d0eb43fca0ce67711` update wrapper
+- **Verdict:** APPLIED (clean cherry-pick: updates the Gradle wrapper and preserves the fork's Gradle 8.14 distribution configuration.)
+- **Files:** 4 files, +32/-27 (`gradle/wrapper/gradle-wrapper.jar`, `gradle/wrapper/gradle-wrapper.properties`, `gradlew`, `gradlew.bat`)
+- **Result:** APPLIED
+- **SHA:** d54ec8d4
+- **Release:** v0.2.7-alpha-2.195
+- **Notes:** `git cherry-pick -x 4c8d397b` auto-merged cleanly. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 21af4333..d54ec8d4 on backport/sequential. Release v0.2.7-alpha-2.195 created with both built jars and verified. Counter advanced .194 -> .195.
