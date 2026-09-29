@@ -1571,3 +1571,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b62391f848f29068fe06fa18fdb045ee0d01e44e
 - **Release:** v0.2.7-alpha-2.176
 - **Notes:** Cherry-pick -x of `74ccb38a` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9cf0e944..b62391f8 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.176 was created with the actual full SHA and both built jars and verified. Counter advanced .175 -> .176.
+
+## 211. `d3296634306132c2acbec9b1a0df7ad5e6aff8df` use the projection matrix creation method instead of manually creating it
+- **Verdict:** APPLIED+FIXED (uses `GameRenderer#getProjectionMatrix` for the inverse vanilla projection and centralizes FOV lookup; ported the new helper to MC 1.21.1's `Minecraft#getTimer()` and its double-to-float FOV signature.)
+- **Files:** 1 file, +8/-6 (`VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** 003a02f593a273b21cd483a7a2ba5e2e9e533b66
+- **Release:** v0.2.7-alpha-2.177
+- **Notes:** Cherry-pick -x of `d3296634` conflicted at the manually computed FOV call; resolved in favor of the shared helper. The first compileJava run found MC 1.21.1 has no `Minecraft#getDeltaTracker()`, and the second found `GameRenderer#getFov` returns double, so the amended commit uses `Minecraft#getTimer()` plus an explicit float conversion. Final compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ea32ee57..003a02f5 on backport/sequential. Release v0.2.7-alpha-2.177 created with both built jars and verified. Counter advanced .176 -> .177.
