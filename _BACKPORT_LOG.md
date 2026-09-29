@@ -1627,3 +1627,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** fc9938b2
 - **Release:** v0.2.7-alpha-2.181
 - **Notes:** Cherry-pick -x of `8187d2fd` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 0f91efc7..fc9938b2 on backport/sequential. Release v0.2.7-alpha-2.181 created with both built jars and verified. Counter advanced .180 -> .181.
+
+## 218. `23b095b04c5a1159f16246e573ed7131ea8a5d62` use size limiting expanding object list
+- **Verdict:** APPLIED (clean cherry-pick: uses the size-limited expanding object allocation list in `NodeManager` to bound client allocation state.)
+- **Files:** 1 file, +4/-3 (`NodeManager.java`)
+- **Result:** APPLIED
+- **SHA:** f2f52484
+- **Release:** v0.2.7-alpha-2.182
+- **Notes:** `git cherry-pick -x 23b095b04` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9662acd0..f2f52484 on backport/sequential. Release v0.2.7-alpha-2.182 created with both built jars and verified. Counter advanced .181 -> .182.
