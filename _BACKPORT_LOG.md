@@ -2028,3 +2028,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** da353d7e762a9b8e5a344b4d5e99a592aa63ab8f
 - **Release:** v0.2.7-alpha-2.222
 - **Notes:** Cherry-pick -x of `9694968d` auto-merged cleanly. The change strips the `void _cfi_ignoreMarker() {}` no-op marker function from the generated Voxy patch JSON before deserialization, working around the chunk fade-in issue. Pure string/JSON manipulation, no MC- or Sodium-version-specific API, so it ports verbatim. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push e4b5d406..da353d7e on backport/sequential. Release v0.2.7-alpha-2.222 published. Counter advanced .221 -> .222.
+
+## 266. `192721a7d51e81a3edafee47f23f30e1dd815e0d` hopefully fixed a very rare race condition during unload,
+- **Verdict:** APPLIED (clean cherry-pick -x of `192721a7` auto-merged with no conflicts)
+- **Files:** 4 files, +61/-22 (`ActiveSectionTracker.java`, `WorldEngine.java`, `WorldSection.java`, `SectionSavingService.java`)
+- **Result:** APPLIED
+- **SHA:** 5d84fc6995ada00e2cd6dc62067673476759c306
+- **Release:** v0.2.7-alpha-2.223
+- **Notes:** Cherry-pick -x of `192721a7` auto-merged cleanly. Pure Voxy-core concurrency fix, no MC/Sodium-version-specific API, so it ports verbatim: `ISectionSaveCallback.save` now returns `boolean` and takes a `sectionAlreadyAcquired` flag so a section already holding its own acquire does not get re-acquired inside `enqueueSave`; `WorldSection.shouldSave()` factors the `isDirty && !inSaveQueue` predicate; `ActiveSectionTracker.tryUnload` gains a `shouldRetryExit` bail-out that releases the write lock and re-invokes `tryUnload`; and the `trySetFreed` `IllegalStateException` message now names which flag (`dirty` / `saveQueue`) was still set. Verified the fork's only `ISectionSaveCallback` implementer is the method reference `world.setSaveCallback(this.savingService::enqueueSave)` in `VoxyInstance.java:178`, whose target `SectionSavingService.enqueueSave` was updated by the cherry-pick - the signature change needs no extra fork-side fixup. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push ce108e00..5d84fc69 on backport/sequential. Release v0.2.7-alpha-2.223 published. Counter advanced .222 -> .223.
