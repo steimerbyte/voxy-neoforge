@@ -1372,3 +1372,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 08c597de3e437499b502d940a134d406117f99c0
 - **Release:** v0.2.7-alpha-2.155
 - **Notes:** Cherry-pick -x of `cd7dba0a` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ac2d50d5..08c597de on backport/sequential. Release v0.2.7-alpha-2.155 created with both built jars. Counter advanced .154 → .155.
+
+
+## 188. `b49e8fe290964572ef09f6151f7b99fc3f6cdaef` use f16 if possible (only on nvidia)
+- **Verdict:** APPLIED (clean cherry-pick: adds the NVIDIA-specific half-float vertex path and preserves the existing GPGPU/Float path for other hardware; the change is renderer-source-only and has no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +19/-2 (`src/main/resources/assets/voxy/shaders/lod/gl46/quads3.vert`)
+- **Result:** APPLIED
+- **SHA:** 4edd57fcf89d45bd79e5bad076d8a7153fa6fab3
+- **Release:** v0.2.7-alpha-2.156
+- **Notes:** Cherry-pick -x of `b49e8fe2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 37679362..4edd57fc on backport/sequential. GitHub rejected the initial mistyped release target, so release v0.2.7-alpha-2.156 was created successfully with the actual full SHA and both built jars. Counter advanced .155 → .156.
