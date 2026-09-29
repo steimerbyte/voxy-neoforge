@@ -1684,3 +1684,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** aa15d7167ae31c5b96adbd8202b8b31cc00254ce
 - **Release:** v0.2.7-alpha-2.186
 - **Notes:** `git cherry-pick -x 3eda8590` conflicted in the biome registry lookup; resolved with MC 1.21.1's `registryOrThrow`, `ResourceLocation.parse`, and registry `Optional` while preserving the upstream fallback behavior. compileJava SUCCESSFUL (10s, one existing deprecation warning), build -x test SUCCESSFUL (9s). Push ed3e79e4..aa15d716 on backport/sequential. Release v0.2.7-alpha-2.186 created with both built jars and verified. Counter advanced .185 -> .186.
+
+
+## 225. `f453d5555e99b0da5122c4633f22fe10385ef2e9` more cases
+- **Verdict:** APPLIED (clean cherry-pick: extends `GlTexture` error checks across additional texture upload cases.)
+- **Files:** 1 file, +7/-4 (`GlTexture.java`)
+- **Result:** APPLIED
+- **SHA:** e259ec52fb56e2373b4b9a2b617b3de446019427
+- **Release:** v0.2.7-alpha-2.187
+- **Notes:** `git cherry-pick -x f453d555` auto-merged cleanly. compileJava SUCCESSFUL (10s, three existing deprecation warnings), build -x test SUCCESSFUL (9s). Push 7dbb6e94..e259ec52 on backport/sequential. Release v0.2.7-alpha-2.187 created with both built jars and verified. Counter advanced .186 -> .187.
