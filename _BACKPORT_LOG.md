@@ -2514,14 +2514,6 @@ Batch 314-318 summary: 2 APPLIED (315, 316), 3 SKIPPED (314, 317, 318 — all MC
 - **Release:** v0.2.7-alpha-2.269
 - **Notes:** Cherry-pick -x of `c9f50587` auto-resolved cleanly with no conflicts and required no 1.21.1 port fix. The entire diff is 1 file, +1/-1, and touches no Java source. As with upstream's earlier CI-only commits, the fork's workflows live under `.github/workflows-disabled/` rather than `.github/workflows/` — this fork disabled GitHub Actions in commit `c6270e54` ("Disable GitHub Actions workflows"), which moved all three workflow files to the `workflows-disabled/` directory, and there are currently no tracked files under `.github/workflows` at all. Git therefore resolved the upstream path `.github/workflows/manual-artifact.yml` as a modify against the fork's pre-existing disabled copy, exactly the same resolution recorded for commit 149 (`72768ca6`, "dont zip jar on upload"), which was logged as PORTABLE-AS-NO-OP and APPLIED for the same archival-parity reason. The change itself is a CI cache-policy fix: in the `Setup Gradle` step of `gradle/actions/setup-gradle@v4` it replaces the deprecated `cache-read-only: false` input with the current `cache-disabled: true`, so a manually-dispatched build no longer attempts to read from a shared, potentially-stale Gradle build cache. Runtime impact is nil because the workflow does not run on this fork, but the semantic change lands correctly under the disabled dir and `gradle/actions/setup-gradle@v4` is the same action version the fork's file already pins, so no loader/indirection port was needed. `./gradlew compileJava` and `./gradlew build -x test` both succeeded, confirming the resource/manifest pipeline is unaffected.
 
-## 328. `e5ce74ab997f6519a6894cc91650142280f595f3` verify debug command
-- **Verdict:** APPLIED (clean cherry-pick -x of `e5ce74a` auto-merged with no conflicts)
-- **Files:** VoxyCommands.java (+5/-0) — adds a /voxy verify abort variant
-- **Result:** APPLIED
-- **SHA:** f1cb7838
-- **Release:** v0.2.7-alpha-2.270
-- **Notes:** Cherry-pick -x of `e5ce74a` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push ab1990cc..f1cb7838 on backport/sequential. Release v0.2.7-alpha-2.270 published. Counter advanced .269 → .270.
-
 ## 328. `d1c8c36cbd17ad03e08b51fea988aed562e8d50e` Use exact chunk bounds when flawlessframes is active
 - **Verdict:** APPLIED+FIXED (1 content conflict resolved by keeping the fork's Minecraft-1.21.1 `com.mojang.blaze3d.platform.*` import packages, since Minecraft 1.21.1 has no `com.mojang.blaze3d.opengl` package at all; no further fix, so no amend was required)
 - **Files:** 3 files, +182/-22 (`client/core/rendering/ChunkBoundRenderer.java`, `client/core/gl/GlBuffer.java`, `client/core/VoxyRenderSystem.java`)
