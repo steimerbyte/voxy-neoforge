@@ -1792,3 +1792,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** b05db984
 - **Release:** v0.2.7-alpha-2.197
 - **Notes:** `git cherry-pick -x c773c3be` had a modify/delete conflict in the NeoForge `VoxyConfigStore.java`; resolved by accepting the cleanup deletion. The first compile found the retained pure-Java ZSTD compressor's now-stale `SaveLoadSystem` import, which was removed; compileJava then passed (8s) and build -x test passed (9s). Push a969fff5..b05db984 on backport/sequential. Release v0.2.7-alpha-2.197 created with both built jars and verified. Counter advanced .196 -> .197.
+
+
+## 237. `608587940c43fef788bee45287e1ea8696fcc852` fix large texture atlas's (also simplifies things alot)
+- **Verdict:** SKIPPED (the upstream commit modifies only `SoftwareModelTextureBakery.java`, which this 1.21.1 fork already removed in cleanup commit `731ca0e9`; the active implementation is `ModelTextureBakery.java`, so no portable hunk exists.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 60858794` produced a modify/delete conflict because the file is absent from the fork. The conflict was skipped cleanly; no build or release was required, and the counter remains .197.
