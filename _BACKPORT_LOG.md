@@ -2084,3 +2084,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 89ae31d7994c615b6fcad0be79aeddf2341bddde
 - **Release:** v0.2.7-alpha-2.229
 - **Notes:** Cherry-pick -x of `41dd201d` auto-merged cleanly. Two genuine logic fixes, both pure Java with no MC/Sodium-version-specific API, so they port verbatim. (1) `ModelBakerySubsystem.requestBlockBake` had an off-by-one in its range guard: `getBlockStateCount() < blockId` let `blockId == getBlockStateCount()` through, i.e. exactly the one out-of-range id it is meant to reject; changed to `<=`. (2) `BasicSectionGeometryData.free` had an inverted and never-entered wait loop - `while (System.currentTimeMillis() - start > TIMEOUT)` is false immediately on entry, so the `glFinish()` GPU-memory-drain loop never ran a single iteration; changed to `< TIMEOUT`, and `TIMEOUT` lowered from 2500 to 400 to match the (now correct) 2.5-second comment's intent being replaced by a shorter bounded spin. Both hunks apply to code that is byte-identical on the fork, so the surrounding context was verified line by line: the guard sits before the `seenIds` dedup and queue add in `requestBlockBake`, and the wait loop sits inside the `canQueryGpuMemory` branch of `free()` with its `Failed to wait for gpu memory to be freed` follow-up warning unchanged. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 229c6e0d..89ae31d7 on backport/sequential. Release v0.2.7-alpha-2.229 published. Counter advanced .228 -> .229.
+
+## 273. `e22cf5b94fdfd669ddd54c0e541175f7e4fa6854` 16x16x16 occupancy set
+- **Verdict:** APPLIED (clean cherry-pick -x of `e22cf5b9` auto-merged with no conflicts)
+- **Files:** OccupancySet.java +4/-0 (SIZE field 8x8x8 → 16x16x16)
+- **Result:** APPLIED
+- **SHA:** 4faa1396c0cf5ef227143e2df185352bf40b7605
+- **Release:** v0.2.7-alpha-2.230
+- **Notes:** Cherry-pick -x of `e22cf5b` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 3daf7856..4faa1396 on backport/sequential. Release v0.2.7-alpha-2.230 published. Counter advanced .229 → .230.
