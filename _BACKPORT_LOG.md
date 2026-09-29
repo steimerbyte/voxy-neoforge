@@ -1747,3 +1747,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 38540eac` produced 17 content conflicts plus two modify/delete conflicts across build metadata, MC 26.1-only renderer/model/fog APIs, and deleted MC 1.21.2+ mixins. No isolated behavior hunk was portable without redesigning the 1.21.1 implementation, so the cherry-pick was aborted cleanly. No build or release was needed, and the counter remains .192.
+
+
+## 232. `6d73782279894182899b8d2b8aba1c3246827a7b` fix sodium fog
+- **Verdict:** APPLIED (clean cherry-pick: raises the active 1.21.1 fog mixin priority so its setup-fog injection runs before Sodium.)
+- **Files:** 1 file, +1/-1 (`MixinFogRenderer.java`)
+- **Result:** APPLIED
+- **SHA:** 2ad2fd5b269536a760c11de4279324a3f711346c
+- **Release:** v0.2.7-alpha-2.193
+- **Notes:** `git cherry-pick -x 6d737822` auto-merged cleanly while retaining the fork's 1.21.1 four-parameter `setupFog` descriptor. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push 0998ad46..2ad2fd5b on backport/sequential. Release v0.2.7-alpha-2.193 created with both built jars and verified. Counter advanced .192 -> .193.
