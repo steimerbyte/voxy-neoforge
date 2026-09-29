@@ -1693,3 +1693,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** e259ec52fb56e2373b4b9a2b617b3de446019427
 - **Release:** v0.2.7-alpha-2.187
 - **Notes:** `git cherry-pick -x f453d555` auto-merged cleanly. compileJava SUCCESSFUL (10s, three existing deprecation warnings), build -x test SUCCESSFUL (9s). Push 7dbb6e94..e259ec52 on backport/sequential. Release v0.2.7-alpha-2.187 created with both built jars and verified. Counter advanced .186 -> .187.
+
+
+## 226. `aa0ef5031e6a733aab62ce74ec4ec18a4e9e739b` occupancy generator shuffle
+- **Verdict:** APPLIED (clean cherry-pick: shuffles the occupancy generator path used by render-data construction.)
+- **Files:** 1 file, +14/-5 (`RenderDataFactory.java`)
+- **Result:** APPLIED
+- **SHA:** 4dcc9ad1e674e4725098976e1e2f21aa3e0c272c
+- **Release:** v0.2.7-alpha-2.188
+- **Notes:** `git cherry-pick -x aa0ef503` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ce1f5ff8..4dcc9ad1 on backport/sequential. Release v0.2.7-alpha-2.188 created with both built jars and verified. Counter advanced .187 -> .188.
