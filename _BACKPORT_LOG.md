@@ -2052,3 +2052,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** cf6b7d38dfeca768b5fddca4f3067598edf941bd
 - **Release:** v0.2.7-alpha-2.225
 - **Notes:** Cherry-pick -x of `5e0af888` auto-merged cleanly. The change drops the `MDB_NOSUBDIR` flag from the LMDB `open(file, ...)` call (now `open(file, 0)`), so LMDB uses its normal subdirectory layout. `LMDBStorageBackend` is a fork-side class with no MC/Sodium-version-specific API, so it ports verbatim; the now-unused `MDB_NOSUBDIR` static import was already absent from the fork, leaving no dead reference. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 17896e33..cf6b7d38 on backport/sequential. Release v0.2.7-alpha-2.225 published. Counter advanced .224 -> .225.
+
+## 269. `cb26998870d08de2b95137b63ddcac3b821ba4f1` render only on valid viewport
+- **Verdict:** APPLIED (clean cherry-pick -x of `cb269988` auto-merged with no conflicts)
+- **Files:** 1 file, +3/-0 (`src/main/java/me/cortex/voxy/client/core/VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** c6d6440cbefd65ac47beaa6bcdd5473171c75fdf
+- **Release:** v0.2.7-alpha-2.226
+- **Notes:** Cherry-pick -x of `cb269988` auto-merged cleanly. The change adds a guard in `VoxyRenderSystem` right after the existing `viewport == null` early-return: `if (viewport.width <= 0 || viewport.height <= 0) { return; }`, so the render setup (sampler reset, shader bind, draw) is skipped when the viewport has been resized to zero or a negative dimension instead of issuing a zero-area draw. The hunk sits in the fork's own `VoxyRenderSystem` at the identical method and the `Viewport` accessors used (`width`/`height`) are unchanged on 1.21.1, so it ports verbatim with no port pattern needed. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push e76dc7c0..c6d6440c on backport/sequential. Release v0.2.7-alpha-2.226 published. Counter advanced .225 -> .226.
