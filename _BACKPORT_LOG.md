@@ -1885,3 +1885,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4d73a3733f2e2aaf0653f8c208afa63f00d31ebe
 - **Release:** v0.2.7-alpha-2.205
 - **Notes:** `git cherry-pick -x 1ce3840d` auto-merged cleanly. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (30s). Push 6d3e514d..4d73a373 on backport/sequential. Release v0.2.7-alpha-2.205 created with both built jars and verified. Counter advanced .204 -> .205.
+
+## 248. `68566124f71134e1ef7be9985b0cbba5df4477c7` attribution
+- **Verdict:** APPLIED (clean cherry-pick: adds attribution comment line in the SSAO compute shader.)
+- **Files:** 1 file, +2/-0 (`src/main/resources/assets/voxy/shaders/post/ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** a7f2be8261caf65fc71ab3e99197b4032c8303ad
+- **Release:** v0.2.7-alpha-2.206
+- **Notes:** `git cherry-pick -x 68566124` auto-merged cleanly. compileJava SUCCESSFUL (21s), build -x test SUCCESSFUL (25s). Push 8d74d6d7..a7f2be82 on backport/sequential. Release v0.2.7-alpha-2.206 created with both built jars and verified. Counter advanced .205 -> .206.
