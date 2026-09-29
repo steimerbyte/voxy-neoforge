@@ -1828,3 +1828,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 014372a8d5628c800839eff9a219c7e96688f06b
 - **Release:** v0.2.7-alpha-2.199
 - **Notes:** `git cherry-pick -x f47670c6` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 1cadf2aa..014372a8 on backport/sequential. Release v0.2.7-alpha-2.199 created with both built jars and verified. Counter advanced .198 -> .199.
+
+
+## 241. `977f3a39b23b580d5d90b65e49ea646e59b89f8e` fix new texture pull method
+- **Verdict:** SKIPPED (the upstream commit only hardens block-atlas pixel-pack state before uploading into the deleted `SoftwareModelTextureBakery` rasterizer; the active 1.21.1 `ModelTextureBakery` has no such texture-pull path.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 977f3a39` produced a modify/delete conflict because `SoftwareModelTextureBakery.java` is absent from the fork. The conflict was aborted cleanly; no build or release was required, and the counter remains .199.
