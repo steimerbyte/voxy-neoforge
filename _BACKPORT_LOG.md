@@ -1635,3 +1635,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** f2f52484
 - **Release:** v0.2.7-alpha-2.182
 - **Notes:** `git cherry-pick -x 23b095b04` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9662acd0..f2f52484 on backport/sequential. Release v0.2.7-alpha-2.182 created with both built jars and verified. Counter advanced .181 -> .182.
+
+## 219. `6a691211bce202771dfee79eb9a3864c2e527c9c` 19 bit request ids
+- **Verdict:** APPLIED (clean cherry-pick: updates `NodeStore` request IDs to the 19-bit encoding expected by the hierarchical node protocol.)
+- **Files:** 1 file, +6/-4 (`NodeStore.java`)
+- **Result:** APPLIED
+- **SHA:** 6133e203
+- **Release:** v0.2.7-alpha-2.183
+- **Notes:** `git cherry-pick -x 6a691211` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 3d2396bd..6133e203 on backport/sequential. Release v0.2.7-alpha-2.183 created with both built jars and verified. Counter advanced .182 -> .183.
