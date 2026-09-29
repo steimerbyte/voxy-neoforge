@@ -1417,3 +1417,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4e9fd39b1e245fe2e920c9b103c5059c17b2778d
 - **Release:** v0.2.7-alpha-2.160
 - **Notes:** Cherry-pick -x of `cc7686d8` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push edbf11c3..4e9fd39b on backport/sequential. Release v0.2.7-alpha-2.160 created with both built jars. Counter advanced .159 → .160.
+
+
+## 193. `158ff6a5a8b397533ade909cd25672a79afb555c` reload when sodium thread sharing changes
+- **Verdict:** APPLIED (empty cherry-pick: upstream changed the deleted Fabric `VoxyConfigMenu`; the equivalent live NeoForge `VoxyConfigScreenPages` implementation already reloads the renderer and updates dedicated threads when Sodium thread sharing changes.)
+- **Files:** 0 files, +0/-0 (upstream modify/delete conflict resolved by retaining the fork deletion)
+- **Result:** APPLIED
+- **SHA:** 095baefd84e33c5e943084e41287829f8e7761c9
+- **Release:** v0.2.7-alpha-2.161
+- **Notes:** Cherry-pick -x of `158ff6a5` produced a modify/delete conflict for the fork-deleted `VoxyConfigMenu`; the live `VoxyConfigScreenPages` already contains the behavior, so the deletion was retained and the upstream commit was recorded as an empty commit. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 721cf835..095baefd on backport/sequential. Release v0.2.7-alpha-2.161 created with both built jars and verified. Counter advanced .160 → .161.
