@@ -1502,3 +1502,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d2d57895e73c426b2dfd27684bcf895362dd2105
 - **Release:** v0.2.7-alpha-2.170
 - **Notes:** Cherry-pick -x of `20e3bf6e` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s, one existing deprecation warning), build -x test SUCCESSFUL (9s). Push 5b256f76..d2d57895 on backport/sequential. Release v0.2.7-alpha-2.170 created with both built jars and verified. Counter advanced .169 → .170.
+
+
+## 203. `27f82dda8d100c9883e31c94836739dbb73a79fc` double rate distance
+- **Verdict:** APPLIED (clean cherry-pick: doubles the render-distance tracker update rate from 20 Hz to 40 Hz using the fork's existing renderer API.)
+- **Files:** 1 file, +1/-1 (`VoxyRenderSystem.java`)
+- **Result:** APPLIED
+- **SHA:** 1846b1875792c42bbf15370be30f7116c31b6d38
+- **Release:** v0.2.7-alpha-2.171
+- **Notes:** Cherry-pick -x of `27f82dda` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (10s). Push 7c9169be..1846b187 on backport/sequential. Release v0.2.7-alpha-2.171 created with both built jars and verified. Counter advanced .170 -> .171.
