@@ -1756,3 +1756,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 2ad2fd5b269536a760c11de4279324a3f711346c
 - **Release:** v0.2.7-alpha-2.193
 - **Notes:** `git cherry-pick -x 6d737822` auto-merged cleanly while retaining the fork's 1.21.1 four-parameter `setupFog` descriptor. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push 0998ad46..2ad2fd5b on backport/sequential. Release v0.2.7-alpha-2.193 created with both built jars and verified. Counter advanced .192 -> .193.
+
+
+## 233. `11afa37e4d2343e3e35a595ea1d09fd787d8fda7` clean up ref
+- **Verdict:** APPLIED+FIXED (ports the portable reference-cleanup changes to the 1.21.1 storage, unsafe, and conversion paths while retaining the fork's pure-Java ZSTD implementation.)
+- **Files:** 7 files, +63/-8 (`NodeStore.java`, `LZ4Compressor.java`, `ZSTDCompressor.java`, `SectionSerializationStorage.java`, `UnsafeUtil.java`, `WorldConversionFactory.java`, `SaveLoadSystem.java`)
+- **Result:** APPLIED
+- **SHA:** d36ccb5bb90fb14bfdbc619cfac520d04f77f0de
+- **Release:** v0.2.7-alpha-2.194
+- **Notes:** `git cherry-pick -x 11afa37e` conflicted in `ZSTDCompressor.java` and `UnsafeUtil.java`; retained the fork's zstd-jni compressor while applying its section-size reference and ported the portable unsafe/conversion/storage changes. The initial compile exposed the moved size constant, which was mapped to `SectionSerializationStorage.BIGGEST_SERIALIZED_SECTION_SIZE`; compileJava and build -x test then passed. Push 34b05090..d36ccb5b on backport/sequential. Release v0.2.7-alpha-2.194 created with both built jars and verified. Counter advanced .193 -> .194.
