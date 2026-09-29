@@ -1932,3 +1932,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** eaa6ce07a2655a3141d634fd9dedd6da525c43d5
 - **Release:** v0.2.7-alpha-2.211
 - **Notes:** `git cherry-pick -x f9e3f279` auto-merged `NormalRenderPipeline.java`, `SSAO.java` and `lang/en_us.json`, and conflicted only in `build.gradle`. The rocksdb-revert half is PORTABLE-AS-NO-OP here: upstream pins RocksDB via `include(implementation('org.rocksdb:rocksdbjni:10.2.1'))`, whereas this fork pins it through the `jarJar(...)` block with `prefer '10.9.1'` (the commit-228 memory-leak fix) and has no `include(...)` line for rocksdbjni at all, so the upstream revert has no corresponding hunk in the fork. Resolved with `git checkout --ours -- build.gradle`, which also kept the fork's `lwjglVersion = "3.3.3"` and the NeoForge `jarJar`/reobf setup instead of upstream's 3.4.1. Kept the portable ssao selection: `SSAO.createSSAO(SSAOMode)` selecting BASIC/BETTER(`spp=12`)/BEST(`spp=20`)/AUTO, `SSAO.addDebugInfo(List<String>)`, `NormalRenderPipeline` now building the pipeline from `VoxyConfig.CONFIG.getSSAOMode()` and forwarding `addDebug` to the SSAO instance, plus the `voxy.config.general.ssao_mode` lang entries. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (25s). Push 88880065..eaa6ce07 on backport/sequential. Release v0.2.7-alpha-2.211 created with both built jars and verified. Counter advanced .210 -> .211.
+
+## 254. `b24f59d414521991679dcbc5be0d4820cd2fd018` name thing
+- **Verdict:** APPLIED (clean cherry-pick: renames the SSAO debug-info string.)
+- **Files:** 1 file, +1/-1 (`src/main/java/me/cortex/voxy/client/core/SSAO.java`)
+- **Result:** APPLIED
+- **SHA:** 8e34a5dc4034520805fec1515f0d6974b87a69de
+- **Release:** v0.2.7-alpha-2.212
+- **Notes:** `git cherry-pick -x b24f59d4` auto-merged cleanly, no conflict. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (24s). Push 6360f205..8e34a5dc on backport/sequential. Release v0.2.7-alpha-2.212 created with both built jars and verified. Counter advanced .211 -> .212.
