@@ -1318,3 +1318,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 75f8cbb3
 - **Release:** v0.2.7-alpha-2.149
 - **Notes:** Cherry-pick -x of `2a979ac0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (10s). Push 2fbbf32c..75f8cbb3 on backport/sequential. Release v0.2.7-alpha-2.149 created with both built jars. Counter advanced .148 → .149.
+
+## 182. `c6b30e5164d683f19f4e0c7791fbf2d638010768` player uuid property, disable exclusive lock by default for now
+- **Verdict:** APPLIED (cherry-pick -x of `c6b30e5` auto-merged cleanly with no conflicts)
+- **Files:** 2 files, +2/-1 (`src/main/java/me/cortex/voxy/client/VoxyClient.java` +1/-1, `src/main/java/me/cortex/voxy/client/VoxyClientInstance.java` +1/-0)
+- **Result:** APPLIED
+- **SHA:** 87c9d9d1b5a4369dd8a4687a82d187a6c60ce4d1
+- **Release:** v0.2.7-alpha-2.150
+- **Notes:** Cherry-pick -x of `c6b30e5` auto-merged cleanly with no conflicts. Player uuid property added + exclusive lock defaulted to disabled. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push f0de7470..87c9d9d1 on backport/sequential. Release v0.2.7-alpha-2.150 published. Counter advanced .149 → .150.
