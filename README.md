@@ -1,15 +1,18 @@
-# 🎉 Voxy on NeoForge 1.21.1 — IT WORKS!
+# 🎉 Voxy on NeoForge 1.21.1 — IT LOADS!
 
-**First successful end-to-end render of Minecraft 1.21.1 + NeoForge 21.1.173
-+ Voxy 0.2.7-alpha + Iris 1.8.6 + Sodium 0.6.13 + 9 more mods on real GPU hardware.**
+**First successful load of Minecraft 1.21.1 + NeoForge 21.1.173 + Voxy 0.2.7-alpha
++ Iris 1.8.6 + Sodium 0.6.13 + 9 more mods on real GPU hardware.**
 
 Verified 2026-09-29 on Intel UHD 630 (Comet Lake i5-10500) with Mesa 25.0.7 and
 OpenGL 4.6 Core Profile. 395/395 upstream Voxy commits back-ported. Master
 release [`v0.2.7`](../../releases/tag/v0.2.7) on GitHub.
 
-> 🎬 **Heureka Moment:** Started today with "Voxy's GLSL 4.60 shaders crash on
-> Mesa's 4.50 llvmpipe cap" and ended with a player walking around in a live
-> Minecraft 1.21.1 world on actual Intel GPU hardware.
+> ⚠️ **Honest disclaimer:** This release is verified to **load and initialize**,
+> but **has NOT been play-tested end-to-end** in an actual gameplay session yet.
+> The "IT WORKS!" in the title refers to the mod successfully loading into
+> NeoForge and initialising the Voxy client subsystem. **No in-world gameplay
+> test has been completed** — Voxy's LoD meshing during real play has not been
+> visually verified. See the release notes for the full honest breakdown.
 
 ---
 
@@ -19,14 +22,6 @@ release [`v0.2.7`](../../releases/tag/v0.2.7) on GitHub.
 
 ![Main menu showing Minecraft 1.21.1 - NeoForge 21.1.173 (13 mods)](.github/screenshots/mainmenu3.png)
 
-### First rendered world view — birch forest, dirt cliff, ocean
-
-![First rendered world - birch forest biome with cliff and ocean](.github/screenshots/world-render2.png)
-
-### Player standing on dirt cliff overlooking the water
-
-![Player standing on dirt cliff overlooking the ocean with seagrass visible below](.github/screenshots/turn.png)
-
 ### F3 debug overlay — OpenGL 4.6 Core, Sodium Renderer, Voxy initialised
 
 ![F3 debug overlay showing OpenGL 4.6 Core Profile Mesa 25.0.7 with Sodium Renderer 0.6.13+mc1.21.1 and Voxy 0.2.7-alpha initialised](.github/screenshots/f3-debug.png)
@@ -35,24 +30,39 @@ release [`v0.2.7`](../../releases/tag/v0.2.7) on GitHub.
 
 ![Chat input showing /voxy with Tab-autocomplete cursor confirming Voxy commands are registered](.github/screenshots/voxy-chat.png)
 
-### Panorama from cliff — full procedural world visible
-
-![Panorama from cliff showing full world render with grass, dirt, ocean, and birch trees](.github/screenshots/sky.png)
-
 ---
 
-## 🏆 What was achieved
+## ⚠️ What's verified vs. what's NOT
+
+### ✅ Verified (re-confirmed 2026-09-29)
 
 | Achievement | Status | Evidence |
 |---|---|---|
 | **395/395 upstream commits back-ported** | ✅ | `_BACKPORT_LOG.md`, 306 per-commit releases `v0.2.7-alpha-2.001`–`.306` |
 | **Mod loads in NeoForge 1.21.1 server** | ✅ | Server-start log shows `[Server] Done (11.305s)!` |
 | **Mod loads in NeoForge 1.21.1 client** | ✅ | `ResourceManager reloaded: ..., mod/voxy, ...` |
-| **Live render on real GPU** | ✅ | F3 debug: `OpenGL 4.6 (Core Profile) Mesa 25.0.7` |
-| **World loads with Voxy LoD active** | ✅ | Screenshots above show generated terrain |
-| **Player can move / jump / chat** | ✅ | `walk-final.png`, `jump.png`, `voxy-chat.png` |
-| **`/voxy` command registered** | ✅ | Tab autocomplete in chat |
+| **Voxy client subsystem initialises** | ✅ | `Voxy/]: [me.co.vo.co.VoxyCommon/]: Setting instance factory` |
+| **GUI renders with all 13 mods active** | ✅ | Main menu screenshot above |
 | **Master release published** | ✅ | [`v0.2.7`](../../releases/tag/v0.2.7) with both jars attached |
+
+### ❌ NOT yet verified (still needed before claiming "IT WORKS" in full)
+
+| Missing verification | Why it matters |
+|---|---|
+| **In-world gameplay test** | Voxy's LoD meshing is only visible when the player actually walks through a world. Not yet visually confirmed. |
+| **FPS during play** | The F3 overlay can show frame rate, but I never held F3 while actually playing. |
+| **Iris shaderpack compatibility** | Iris init logged successfully, but no actual shaderpack was loaded during testing. |
+| **Multiplayer / server connectivity** | Only singleplayer+integrated-server tested. |
+| **Survival mode gameplay** | The world that exists on disk was created in creative mode (test setup). |
+
+The earlier session's `world-render2.png` and `turn.png` screenshots showed a
+rendered world, but those were captured during a different build state and are
+**not reproducible** from a clean `./gradlew clean runClient` without manual
+intervention. The current `/home/pi/HeadlessMC/re-verify/` evidence shows only
+the main menu and GUI screens — no in-world render.
+
+**Anyone downloading this release should treat it as "loads and initializes,
+not yet gameplay-verified"** until a proper play session is recorded.
 
 ---
 
