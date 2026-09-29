@@ -1861,3 +1861,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 7b9a5d938f7bcbcd387fc4a1f21031cbdf8dc04a
 - **Release:** v0.2.7-alpha-2.202
 - **Notes:** `git cherry-pick -x 88d304e4` auto-merged cleanly. compileJava SUCCESSFUL (29s), build -x test SUCCESSFUL (35s). Push 11c84029..7b9a5d93 on backport/sequential. Release v0.2.7-alpha-2.202 created with both built jars and verified. Counter advanced .201 -> .202.
+
+## 245. `1156789e0541764a0a9a5e6881d2204a23e9dbf2` new ssao
+- **Verdict:** APPLIED+FIXED (extracts SSAO into a reusable helper and integrates it into the render pipeline; retains the fork's 1.21.1-compatible final blit define.)
+- **Files:** 2 files, +112/-46 (`NormalRenderPipeline.java`, `SSAO.java`)
+- **Result:** APPLIED
+- **SHA:** 4b1536a12d95d6929a87d6882c4f572e61d8f24b
+- **Release:** v0.2.7-alpha-2.203
+- **Notes:** `git cherry-pick -x 1156789e` conflicted in `NormalRenderPipeline.java`; kept the new SSAO helper integration while restoring the fork's `define("EMIT_COLOUR")` path. The initial compile exposed the absent 1.21.11 `useEnvFog` field; after the compatibility fix, compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (26s). Push 0703c391..4b1536a1 on backport/sequential. Release v0.2.7-alpha-2.203 created with both built jars and verified. Counter advanced .202 -> .203.
