@@ -1399,3 +1399,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 7ecfa19712c2cf353deb5dcea5cff0236938ff0c
 - **Release:** v0.2.7-alpha-2.158
 - **Notes:** Cherry-pick -x of `03b39a16` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 225b0edf..7ecfa197 on backport/sequential. Release v0.2.7-alpha-2.158 created with both built jars. Counter advanced .157 → .158.
+
+
+## 191. `05f9f5e0df04b6a7c69148f445586587d2b87215` sighhhhhhhhhhhhhhhhhhhhhhhhh
+- **Verdict:** APPLIED (clean cherry-pick: adjusts MDIC section culling and the related quad/raster shader paths; the changes compile against the fork's existing renderer interfaces and have no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 3 files, +9/-5 (`MDICSectionRenderer.java`, `cull/raster.vert`, and `quads3.vert`)
+- **Result:** APPLIED
+- **SHA:** bfd8fa702c6fa7aab880031ed2713da133ae3b02
+- **Release:** v0.2.7-alpha-2.159
+- **Notes:** Cherry-pick -x of `05f9f5e0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4aa8cac5..bfd8fa70 on backport/sequential. Release v0.2.7-alpha-2.159 created with both built jars. Counter advanced .158 → .159.
