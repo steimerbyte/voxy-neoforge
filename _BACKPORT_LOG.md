@@ -1470,3 +1470,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 383b61296676a273e86ad23b5139f384edbd5639
 - **Release:** v0.2.7-alpha-2.166
 - **Notes:** Cherry-pick -x of `0637d1ad` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push b6f5d384..383b6129 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.166 was created with the actual full SHA and both built jars and verified. Counter advanced .165 → .166.
+
+## 199. `fd81fd183bdb40d683f6eba60277adfd4e888de6` dont limit meshing speed at all actually
+- **Verdict:** APPLIED (clean cherry-pick: removes the fixed meshing-rate sleep and schedules the next mesh slice directly through the existing executor.)
+- **Files:** 1 file, +1/-3 (`src/main/java/me/cortex/voxy/client/core/rendering/building/RenderGenerationService.java`)
+- **Result:** APPLIED
+- **SHA:** 885ac7c5beb4e1deb8d4824181971bc834d116f7
+- **Release:** v0.2.7-alpha-2.167
+- **Notes:** Cherry-pick -x of `fd81fd18` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 45e386e5..885ac7c5 on backport/sequential. Release v0.2.7-alpha-2.167 created with both built jars and verified. Counter advanced .166 → .167.
