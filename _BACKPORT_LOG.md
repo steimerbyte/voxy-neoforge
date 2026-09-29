@@ -3128,3 +3128,16 @@ Batch 389-393 summary: 5 APPLIED, 0 SKIPPED. Five releases published, counter ad
 - **SHA:** f6a068c4
 - **Release:** v0.2.7-alpha-2.305
 - **Notes:** Cherry-pick -x of `246baa77` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Counter advanced .304 → .305.
+
+## 395. `534d58ec8b4aa412ef314b884295552c69d480a6` add, wire and pipe useDynamicFarPlane for shaders, increments SHADER_DEFINE_VERSION to 3
+- **Verdict:** APPLIED (clean cherry-pick -x of `534d58e` auto-merged with no conflicts)
+- **Files:** 4 files, +21/-3 (IrisVoxyRenderPipeline.java, VoxyRenderSystem.java, IrisShaderPatch.java, IrisVoxyRenderPipelineData.java)
+- **Result:** APPLIED
+- **SHA:** 14c32ba1
+- **Release:** v0.2.7-alpha-2.306
+- **Notes:** Cherry-pick -x of `534d58e` auto-merged cleanly. SHADER_DEFINE_VERSION incremented to 3. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Counter advanced .305 → .306. This completes all 395 upstream commits.
+
+## FINAL BACKPORT SUMMARY
+- All 395 upstream commits processed.
+- Counter end: v0.2.7-alpha-2.306.
+- Branch: backport/sequential is fully backported from MCRcortex/voxy@dev with per-commit releases.
