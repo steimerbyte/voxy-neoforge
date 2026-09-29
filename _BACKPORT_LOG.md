@@ -1529,3 +1529,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 276c81bae6e14ceac73981217aa11ceea5207f6a
 - **Release:** v0.2.7-alpha-2.172
 - **Notes:** Cherry-pick -x of `193ab55d` conflicted in `WorldConversionFactory.java` and `WorldImporter.java`; resolved by retaining the fork's `ModList` and existing 1.21.1 imports while accepting the upstream refactor. The first compileJava run found the fork-resolved `WorldImporter` missing the new mipper import; commit `276c81ba` added it, then compileJava SUCCESSFUL (11s) and build -x test SUCCESSFUL (9s). Push e3e02858..276c81ba on backport/sequential. Release v0.2.7-alpha-2.172 created with both built jars and verified. Counter advanced .171 -> .172.
+
+
+## 206. `b72fcef6f3e9efbe5973825974eb1d2172c90934` breaks worldgen mod 2.2.2
+- **Verdict:** APPLIED+FIXED (declares voxyworldgenv2 2.2.2 incompatible; the upstream Fabric `breaks` entry was mirrored in `neoforge.mods.toml` using NeoForge's `type="incompatible"` dependency syntax.)
+- **Files:** 2 files, +10/-0 (`fabric.mod.json`, `META-INF/neoforge.mods.toml`)
+- **Result:** APPLIED
+- **SHA:** 17aebceed765fda26c21b05a308ea68c5531bc62
+- **Release:** v0.2.7-alpha-2.173
+- **Notes:** Cherry-pick -x of `b72fcef6` auto-merged the retained Fabric metadata cleanly. The upstream compatibility declaration is loader-specific, so follow-up commit `17aebcee` added the equivalent NeoForge incompatible dependency for `voxyworldgenv2` version `[2.2.2]`. compileJava SUCCESSFUL (7s), final compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push b78a27d4..17aebcee on backport/sequential. Release v0.2.7-alpha-2.173 created with both built jars and verified. Counter advanced .172 -> .173.
