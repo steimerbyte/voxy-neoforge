@@ -1335,3 +1335,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 631845c0692cefdd5027264b64c9ed48451f7dd8
 - **Release:** v0.2.7-alpha-2.151
 - **Notes:** Cherry-pick -x of `370cdacc` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push bb8f9bbf..631845c0 on backport/sequential. GitHub rejected the abbreviated release target, so release v0.2.7-alpha-2.151 was created successfully with the full SHA and both built jars. Counter advanced .150 → .151.
+
+
+## 184. `77d7ded28262a9cee1e55563ca5e272a4378feca` nv linux 2gb max heap
+- **Verdict:** APPLIED (clean cherry-pick: detects Linux and caps Nvidia geometry-buffer capacity below the 2 GiB direct-buffer threshold; this is renderer-only logic with no MC 1.21.11 or Sodium 0.7 dependency.)
+- **Files:** 2 files, +5/-0 (`RenderResourceReuse.java` +4/-0, `ThreadUtils.java` +1/-0)
+- **Result:** APPLIED
+- **SHA:** 96165f6578176af6ab3a6624666846a2c614c040
+- **Release:** v0.2.7-alpha-2.152
+- **Notes:** Cherry-pick -x of `77d7ded2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push f10fea4b..96165f65 on backport/sequential. Release v0.2.7-alpha-2.152 created with both built jars. Counter advanced .151 → .152.
