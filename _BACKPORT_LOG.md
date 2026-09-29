@@ -1478,3 +1478,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 885ac7c5beb4e1deb8d4824181971bc834d116f7
 - **Release:** v0.2.7-alpha-2.167
 - **Notes:** Cherry-pick -x of `fd81fd18` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 45e386e5..885ac7c5 on backport/sequential. Release v0.2.7-alpha-2.167 created with both built jars and verified. Counter advanced .166 → .167.
+
+## 200. `a71ca6b00110c1294da3d844781b6bee4f83e904` dump json on shader load error
+- **Verdict:** APPLIED (clean cherry-pick: preserves the Iris shader exception in the Voxy log and emits the shader JSON to the client log before failing shader load.)
+- **Files:** 1 file, +10/-2 (`src/main/java/me/cortex/voxy/client/iris/IrisShaderPatch.java`)
+- **Result:** APPLIED
+- **SHA:** 90e2aa81da08a1c77bd0537c643c8026b9cc0b25
+- **Release:** v0.2.7-alpha-2.168
+- **Notes:** Cherry-pick -x of `a71ca6b0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 25d2847b..90e2aa81 on backport/sequential. Release v0.2.7-alpha-2.168 created with both built jars and verified. Counter advanced .167 → .168.
