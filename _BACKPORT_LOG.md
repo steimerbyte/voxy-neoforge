@@ -2020,3 +2020,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 8932a4091565df97a14f417b0277e1f5108cd9d3
 - **Release:** v0.2.7-alpha-2.221
 - **Notes:** Cherry-pick -x of `d2f87345` auto-merged cleanly (single-line hunk in `VoxyInstance.getWorldObject`, releasing the `activeWorldLock` write lock on the not-running error path so a failed lookup no longer leaks the lock). compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 863993f4..8932a409 on backport/sequential. Release v0.2.7-alpha-2.221 published. Counter advanced .220 -> .221.
+
+## 265. `9694968d788fa70c37fec92e68b050613e58144d` try fix stupid chunks fade in issue
+- **Verdict:** APPLIED (clean cherry-pick -x of `9694968d` auto-merged with no conflicts)
+- **Files:** 1 file, +4/-0 (`src/main/java/me/cortex/voxy/client/iris/IrisShaderPatch.java`)
+- **Result:** APPLIED
+- **SHA:** da353d7e762a9b8e5a344b4d5e99a592aa63ab8f
+- **Release:** v0.2.7-alpha-2.222
+- **Notes:** Cherry-pick -x of `9694968d` auto-merged cleanly. The change strips the `void _cfi_ignoreMarker() {}` no-op marker function from the generated Voxy patch JSON before deserialization, working around the chunk fade-in issue. Pure string/JSON manipulation, no MC- or Sodium-version-specific API, so it ports verbatim. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push e4b5d406..da353d7e on backport/sequential. Release v0.2.7-alpha-2.222 published. Counter advanced .221 -> .222.
