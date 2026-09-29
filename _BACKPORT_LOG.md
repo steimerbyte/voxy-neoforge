@@ -1783,3 +1783,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 9c10f3e8
 - **Release:** v0.2.7-alpha-2.196
 - **Notes:** `git cherry-pick -x 97e8ae90` conflicted in the Gradle wrapper; `build.gradle` and the wrapper properties were resolved with the fork's Java 21/Gradle 8.14 configuration, and all Java-version-only changes were omitted as non-portable. The resulting provenance commit is empty. compileJava SUCCESSFUL (13s), build -x test SUCCESSFUL (10s). Push 62c12f5c..9c10f3e8 on backport/sequential. Release v0.2.7-alpha-2.196 created with both built jars and verified. Counter advanced .195 -> .196.
+
+
+## 236. `c773c3be2bb14a8db1344930bd898cfc4a3e0bb7` cleanup
+- **Verdict:** APPLIED+FIXED (removes obsolete unused renderer/world/config helper classes while preserving the fork's active SaveLoadSystem3 and zstd-jni storage paths; a stale import left by the cleanup was removed.)
+- **Files:** 10 files, +0/-1350 (`RingUtil.java`, `MessageQueue.java`, `MultiGson.java`, `LoadedPositionTracker.java`, `SaveLoadSystem.java`, `SaveLoadSystem2.java`, `VoxyConfigStore.java`, `LZ4Compressor.java`, `SectionSerializationStorage.java`, `ZSTDCompressor.java`)
+- **Result:** APPLIED
+- **SHA:** b05db984
+- **Release:** v0.2.7-alpha-2.197
+- **Notes:** `git cherry-pick -x c773c3be` had a modify/delete conflict in the NeoForge `VoxyConfigStore.java`; resolved by accepting the cleanup deletion. The first compile found the retained pure-Java ZSTD compressor's now-stale `SaveLoadSystem` import, which was removed; compileJava then passed (8s) and build -x test passed (9s). Push a969fff5..b05db984 on backport/sequential. Release v0.2.7-alpha-2.197 created with both built jars and verified. Counter advanced .196 -> .197.
