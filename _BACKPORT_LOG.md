@@ -1494,3 +1494,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 44e36fffe8b2fc7445dcf628df6a72fdcd9e7b3d
 - **Release:** v0.2.7-alpha-2.169
 - **Notes:** Cherry-pick -x of `da5a6543` conflicted with a nearby unregistered `MixinGlDebug` entry from the fork; resolved by retaining all unrelated registrations while applying the removal of `MixinLayerLightSectionStorage`. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 5d32c525..44e36fff on backport/sequential. Release v0.2.7-alpha-2.169 created with both built jars and verified. Counter advanced .168 → .169.
+
+## 202. `20e3bf6e0033baf74f8d9a4fd7eaf17e32edade3` cries in jvm
+- **Verdict:** APPLIED (clean cherry-pick: adds raw GLSL-style model-metadata query helpers and refactors render-data/save-load paths to use the shared helpers.)
+- **Files:** 3 files, +46/-30 (`ModelQueries.java`, `RenderDataFactory.java`, `SaveLoadSystem3.java`)
+- **Result:** APPLIED
+- **SHA:** d2d57895e73c426b2dfd27684bcf895362dd2105
+- **Release:** v0.2.7-alpha-2.170
+- **Notes:** Cherry-pick -x of `20e3bf6e` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s, one existing deprecation warning), build -x test SUCCESSFUL (9s). Push 5b256f76..d2d57895 on backport/sequential. Release v0.2.7-alpha-2.170 created with both built jars and verified. Counter advanced .169 → .170.
