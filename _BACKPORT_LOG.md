@@ -1611,3 +1611,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 81250957
 - **Release:** v0.2.7-alpha-2.179
 - **Notes:** Cherry-pick -x of `32f3fda4` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 0d2a6356..81250957 on backport/sequential. Release v0.2.7-alpha-2.179 created with both built jars and verified. Counter advanced .178 -> .179.
+
+## 216. `80d217d897c940cb7156055ec1e8840ac7b638d3` size limiting ExpandingObjectAllocationList
+- **Verdict:** APPLIED (clean cherry-pick: adds an optional allocation-list capacity and fails explicitly when a bounded allocator exhausts its IDs.)
+- **Files:** 1 file, +12/-1 (`ExpandingObjectAllocationList.java`)
+- **Result:** APPLIED
+- **SHA:** 8b7a0bb6
+- **Release:** v0.2.7-alpha-2.180
+- **Notes:** Cherry-pick -x of `80d217d8` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4fee34e6..8b7a0bb6 on backport/sequential. Release v0.2.7-alpha-2.180 created with both built jars and verified. Counter advanced .179 -> .180.
