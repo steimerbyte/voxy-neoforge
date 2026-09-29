@@ -1363,3 +1363,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 27075aad7431ac01d600dfcf497335feaf948bee
 - **Release:** v0.2.7-alpha-2.154
 - **Notes:** Cherry-pick -x of `449be6d2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 65782550..27075aad on backport/sequential. Release v0.2.7-alpha-2.154 created with both built jars. Counter advanced .153 → .154.
+
+
+## 187. `cd7dba0ae9903a07b78e9187a5f6ea4e70cfb690` on load failed, log
+- **Verdict:** APPLIED (clean cherry-pick: catches failures while resolving Linux `sched_setaffinity`, logs the exception through Voxy's logger, and leaves the native function address unavailable instead of failing class initialization.)
+- **Files:** 1 file, +9/-2 (`src/main/java/me/cortex/voxy/common/util/ThreadUtils.java`)
+- **Result:** APPLIED
+- **SHA:** 08c597de3e437499b502d940a134d406117f99c0
+- **Release:** v0.2.7-alpha-2.155
+- **Notes:** Cherry-pick -x of `cd7dba0a` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push ac2d50d5..08c597de on backport/sequential. Release v0.2.7-alpha-2.155 created with both built jars. Counter advanced .154 → .155.
