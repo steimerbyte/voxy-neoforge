@@ -1344,3 +1344,13 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 96165f6578176af6ab3a6624666846a2c614c040
 - **Release:** v0.2.7-alpha-2.152
 - **Notes:** Cherry-pick -x of `77d7ded2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push f10fea4b..96165f65 on backport/sequential. Release v0.2.7-alpha-2.152 created with both built jars. Counter advanced .151 → .152.
+
+
+## 185. `f897f4c68c9d63d0c623899357734699f4b3b376` Client session lifecycle events
+- **Verdict:** APPLIED+FIXED (introduces a guarded client-session lifecycle abstraction, starts it from login handling, ends it on disconnect, and uses it to gate configuration enablement; the upstream Fabric config-menu reference was ported to the fork's NeoForge Sodium `VoxyConfigScreenPages` path, and the obsolete modify/delete file was removed.)
+- **Files:** 7 files, +41/-36 (`ClientSessionEvents.java` +29/-0, `VoxyClientInstance.java` +4/-4, `VoxyConfigScreenPages.java` +2/-1, `RenderResourceReuse.java` +1/-1, two mixins +6/-22, `VoxyCommon.java` +0/-4)
+- **Result:** APPLIED+FIXED
+- **SHA:** 630b2b138accfea9ef9e758c8b653410aca31fbc
+- **Release:** v0.2.7-alpha-2.153
+- **Fix:** Retained the fork's NeoForge config-screen implementation and changed its in-game check from `VoxyClientInstance.isInGame` to `ClientSessionEvents.inSession`; login/disconnect mixins now own the session state, while the old empty common hook was removed.
+- **Notes:** Cherry-pick -x of `f897f4c6` produced one modify/delete conflict for fork-deleted `VoxyConfigMenu.java`; the upstream lifecycle class and mixins were retained, the deleted file was removed, and the equivalent live config-page hunk was ported. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 8bd96aee..630b2b13 on backport/sequential. Release v0.2.7-alpha-2.153 created with both built jars. Counter advanced .152 → .153.
