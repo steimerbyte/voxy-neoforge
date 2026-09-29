@@ -1643,3 +1643,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 6133e203
 - **Release:** v0.2.7-alpha-2.183
 - **Notes:** `git cherry-pick -x 6a691211` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 3d2396bd..6133e203 on backport/sequential. Release v0.2.7-alpha-2.183 created with both built jars and verified. Counter advanced .182 -> .183.
+
+## 220. `a5bb6a73bf4cef148bab6d90ca944e29900398b4` fix issue with large texture packs
+- **Verdict:** SKIPPED (MC-26-ONLY: the fix targets `SoftwareModelTextureBakery` and its MC 1.21.11 `GpuBuffer`/`CommandEncoder` large-buffer mapping path, which does not exist in the 1.21.1 NeoForge fork; the fork uses `ModelTextureBakery` with a different GL capture path.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x a5bb6a73` conflicted in the renamed upstream `SoftwareModelTextureBakery.java` versus fork `ModelTextureBakery.java`; retaining the fork side produced no portable hunk, so the cherry-pick was aborted cleanly. No build or release was needed, and the counter remains .183.
