@@ -1667,3 +1667,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 92452fd2
 - **Release:** v0.2.7-alpha-2.185
 - **Notes:** `git cherry-pick -x c7ae7141` conflicted in the Fabric-specific `VoxyCommon` block; resolving that file with the fork side preserved the NeoForge `VoxyCommon` implementation and accepted the portable `build.gradle` change. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push a21f0e0d..92452fd2 on backport/sequential. Release v0.2.7-alpha-2.185 created with both built jars and verified. Counter advanced .184 -> .185.
+
+## 223. `7bb498f2bd0a103e43ee29dceafce4ae8719d003` thing hash
+- **Verdict:** SKIPPED (NeoForge build packaging already has no Fabric `remapJar` classifier block; the upstream one-line short-hash classifier change is inapplicable to this fork.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x 7bb498f2` conflicted in `build.gradle`; retaining the fork's NeoForge `reobfJar` configuration left an empty patch, so it was skipped cleanly. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). No release was created and the counter remains .185. 
