@@ -1381,3 +1381,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4edd57fcf89d45bd79e5bad076d8a7153fa6fab3
 - **Release:** v0.2.7-alpha-2.156
 - **Notes:** Cherry-pick -x of `b49e8fe2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 37679362..4edd57fc on backport/sequential. GitHub rejected the initial mistyped release target, so release v0.2.7-alpha-2.156 was created successfully with the actual full SHA and both built jars. Counter advanced .155 → .156.
+
+
+## 189. `bef1a8b606b9a6e67e295f5811ec26530ce67ef4` revert culling expand to 1 and shift z offset
+- **Verdict:** APPLIED (clean cherry-pick: restores one-pixel culling expansion and shifts the raster z offset; the change is renderer-source-only and has no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +5/-7 (`src/main/resources/assets/voxy/shaders/lod/gl46/cull/raster.vert`)
+- **Result:** APPLIED
+- **SHA:** 251cb98f7837dfd4be8eb5a2db6450c3957ea468
+- **Release:** v0.2.7-alpha-2.157
+- **Notes:** Cherry-pick -x of `bef1a8b6` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 7dd4a5a0..251cb98f on backport/sequential. GitHub rejected the abbreviated release target, so release v0.2.7-alpha-2.157 was created successfully with the full SHA and both built jars. Counter advanced .156 → .157.
