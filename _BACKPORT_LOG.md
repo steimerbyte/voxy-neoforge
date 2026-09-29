@@ -2092,3 +2092,10 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4faa1396c0cf5ef227143e2df185352bf40b7605
 - **Release:** v0.2.7-alpha-2.230
 - **Notes:** Cherry-pick -x of `e22cf5b` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 3daf7856..4faa1396 on backport/sequential. Release v0.2.7-alpha-2.230 published. Counter advanced .229 → .230.
+## 274. `41e9a427b047335bc4e2765dd41fb08c4b92bde2` quad jank
+- **Verdict:** APPLIED (clean cherry-pick -x of `41e9a427` auto-merged with no conflicts)
+- **Files:** 2 files, +6/-1 (`src/main/resources/assets/voxy/shaders/lod/gl46/quads3.vert`, `src/main/resources/assets/voxy/shaders/lod/quad_format.glsl`)
+- **Result:** APPLIED
+- **SHA:** 3f3458c679fd126ebd906e1ac2a72cdb593ec77a
+- **Release:** v0.2.7-alpha-2.231
+- **Notes:** Cherry-pick -x of `41e9a427` auto-merged cleanly. The commit touches only GLSL shader resources under `src/main/resources/assets/voxy/shaders/` - no Java, no MC-version-specific API, so it ports verbatim with no port pattern needed. It adds 5 lines to `lod/gl46/quads3.vert` and adjusts one line in `lod/quad_format.glsl`, both aimed at removing visible popping ("jank") when the LOD quad LOD level transitions. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 339196c3..3f3458c6 on backport/sequential. Release v0.2.7-alpha-2.231 published against full SHA 3f3458c679fd126ebd906e1ac2a72cdb593ec77a. Counter advanced .230 -> .231.
