@@ -1651,3 +1651,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x a5bb6a73` conflicted in the renamed upstream `SoftwareModelTextureBakery.java` versus fork `ModelTextureBakery.java`; retaining the fork side produced no portable hunk, so the cherry-pick was aborted cleanly. No build or release was needed, and the counter remains .183.
+
+## 221. `bd4cc8f685df80310dd94f19e9541c367e510c77` e
+- **Verdict:** APPLIED (clean cherry-pick: updates the client-level tick/weather mixin behavior carried by upstream commit `e`.)
+- **Files:** 1 file, +3/-1 (`MixinClientLevel.java`)
+- **Result:** APPLIED
+- **SHA:** 4a7ab12e
+- **Release:** v0.2.7-alpha-2.184
+- **Notes:** `git cherry-pick -x bd4cc8f6` auto-merged cleanly. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push e19b64cb..4a7ab12e on backport/sequential. Release v0.2.7-alpha-2.184 created with both built jars and verified. Counter advanced .183 -> .184.
