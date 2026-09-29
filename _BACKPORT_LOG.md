@@ -1869,3 +1869,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4b1536a12d95d6929a87d6882c4f572e61d8f24b
 - **Release:** v0.2.7-alpha-2.203
 - **Notes:** `git cherry-pick -x 1156789e` conflicted in `NormalRenderPipeline.java`; kept the new SSAO helper integration while restoring the fork's `define("EMIT_COLOUR")` path. The initial compile exposed the absent 1.21.11 `useEnvFog` field; after the compatibility fix, compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (26s). Push 0703c391..4b1536a1 on backport/sequential. Release v0.2.7-alpha-2.203 created with both built jars and verified. Counter advanced .202 -> .203.
+
+## 246. `70f82a790b5fcab0a36eb9a1fcd59b5f9c37fd58` more work on ssao
+- **Verdict:** APPLIED (clean cherry-pick: adds SSAO sampling and shader tuning.)
+- **Files:** 4 files, +27/-3
+- **Result:** APPLIED
+- **SHA:** d5241ee7c9d9579e4af2b9d2fe3e4528820ae6d9
+- **Release:** v0.2.7-alpha-2.204
+- **Notes:** `git cherry-pick -x 70f82a79` auto-merged cleanly. compileJava SUCCESSFUL (32s), build -x test SUCCESSFUL (25s). Push 6ab114a4..d5241ee7 on backport/sequential. Release v0.2.7-alpha-2.204 created with both built jars and verified. Counter advanced .203 -> .204.
