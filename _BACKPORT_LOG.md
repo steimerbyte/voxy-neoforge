@@ -1720,3 +1720,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** e350e40552197d6c0d1b7b9e224a7371d5f6dbd6
 - **Release:** v0.2.7-alpha-2.190
 - **Notes:** `git cherry-pick -x 352da265` conflicted only in the NeoForge JarJar dependency block; retained its syntax while porting the required RocksDB 10.9.1 preference. compileJava SUCCESSFUL (18s), build -x test SUCCESSFUL (10s). Push 6a855c67..e350e405 on backport/sequential. Release v0.2.7-alpha-2.190 created with both built jars and verified. Counter advanced .189 -> .190.
+
+
+## 229. `7dc24842057854ac609c5a4a4dbf635b959e45e8` prep
+- **Verdict:** APPLIED (clean cherry-pick: adds the preparation changes used by the following accidental-double-close fix.)
+- **Files:** 2 files, +3/-0 (`AbstractRenderPipeline.java`, `AbstractSectionRenderer.java`)
+- **Result:** APPLIED
+- **SHA:** 2ae4e31a6b29065b412bd4ff32dc882c531f71da
+- **Release:** v0.2.7-alpha-2.191
+- **Notes:** `git cherry-pick -x 7dc24842` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push a6ea51b1..2ae4e31a on backport/sequential. Release v0.2.7-alpha-2.191 created with both built jars and verified. Counter advanced .190 -> .191.
