@@ -1877,3 +1877,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** d5241ee7c9d9579e4af2b9d2fe3e4528820ae6d9
 - **Release:** v0.2.7-alpha-2.204
 - **Notes:** `git cherry-pick -x 70f82a79` auto-merged cleanly. compileJava SUCCESSFUL (32s), build -x test SUCCESSFUL (25s). Push 6ab114a4..d5241ee7 on backport/sequential. Release v0.2.7-alpha-2.204 created with both built jars and verified. Counter advanced .203 -> .204.
+
+## 247. `1ce3840d5a99d791c84db18a66bb8d8bb6cfe9aa` small opto
+- **Verdict:** APPLIED (clean cherry-pick: applies the small SSAO render-path optimization.)
+- **Files:** 3 files, +13/-13
+- **Result:** APPLIED
+- **SHA:** 4d73a3733f2e2aaf0653f8c208afa63f00d31ebe
+- **Release:** v0.2.7-alpha-2.205
+- **Notes:** `git cherry-pick -x 1ce3840d` auto-merged cleanly. compileJava SUCCESSFUL (33s), build -x test SUCCESSFUL (30s). Push 6d3e514d..4d73a373 on backport/sequential. Release v0.2.7-alpha-2.205 created with both built jars and verified. Counter advanced .204 -> .205.
