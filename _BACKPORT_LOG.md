@@ -1587,3 +1587,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** N/A
 - **Release:** N/A
 - **Notes:** `git cherry-pick -x 7fec0392` conflicted only in `build.gradle` and `fabric.mod.json`, both targeting the MC 1.21.11 Sodium setup. The cherry-pick was aborted cleanly, leaving HEAD `d919aa08` and only session-only `HANDOFF.md` in the working tree. No release was created and the counter remains .177.
+
+## 213. `f292e268869ef324fe446695c03c8f0669b1a6ec` update iris
+- **Verdict:** SKIPPED (MC-26-ONLY: upstream only bumps the Iris artifact from 1.10.6 to 1.10.7 for MC 1.21.11 Fabric; the 1.21.1 NeoForge fork retains its compatible Iris dependency set.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x f292e268` conflicted only in `build.gradle` at the MC 1.21.11 Iris 1.10.7 dependency lines. The cherry-pick was aborted cleanly, leaving HEAD `07a7c2ab` and only session-only `HANDOFF.md` in the working tree. No build or release was needed for the incompatible dependency-only patch, and the counter remains .177.
