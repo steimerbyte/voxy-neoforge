@@ -1901,3 +1901,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** a5aeb8d115be5ba8135d82cce98d2a7ecc40fe5f
 - **Release:** v0.2.7-alpha-2.207
 - **Notes:** `git cherry-pick -x 184ff7a6` auto-merged cleanly. compileJava SUCCESSFUL (28s), build -x test SUCCESSFUL (25s). Push f0563fe3..a5aeb8d1 on backport/sequential. Release v0.2.7-alpha-2.207 created with both built jars and verified. Counter advanced .206 -> .207.
+
+## 250. `ef27a761f42e5a75963ee47e66d613ee8c8adf7c` hh
+- **Verdict:** APPLIED (clean cherry-pick: minor SSAO uniform/shader tweak plus one render-pipeline line.)
+- **Files:** 3 files, +3/-4 (`NormalRenderPipeline.java`, `SSAO.java`, `shaders/post/ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** b50f7c6dcacdda502d76c63f42989f3494165a07
+- **Release:** v0.2.7-alpha-2.208
+- **Notes:** `git cherry-pick -x ef27a761` auto-merged (NormalRenderPipeline.java auto-merged, no conflict). compileJava SUCCESSFUL (26s), build -x test SUCCESSFUL (25s). Push f8fc896a..b50f7c6d on backport/sequential. Release v0.2.7-alpha-2.208 created with both built jars and verified. Counter advanced .207 -> .208.
