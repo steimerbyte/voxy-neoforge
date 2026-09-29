@@ -1819,3 +1819,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 2031ca4e3964a1890d599ff4d83ea9701d9d4d76
 - **Release:** v0.2.7-alpha-2.198
 - **Notes:** `git cherry-pick -x a776e447` auto-merged cleanly. The first compile exposed the retained stale `postOpaquePreTranslucent(viewport)` call; it was removed before amending. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 3a381251..2031ca4e on backport/sequential. Release v0.2.7-alpha-2.198 created with both built jars and verified. Counter advanced .197 -> .198.
+
+
+## 240. `f47670c61380e602d375c6796c7f71e3cd22d01e` name
+- **Verdict:** APPLIED (clean cherry-pick: renames the post-opaque pipeline hook parameter consistently across the abstract, normal, and Iris pipelines.)
+- **Files:** 3 files, +3/-3 (`AbstractRenderPipeline.java`, `IrisVoxyRenderPipeline.java`, `NormalRenderPipeline.java`)
+- **Result:** APPLIED
+- **SHA:** 014372a8d5628c800839eff9a219c7e96688f06b
+- **Release:** v0.2.7-alpha-2.199
+- **Notes:** `git cherry-pick -x f47670c6` auto-merged cleanly. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 1cadf2aa..014372a8 on backport/sequential. Release v0.2.7-alpha-2.199 created with both built jars and verified. Counter advanced .198 -> .199.
