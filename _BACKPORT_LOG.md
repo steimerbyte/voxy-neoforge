@@ -1563,3 +1563,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 40baded109af396dbd3e2e9d4061ba634aa2fd80
 - **Release:** v0.2.7-alpha-2.175
 - **Notes:** Cherry-pick -x of `4d5b2178` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 8d6034d5..40baded1 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.175 was created with the actual full SHA and both built jars and verified. Counter advanced .174 -> .175.
+
+## 210. `74ccb38a5a80fddfbe328c38dfbf95d15ea6bf1a` pull out big method
+- **Verdict:** APPLIED (clean cherry-pick: extracts the model-baking coordinate conversion logic from `RenderDataFactory` into the new `getModelBlockPosition` helper without changing behavior.)
+- **Files:** 1 file, +17/-14 (`RenderDataFactory.java`)
+- **Result:** APPLIED
+- **SHA:** b62391f848f29068fe06fa18fdb045ee0d01e44e
+- **Release:** v0.2.7-alpha-2.176
+- **Notes:** Cherry-pick -x of `74ccb38a` auto-merged cleanly. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 9cf0e944..b62391f8 on backport/sequential. GitHub rejected the abbreviated release target, then release v0.2.7-alpha-2.176 was created with the actual full SHA and both built jars and verified. Counter advanced .175 -> .176.
