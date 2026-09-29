@@ -1326,3 +1326,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 87c9d9d1b5a4369dd8a4687a82d187a6c60ce4d1
 - **Release:** v0.2.7-alpha-2.150
 - **Notes:** Cherry-pick -x of `c6b30e5` auto-merged cleanly with no conflicts. Player uuid property added + exclusive lock defaulted to disabled. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push f0de7470..87c9d9d1 on backport/sequential. Release v0.2.7-alpha-2.150 published. Counter advanced .149 → .150.
+
+
+## 183. `370cdaccdd71a83fce8c87842cee77825ad107c5` include other archetictures property
+- **Verdict:** APPLIED (clean cherry-pick: replaces the fixed `INCLUDE_OTHER_ARCHS = false` build flag with case-insensitive parsing of the `includeOtherArchs` Gradle project property; this remains compatible with the fork's NeoForge build while preserving the opt-in arm64 native dependency block.)
+- **Files:** 1 file, +1/-1 (`build.gradle` +1/-1)
+- **Result:** APPLIED
+- **SHA:** 631845c0692cefdd5027264b64c9ed48451f7dd8
+- **Release:** v0.2.7-alpha-2.151
+- **Notes:** Cherry-pick -x of `370cdacc` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push bb8f9bbf..631845c0 on backport/sequential. GitHub rejected the abbreviated release target, so release v0.2.7-alpha-2.151 was created successfully with the full SHA and both built jars. Counter advanced .150 → .151.
