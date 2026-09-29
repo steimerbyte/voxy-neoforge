@@ -1408,3 +1408,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** bfd8fa702c6fa7aab880031ed2713da133ae3b02
 - **Release:** v0.2.7-alpha-2.159
 - **Notes:** Cherry-pick -x of `05f9f5e0` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 4aa8cac5..bfd8fa70 on backport/sequential. Release v0.2.7-alpha-2.159 created with both built jars. Counter advanced .158 → .159.
+
+
+## 192. `cc7686d86f4005f8f2004ac8a59cc8bb0d72808e` dont flush on new mapper id
+- **Verdict:** APPLIED (clean cherry-pick: avoids flushing mapper state when a new mapper id is observed; the change is common Java logic with no MC 1.21.11/Sodium 0.7 dependency.)
+- **Files:** 1 file, +2/-2 (`src/main/java/me/cortex/voxy/common/world/other/Mapper.java`)
+- **Result:** APPLIED
+- **SHA:** 4e9fd39b1e245fe2e920c9b103c5059c17b2778d
+- **Release:** v0.2.7-alpha-2.160
+- **Notes:** Cherry-pick -x of `cc7686d8` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (11s), build -x test SUCCESSFUL (9s). Push edbf11c3..4e9fd39b on backport/sequential. Release v0.2.7-alpha-2.160 created with both built jars. Counter advanced .159 → .160.
