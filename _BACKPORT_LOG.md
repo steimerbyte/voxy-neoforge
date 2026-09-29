@@ -1538,3 +1538,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 17aebceed765fda26c21b05a308ea68c5531bc62
 - **Release:** v0.2.7-alpha-2.173
 - **Notes:** Cherry-pick -x of `b72fcef6` auto-merged the retained Fabric metadata cleanly. The upstream compatibility declaration is loader-specific, so follow-up commit `17aebcee` added the equivalent NeoForge incompatible dependency for `voxyworldgenv2` version `[2.2.2]`. compileJava SUCCESSFUL (7s), final compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push b78a27d4..17aebcee on backport/sequential. Release v0.2.7-alpha-2.173 created with both built jars and verified. Counter advanced .172 -> .173.
+
+
+## 207. `a1b63c24803d9fb1cc89eb8b5856b23c955e0882` fk you intel
+- **Verdict:** SKIPPED (MC-1.21.11-only: the fix adds `glFinish()` to `SoftwareModelTextureBakery`'s `GpuBuffer`/`CommandEncoder` atlas-copy wait loop; that software bakery and those MC 1.21.11 GPU APIs do not exist in the 1.21.1 NeoForge fork, whose `ModelTextureBakery` uses a different `GlViewCapture` path with no equivalent wait loop.)
+- **Files:** 0 files, +0/-0
+- **Result:** SKIPPED
+- **SHA:** N/A
+- **Release:** N/A
+- **Notes:** `git cherry-pick -x a1b63c24` produced rename/content conflicts because upstream targets `SoftwareModelTextureBakery.java` while the 1.21.1 fork retains `ModelTextureBakery.java`. Retaining the fork sides produced an empty patch, confirming there was no portable hunk. The temporary empty commit was reset and the tree restored cleanly apart from session-only HANDOFF.md. No release was created and the counter remains .173.
