@@ -1659,3 +1659,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 4a7ab12e
 - **Release:** v0.2.7-alpha-2.184
 - **Notes:** `git cherry-pick -x bd4cc8f6` auto-merged cleanly. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push e19b64cb..4a7ab12e on backport/sequential. Release v0.2.7-alpha-2.184 created with both built jars and verified. Counter advanced .183 -> .184.
+
+## 222. `c7ae7141244d4131bbc2655b139b4fe09d0d1fdf` full commit hash
+- **Verdict:** APPLIED (cleanly ported the build metadata change: `git rev-parse HEAD` now supplies the full commit hash; NeoForge `VoxyCommon` metadata logic was retained.)
+- **Files:** 1 file, +1/-1 (`build.gradle`)
+- **Result:** APPLIED
+- **SHA:** 92452fd2
+- **Release:** v0.2.7-alpha-2.185
+- **Notes:** `git cherry-pick -x c7ae7141` conflicted in the Fabric-specific `VoxyCommon` block; resolving that file with the fork side preserved the NeoForge `VoxyCommon` implementation and accepted the portable `build.gradle` change. compileJava SUCCESSFUL (8s), build -x test SUCCESSFUL (9s). Push a21f0e0d..92452fd2 on backport/sequential. Release v0.2.7-alpha-2.185 created with both built jars and verified. Counter advanced .184 -> .185.
