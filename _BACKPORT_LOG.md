@@ -1917,3 +1917,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 073bfc45b6a0ce177ca3a0bf75ec5d71068ec19c
 - **Release:** v0.2.7-alpha-2.209
 - **Notes:** `git cherry-pick -x 30d053b7` hit modify/delete conflicts on `SodiumConfigBuilder.java` and `VoxyConfigMenu.java` (both were already deleted in the fork; the fork uses `VoxyConfigScreenPages.java` on the Sodium 0.6 `client.gui.options.*` API while upstream's files target the Sodium 0.7 `api.config.*` API, which has 0 classes in our `curse.maven:sodium-394468:6382651` jar). Resolved with `git rm` so those files stay deleted. Kept the portable parts: `SSAO.SSAOMode` enum, `VoxyConfig.ssaoMode` + `getSSAOMode()`/`setSSAOMode()` with `Locale.ROOT` parsing, and `IrisUtil.irisShadersEnabledInConfig()`. compileJava SUCCESSFUL (30s), build -x test SUCCESSFUL (25s). Push 781ee6bc..073bfc45 on backport/sequential. Release v0.2.7-alpha-2.209 created with both built jars and verified. Counter advanced .208 -> .209.
+
+## 252. `87d8cd8b4e15eb118ba2876b32aacf8dbb61ba23` fix compile error
+- **Verdict:** APPLIED+FIXED (adds the missing `rs.postOpaquePreperation(viewport)` call; keeps the fork's 1.21.1 two-argument `postOpaquePreTranslucent` signature.)
+- **Files:** 1 file, +1/-0 (`src/main/java/me/cortex/voxy/client/core/AbstractRenderPipeline.java`)
+- **Result:** APPLIED
+- **SHA:** 9571361967aa30fd8a4973bbc2e63a5f1ab95677
+- **Release:** v0.2.7-alpha-2.210
+- **Notes:** `git cherry-pick -x 87d8cd8b` produced a content conflict in `AbstractRenderPipeline.java` because the fork already carries the 1.21.1 `postOpaquePreTranslucent(Viewport, int)` signature (upstream's pre-image is the 1.21.2+ one-arg form). Resolved by taking the upstream side, which only inserts `rs.postOpaquePreperation(viewport);` before the 1.21.1 two-arg call; `AbstractSectionRenderer.postOpaquePreperation` already exists in the fork. compileJava SUCCESSFUL (31s), build -x test SUCCESSFUL (25s). Push cfe5ecdf..95713619 on backport/sequential. Release v0.2.7-alpha-2.210 created with both built jars and verified. Counter advanced .209 -> .210.
