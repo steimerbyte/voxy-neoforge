@@ -1354,3 +1354,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **Release:** v0.2.7-alpha-2.153
 - **Fix:** Retained the fork's NeoForge config-screen implementation and changed its in-game check from `VoxyClientInstance.isInGame` to `ClientSessionEvents.inSession`; login/disconnect mixins now own the session state, while the old empty common hook was removed.
 - **Notes:** Cherry-pick -x of `f897f4c6` produced one modify/delete conflict for fork-deleted `VoxyConfigMenu.java`; the upstream lifecycle class and mixins were retained, the deleted file was removed, and the equivalent live config-page hunk was ported. compileJava SUCCESSFUL (10s), build -x test SUCCESSFUL (9s). Push 8bd96aee..630b2b13 on backport/sequential. Release v0.2.7-alpha-2.153 created with both built jars. Counter advanced .152 → .153.
+
+
+## 186. `449be6d255ac8b0f1c680a4ec8313980d662823f` remap internal vars to _ for screenspace
+- **Verdict:** APPLIED (clean cherry-pick: prefixes shared screenspace GLSL globals with underscores to avoid collisions during shader inclusion; the change is renderer-source-only and has no loader API dependency.)
+- **Files:** 1 file, +20/-20 (`src/main/resources/assets/voxy/shaders/lod/hierarchical/screenspace.glsl`)
+- **Result:** APPLIED
+- **SHA:** 27075aad7431ac01d600dfcf497335feaf948bee
+- **Release:** v0.2.7-alpha-2.154
+- **Notes:** Cherry-pick -x of `449be6d2` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (6s), build -x test SUCCESSFUL (9s). Push 65782550..27075aad on backport/sequential. Release v0.2.7-alpha-2.154 created with both built jars. Counter advanced .153 → .154.
