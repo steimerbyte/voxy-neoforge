@@ -1444,3 +1444,12 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** 9a0aa2e159ccfe56332e226df4a52e78151aa95f
 - **Release:** v0.2.7-alpha-2.163
 - **Notes:** Cherry-pick -x of `e0a2a7ce` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (7s), build -x test SUCCESSFUL (9s). Push 606c9722..9a0aa2e1 on backport/sequential. Release v0.2.7-alpha-2.163 created with both built jars and verified. Counter advanced .162 → .163.
+
+
+## 196. `eda6013407be0c5f466a320fd0beb4b0aaa8524f` added skipShaderDepthHackFix to shader options
+- **Verdict:** APPLIED (clean cherry-pick: adds the shader compatibility option, shader-pipeline depth/stencil fix, depth-cutout corrections, and advances `SHADER_DEFINE_VERSION` from 1 to 2.)
+- **Files:** 5 files, +34/-4 (`IrisVoxyRenderPipeline.java`, `IrisShaderPatch.java`, `IrisVoxyRenderPipelineData.java`, `blit_texture_depth_cutout.frag`, `ssao.comp`)
+- **Result:** APPLIED
+- **SHA:** e7029377b9f6c0f76b616dd2a2cd0dd9cf75e421
+- **Release:** v0.2.7-alpha-2.164
+- **Notes:** Cherry-pick -x of `eda60134` auto-merged cleanly with no conflicts. compileJava SUCCESSFUL (9s), build -x test SUCCESSFUL (9s). Push 7d7a522f..e7029377 on backport/sequential. Release v0.2.7-alpha-2.164 created with both built jars and verified. Counter advanced .163 → .164.
