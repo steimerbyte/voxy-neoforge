@@ -2012,3 +2012,11 @@ Format: `N. <short-sha> <msg> — <STATUS>` where STATUS is APPLIED | APPLIED+FI
 - **SHA:** db8cba496d9782d6b689ce4da7556a05fe1d48ef
 - **Release:** v0.2.7-alpha-2.220
 - **Notes:** Cherry-pick -x of `44cec747` auto-merged cleanly. compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 463b45c1..db8cba49 on backport/sequential. Release v0.2.7-alpha-2.220 published. Counter advanced .219 → .220.
+
+## 264. `d2f87345153e741405afc1728aed84240a6a4c7d` unlock on error
+- **Verdict:** APPLIED (clean cherry-pick -x of `d2f87345` auto-merged with no conflicts)
+- **Files:** 1 file, +1/-0 (`src/main/java/me/cortex/voxy/commonImpl/VoxyInstance.java`)
+- **Result:** APPLIED
+- **SHA:** 8932a4091565df97a14f417b0277e1f5108cd9d3
+- **Release:** v0.2.7-alpha-2.221
+- **Notes:** Cherry-pick -x of `d2f87345` auto-merged cleanly (single-line hunk in `VoxyInstance.getWorldObject`, releasing the `activeWorldLock` write lock on the not-running error path so a failed lookup no longer leaks the lock). compileJava SUCCESSFUL, build -x test SUCCESSFUL. Push 863993f4..8932a409 on backport/sequential. Release v0.2.7-alpha-2.221 published. Counter advanced .220 -> .221.
