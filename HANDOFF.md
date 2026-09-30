@@ -3,7 +3,7 @@
 
 ## Goal
 Backport 395 commits from upstream `MCRcortex/voxy@dev` to the 1.21.1 NeoForge fork
-`steimerbyte/voxy-neoforge`. Working branch: `backport/sequential`. Each successful
+`steimerbyte/voxy-neoforge-backport-1.21.1`. Working branch: `backport/sequential`. Each successful
 cherry-pick becomes its own git commit (`Backport <short>: <sha>`) and ships as
 `v0.2.7-alpha-2.NNN` GitHub release with both jars. Final goal: merge backport branch
 into `main` with README backport-status section + closing release `v0.2.7-N`.

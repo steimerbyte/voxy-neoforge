@@ -73,7 +73,7 @@ the most recent upstream commits). The mod itself is closed-source and
 
 ## 🔧 What is this repo / fork?
 
-This is `steimerbyte/voxy-neoforge`, a **NeoForge 1.21.1 port** of Voxy.
+This is `steimerbyte/voxy-neoforge-backport-1.21.1`, a **NeoForge 1.21.1 port** of Voxy.
 The work breaks down into three pieces:
 
 1. **Completed build-pipeline glue.** The
@@ -274,7 +274,7 @@ JVM args / launch environment.
 Requires **JDK 21** and **8 GB+ RAM**.
 
 ```bash
-git clone https://github.com/steimerbyte/voxy-neoforge
+git clone https://github.com/steimerbyte/voxy-neoforge-backport-1.21.1
 cd voxy-neoforge
 ./gradlew build -x test
 ```
@@ -429,7 +429,7 @@ This is a fork of a fork of a fork. The lineage:
 | Original | [MCRcortex/voxy](https://github.com/MCRcortex/voxy) | Original Voxy — Fabric mod by Cortex, LoD rendering for MC |
 | Backport | [m3t4f1v3/voxy](https://github.com/m3t4f1v3/voxy) | First 1.21.1 fork (`backport to 1.21.1` commit `9dbb8174`); this is what we built on top of |
 | NeoForge patch | [1luik/voxy_1_21_1_neoforge](https://github.com/1luik/voxy_1_21_1_neoforge) | The patch repo — ships only `voxy_1_21_1_neoforge.patch`, no source |
-| **This fork** | steimerbyte/voxy-neoforge | Applied the patch on top of `9dbb8174`, then completed the missing build artifacts and back-ported all 395 upstream commits |
+| **This fork** | steimerbyte/voxy-neoforge-backport-1.21.1 | Applied the patch on top of `9dbb8174`, then completed the missing build artifacts and back-ported all 395 upstream commits |
 
 **All credit for the mod itself goes to the original authors.**
 
