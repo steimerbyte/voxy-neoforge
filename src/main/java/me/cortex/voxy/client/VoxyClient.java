@@ -26,13 +26,33 @@ public class VoxyClient {
     public static void initVoxyClient() {
         Capabilities.init();//Ensure clinit is called
 
-        if (Capabilities.INSTANCE.hasBrokenDepthSampler) {
+        var caps = Capabilities.INSTANCE;
+
+        if (caps.hasBrokenDepthSampler) {
             Logger.error("AMD broken depth sampler detected, voxy does not work correctly and has been disabled, this will hopefully be fixed in the future");
         }
 
-        boolean systemSupported = Capabilities.INSTANCE.compute && Capabilities.INSTANCE.indirectParameters && !Capabilities.INSTANCE.hasBrokenDepthSampler;
+        // GL_ARB_gpu_shader_int64 is required by 7 of the core LoD shaders
+        // (cmdgen.comp, buildtranslucents.comp, quads2/3.vert, cull/raster.vert,
+        //  quad_format.glsl, test/raw.vert). Intel iGPUs report GL 4.6 but do not
+        // expose the extension, so every one of those programs fails to compile
+        // and each dispatch then raises GL_INVALID_OPERATION. Gate on it here so
+        // unsupported hardware disables voxy once instead of spamming the log.
+        boolean int64Supported = caps.INT64_t
+                || System.getProperty("voxy.forceInt64", "false").equalsIgnoreCase("true");
+
+        boolean systemSupported = caps.compute && caps.indirectParameters
+                && !caps.hasBrokenDepthSampler && int64Supported;
+
         if (!systemSupported) {
-             Logger.error("Voxy is unsupported on your system.");
+            if (!int64Supported) {
+                Logger.error("GPU does not support GL_ARB_gpu_shader_int64 (uint64_t in GLSL).");
+                Logger.error("Voxy's LoD shaders require it and cannot run on this GPU. Disabling voxy.");
+                Logger.error("This is a hardware limitation, not a configuration problem. "
+                        + "Intel integrated GPUs do not implement the extension even at GL 4.6.");
+            } else {
+                Logger.error("Voxy is unsupported on your system.");
+            }
         }
 
         if (systemSupported && System.getProperty("voxy.exclusiveLock", "false").equalsIgnoreCase("true")) {
@@ -59,7 +79,7 @@ public class VoxyClient {
 
             VoxyCommon.setInstanceFactory(VoxyClientInstance::new);
 
-            if (!Capabilities.INSTANCE.subgroup) {
+            if (!caps.subgroup) {
                 Logger.warn("GPU does not support subgroup operations, expect some performance degradation");
             }
 
