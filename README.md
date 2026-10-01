@@ -1,23 +1,33 @@
-# 🎉 Voxy NeoForge Backport — Minecraft 1.21.1 (2026) — IT WORKS
+# 🎉 Voxy NeoForge Backport — Minecraft 1.21.1 (2026) — loads & renders
 
 ![In-world render showing a birch forest biome with sky, clouds, terrain, the player's hand, and the vanilla HUD](.github/screenshots/in-world.png)
 
-*Voxy 0.2.7-alpha rendering a live Minecraft 1.21.1 world on a headless
-Intel UHD 630 through Xvfb + Openbox, with 396 chunks loaded and Voxy's
-`/voxy` command live in-game. See the [playtest section](#-honest-status--it-works-playtested-2026-09-29)
-for the full evidence.*
+*Voxy 0.2.7-alpha loaded in a Minecraft 1.21.1 NeoForge client with 396
+chunks loaded and the `/voxy` command live in-game. Playtested headless via
+Xvfb + Openbox. **Read the hardware note below: the screenshot shows the mod
+loading, not the LoD feature working — that needs a discrete GPU.** See
+[Honest status](#-honest-status--loads--renders-lod-benefit-unproven) for the
+full evidence.*
 
 > **TL;DR for players & devs searching "voxy backport", "voxy neoforge",
-> "voxy 1.21.1":** This is the working NeoForge 1.21.1 port of the **Voxy
-> far-distance LOD rendering mod**. Originally a Fabric-only mod, Voxy is now
-> loadable on **NeoForge 21.1.173** thanks to a full **395-commit backport**
-> from upstream `MCRcortex/voxy@dev`. **Mod compiles, mod loads, world renders
-> in-game** — playtested on a **headless LXC GPU passthrough** (Intel UHD 630
-> + Mesa 25 + Xvfb + Openbox) with 396 chunks loaded and Voxy's `/voxy debug`
-> command live. The LoD *performance* benefit is not measurable on this
-> hardware (~2 fps on llvmpipe) — see
-> [Honest status](#-honest-status--it-works-playtested-2026-09-29). Prebuilt
-> jars: [Releases → `v0.2.7`](../../releases/tag/v0.2.7).
+> "voxy 1.21.1":** This is the NeoForge 1.21.1 port of the **Voxy far-distance
+> LOD rendering mod**. Originally a Fabric-only mod, Voxy is loadable on
+> **NeoForge 21.1.173** thanks to a full **395-commit backport** from upstream
+> `MCRcortex/voxy@dev`. The mod **compiles, loads, and the world is playable**
+> in a 300-mod NeoForge client.
+>
+> **⚠️ Requires a discrete GPU.** Voxy's LoD shaders need
+> `GL_ARB_gpu_shader_int64` (64-bit GLSL integers). NVIDIA and modern AMD
+> implement it; **Intel integrated graphics does not, at any driver version** —
+> Iris Xe advertises OpenGL 4.6 but fails every LoD shader compile. Since
+> `beb06bc8` Voxy detects this and disables itself with an explanation in the
+> Sodium settings screen instead of failing silently.
+>
+> **The LoD performance benefit is unverified.** Neither the headless test
+> (llvmpipe) nor the production test (Iris Xe) had the required extension, so
+> no run on capable hardware exists yet.
+>
+> Prebuilt jars: [`v0.2.7-alpha-1.002`](../../releases/tag/v0.2.7-alpha-1.002).
 
 ---
 
@@ -27,15 +37,14 @@ for the full evidence.*
 - [What is Voxy?](#-what-is-voxy)
 - [What is this repo / fork?](#-what-is-this-repo--fork)
 - [Headless verification explained](#-headless-verification-explained)
-- [Honest status — it works, playtested](#-honest-status--it-works-playtested-2026-09-29)
+- [Honest status — loads & renders, LoD benefit unproven](#-honest-status--loads--renders-lod-benefit-unproven)
 - [Quick install](#-quick-install)
 - [Build from source](#-build-from-source)
 - [Bug → fix path (the actual hard work)](#-bug--fix-path-the-actual-hard-work)
 - [GPU passthrough recipe for headless containers](#-gpu-passthrough-recipe-for-headless-containers)
 - [What this fork delivers](#-what-this-fork-delivers)
 - [Known issues / not yet addressed](#-known-issues--not-yet-addressed)
-- [AI-generated content disclosure](#-ai-generated-content-disclosure)
-- [Credits](#-credits)
+- [AI-generated content](#-ai-generated-content)
 - [License](#-license)
 
 ---
@@ -44,7 +53,9 @@ for the full evidence.*
 
 | Link | Purpose |
 |---|---|
-| [`v0.2.7` Master Release](../../releases/tag/v0.2.7) | Prebuilt jars + release notes |
+| [`v0.2.7-alpha-1.002`](../../releases/tag/v0.2.7-alpha-1.002) | **Latest** — Intel iGPU support gate + settings explanation |
+| [`v0.2.7-alpha-1.001`](../../releases/tag/v0.2.7-alpha-1.001) | `GL_ARB_gpu_shader_int64` gate (fixes 19k GL errors/session) |
+| [`v0.2.7` master release](../../releases/tag/v0.2.7) | Prebuilt jars + release notes |
 | [`v0.2.7-alpha-2.NNN` per-commit releases](../../releases) | 306 per-commit releases, one per back-ported commit |
 | [`_BACKPORT_LOG.md`](_BACKPORT_LOG.md) | Per-commit audit trail (395 entries with verdict + upstream SHA + reason) |
 | [`HANDOFF.md`](HANDOFF.md) | Session-by-session engineering notes, including the live GPU verification |
@@ -170,9 +181,11 @@ driver inside the container.
 
 ---
 
-## ✅ Honest status — IT WORKS (playtested 2026-09-29)
+## ✅ Honest status — loads & renders, LoD benefit unproven
 
-After a **clean rebuild and a full in-world playtest on 2026-09-29**:
+After a **clean rebuild and a full in-world playtest on 2026-09-29**, plus
+**production diagnosis on a real user's Windows 11 / Prism Launcher install
+on 2026-09-30**:
 
 ### ✅ Verified
 
@@ -192,14 +205,29 @@ After a **clean rebuild and a full in-world playtest on 2026-09-29**:
 - **Sodium + Iris both loaded** — `Sodium Renderer (0.6.13+mc1.21.1)`,
   `[Iris] Version: 1.8.12-snapshot+mc1.21.1`
 - **Master release `v0.2.7`** published with both jars
+- **Windows 11 + Prism Launcher 11.1.1 + Intel Iris Xe:** Voxy loads, the
+  mod list shows `Voxy 0.2.7-alpha (voxy)`, `Setting instance factory` is
+  logged, and the Sodium settings page is present. **LoD rendering does not
+  work** — the Iris Xe lacks `GL_ARB_gpu_shader_int64`, see [Bug
+  3](#bug-3-gl_arb_gpu_shader_int64-was-probed-but-never-checked). Three
+  separate failure modes were diagnosed and fixed from this install:
+  a truncated download, a JPMS split-package failure, and the missing
+  capability gate.
+- **Voxy disables itself cleanly on unsupported GPUs** instead of throwing
+  — verified in production: the settings screen shows *"Voxy installed —
+  this GPU is not compatible"* with the reason in the tooltip.
 
 ### ❌ Still not verified / known limitations
 
-- **Voxy's LoD benefit is not measurable here.** Frame rate is ~0–2 fps on
-  the Intel UHD 630 through llvmpipe, so there is no way to demonstrate that
-  Voxy actually *improves* render distance vs. vanilla. The mod is loaded and
-  the world renders, but the headline feature (higher render distance at
-  usable FPS) is unproven on this hardware.
+- **Voxy's LoD benefit is not verified anywhere — neither here nor in
+  production.** The 2026-09-29 playtest ran on an **Intel UHD 630 through
+  llvmpipe (software rendering)**, which does not support
+  `GL_ARB_gpu_shader_int64` either, so the screenshots below show **vanilla
+  chunk rendering**, not Voxy's LoD pipeline. The 2026-09-30 production test
+  on an Iris Xe hit the same missing extension. **Proving the headline
+  feature — higher render distance at usable FPS — requires a discrete
+  NVIDIA or AMD GPU.** Nobody has run that test yet, and this README does
+  not claim it works.
 - **Iris shaderpack compatibility** — Iris initialises but no shaderpack was
   loaded during the test. Voxy has Iris-compat mixins that are untested.
 - **Voxy's world-storage layer is unexercised.** Voxy pre-voxelises the world
@@ -209,6 +237,12 @@ After a **clean rebuild and a full in-world playtest on 2026-09-29**:
   server tested.
 
 ### Playtest screenshots (2026-09-29, with BetterF3 HUD)
+
+> ⚠️ **These show Voxy loaded, not Voxy rendering LoDs.** The host was an
+> Intel UHD 630 on llvmpipe — software rendering without
+> `GL_ARB_gpu_shader_int64`. What they demonstrate is that the mod loads
+> without crashing in a 300-mod NeoForge client and that the world is
+> playable. They are **not** evidence of the LoD feature.
 
 #### In-world render — birch forest, live terrain, player HUD
 
@@ -308,8 +342,8 @@ cd voxy-neoforge
 
 Outputs:
 
-- `build/libs/voxy-0.2.7-alpha.jar` (800 KB, mod-only)
-- `build/libs/voxy-0.2.7-alpha-all.jar` (80 MB, shaded fat-jar)
+- `build/libs/voxy-0.2.7-alpha.jar` (≈820 KB, mod-only)
+- `build/libs/voxy-0.2.7-alpha-all.jar` (≈85 MB, shaded fat-jar)
 
 On Debian/Ubuntu the JDK toolchain auto-resolves via `foojay-resolver-convention`.
 
@@ -317,8 +351,8 @@ On Debian/Ubuntu the JDK toolchain auto-resolves via `foojay-resolver-convention
 
 ## 🐛 Bug → fix path (the actual hard work)
 
-Two non-trivial bugs had to be fixed to get Voxy running on NeoForge. Both
-are documented in detail in the [release notes](../../releases/tag/v0.2.7).
+Four non-trivial bugs had to be fixed to get Voxy running on NeoForge —
+and two of them only surfaced in production, on a real user's machine.
 
 ### Bug 1: `FMLClientSetupEvent` fires before GL capabilities exist
 
@@ -344,6 +378,67 @@ Supported versions are: 1.10, 1.20, 1.30, 1.40, 1.50, 3.30,
 **Fix:** `MESA_GL_VERSION_OVERRIDE=4.6` + `MESA_GLSL_VERSION_OVERRIDE=460`
 environment variables. On real (non-llvmpipe) GPUs this is automatic; on
 software-rendered `llvmpipe` you need the env vars.
+
+### Bug 3: `GL_ARB_gpu_shader_int64` was probed but never checked
+
+Found in production: a Windows 11 / Prism Launcher session on an **Intel
+Iris Xe** produced **19,364** `GL_INVALID_OPERATION` errors while the mod
+appeared to work — no crash, no visible failure.
+
+Seven core LoD shaders require 64-bit GLSL integers:
+
+| Shader | Uses `uint64_t` |
+|---|---|
+| `lod/gl46/cmdgen.comp` | ✅ |
+| `lod/gl46/buildtranslucents.comp` | ✅ |
+| `lod/gl46/quads2.vert` | ✅ |
+| `lod/gl46/quads3.vert` | ✅ |
+| `lod/gl46/cull/raster.vert` | ✅ |
+| `lod/gl46/test/raw.vert` | ✅ |
+| `lod/quad_format.glsl` | ✅ |
+
+`Capabilities` already probed this correctly — `INT64_t` is set by an
+actual shader-compile test, not a flag guess (`Capabilities.java:69`).
+But `VoxyClient` **never read the field**:
+
+```java
+// before — INT64_t silently ignored
+boolean systemSupported = Capabilities.INSTANCE.compute
+    && Capabilities.INSTANCE.indirectParameters
+    && !Capabilities.INSTANCE.hasBrokenDepthSampler;
+```
+
+Intel iGPUs advertise **GL 4.6.0** yet lack the extension, so they passed
+all three checks, got `FACTORY` set, and every shader then failed to
+compile:
+
+```
+GLSL compile failed for shader 147:
+  '#extension' : 'GL_ARB_gpu_shader_int64' is not supported
+  'uint64_t' : undeclared identifier
+```
+
+…followed by one `GL_INVALID_OPERATION` per compute dispatch, forever.
+
+**Fix:** commit `beb06bc8` adds `INT64_t` to the gate, so unsupported
+hardware disables Voxy once with an actionable message instead of
+failing silently. Override for misreporting drivers:
+`-Dvoxy.forceInt64=true`.
+
+### Bug 4 (UX): the settings tab silently vanished
+
+With Bug 3 fixed, the gate disabled Voxy — and `MixinSodiumOptionsGUI`
+then added **no page at all**. The user found no Voxy tab and no
+explanation of any kind.
+
+**Fix:** commit `7face4a8` always adds the page. On unsupported hardware
+it renders a disabled *"Voxy installed — this GPU is not compatible"*
+row whose tooltip names the exact missing capability.
+
+> Sodium 0.6.x has no label control and `OptionImpl.getControl()` is
+> dereferenced while drawing every row, so the notice is a
+> `CyclingControl` over a single-value enum with
+> `setEnabled(() -> false)`.
 
 ---
 
@@ -404,6 +499,24 @@ DISPLAY=:77 LIBGL_ALWAYS_SOFTWARE=0 glxinfo -B 2>/dev/null | grep -E "OpenGL|Ven
 
 ## ⚠️ Known issues / not yet addressed
 
+- **Intel integrated GPUs cannot run Voxy.** The LoD shaders need
+  `GL_ARB_gpu_shader_int64` (64-bit GLSL integers). Intel iGPUs report
+  OpenGL 4.6 but do not implement the extension, at any driver version.
+  Since `beb06bc8` Voxy detects this and disables itself with an
+  explanation in the Sodium settings screen instead of failing silently.
+  Use **Distant Horizons** for LOD rendering on integrated graphics.
+- **Two Voxy jars in `mods/` break mod loading.** The client jar and
+  `voxy-server-side` both ship `com.github.luben.zstd`, and Java's module
+  system rejects the duplicate:
+  `java.lang.module.ResolutionException: Modules lss and
+  com.github.luben.zstd_jni export package com.github.luben.zstd.util`.
+  `voxy-server-side` belongs on a dedicated **server**, not beside the
+  client jar.
+- **A truncated download reports `zip END header not found`,** usually with
+  a `(2)` / `(3)` filename suffix left by an earlier failed attempt.
+  Delete every `voxy*.jar` and re-download — the file on disk is genuinely
+  incomplete, renaming does not help. Verify the size: **822,091 bytes**
+  for the small jar, **85,119,292** for the fat jar.
 - **Vivecraft mixin fails** with `Class version 65 required is higher than
   the class version supported by the current version of Mixin (JAVA_17
   supports class version 61)`. This is the Vivecraft dependency, not Voxy.
@@ -428,19 +541,37 @@ DISPLAY=:77 LIBGL_ALWAYS_SOFTWARE=0 glxinfo -B 2>/dev/null | grep -E "OpenGL|Ven
 ## 🤖 AI-generated content
 
 This fork was developed end-to-end by an **autonomous AI coding agent**
-(Pi / minimax M3) under the direction of the human maintainer `steimerbyte`.
+(Pi / omp) under the direction of the human maintainer `steimerbyte`.
 All source-code changes, build-pipeline fixes, access-transformer
-translations, mixin rewrites, dependency updates, and the 395-commit
-backport of upstream Voxy were authored by the AI.
+translations, mixin rewrites, dependency updates, the 395-commit backport
+of upstream Voxy, and the three production bug fixes were authored by the AI.
 
 **What the AI does:** reads upstream commits, decides which can be applied
 to the 1.21.1 NeoForge target, rewrites the changes to fit NeoForge 1.21.1
-APIs and Sodium 0.6 hooks, runs `./gradlew compileJava` / `runServer`
-after each commit, and documents every skip with a reason.
+APIs and Sodium 0.6 hooks, runs `./gradlew build` after each change, and
+documents every skip with a reason. During production support it triages
+user-supplied crash logs and `latest.log` files — isolating the first
+fatal error, verifying release-asset integrity against GitHub's own
+SHA-256 digest, and reading the mod's source to explain what the code
+actually does.
 
 **What the human (`steimerbyte`) does:** sets direction, reviews scope
 push-back from the AI, manages the GitHub repository / releases, and
 provided the LXC GPU-passthrough recipe that made the live render possible.
+
+**What the AI got wrong, and how it was caught.** Worth recording,
+because the first two answers were confidently wrong:
+
+1. The mod was blamed for a corrupt jar; the published asset's SHA-256
+   matched the local build, so the *download* was truncated. Proved by
+   digest comparison, not by reading the crash message.
+2. `FACTORY == null` was diagnosed as the reason the settings tab was
+   missing. `latest.log` contained `Setting instance factory` — the
+   opposite. The real cause was `GL_ARB_gpu_shader_int64` missing on
+   Intel Iris Xe, one line above it in the same log.
+
+Both corrections came from reading the user's actual log rather than
+reasoning from the error text.
 
 The underlying mod (Voxy) itself is human-authored by Cortex at
 [MCRcortex/voxy](https://github.com/MCRcortex/voxy).
