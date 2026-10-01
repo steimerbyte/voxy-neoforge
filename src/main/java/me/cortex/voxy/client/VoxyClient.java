@@ -1,5 +1,6 @@
 package me.cortex.voxy.client;
 
+import me.cortex.voxy.client.config.VoxyConfigScreenPages;
 import me.cortex.voxy.client.core.gl.Capabilities;
 import me.cortex.voxy.client.core.model.bakery.BudgetBufferRenderer;
 import me.cortex.voxy.client.core.rendering.util.SharedIndexBuffer;
@@ -46,12 +47,16 @@ public class VoxyClient {
 
         if (!systemSupported) {
             if (!int64Supported) {
+                VoxyConfigScreenPages.unsupportedReason = "no GL_ARB_gpu_shader_int64";
                 Logger.error("GPU does not support GL_ARB_gpu_shader_int64 (uint64_t in GLSL).");
                 Logger.error("Voxy's LoD shaders require it and cannot run on this GPU. Disabling voxy.");
                 Logger.error("This is a hardware limitation, not a configuration problem. "
                         + "Intel integrated GPUs do not implement the extension even at GL 4.6.");
             } else {
-                Logger.error("Voxy is unsupported on your system.");
+                VoxyConfigScreenPages.unsupportedReason = !caps.compute ? "no compute shader support"
+                        : !caps.indirectParameters ? "no indirect draw parameters"
+                        : "broken depth sampler";
+                Logger.error("Voxy is unsupported on your system (" + VoxyConfigScreenPages.unsupportedReason + ").");
             }
         }
 

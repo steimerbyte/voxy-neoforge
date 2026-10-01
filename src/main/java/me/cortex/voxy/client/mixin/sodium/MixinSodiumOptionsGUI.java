@@ -20,8 +20,13 @@ public class MixinSodiumOptionsGUI {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void voxy$addConfigPage(Screen prevScreen, CallbackInfo ci) {
+        // On unsupported hardware voxy is disabled at startup, so there is no
+        // factory and no real options page. Still add a page - it explains why
+        // voxy is missing instead of leaving the user with a silent no-op.
         if (VoxyCommon.isAvailable()) {
             this.pages.add(VoxyConfigScreenPages.voxyOptionPage = VoxyConfigScreenPages.page());
+        } else {
+            this.pages.add(VoxyConfigScreenPages.voxyOptionPage = VoxyConfigScreenPages.unsupportedPage());
         }
     }
 }

@@ -9,6 +9,7 @@ import me.cortex.voxy.client.mixin.sodium.AccessorSodiumWorldRenderer;
 import me.cortex.voxy.client.core.NormalRenderPipeline;
 import me.cortex.voxy.common.util.cpu.CpuLayout;
 import me.cortex.voxy.commonImpl.VoxyCommon;
+import net.caffeinemc.mods.sodium.client.gui.options.storage.OptionStorage;
 import net.caffeinemc.mods.sodium.client.gui.options.*;
 import net.caffeinemc.mods.sodium.client.gui.options.control.SliderControl;
 import net.caffeinemc.mods.sodium.client.gui.options.control.TickBoxControl;
@@ -30,6 +31,51 @@ public abstract class VoxyConfigScreenPages {
             .map(m -> Component.translatable("voxy.config.general.environmental_fog." + m.name().toLowerCase(Locale.ROOT)))
             .toArray(Component[]::new);
 
+
+    /**
+     * Reason voxy cannot run, or {@code null} when it is supported.
+     * Set once by {@link me.cortex.voxy.client.VoxyClient} during init so the
+     * settings screen can explain itself instead of silently not appearing.
+     */
+    public static String unsupportedReason = null;
+
+    /**
+     * Shown in Sodium's settings when the GPU cannot run voxy. Sodium only
+     * offers four control types (tickbox / slider / cycling) and every
+     * {@link net.caffeinemc.mods.sodium.client.gui.options.Option} must supply
+     * one - {@code getControl()} is dereferenced while drawing the row - so the
+     * message is a single-value cycling option rather than a bare label.
+     * It is built lazily because the tooltip has to name the missing capability,
+     * which is only known after {@link me.cortex.voxy.client.VoxyClient} ran.
+     */
+    public static OptionPage unsupportedPage() {
+        var groups = new ArrayList<OptionGroup>();
+
+        groups.add(OptionGroup.createBuilder()
+                .add(OptionImpl.createBuilder(UnsupportedStatus.class, new OptionStorage<UnsupportedStatus>() {
+                    @Override public UnsupportedStatus getData() { return UnsupportedStatus.NOT_SUPPORTED; }
+                    @Override public void save() { }//read-only display, nothing to persist
+                })
+                        .setName(Component.translatable("voxy.config.unsupported.name"))
+                        .setTooltip(Component.translatable("voxy.config.unsupported.tooltip",
+                                Component.literal(unsupportedReason == null ? "unknown" : unsupportedReason)))
+                        .setControl(c -> new CyclingControl<>(c, UnsupportedStatus.class,
+                                new Component[]{Component.literal(STATUS)}))
+                        .setBinding((s, v) -> {}, s -> UnsupportedStatus.NOT_SUPPORTED)
+                        .setEnabled(() -> false)
+                        .build()
+                )
+                .build()
+        );
+
+        return new OptionPage(Component.translatable("voxy.config.unsupported.title"),
+                ImmutableList.copyOf(groups));
+    }
+
+    /** Single-value enum: Sodium's CyclingControl is bounded to {@code Enum<T>}. */
+    private enum UnsupportedStatus { NOT_SUPPORTED }
+
+    private static final String STATUS = "Not supported";
     public static OptionPage page() {
         List<OptionGroup> groups = new ArrayList<>();
         VoxyConfig storage = VoxyConfig.CONFIG;
