@@ -246,13 +246,14 @@ Requires:
 - **Sodium** (Voxy hooks into Sodium's chunk-rendering pipeline)
 - Iris, Lithium — optional but supported
 - 8 GB+ RAM allocated to Minecraft
+- **A discrete GPU** — see the hardware table below
 
 ```bash
-# 1. Download both jars from v0.2.7 release:
-#    voxy-0.2.7-alpha.jar          (800 KB, mod-only)
-#    voxy-0.2.7-alpha-all.jar      (80 MB, shaded fat-jar with embedded deps)
-#
-# 2. Pick one and drop it into <minecraft>/mods/:
+# 1. Download voxy-0.2.7-alpha.jar (819,275 bytes) from the latest release.
+#    Only use voxy-0.2.7-alpha-all.jar (85 MB) if you switch the storage
+#    backend to RocksDB or Zstd-Storage — it only adds native libraries.
+
+# 2. Drop exactly ONE voxy jar into <minecraft>/mods/:
 cp ~/Downloads/voxy-0.2.7-alpha.jar ~/.minecraft/mods/
 
 # 3. Launch Minecraft with the NeoForge profile. Done.
@@ -260,6 +261,32 @@ cp ~/Downloads/voxy-0.2.7-alpha.jar ~/.minecraft/mods/
 
 **Voxy is client-side** — you only need it on the client. Servers can run
 without it (the world just won't be pre-voxelised).
+
+> ⚠️ **Never have two Voxy jars in `mods/`.** The client jar and
+> `voxy-server-side` both ship `com.github.luben.zstd`, and Java's module
+> system rejects the duplicate:
+> `Modules lss and com.github.luben.zstd_jni export package
+> com.github.luben.zstd.util`. `voxy-server-side` belongs on a dedicated
+> **server** only.
+
+### GPU requirement — read this before installing
+
+Voxy's LOD shaders require **`GL_ARB_gpu_shader_int64`** (64-bit integers
+in GLSL). Since `beb06bc8` this is checked at startup, so an unsupported
+GPU disables Voxy with a clear message instead of failing silently.
+
+| GPU | Works |
+|---|---|
+| NVIDIA RTX / GTX (Compute ≥ 6.0) | ✅ |
+| AMD RX (Vega and newer) | ✅ |
+| AMD Radeon 400/500 (older) | ⚠️ broken depth sampler → auto-disabled |
+| Intel Arc (discrete) | ❓ untested |
+| **Intel Iris Xe / UHD (integrated)** | ❌ **no `gpu_shader_int64`** |
+
+Intel iGPUs advertise **GL 4.6.0** but do not implement the extension, so
+they cannot run Voxy at all. Use **Distant Horizons** for LOD rendering on
+integrated graphics — it works there. To override the gate on a driver
+that misreports the capability: `-Dvoxy.forceInt64=true`.
 
 If the game crashes on launch with `Shader compilation failed of type
 FRAGMENT` or `GLSL 4.60 is not supported`, your Mesa version is too old
